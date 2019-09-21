@@ -18,3 +18,20 @@ v20.1.0.1:
         - Send scout to any country
         - Set up multiple scouting networks in the same country
         - Reveal ovr and pot
+
+v20.1.0.2:
+    - Fixed possible values for 'preferredposition1'
+    - Fixed trait names (thanks Talon#9346)
+    - Added scripts to "Play As Player":
+        - Positive decision on transfer request
+        - Create Transfer Offer
+    - Added scripts to "Manager":
+        - Manager Rating - 99
+    - Added "Club Finances" (pointer for transfer budget)
+    - Added scripts to "Hire Scouts":
+        - Free 5/5 Scouts
+        - Scouts Detailed Info
+    - Added scripts to "Sim Match Settings":
+        - Max_cards = 0
+        - Max_injuries = 0
+        - Don't lose stamina
