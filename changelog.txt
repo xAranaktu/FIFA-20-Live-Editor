@@ -35,3 +35,14 @@ v20.1.0.2:
         - Max_cards = 0
         - Max_injuries = 0
         - Don't lose stamina
+
+v20.1.0.3:
+    - Added "Free & Unlimited Releasing Players"
+    - Added scripts to "Transfer HUB":
+        - Change Release Clause value to 1$
+        - Allow Transfer approach
+    - Added scripts to "Gameplay":
+        - Injured players
+        - 5 stars skill moves
+        - NeverTired players
+        - Tired players
