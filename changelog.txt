@@ -65,3 +65,6 @@ v20.1.0.5:
     - Added to "Gameplay":
         - Home/Away Unlimited subs (CPU)
         - Home/Away Disable subs (CPU)
+
+v20.1.0.6:    
+    - Added "real_manager_headmodel.lua" script
