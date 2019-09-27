@@ -77,8 +77,6 @@ v20.1.0.7:
     - Added "real_player_as_manager.lua" (users lua scripts directory in folder with live editor)
 
 v20.1.0.8: 
-    - Added to "Volta":  
-        - Skill Points
     - Added to "Job Offers":
         - Club Team
     - Added to "Morale":
