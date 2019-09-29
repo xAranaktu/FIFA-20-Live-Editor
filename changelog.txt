@@ -88,6 +88,7 @@ v20.1.0.8:
         - Disable players form (may not work at all this year)
     - Added to "Youth Academy":
         - 15 Players per report
+
 v20.1.0.9:
     - Removed "Volta"
     - Added to "Editing Player -> Player Data"
@@ -95,3 +96,16 @@ v20.1.0.9:
         - Last Name
         - Known As
         - Kit Name
+        
+v20.1.1.0:
+    - Added to "Youth Academy":
+        - Generate new report
+        - Generate players with custom ID
+        - PRIMARY_ATTRIBUTES_RANGE
+        - SECONDARY_ATTRIBUTES_RANGE
+        - Min player age for promotion = 12
+        - YOUTH_PLAYER_AGE_RANGE = [12, 16]
+        - Youth Player Retire At Age = 30
+        - 95 Potential
+        - 100% chance for 5* weak foot
+        - 100% chance for 5* skill moves
