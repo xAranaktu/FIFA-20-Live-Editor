@@ -109,3 +109,10 @@ v20.1.1.0:
         - 95 Potential
         - 100% chance for 5* weak foot
         - 100% chance for 5* skill moves
+
+v20.1.1.1:
+    - Added to "Editing Player -> Player Data"
+        - Birth Year
+        - Birth Month
+        - Birth Day
+        - Kit Number
