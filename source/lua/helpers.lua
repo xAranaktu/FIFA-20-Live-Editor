@@ -655,6 +655,7 @@ end
 -- load AOBs
 function load_aobs()
     return {
+        AOB_TransferBudget = '44 8B 48 08 45 8B 87 90 02 00 00',
         AOB_IsEditPlayerUnlocked = '49 8B CB E8 ?? ?? ?? ?? 85 C0 75 ?? 48 8B 46 08 40 ?? ?? 48 8B 80 B8 0F 00 00',
         AOB_AltTab = '48 83 EC 48 4C 8B 05 ?? ?? ?? ?? 4D 85 C0',
         AOB_DatabaseRead = '48 ?? ?? 4C 03 46 30 E8',
@@ -667,6 +668,16 @@ function load_aobs()
         AOB_YouthAcademyAllCountriesAvailable = '89 4C 24 30 B9 04 00 00 00',
         AOB_CountryIsBeingScouted = '80 FB 01 75 0C 4C',
         AOB_YouthAcademyRevealPotAndOvr = 'E8 ?? ?? ?? ?? 41 89 F9 89 46 E8 4C 8D 05',
+        AOB_ManagerRating = '89 83 74 05 00 00 48 83',
+        AOB_HireScout = '41 8B 01 89 45 48 41 8B',
+
+        AOB_SimMaxCards = '41 89 86 5C 01 00 00 E8',
+        AOB_SimMaxInjuries = '41 89 86 24 01 00 00 E8',
+        AOB_SimFatigueBase = '41 B8 FF FF FF FF 41 89 46 10',
+
+        -- PAP
+        AOB_AgreeTransferRequest = "41 89 C5 48 8B 89 98 01 00 00",
+        AOB_PAP_NEW_OFFER = "8B 81 9C 01 00 00 83 F8 FF",
     }
 end
 

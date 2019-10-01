@@ -6,7 +6,7 @@
   <CheatEntries>
     <CheatEntry>
       <ID>0</ID>
-      <Description>"v20.1.0.1"</Description>
+      <Description>"v20.1.0.2"</Description>
       <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
     </CheatEntry>
@@ -152,11 +152,12 @@ VIDEO TUTORIAL(S):
 
 [ENABLE]
 {$lua}
+if syntaxcheck then return end
 -- Check if user has set up CT correctly
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -226,6 +227,260 @@ dealloc(newmem_alttab)
           </CheatEntries>
         </CheatEntry>
         <CheatEntry>
+          <ID>2954</ID>
+          <Description>"Play As Player"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>2955</ID>
+              <Description>"Positive decision on transfer request"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 1/5 (Very that this script will harm your cm save.)
+
+DESCRIPTION:
+  In Player Career mode your manager will always agree on your transfer request
+HOW TO USE:
+  1. Activate script
+  2. Request transfer
+
+VIDEO TUTORIAL:
+- NONE
+
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
+    assert(false, error)
+end
+
+INJECT_AgreeTransferRequest = get_validated_address('AOB_AgreeTransferRequest')
+ORG_AgreeTransferRequest = readBytes(INJECT_AgreeTransferRequest, 12, true)
+
+{$asm}
+alloc(newmem_AgreeTransferRequest,$500,$INJECT_AgreeTransferRequest)
+
+label(code_AgreeTransferRequest)
+label(ret_AgreeTransferRequest)
+
+newmem_AgreeTransferRequest:
+  mov eax, 3 // 2 may work too.
+code_AgreeTransferRequest:
+  mov r13d,eax
+  mov rcx,[rcx+00000198]
+  jmp ret_AgreeTransferRequest
+
+$INJECT_AgreeTransferRequest:
+  jmp newmem_AgreeTransferRequest
+  nop
+  nop
+  nop
+  nop
+  nop
+ret_AgreeTransferRequest:
+
+[DISABLE]
+//code_AgreeTransferRequest from here till the end of the code_AgreeTransferRequest will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_AgreeTransferRequest, ORG_AgreeTransferRequest)
+{$asm}
+
+dealloc(newmem_AgreeTransferRequest)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+FC8814A
+// ^ from PapListWithdrawalResponse
+"FIFA20.exe"+FC8812A: 75 09                 -  jne FIFA20.exe+FC88135
+"FIFA20.exe"+FC8812C: 40 80 FF 01           -  cmp dil,01
+"FIFA20.exe"+FC88130: 75 03                 -  jne FIFA20.exe+FC88135
+"FIFA20.exe"+FC88132: 40 B6 01              -  mov sil,01
+"FIFA20.exe"+FC88135: 44 0F B6 CE           -  movzx r9d,sil
+"FIFA20.exe"+FC88139: 45 89 E0              -  mov r8d,r12d
+"FIFA20.exe"+FC8813C: 89 EA                 -  mov edx,ebp
+"FIFA20.exe"+FC8813E: 4C 89 F9              -  mov rcx,r15
+"FIFA20.exe"+FC88141: E8 7A 39 DA F4        -  call FIFA20.exe+4A2BAC0
+"FIFA20.exe"+FC88146: 48 8B 4B 08           -  mov rcx,[rbx+08]
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+FC8814A: 41 89 C5              -  mov r13d,eax
+"FIFA20.exe"+FC8814D: 48 8B 89 98 01 00 00  -  mov rcx,[rcx+00000198]
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+FC88154: 48 8B 09              -  mov rcx,[rcx]
+"FIFA20.exe"+FC88157: 48 8B 11              -  mov rdx,[rcx]
+"FIFA20.exe"+FC8815A: FF 52 40              -  call qword ptr [rdx+40]
+"FIFA20.exe"+FC8815D: 31 D2                 -  xor edx,edx
+"FIFA20.exe"+FC8815F: 48 8B 88 B8 01 00 00  -  mov rcx,[rax+000001B8]
+"FIFA20.exe"+FC88166: 44 8D 42 64           -  lea r8d,[rdx+64]
+"FIFA20.exe"+FC8816A: 48 8B 09              -  mov rcx,[rcx]
+"FIFA20.exe"+FC8816D: E8 BE 12 20 F4        -  call FIFA20.exe+3E89430
+"FIFA20.exe"+FC88172: 83 7B 20 03           -  cmp dword ptr [rbx+20],03
+"FIFA20.exe"+FC88176: 41 89 C2              -  mov r10d,eax
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>3512</ID>
+              <Description>"Create Transfer Offer"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 3/5 (This script will harm your cm save if you mess up something with your editions.)
+
+DESCRIPTION:
+  This script will "create" new transfer offer for your player in player career mode.
+  Email will not be created, but you will be able to access the offer in "Squad Hub"
+  For Team IDs visit:
+  - https://fifatracker.net/
+  - https://sofifa.com/
+
+HOW TO USE:
+  1. Activate the script.
+  2. Edit value of "New Team ID", rest of the fields are probably optional, but anyway, I recommend to fill them too.
+  3. You can accept offer from new team in "Squad Hub"
+
+VIDEO TUTORIAL:
+- https://youtu.be/Aof6JQ49Coc
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
+    assert(false, error)
+end
+
+INJECT_PAP_NEW_OFFER = get_validated_address('AOB_PAP_NEW_OFFER')
+ORG_PAP_NEW_OFFER = readBytes(INJECT_PAP_NEW_OFFER, 12, true)
+
+{$asm}
+alloc(cave_PAP_NEW_OFFER,$500,$INJECT_PAP_NEW_OFFER)
+alloc(PAP_NEW_OFFER_DATA, 20, $INJECT_PAP_NEW_OFFER)
+registersymbol(PAP_NEW_OFFER_DATA)
+PAP_NEW_OFFER_DATA:
+dd (int)0
+
+label(code_PAP_NEW_OFFER)
+label(return_PAP_NEW_OFFER)
+
+cave_PAP_NEW_OFFER:
+  cmp [PAP_NEW_OFFER_DATA], 0
+  je code_PAP_NEW_OFFER
+  mov ebx, [PAP_NEW_OFFER_DATA] // New Team ID
+  mov [rcx+19C], ebx // New Team ID
+
+  mov ebx, [PAP_NEW_OFFER_DATA+4] // Current Team ID
+  mov [rcx+1A0], ebx  // Current Team ID
+
+  mov ebx, [PAP_NEW_OFFER_DATA+8] // Transfer SUM
+  mov [rcx+1A4], ebx // Transfer SUM
+
+  mov ebx, [PAP_NEW_OFFER_DATA+C] // wage
+  mov [rcx+1A8], ebx // Wage
+
+  mov [rcx+1AC], #20080101 // Date
+
+code_PAP_NEW_OFFER:
+  mov eax,[rcx+0000019C]
+  jmp return_PAP_NEW_OFFER
+
+$INJECT_PAP_NEW_OFFER:
+  jmp cave_PAP_NEW_OFFER
+  nop
+return_PAP_NEW_OFFER:
+[DISABLE]
+{$lua}
+writeBytes(INJECT_PAP_NEW_OFFER, ORG_PAP_NEW_OFFER)
+{$asm}
+
+unregistersymbol(PAP_NEW_OFFER_DATA)
+dealloc(PAP_NEW_OFFER_DATA)
+dealloc(cave_PAP_NEW_OFFER)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+4556B16
+// pj001 - what access teamid
+"FIFA20.exe"+4556AED: 48 03 42 18           -  add rax,[rdx+18]
+"FIFA20.exe"+4556AF1: 8B 80 98 01 00 00     -  mov eax,[rax+00000198]
+"FIFA20.exe"+4556AF7: 89 44 24 40           -  mov [rsp+40],eax
+"FIFA20.exe"+4556AFB: 8B 41 20              -  mov eax,[rcx+20]
+"FIFA20.exe"+4556AFE: 83 F8 01              -  cmp eax,01
+"FIFA20.exe"+4556B01: 0F 94 44 24 44        -  sete byte ptr [rsp+44]
+"FIFA20.exe"+4556B06: 83 F8 02              -  cmp eax,02
+"FIFA20.exe"+4556B09: 0F 94 44 24 45        -  sete byte ptr [rsp+45]
+"FIFA20.exe"+4556B0E: 83 F8 03              -  cmp eax,03
+"FIFA20.exe"+4556B11: 0F 94 44 24 46        -  sete byte ptr [rsp+46]
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+4556B16: 8B 81 9C 01 00 00     -  mov eax,[rcx+0000019C]
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+4556B1C: 83 F8 FF              -  cmp eax,-01
+"FIFA20.exe"+4556B1F: 74 0E                 -  je FIFA20.exe+4556B2F
+"FIFA20.exe"+4556B21: 44 38 B9 B0 01 00 00  -  cmp [rcx+000001B0],r15l
+"FIFA20.exe"+4556B28: C6 44 24 47 01        -  mov byte ptr [rsp+47],01
+"FIFA20.exe"+4556B2D: 75 05                 -  jne FIFA20.exe+4556B34
+"FIFA20.exe"+4556B2F: 44 88 7C 24 47        -  mov [rsp+47],r15l
+"FIFA20.exe"+4556B34: 83 F8 FF              -  cmp eax,-01
+"FIFA20.exe"+4556B37: 74 0E                 -  je FIFA20.exe+4556B47
+"FIFA20.exe"+4556B39: 44 38 B9 B0 01 00 00  -  cmp [rcx+000001B0],r15l
+"FIFA20.exe"+4556B40: C6 44 24 48 01        -  mov byte ptr [rsp+48],01
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>3515</ID>
+                  <Description>"New Team ID"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>PAP_NEW_OFFER_DATA</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3516</ID>
+                  <Description>"Current Team ID"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>PAP_NEW_OFFER_DATA+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3517</ID>
+                  <Description>"Transfer SUM"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>PAP_NEW_OFFER_DATA+8</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3518</ID>
+                  <Description>"Wage"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>PAP_NEW_OFFER_DATA+C</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
           <ID>12</ID>
           <Description>"FIFA Database Tables"</Description>
           <Options moHideChildren="1"/>
@@ -264,7 +519,7 @@ if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -1102,35 +1357,34 @@ dealloc(ptrTeamplayerlinks)
                     <CheatEntry>
                       <ID>60</ID>
                       <Description>"preferredposition1"</Description>
-                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'None'
-1: 'GK'
-2: 'SW'
-3: 'RWB'
-4: 'RB'
-5: 'RCB'
-6: 'CB'
-7: 'LCB'
-8: 'LB'
-9: 'LWB'
-10: 'RDM'
-11: 'CDM'
-12: 'LDM'
-13: 'RM'
-14: 'RCM'
-15: 'CM'
-16: 'LCM'
-17: 'LM'
-18: 'RAM'
-19: 'CAM'
-20: 'LAM'
-21: 'RF'
-22: 'CF'
-23: 'LF'
-24: 'RW'
-25: 'RS'
-26: 'ST'
-27: 'LS'
-28: 'LW'
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'GK'
+1: 'SW'
+2: 'RWB'
+3: 'RB'
+4: 'RCB'
+5: 'CB'
+6: 'LCB'
+7: 'LB'
+8: 'LWB'
+9: 'RDM'
+10: 'CDM'
+11: 'LDM'
+12: 'RM'
+13: 'RCM'
+14: 'CM'
+15: 'LCM'
+16: 'LM'
+17: 'RAM'
+18: 'CAM'
+19: 'LAM'
+20: 'RF'
+21: 'CF'
+22: 'LF'
+23: 'RW'
+24: 'RS'
+25: 'ST'
+26: 'LS'
+27: 'LW'
 </DropDownList>
                       <VariableType>Binary</VariableType>
                       <BitStart>1</BitStart>
@@ -5353,7 +5607,7 @@ dealloc(ptrTeamplayerlinks)
                       <CheatEntries>
                         <CheatEntry>
                           <ID>64</ID>
-                          <Description>"Inflexibility (?)"</Description>
+                          <Description>"Long Throw-in"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5368,7 +5622,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>178</ID>
-                          <Description>"Long Throw-in"</Description>
+                          <Description>"Power FK"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5383,7 +5637,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>179</ID>
-                          <Description>"Power Free Kick"</Description>
+                          <Description>"Injury Prone"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5398,7 +5652,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>180</ID>
-                          <Description>"Diver (?)"</Description>
+                          <Description>"Solid Player"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5413,7 +5667,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>181</ID>
-                          <Description>"Injury prone"</Description>
+                          <Description>"Dives into Tackles (CPU)"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5428,7 +5682,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>182</ID>
-                          <Description>"Solid Player"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5443,7 +5697,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>183</ID>
-                          <Description>"Avoids using weaker foot (?)"</Description>
+                          <Description>"Leadership"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5458,7 +5712,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>184</ID>
-                          <Description>"Dives Into Tackles (CPU AI Only)"</Description>
+                          <Description>"Early Crosser"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5473,7 +5727,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>185</ID>
-                          <Description>"Tries to beat defensive line (?)"</Description>
+                          <Description>"Finesse Shot"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5488,7 +5742,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>186</ID>
-                          <Description>"Selfish (?)"</Description>
+                          <Description>"Flair"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5503,7 +5757,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>187</ID>
-                          <Description>"Leadership"</Description>
+                          <Description>"Long Passer (CPU)"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5518,7 +5772,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>168</ID>
-                          <Description>"Argues With Referee (?)"</Description>
+                          <Description>"Long Shot Taker (CPU)"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5533,7 +5787,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>169</ID>
-                          <Description>"Early Crosser"</Description>
+                          <Description>"Speed Dribbler (CPU)"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5548,7 +5802,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>170</ID>
-                          <Description>"Finesse Shot"</Description>
+                          <Description>"Playmaker (CPU)"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5563,7 +5817,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>171</ID>
-                          <Description>"Flair"</Description>
+                          <Description>"GK Long Throw"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5578,7 +5832,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>172</ID>
-                          <Description>"Long Passer (CPU AI Only)"</Description>
+                          <Description>"Power Header"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5593,7 +5847,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>173</ID>
-                          <Description>"Long Shot Taker (CPU AI Only)"</Description>
+                          <Description>"Giant Throw-in"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5608,7 +5862,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>174</ID>
-                          <Description>"Speed Dribbler"</Description>
+                          <Description>"Outside Foot Shot"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5623,7 +5877,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>165</ID>
-                          <Description>"Playmaker (CPU AI Only)"</Description>
+                          <Description>"Swerve Pass"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5638,7 +5892,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>175</ID>
-                          <Description>"GK up for corners (?)"</Description>
+                          <Description>"Second Wind"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5653,7 +5907,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>176</ID>
-                          <Description>"Puncher (?)"</Description>
+                          <Description>"Flair Passes"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5668,7 +5922,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>177</ID>
-                          <Description>"GK Long throw"</Description>
+                          <Description>"Bicycle Kicks"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5683,7 +5937,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>162</ID>
-                          <Description>"Power header"</Description>
+                          <Description>"GK Flat Kick"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5698,7 +5952,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>163</ID>
-                          <Description>"GK One on One (?)"</Description>
+                          <Description>"One Club Player"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5713,7 +5967,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>164</ID>
-                          <Description>"Giant throw-in"</Description>
+                          <Description>"Team Player"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5728,7 +5982,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>166</ID>
-                          <Description>"Outsite foot shot"</Description>
+                          <Description>"Chip Shot (CPU)"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5743,7 +5997,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>167</ID>
-                          <Description>"Fans favourite (?)"</Description>
+                          <Description>"Technical Dribbler (CPU)"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5758,7 +6012,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>161</ID>
-                          <Description>"Swerve Pass"</Description>
+                          <Description>"GK Rushes Out of Goal"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5773,7 +6027,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>160</ID>
-                          <Description>"Second Wind"</Description>
+                          <Description>"GK Cautious with Crosses"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5788,7 +6042,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>159</ID>
-                          <Description>"Acrobatic Clearance (?)"</Description>
+                          <Description>"GK Comes for Crosses"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5812,7 +6066,7 @@ dealloc(ptrTeamplayerlinks)
                       <CheatEntries>
                         <CheatEntry>
                           <ID>188</ID>
-                          <Description>"Skilled Dribbling"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5827,7 +6081,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>208</ID>
-                          <Description>"Flair Passes"</Description>
+                          <Description>"GK Saves with Feet"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5842,7 +6096,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>209</ID>
-                          <Description>"Fancy Flicks (?)"</Description>
+                          <Description>"Set Play Specialist"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5857,7 +6111,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>210</ID>
-                          <Description>"Stutter Penalty (?)"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5872,7 +6126,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>211</ID>
-                          <Description>"Chipped Penalty"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5887,7 +6141,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>198</ID>
-                          <Description>"Bicycle Kicks"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5902,7 +6156,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>199</ID>
-                          <Description>"Diving Header (?)"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5917,7 +6171,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>200</ID>
-                          <Description>"Driven Pass (?)"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5932,7 +6186,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>201</ID>
-                          <Description>"GK Flat Kick"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5947,7 +6201,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>202</ID>
-                          <Description>"One Club Player"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5962,7 +6216,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>203</ID>
-                          <Description>"Team Player"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5977,7 +6231,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>204</ID>
-                          <Description>"Chip Shot (CPU AI Only)"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -5992,7 +6246,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>205</ID>
-                          <Description>"Technical Dribbler (CPU AI Only)"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -6007,7 +6261,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>206</ID>
-                          <Description>"Rushes Out Of Goal"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -6022,7 +6276,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>207</ID>
-                          <Description>"Backs Into Player (?)"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -6037,7 +6291,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>197</ID>
-                          <Description>"Set Play Specialist (?)"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -6052,7 +6306,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>196</ID>
-                          <Description>"Takes Finesse Free Kicks (?)"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -6067,7 +6321,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>195</ID>
-                          <Description>"Target Forward (?)"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -6082,7 +6336,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>194</ID>
-                          <Description>"Cautious With Crosses"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -6097,7 +6351,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>193</ID>
-                          <Description>"Comes For Crossess"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -6112,7 +6366,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>192</ID>
-                          <Description>"Blames Teammates (?)"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -6127,7 +6381,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>191</ID>
-                          <Description>"Saves with Feet"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -6142,7 +6396,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>190</ID>
-                          <Description>"Set Play Specialist"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -6157,7 +6411,7 @@ dealloc(ptrTeamplayerlinks)
                         </CheatEntry>
                         <CheatEntry>
                           <ID>189</ID>
-                          <Description>"Tornado Skillmove (?)"</Description>
+                          <Description>"Unknown/Blank"</Description>
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
@@ -7183,11 +7437,12 @@ VIDEO TUTORIAL:
 
 [ENABLE]
 {$lua}
+if syntaxcheck then return end
 -- Check if user has set up CT correctly
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -7280,11 +7535,12 @@ VIDEO TUTORIAL:
 
 [ENABLE]
 {$lua}
+if syntaxcheck then return end
 -- Check if user has set up CT correctly
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -7400,11 +7656,12 @@ VIDEO TUTORIAL:
 
 [ENABLE]
 {$lua}
+if syntaxcheck then return end
 -- Check if user has set up CT correctly
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -7521,11 +7778,12 @@ VIDEO TUTORIAL:
 
 [ENABLE]
 {$lua}
+if syntaxcheck then return end
 -- Check if user has set up CT correctly
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -7649,11 +7907,12 @@ VIDEO TUTORIAL:
 [ENABLE]
 //code from here to '[DISABLE]' will be used to enable the cheat
 {$lua}
+if syntaxcheck then return end
 -- Check if user has set up CT correctly
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -7719,6 +7978,851 @@ GM_EVENT_SIMULATE_ALL_TRAINING_SESSIONS
           </CheatEntries>
         </CheatEntry>
         <CheatEntry>
+          <ID>2757</ID>
+          <Description>"Manager"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>2754</ID>
+              <Description>"Manager Rating - 99"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 1/5 (Very small chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  This script will set your manager rating to 99.
+  You may need to simulate a few days or even play a match to see the change
+
+HOW TO USE:
+  1. Activate script
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
+    assert(false, error)
+end
+
+INJECT_ManagerRating = get_validated_address('AOB_ManagerRating')
+ORG_ManagerRating = readBytes(INJECT_ManagerRating, 6, true)
+
+{$asm}
+alloc(newmem_ManagerRating,$500,$INJECT_ManagerRating)
+
+label(code_ManagerRating)
+label(ret_ManagerRating)
+
+newmem_ManagerRating:
+  mov eax, #99
+code_ManagerRating:
+  mov [rbx+0000056C], #99
+  mov [rbx+00000570], #99
+  mov [rbx+00000574], #99
+  jmp ret_ManagerRating
+
+$INJECT_ManagerRating:
+  jmp newmem_ManagerRating
+  nop
+ret_ManagerRating:
+
+[DISABLE]
+//code_ManagerRating from here till the end of the code_ManagerRating will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_ManagerRating, ORG_ManagerRating)
+{$asm}
+
+dealloc(newmem_ManagerRating)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+FE3A353
+// last value
+"FIFA20.exe"+FE3A323: C3                             -  ret
+"FIFA20.exe"+FE3A324: 8D 66 66                       -  lea esp,[rsi+66]
+"FIFA20.exe"+FE3A327: 2E 0F 1F 84 00 00 00 00 00     -  nop cs:[rax+rax+00000000]
+"FIFA20.exe"+FE3A330: 40 53                          -  push rbx
+"FIFA20.exe"+FE3A332: 48 83 EC 20                    -  sub rsp,20
+"FIFA20.exe"+FE3A336: 48 89 CB                       -  mov rbx,rcx
+"FIFA20.exe"+FE3A339: 48 8D 91 6C 05 00 00           -  lea rdx,[rcx+0000056C]
+"FIFA20.exe"+FE3A340: 48 81 C1 00 0C 00 00           -  add rcx,00000C00
+"FIFA20.exe"+FE3A347: 44 8B 83 68 05 00 00           -  mov r8d,[rbx+00000568]
+"FIFA20.exe"+FE3A34E: E8 CD FA A0 F4                 -  call FIFA20.exe+4849E20
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+FE3A353: 89 83 74 05 00 00              -  mov [rbx+00000574],eax
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+FE3A359: 48 83 C4 20                    -  add rsp,20
+"FIFA20.exe"+FE3A35D: 5B                             -  pop rbx
+"FIFA20.exe"+FE3A35E: C3                             -  ret
+"FIFA20.exe"+FE3A35F: CC                             -  int 3
+"FIFA20.exe"+FE3A360: 4D 89 F3                       -  mov r11,r14
+"FIFA20.exe"+FE3A363: 57                             -  push rdi
+"FIFA20.exe"+FE3A364: 48 F7 D7                       -  not rdi
+"FIFA20.exe"+FE3A367: 48 33 3C 24                    -  xor rdi,[rsp]
+"FIFA20.exe"+FE3A36B: 48 8D 64 24 F8                 -  lea rsp,[rsp-08]
+"FIFA20.exe"+FE3A370: BE FF FF FF FF                 -  mov esi,FFFFFFFF
+}
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>810</ID>
+          <Description>"Club Finances"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 3/5 (This script will harm your cm save if you mess up something with your editions.)
+
+DESCRIPTION:
+   This script allows you to edit your Transfer Budget.
+   It's recommeneded to use euro currency.
+   Also, don't add too much funds. If you need 200M then just add 200M.
+   Don't be gready to avoid problems. Game has problems with handling large values here.
+
+HOW TO USE:
+   1. Activate script before you load your career save.
+   2. Load your save
+   3. Edit 'Transfer Budget' value in cheat table.
+
+   or
+   1. Activate script
+   2. In game go to: Office -&gt; Finances -&gt; Budget tab
+   3. Exit finances
+   4. 'Transfer Budget' value in CT should now be equal to your transfer budget in game
+   5. Edit 'Transfer Budget' value in cheat table.
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
+    assert(false, error)
+end
+
+INJECT_ptrTransferBudgetCave = get_validated_address('AOB_TransferBudget')
+ORG_ptrTransferBudgetCave = readBytes(INJECT_ptrTransferBudgetCave, 12, true)
+
+{$asm}
+alloc(ptrTransferBudgetCave,$500, $INJECT_ptrTransferBudgetCave)
+label(ptrTransferBudgetCave_ret)
+label(ptrTransferBudgetCave_org)
+alloc(ptrTransferBudget, 8, $INJECT_ptrTransferBudgetCave)
+registersymbol(ptrTransferBudget)
+ptrTransferBudget:
+dq 00
+
+ptrTransferBudgetCave: //this is allocated memory, you have read,write,execute access
+ptrTransferBudgetCave_org:
+  mov [ptrTransferBudget], rax
+  mov r9d,[rax+08]
+  mov r8d,[r15+00000290]
+  jmp ptrTransferBudgetCave_ret
+
+$INJECT_ptrTransferBudgetCave:
+  jmp ptrTransferBudgetCave
+  nop
+  nop
+  nop
+  nop
+  nop
+  nop
+ptrTransferBudgetCave_ret:
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_ptrTransferBudgetCave, ORG_ptrTransferBudgetCave)
+{$asm}
+
+dealloc(ptrTransferBudgetCave)
+dealloc(ptrTransferBudget)
+unregistersymbol(ptrTransferBudget)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA19.exe"+3FA46EB
+
+"FIFA19.exe"+3FA46BC: 41 8B 56 24                    -  mov edx,[r14+24]
+"FIFA19.exe"+3FA46C0: FF 50 20                       -  call qword ptr [rax+20]
+"FIFA19.exe"+3FA46C3: 49 8B 8D A8 02 00 00           -  mov rcx,[r13+000002A8]
+"FIFA19.exe"+3FA46CA: 48 8B 35 FF F5 1D 02           -  mov rsi,[FIFA19.exe+6183CD0]
+"FIFA19.exe"+3FA46D1: 41 8B 9D 90 02 00 00           -  mov ebx,[r13+00000290]
+"FIFA19.exe"+3FA46D8: 48 8B 3E                       -  mov rdi,[rsi]
+"FIFA19.exe"+3FA46DB: 48 8B 01                       -  mov rax,[rcx]
+"FIFA19.exe"+3FA46DE: FF 50 10                       -  call qword ptr [rax+10]
+"FIFA19.exe"+3FA46E1: C6 44 24 28 00                 -  mov byte ptr [rsp+28],00
+"FIFA19.exe"+3FA46E6: C6 44 24 20 01                 -  mov byte ptr [rsp+20],01
+// ---------- INJECTING HERE ----------
+"FIFA19.exe"+3FA46EB: 44 8B 48 08                    -  mov r9d,[rax+08]
+"FIFA19.exe"+3FA46EF: 44 8B C3                       -  mov r8d,ebx
+// ---------- DONE INJECTING  ----------
+"FIFA19.exe"+3FA46F2: 48 8D 55 DF                    -  lea rdx,[rbp-21]
+"FIFA19.exe"+3FA46F6: 48 8B CE                       -  mov rcx,rsi
+"FIFA19.exe"+3FA46F9: FF 97 18 01 00 00              -  call qword ptr [rdi+00000118]
+"FIFA19.exe"+3FA46FF: 4D 8B 56 18                    -  mov r10,[r14+18]
+"FIFA19.exe"+3FA4703: 4D 8B 42 50                    -  mov r8,[r10+50]
+"FIFA19.exe"+3FA4707: 4D 2B 42 30                    -  sub r8,[r10+30]
+"FIFA19.exe"+3FA470B: 49 C1 F8 03                    -  sar r8,03
+"FIFA19.exe"+3FA470F: 49 8B 4A 38                    -  mov rcx,[r10+38]
+"FIFA19.exe"+3FA4713: 49 2B 4A 40                    -  sub rcx,[r10+40]
+"FIFA19.exe"+3FA4717: 48 BB 25 49 92 24 49 92 24 49  -  mov rbx,4924924924924925
+}
+
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>255</ID>
+              <Description>"Transfer Budget"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>ptrTransferBudget</Address>
+              <Offsets>
+                <Offset>8</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2463</ID>
+          <Description>"Hire Scouts"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 3/5 (This script will harm your cm save if you mess up something with your editions.)
+
+DESCRIPTION:
+  Edit your scouts before you hire them
+
+HOW TO USE:
+  1. Activate script before you try to hire scout
+
+VIDEO TUTORIAL:
+- https://youtu.be/tECZp28xIeA?list=PLx3DZm1ifjQxYZeaJPiV6fQTE66uK7kOx
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
+    assert(false, error)
+end
+
+INJECT_Scout = get_validated_address('AOB_HireScout')
+ORG_Scout = readBytes(INJECT_Scout, 6, true)
+
+{$asm}
+alloc(newmem_Scout,$500,$INJECT_Scout)
+
+label(code)
+label(return)
+label(FreeScoutsCheck)
+
+alloc(bFreeScouts, 1, $INJECT_Scout)
+registersymbol(bFreeScouts)
+bFreeScouts:
+db 00
+
+alloc(scoutPtr, 8, $INJECT_Scout)
+registersymbol(scoutPtr)
+scoutPtr:
+dq 0
+
+newmem_Scout:
+  cmp r12, 0
+  jne FreeScoutsCheck
+  mov [scoutPtr], r9  // Pointer for first scout
+  jmp FreeScoutsCheck
+
+FreeScoutsCheck:
+  cmp byte ptr [bFreeScouts], 1
+  jne code
+  mov [r9+0C], #4   // 5* Exp
+  mov [r9+10], #4  // 5* Judgment
+  mov [r9+18], 0  // Cost
+  jmp code
+code:
+  mov eax,[r9]
+  mov [rbp+48],eax
+  jmp return
+
+$INJECT_Scout:
+  jmp newmem_Scout
+  nop
+return:
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_Scout, ORG_Scout)
+{$asm}
+
+unregistersymbol(bFreeScouts)
+unregistersymbol(scoutPtr)
+dealloc(bFreeScouts)
+dealloc(scoutPtr)
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA19.exe"+3F785D4
+
+"FIFA19.exe"+3F785A5: 41 B8 C8 00 00 00        -  mov r8d,000000C8
+"FIFA19.exe"+3F785AB: 48 8D 4D 80              -  lea rcx,[rbp-80]
+"FIFA19.exe"+3F785AF: E8 92 15 4E 00           -  call FIFA19.exe+4459B46
+"FIFA19.exe"+3F785B4: 83 BB 80 01 00 00 00     -  cmp dword ptr [rbx+00000180],00
+"FIFA19.exe"+3F785BB: 75 0D                    -  jne FIFA19.exe+3F785CA
+"FIFA19.exe"+3F785BD: 48 8B 87 B0 00 00 00     -  mov rax,[rdi+000000B0]
+"FIFA19.exe"+3F785C4: 48 8B 48 10              -  mov rcx,[rax+10]
+"FIFA19.exe"+3F785C8: EB 07                    -  jmp FIFA19.exe+3F785D1
+"FIFA19.exe"+3F785CA: 49 8B 8E A0 00 00 00     -  mov rcx,[r14+000000A0]
+"FIFA19.exe"+3F785D1: 41 8B C4                 -  mov eax,r12d
+// ---------- INJECTING HERE ----------
+"FIFA19.exe"+3F785D4: 4C 69 C8 84 00 00 00     -  imul r9,rax,00000084
+// ---------- DONE INJECTING  ----------
+"FIFA19.exe"+3F785DB: 4C 03 09                 -  add r9,[rcx]
+"FIFA19.exe"+3F785DE: 41 8B 01                 -  mov eax,[r9]
+"FIFA19.exe"+3F785E1: 89 45 48                 -  mov [rbp+48],eax
+"FIFA19.exe"+3F785E4: 41 8B 41 08              -  mov eax,[r9+08]
+"FIFA19.exe"+3F785E8: 89 45 4C                 -  mov [rbp+4C],eax
+"FIFA19.exe"+3F785EB: 41 8B 41 0C              -  mov eax,[r9+0C]
+"FIFA19.exe"+3F785EF: 89 45 50                 -  mov [rbp+50],eax
+"FIFA19.exe"+3F785F2: 41 8B 41 10              -  mov eax,[r9+10]
+"FIFA19.exe"+3F785F6: 89 45 54                 -  mov [rbp+54],eax
+"FIFA19.exe"+3F785F9: 41 8B 41 18              -  mov eax,[r9+18]
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>598</ID>
+              <Description>"Free 5/5 Scouts"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  All scouts you will try to hire will cost $0 and their Exp and Judgment will be 5 stars
+
+HOW TO USE:
+  1. Activate script before you try to hire scout
+
+VIDEO TUTORIAL:
+- https://youtu.be/tECZp28xIeA?list=PLx3DZm1ifjQxYZeaJPiV6fQTE66uK7kOx
+}
+
+[ENABLE]
+bFreeScouts:
+  db 1
+[DISABLE]
+bFreeScouts:
+  db 0
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2499</ID>
+              <Description>"Detailed Info"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2465</ID>
+                  <Description>"Scout 1"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>2464</ID>
+                      <Description>"Nationality"</Description>
+                      <LastState Value="45" RealAddress="AE4EF658"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2466</ID>
+                      <Description>"Experience"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: '1 Star'
+1: '2 Stars'
+2: '3 Stars'
+3: '4 Stars'
+4: '5 Stars'
+</DropDownList>
+                      <LastState Value="4" RealAddress="AE4EF65C"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>C</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2467</ID>
+                      <Description>"Judgment"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: '1 Star'
+1: '2 Stars'
+2: '3 Stars'
+3: '4 Stars'
+4: '5 Stars'
+</DropDownList>
+                      <LastState Value="4" RealAddress="AE4EF660"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>10</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2468</ID>
+                      <Description>"Cost"</Description>
+                      <LastState Value="0" RealAddress="AE4EF668"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>18</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2469</ID>
+                      <Description>"First Name"</Description>
+                      <LastState RealAddress="AE4EF678"/>
+                      <VariableType>String</VariableType>
+                      <Length>40</Length>
+                      <Unicode>0</Unicode>
+                      <CodePage>0</CodePage>
+                      <ZeroTerminate>1</ZeroTerminate>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>28</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2470</ID>
+                      <Description>"Last Name"</Description>
+                      <LastState RealAddress="AE4EF6A5"/>
+                      <VariableType>String</VariableType>
+                      <Length>40</Length>
+                      <Unicode>0</Unicode>
+                      <CodePage>0</CodePage>
+                      <ZeroTerminate>1</ZeroTerminate>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>55</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2471</ID>
+                  <Description>"Scout 2"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>2472</ID>
+                      <Description>"Nationality"</Description>
+                      <LastState Value="45" RealAddress="AE4EF6DC"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>8+84</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2473</ID>
+                      <Description>"Experience"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: '1 Star'
+1: '2 Stars'
+2: '3 Stars'
+3: '4 Stars'
+4: '5 Stars'
+</DropDownList>
+                      <LastState Value="4" RealAddress="AE4EF6E0"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>C+84</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2474</ID>
+                      <Description>"Judgment"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: '1 Star'
+1: '2 Stars'
+2: '3 Stars'
+3: '4 Stars'
+4: '5 Stars'
+</DropDownList>
+                      <LastState Value="4" RealAddress="AE4EF6E4"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>10+84</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2475</ID>
+                      <Description>"Cost"</Description>
+                      <LastState Value="0" RealAddress="AE4EF6EC"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>18+84</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2476</ID>
+                      <Description>"First Name"</Description>
+                      <LastState RealAddress="AE4EF6FC"/>
+                      <VariableType>String</VariableType>
+                      <Length>40</Length>
+                      <Unicode>0</Unicode>
+                      <CodePage>0</CodePage>
+                      <ZeroTerminate>1</ZeroTerminate>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>28+84</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2477</ID>
+                      <Description>"Last Name"</Description>
+                      <LastState RealAddress="AE4EF729"/>
+                      <VariableType>String</VariableType>
+                      <Length>40</Length>
+                      <Unicode>0</Unicode>
+                      <CodePage>0</CodePage>
+                      <ZeroTerminate>1</ZeroTerminate>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>55+84</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2478</ID>
+                  <Description>"Scout 3"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>2479</ID>
+                      <Description>"Nationality"</Description>
+                      <LastState Value="48" RealAddress="AE4EF760"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>8+108</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2480</ID>
+                      <Description>"Experience"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: '1 Star'
+1: '2 Stars'
+2: '3 Stars'
+3: '4 Stars'
+4: '5 Stars'
+</DropDownList>
+                      <LastState Value="4" RealAddress="AE4EF764"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>C+108</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2481</ID>
+                      <Description>"Judgment"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: '1 Star'
+1: '2 Stars'
+2: '3 Stars'
+3: '4 Stars'
+4: '5 Stars'
+</DropDownList>
+                      <LastState Value="4" RealAddress="AE4EF768"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>10+108</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2482</ID>
+                      <Description>"Cost"</Description>
+                      <LastState Value="0" RealAddress="AE4EF770"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>18+108</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2483</ID>
+                      <Description>"First Name"</Description>
+                      <LastState RealAddress="AE4EF780"/>
+                      <VariableType>String</VariableType>
+                      <Length>40</Length>
+                      <Unicode>0</Unicode>
+                      <CodePage>0</CodePage>
+                      <ZeroTerminate>1</ZeroTerminate>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>28+108</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2484</ID>
+                      <Description>"Last Name"</Description>
+                      <LastState RealAddress="AE4EF7AD"/>
+                      <VariableType>String</VariableType>
+                      <Length>40</Length>
+                      <Unicode>0</Unicode>
+                      <CodePage>0</CodePage>
+                      <ZeroTerminate>1</ZeroTerminate>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>55+108</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2485</ID>
+                  <Description>"Scout 4"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>2486</ID>
+                      <Description>"Nationality"</Description>
+                      <LastState Value="10" RealAddress="AE4EF7E4"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>8+18C</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2487</ID>
+                      <Description>"Experience"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: '1 Star'
+1: '2 Stars'
+2: '3 Stars'
+3: '4 Stars'
+4: '5 Stars'
+</DropDownList>
+                      <LastState Value="4" RealAddress="AE4EF7E8"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>C+18C</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2488</ID>
+                      <Description>"Judgment"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: '1 Star'
+1: '2 Stars'
+2: '3 Stars'
+3: '4 Stars'
+4: '5 Stars'
+</DropDownList>
+                      <LastState Value="4" RealAddress="AE4EF7EC"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>10+18C</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2489</ID>
+                      <Description>"Cost"</Description>
+                      <LastState Value="0" RealAddress="AE4EF7F4"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>18+18C</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2490</ID>
+                      <Description>"First Name"</Description>
+                      <LastState RealAddress="AE4EF804"/>
+                      <VariableType>String</VariableType>
+                      <Length>40</Length>
+                      <Unicode>0</Unicode>
+                      <CodePage>0</CodePage>
+                      <ZeroTerminate>1</ZeroTerminate>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>28+18C</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2491</ID>
+                      <Description>"Last Name"</Description>
+                      <LastState RealAddress="AE4EF831"/>
+                      <VariableType>String</VariableType>
+                      <Length>40</Length>
+                      <Unicode>0</Unicode>
+                      <CodePage>0</CodePage>
+                      <ZeroTerminate>1</ZeroTerminate>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>55+18C</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2492</ID>
+                  <Description>"Scout 5"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>2493</ID>
+                      <Description>"Nationality"</Description>
+                      <LastState Value="22" RealAddress="AE4EF868"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>8+210</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2494</ID>
+                      <Description>"Experience"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: '1 Star'
+1: '2 Stars'
+2: '3 Stars'
+3: '4 Stars'
+4: '5 Stars'
+</DropDownList>
+                      <LastState Value="4" RealAddress="AE4EF86C"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>C+210</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2495</ID>
+                      <Description>"Judgment"</Description>
+                      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: '1 Star'
+1: '2 Stars'
+2: '3 Stars'
+3: '4 Stars'
+4: '5 Stars'
+</DropDownList>
+                      <LastState Value="4" RealAddress="AE4EF870"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>10+210</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2496</ID>
+                      <Description>"Cost"</Description>
+                      <LastState Value="0" RealAddress="AE4EF878"/>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>18+210</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2497</ID>
+                      <Description>"First Name"</Description>
+                      <LastState RealAddress="AE4EF888"/>
+                      <VariableType>String</VariableType>
+                      <Length>40</Length>
+                      <Unicode>0</Unicode>
+                      <CodePage>0</CodePage>
+                      <ZeroTerminate>1</ZeroTerminate>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>28+210</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>2498</ID>
+                      <Description>"Last Name"</Description>
+                      <LastState RealAddress="AE4EF8B5"/>
+                      <VariableType>String</VariableType>
+                      <Length>40</Length>
+                      <Unicode>0</Unicode>
+                      <CodePage>0</CodePage>
+                      <ZeroTerminate>1</ZeroTerminate>
+                      <Address>scoutPtr</Address>
+                      <Offsets>
+                        <Offset>55+210</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
           <ID>440</ID>
           <Description>"Global Transfer Network"</Description>
           <Options moHideChildren="1"/>
@@ -7761,11 +8865,12 @@ VIDEO TUTORIAL:
 
 [ENABLE]
 {$lua}
+if syntaxcheck then return end
 -- Check if user has set up CT correctly
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -7871,11 +8976,12 @@ VIDEO TUTORIAL:
 
 [ENABLE]
 {$lua}
+if syntaxcheck then return end
 -- Check if user has set up CT correctly
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -8093,11 +9199,12 @@ VIDEO TUTORIAL:
 
 [ENABLE]
 {$lua}
+if syntaxcheck then return end
 -- Check if user has set up CT correctly
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -8214,11 +9321,12 @@ VIDEO TUTORIAL:
 
 [ENABLE]
 {$lua}
+if syntaxcheck then return end
 -- Check if user has set up CT correctly
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -8316,11 +9424,12 @@ VIDEO TUTORIAL:
 
 [ENABLE]
 {$lua}
+if syntaxcheck then return end
 -- Check if user has set up CT correctly
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -8383,6 +9492,306 @@ dealloc(newmem_YA_REVEAL_POT_AND_OVR)
 "FIFA20.exe"+FD825B2: E8 E9 39 60 F2                    -  call FIFA20.exe+2385FA0
 "FIFA20.exe"+FD825B7: FF C7                             -  inc edi
 "FIFA20.exe"+FD825B9: 89 06                             -  mov [rsi],eax
+}
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1611</ID>
+          <Description>"Sim Match Settings"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1613</ID>
+              <Description>"---- Scripts that needs to be activated before you load CM save ----"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>0000FF</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>445</ID>
+                  <Description>"Max_cards = 0"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  This script will disable cards for simulated games.
+
+HOW TO USE:
+  1. Activate script before you load your career save
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
+    assert(false, error)
+end
+
+INJECT_sim_maxCards = get_validated_address('AOB_SimMaxCards')
+ORG_sim_maxCards = readBytes(INJECT_sim_maxCards, 12, true)
+
+{$asm}
+alloc(newmem_sim_maxCards,$500,$INJECT_sim_maxCards)
+
+label(code_sim_maxCards)
+label(ret_sim_maxCards)
+
+newmem_sim_maxCards:
+  xor eax, eax
+code_sim_maxCards:
+  mov [r14+0000015C],eax
+  jmp ret_sim_maxCards
+
+$INJECT_sim_maxCards:
+  jmp newmem_sim_maxCards
+  nop
+  nop
+ret_sim_maxCards:
+
+[DISABLE]
+//code_sim_maxCards from here till the end of the code_sim_maxCards will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_sim_maxCards, ORG_sim_maxCards)
+{$asm}
+
+dealloc(newmem_sim_maxCards)
+
+{
+[CARD/MAX_CARDS]
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+FC360CF
+
+"FIFA20.exe"+FC3608A: 0F 28 B4 24 30 01 00 00  -  movaps xmm6,[rsp+00000130]
+"FIFA20.exe"+FC36092: 4C 8B AC 24 88 01 00 00  -  mov r13,[rsp+00000188]
+"FIFA20.exe"+FC3609A: 4C 8B A4 24 80 01 00 00  -  mov r12,[rsp+00000180]
+"FIFA20.exe"+FC360A2: 48 8B 0D 1F 40 DD F6     -  mov rcx,[FIFA20.exe+6A0A0C8]
+"FIFA20.exe"+FC360A9: 48 8D 15 88 78 18 F6     -  lea rdx,[FIFA20.exe+5DBD938]
+"FIFA20.exe"+FC360B0: 41 B8 FF FF FF FF        -  mov r8d,FFFFFFFF
+"FIFA20.exe"+FC360B6: E8 E5 FE 74 F2           -  call FIFA20.exe+2385FA0
+"FIFA20.exe"+FC360BB: 48 8B 0D 06 40 DD F6     -  mov rcx,[FIFA20.exe+6A0A0C8]
+"FIFA20.exe"+FC360C2: 48 8D 15 57 78 18 F6     -  lea rdx,[FIFA20.exe+5DBD920]
+"FIFA20.exe"+FC360C9: 41 B8 FF FF FF FF        -  mov r8d,FFFFFFFF
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+FC360CF: 41 89 86 5C 01 00 00     -  mov [r14+0000015C],eax
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+FC360D6: E8 C5 FE 74 F2           -  call FIFA20.exe+2385FA0
+"FIFA20.exe"+FC360DB: 48 8B 0D E6 3F DD F6     -  mov rcx,[FIFA20.exe+6A0A0C8]
+"FIFA20.exe"+FC360E2: 48 8D 15 27 78 18 F6     -  lea rdx,[FIFA20.exe+5DBD910]
+"FIFA20.exe"+FC360E9: 41 B8 FF FF FF FF        -  mov r8d,FFFFFFFF
+"FIFA20.exe"+FC360EF: 41 89 86 60 01 00 00     -  mov [r14+00000160],eax
+"FIFA20.exe"+FC360F6: E8 A5 FE 74 F2           -  call FIFA20.exe+2385FA0
+"FIFA20.exe"+FC360FB: 48 8B 0D C6 3F DD F6     -  mov rcx,[FIFA20.exe+6A0A0C8]
+"FIFA20.exe"+FC36102: 48 8D 15 EF 77 18 F6     -  lea rdx,[FIFA20.exe+5DBD8F8]
+"FIFA20.exe"+FC36109: 41 B8 FF FF FF FF        -  mov r8d,FFFFFFFF
+"FIFA20.exe"+FC3610F: 41 89 86 64 01 00 00     -  mov [r14+00000164],eax
+}
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1612</ID>
+                  <Description>"Max_injuries = 0"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  This script will disable injuries for simulated games.
+
+HOW TO USE:
+  1. Activate script before you load your career save
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
+    assert(false, error)
+end
+
+INJECT_MAX_INJURIES = get_validated_address('AOB_SimMaxInjuries')
+ORG_MAX_INJURIES = readBytes(INJECT_MAX_INJURIES, 12, true)
+
+{$asm}
+alloc(newmem,$500,$INJECT_MAX_INJURIES)
+
+label(code)
+label(return)
+
+newmem:
+  xor eax, eax
+code:
+  mov [r14+00000124],eax
+  jmp return
+
+$INJECT_MAX_INJURIES:
+  jmp newmem
+  nop
+  nop
+return:
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_MAX_INJURIES, ORG_MAX_INJURIES)
+{$asm}
+
+dealloc(newmem)
+
+{
+[INJURY/MAX_INJURIES]
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+FC3620F
+
+"FIFA20.exe"+FC361CF: 41 89 86 EC 00 00 00  -  mov [r14+000000EC],eax
+"FIFA20.exe"+FC361D6: E8 C5 FD 74 F2        -  call FIFA20.exe+2385FA0
+"FIFA20.exe"+FC361DB: 48 8B 0D E6 3E DD F6  -  mov rcx,[FIFA20.exe+6A0A0C8]
+"FIFA20.exe"+FC361E2: 48 8D 15 A7 7B 18 F6  -  lea rdx,[FIFA20.exe+5DBDD90]
+"FIFA20.exe"+FC361E9: 41 B8 FF FF FF FF     -  mov r8d,FFFFFFFF
+"FIFA20.exe"+FC361EF: 41 89 86 F0 00 00 00  -  mov [r14+000000F0],eax
+"FIFA20.exe"+FC361F6: E8 A5 FD 74 F2        -  call FIFA20.exe+2385FA0
+"FIFA20.exe"+FC361FB: 48 8B 0D C6 3E DD F6  -  mov rcx,[FIFA20.exe+6A0A0C8]
+"FIFA20.exe"+FC36202: 48 8D 15 6F 7B 18 F6  -  lea rdx,[FIFA20.exe+5DBDD78]
+"FIFA20.exe"+FC36209: 41 B8 FF FF FF FF     -  mov r8d,FFFFFFFF
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+FC3620F: 41 89 86 24 01 00 00  -  mov [r14+00000124],eax
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+FC36216: E8 85 FD 74 F2        -  call FIFA20.exe+2385FA0
+"FIFA20.exe"+FC3621B: 48 8B 0D A6 3E DD F6  -  mov rcx,[FIFA20.exe+6A0A0C8]
+"FIFA20.exe"+FC36222: 48 8D 15 37 7B 18 F6  -  lea rdx,[FIFA20.exe+5DBDD60]
+"FIFA20.exe"+FC36229: 41 B8 FF FF FF FF     -  mov r8d,FFFFFFFF
+"FIFA20.exe"+FC3622F: 41 89 86 28 01 00 00  -  mov [r14+00000128],eax
+"FIFA20.exe"+FC36236: E8 65 FD 74 F2        -  call FIFA20.exe+2385FA0
+"FIFA20.exe"+FC3623B: 48 8B 0D 86 3E DD F6  -  mov rcx,[FIFA20.exe+6A0A0C8]
+"FIFA20.exe"+FC36242: 48 8D 15 9F 7C 18 F6  -  lea rdx,[FIFA20.exe+5DBDEE8]
+"FIFA20.exe"+FC36249: 41 B8 FF FF FF FF     -  mov r8d,FFFFFFFF
+"FIFA20.exe"+FC3624F: 41 89 86 2C 01 00 00  -  mov [r14+0000012C],eax
+}
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1674</ID>
+                  <Description>"Don't lose stamina"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  This script will regenrate stamina of all your players after simulated game.
+  For example if Messi will start simulated game with 20%, after the game his stamina will be 100%
+
+HOW TO USE:
+  1. Activate script before you load your career save
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
+    assert(false, error)
+end
+
+INJECT_FatigueBase = get_validated_address('AOB_SimFatigueBase')
+ORG_FatigueBase = readBytes(INJECT_FatigueBase, 12, true)
+
+{$asm}
+alloc(newmem_FatigueBase,$500,$INJECT_FatigueBase)
+
+label(code_FatigueBase)
+label(ret_FatigueBase)
+
+newmem_FatigueBase:
+  mov eax, #-100
+code_FatigueBase:
+  mov r8d,FFFFFFFF
+  jmp ret_FatigueBase
+
+$INJECT_FatigueBase:
+  jmp newmem_FatigueBase
+  nop
+ret_FatigueBase:
+
+[DISABLE]
+//code_FatigueBase from here till the end of the code_FatigueBase will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_FatigueBase, ORG_FatigueBase)
+{$asm}
+
+dealloc(newmem_FatigueBase)
+
+{
+[FATIGUE/FATIGUEBASE]
+// ORIGINAL CODE - INJECTION POINT: "FIFA19.exe"+3ECBE64
+
+"FIFA20.exe"+FC363B1: 41 B8 FF FF FF FF     -  mov r8d,FFFFFFFF
+"FIFA20.exe"+FC363B7: 41 89 46 08           -  mov [r14+08],eax
+"FIFA20.exe"+FC363BB: E8 E0 FB 74 F2        -  call FIFA20.exe+2385FA0
+"FIFA20.exe"+FC363C0: 48 8B 0D 01 3D DD F6  -  mov rcx,[FIFA20.exe+6A0A0C8]
+"FIFA20.exe"+FC363C7: 48 8D 15 72 7B 18 F6  -  lea rdx,[FIFA20.exe+5DBDF40]
+"FIFA20.exe"+FC363CE: 41 B8 FF FF FF FF     -  mov r8d,FFFFFFFF
+"FIFA20.exe"+FC363D4: 41 89 46 0C           -  mov [r14+0C],eax
+"FIFA20.exe"+FC363D8: E8 C3 FB 74 F2        -  call FIFA20.exe+2385FA0
+"FIFA20.exe"+FC363DD: 48 8B 0D E4 3C DD F6  -  mov rcx,[FIFA20.exe+6A0A0C8]
+"FIFA20.exe"+FC363E4: 48 8D 15 3D 7B 18 F6  -  lea rdx,[FIFA20.exe+5DBDF28]
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+FC363EB: 41 B8 FF FF FF FF     -  mov r8d,FFFFFFFF
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+FC363F1: 41 89 46 10           -  mov [r14+10],eax
+"FIFA20.exe"+FC363F5: E8 A6 FB 74 F2        -  call FIFA20.exe+2385FA0
+"FIFA20.exe"+FC363FA: 48 8B 0D C7 3C DD F6  -  mov rcx,[FIFA20.exe+6A0A0C8]
+"FIFA20.exe"+FC36401: 48 8D 15 08 7B 18 F6  -  lea rdx,[FIFA20.exe+5DBDF10]
+"FIFA20.exe"+FC36408: 41 B8 FF FF FF FF     -  mov r8d,FFFFFFFF
+"FIFA20.exe"+FC3640E: 41 89 86 F4 00 00 00  -  mov [r14+000000F4],eax
+"FIFA20.exe"+FC36415: E8 86 FB 74 F2        -  call FIFA20.exe+2385FA0
+"FIFA20.exe"+FC3641A: 48 8B 0D A7 3C DD F6  -  mov rcx,[FIFA20.exe+6A0A0C8]
+"FIFA20.exe"+FC36421: 48 8D 15 D8 7A 18 F6  -  lea rdx,[FIFA20.exe+5DBDF00]
+"FIFA20.exe"+FC36428: 41 B8 FF FF FF FF     -  mov r8d,FFFFFFFF
 }
 </AssemblerScript>
                 </CheatEntry>
