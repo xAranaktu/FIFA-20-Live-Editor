@@ -6,7 +6,7 @@
   <CheatEntries>
     <CheatEntry>
       <ID>0</ID>
-      <Description>"v20.1.0.0"</Description>
+      <Description>"v20.1.0.1"</Description>
       <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
     </CheatEntry>
@@ -122,8 +122,112 @@ MainWindowForm.hide()
 </AssemblerScript>
       <CheatEntries>
         <CheatEntry>
+          <ID>2951</ID>
+          <Description>"Non-CM Related"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>2793</ID>
+              <Description>"Dont Pause Game on AltTab"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR: Aranaktu
+
+GAME VERSION: Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL: 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+When script is activate match will not be pause when your FIFA window will lose focus.
+
+HOW TO USE:
+Just activate the script
+
+VIDEO TUTORIAL(S):
+- NONE
+}
+
+[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_ALTTAB = get_validated_address('AOB_AltTab')
+ORG_ALTTAB = readBytes(INJECT_ALTTAB, 12, true)
+
+{$asm}
+alloc(newmem_alttab, $500, $INJECT_ALTTAB)
+
+label(code_alttab)
+label(ret_alttab)
+
+newmem_alttab:
+  ret
+code_alttab:
+  sub rsp,48
+  jmp ret_alttab
+
+$INJECT_ALTTAB:
+  jmp newmem_alttab
+  nop
+  nop
+  nop
+  nop
+  nop
+  nop
+ret_alttab:
+
+[DISABLE]
+//code_alttab from here till the end of the code_alttab will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_ALTTAB, ORG_ALTTAB)
+{$asm}
+
+dealloc(newmem_alttab)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+A9EE670
+
+"FIFA20.exe"+A9EE63D: C1 FB 14                                   -  sar ebx,14
+"FIFA20.exe"+A9EE640: 41 81 C9 3C 94 52 9C                       -  or r9d,9C52943C
+"FIFA20.exe"+A9EE647: 41 81 E1 00 F0 FF FF                       -  and r9d,FFFFF000
+"FIFA20.exe"+A9EE64E: 41 C1 C9 0C                                -  ror r9d,0C
+"FIFA20.exe"+A9EE652: 44 09 CB                                   -  or ebx,r9d
+"FIFA20.exe"+A9EE655: 48 8D 64 24 08                             -  lea rsp,[rsp+08]
+"FIFA20.exe"+A9EE65A: 0F 80 31 88 BA 08                          -  jo FIFA20.exe+13596E91
+"FIFA20.exe"+A9EE660: 5B                                         -  pop rbx
+"FIFA20.exe"+A9EE661: 9D                                         -  popfq
+"FIFA20.exe"+A9EE662: 66 66 66 66 66 2E 0F 1F 84 00 00 00 00 00  -  nop cs:[rax+rax+00000000]
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+A9EE670: 48 83 EC 48                                -  sub rsp,48
+"FIFA20.exe"+A9EE674: 4C 8B 05 2D CA 38 FC                       -  mov r8,[FIFA20.exe+6D7B0A8]
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+A9EE67B: 4D 85 C0                                   -  test r8,r8
+"FIFA20.exe"+A9EE67E: 0F 84 E5 00 00 00                          -  je FIFA20.exe+A9EE769
+"FIFA20.exe"+A9EE684: 48 89 7C 24 40                             -  mov [rsp+40],rdi
+"FIFA20.exe"+A9EE689: 48 8D 15 E4 58 F3 FA                       -  lea rdx,[FIFA20.exe+5923F74]
+"FIFA20.exe"+A9EE690: B9 05 15 00 00                             -  mov ecx,00001505
+"FIFA20.exe"+A9EE695: 66 66 2E 0F 1F 84 00 00 00 00 00           -  nop cs:[rax+rax+00000000]
+"FIFA20.exe"+A9EE6A0: 0F B6 02                                   -  movzx eax,byte ptr [rdx]
+"FIFA20.exe"+A9EE6A3: 48 8D 52 01                                -  lea rdx,[rdx+01]
+"FIFA20.exe"+A9EE6A7: 6B C9 21                                   -  imul ecx,ecx,21
+"FIFA20.exe"+A9EE6AA: 01 C1                                      -  add ecx,eax
+}
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
           <ID>12</ID>
-          <Description>"Database Tables"</Description>
+          <Description>"FIFA Database Tables"</Description>
           <Options moHideChildren="1"/>
           <LastState/>
           <VariableType>Auto Assembler Script</VariableType>
@@ -7038,6 +7142,1249 @@ dealloc(ptrTeamplayerlinks)
                       </Offsets>
                     </CheatEntry>
                   </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2096</ID>
+          <Description>"Editing Player"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1311</ID>
+              <Description>"Unlock "Edit Player" in career menu"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  You can access "Edit Player" functionality inside game. Usefull when you are playing offline and you don't have access to EASFC Catalogue.
+
+HOW TO USE:
+  1. Activate script
+  2. Switch to 'Squad' Tab in game
+  3. 'Edit Player' should be unlocked.
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_ISEDITPLAYERUNLOCKED = get_validated_address('AOB_IsEditPlayerUnlocked')
+
+{$asm}
+
+label(_dojmp_ISEDITPLAYERUNLOCKED)
+registersymbol(_dojmp_ISEDITPLAYERUNLOCKED)
+
+$INJECT_ISEDITPLAYERUNLOCKED+A:
+_dojmp_ISEDITPLAYERUNLOCKED:
+db EB
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+_dojmp_ISEDITPLAYERUNLOCKED:
+db 75
+
+unregistersymbol(_dojmp_ISEDITPLAYERUNLOCKED)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA19.exe"+3F8F8A0
+
+"FIFA19.exe"+3F8F87A: 39 98 14 02 00 00     -  cmp [rax+00000214],ebx
+"FIFA19.exe"+3F8F880: 0F 95 C1              -  setne cl
+"FIFA19.exe"+3F8F883: 80 F9 01              -  cmp cl,01
+"FIFA19.exe"+3F8F886: 40 0F 94 C7           -  sete dil
+"FIFA19.exe"+3F8F88A: 8B DF                 -  mov ebx,edi
+"FIFA19.exe"+3F8F88C: E9 61 05 00 00        -  jmp FIFA19.exe+3F8FDF2
+"FIFA19.exe"+3F8F891: CC                    -  int 3
+"FIFA19.exe"+3F8F892: 8D 15 B8 70 36 01     -  lea edx,[FIFA19.exe+52F6950]
+"FIFA19.exe"+3F8F898: 49 8B CB              -  mov rcx,r11
+"FIFA19.exe"+3F8F89B: E8 00 FD 39 FC        -  call FIFA19.exe+32F5A0
+// ---------- INJECTING HERE ----------
+"FIFA19.exe"+3F8F8A0: 85 C0                 -  test eax,eax
+"FIFA19.exe"+3F8F8A2: 75 43                 -  jne FIFA19.exe+3F8F8E7
+"FIFA19.exe"+3F8F8A4: 48 8B 46 08           -  mov rax,[rsi+08]
+// ---------- DONE INJECTING  ----------
+"FIFA19.exe"+3F8F8A8: 40 32 F6              -  xor sil,sil
+"FIFA19.exe"+3F8F8AB: 48 8B 80 B8 0F 00 00  -  mov rax,[rax+00000FB8]
+"FIFA19.exe"+3F8F8B2: 48 8B 18              -  mov rbx,[rax]
+"FIFA19.exe"+3F8F8B5: 48 85 DB              -  test rbx,rbx
+"FIFA19.exe"+3F8F8B8: 74 1D                 -  je FIFA19.exe+3F8F8D7
+"FIFA19.exe"+3F8F8BA: 48 8B 03              -  mov rax,[rbx]
+"FIFA19.exe"+3F8F8BD: 48 8B CB              -  mov rcx,rbx
+"FIFA19.exe"+3F8F8C0: FF 50 08              -  call qword ptr [rax+08]
+"FIFA19.exe"+3F8F8C3: 84 C0                 -  test al,al
+"FIFA19.exe"+3F8F8C5: 74 10                 -  je FIFA19.exe+3F8F8D7
+}
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2505</ID>
+          <Description>"Players Training"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1662</ID>
+              <Description>"Unlimited Training Sessions"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 1/5 (Very small chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  With this script you can perform unlimited amount of training sessions during single day.
+
+HOW TO USE:
+  1. Activate script
+  2. Begin training session
+  3. After it's done exit training screen (this will reset all sessions)
+  4. Enter 'Player development' again to train players again
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+
+[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_UnlimitedTraining = get_validated_address('AOB_UnlimitedTraining')
+ORG_UnlimitedTraining = readBytes(INJECT_UnlimitedTraining, 8, true)
+
+{$asm}
+alloc(newmem_UnlimitedTraining,$500,$INJECT_UnlimitedTraining)
+
+label(code_UnlimitedTraining)
+label(ret_UnlimitedTraining)
+label(exit_UnlimitedTraining)
+label(clear_sessions_UnlimitedTraining)
+
+newmem_UnlimitedTraining:
+  mov [r14+14],00000005
+  mov [r14+38],00000005
+  mov [r14+3C],00000007
+
+code_UnlimitedTraining:
+  mov rax,[r14+00000088]
+  cmp rax,[r14+00000090]
+  je exit_UnlimitedTraining
+
+clear_sessions_UnlimitedTraining:
+  mov byte ptr [rax+14],01
+  mov qword ptr [rax+0C],FFFFFFFF
+  mov [rax+18],FFFFFFFF
+  mov rcx,[rax+20]
+  mov [rax+28],rcx
+  add rax,40
+  cmp rax,[r14+00000090]
+  jne clear_sessions_UnlimitedTraining
+  jmp exit_UnlimitedTraining
+exit_UnlimitedTraining:
+  mov edi,[r14+38]  // org
+  mov r14d,[r14+3C] // org
+  jmp ret_UnlimitedTraining
+
+$INJECT_UnlimitedTraining:
+  jmp newmem_UnlimitedTraining
+  nop
+  nop
+  nop
+ret_UnlimitedTraining:
+
+[DISABLE]
+//code_UnlimitedTraining from here till the end of the code_UnlimitedTraining will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_UnlimitedTraining, ORG_UnlimitedTraining)
+{$asm}
+
+dealloc(newmem_UnlimitedTraining)
+
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+460DABD
+
+"FIFA20.exe"+460DAA2: FF 50 08                 -  call qword ptr [rax+08]
+"FIFA20.exe"+460DAA5: 84 C0                    -  test al,al
+"FIFA20.exe"+460DAA7: 74 11                    -  je FIFA20.exe+460DABA
+"FIFA20.exe"+460DAA9: 48 8B CF                 -  mov rcx,rdi
+"FIFA20.exe"+460DAAC: E8 6F 64 F8 FF           -  call FIFA20.exe+4593F20
+"FIFA20.exe"+460DAB1: 84 C0                    -  test al,al
+"FIFA20.exe"+460DAB3: 74 05                    -  je FIFA20.exe+460DABA
+"FIFA20.exe"+460DAB5: 41 B7 01                 -  mov r15l,01
+"FIFA20.exe"+460DAB8: EB 03                    -  jmp FIFA20.exe+460DABD
+"FIFA20.exe"+460DABA: 45 32 FF                 -  xor r15l,r15l
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+460DABD: 41 8B 7E 38              -  mov edi,[r14+38]
+"FIFA20.exe"+460DAC1: 45 8B 76 3C              -  mov r14d,[r14+3C]
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+460DAC5: 49 8B 45 08              -  mov rax,[r13+08]
+"FIFA20.exe"+460DAC9: 48 8B 80 58 0F 00 00     -  mov rax,[rax+00000F58]
+"FIFA20.exe"+460DAD0: 48 8B 08                 -  mov rcx,[rax]
+"FIFA20.exe"+460DAD3: 48 63 41 14              -  movsxd  rax,dword ptr [rcx+14]
+"FIFA20.exe"+460DAD7: 83 F8 FF                 -  cmp eax,-01
+"FIFA20.exe"+460DADA: 75 06                    -  jne FIFA20.exe+460DAE2
+"FIFA20.exe"+460DADC: 4C 89 65 88              -  mov [rbp-78],r12
+"FIFA20.exe"+460DAE0: EB 13                    -  jmp FIFA20.exe+460DAF5
+"FIFA20.exe"+460DAE2: 4C 8D 24 40              -  lea r12,[rax+rax*2]
+"FIFA20.exe"+460DAE6: 49 C1 E4 08              -  shl r12,08
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>467</ID>
+              <Description>"More efficient training"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 2/5 (There is slight chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  This script boosts all your training sessions, means that player can gain much more attributes during single session
+
+HOW TO USE:
+  1. Activate script
+  2. (optional) Change 'Multiplier' value for better effects if you want to
+  3. Begin training session
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_moreEfficientTraining = get_validated_address('AOB_MoreEfficientTraining')
+ORG_moreEfficientTraining = readBytes(INJECT_moreEfficientTraining, 5, true)
+
+{$asm}
+alloc(newmem_moreEfficientTraining,$500,$INJECT_moreEfficientTraining)
+
+label(code_moreEfficientTraining)
+label(ret_moreEfficientTraining)
+
+// Training result multiplier
+alloc(intTrainingMultiplier, 4, $INJECT_moreEfficientTraining)
+registersymbol(intTrainingMultiplier)
+intTrainingMultiplier:
+db 0A
+
+newmem_moreEfficientTraining:
+  push rcx
+  mov r11d, #3500                                   // BASE_CALC_VALUE (default 3500)
+  mov rcx, [intTrainingMultiplier]
+  imul r11d, rcx
+
+  mov [rsi+C], #9999 								// ATTRIBUTE_GROWTH_CAP (?) (default 300)
+  mov [rsi+1C], r11d
+  mov [rsi+rax*4+00000344],(float)1.25 				// PERFORMANCE_GRADE_A_MODIFIER (default 1.25)
+  mov [rsi+rax*4+00000358],(float)1.25  			// ? (default 1.25)
+  mov [rsi+rax*4+00000364],(float)2.0  			    // ? (default 2.00)
+
+code_moreEfficientTraining:
+  movd xmm3,[rsi+1C]
+  pop rcx
+  jmp ret_moreEfficientTraining
+
+$INJECT_moreEfficientTraining:
+  jmp newmem_moreEfficientTraining
+ret_moreEfficientTraining:
+
+[DISABLE]
+//code_moreEfficientTraining from here till the end of the code_moreEfficientTraining will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_moreEfficientTraining, ORG_moreEfficientTraining)
+{$asm}
+
+unregistersymbol(intTrainingMultiplier)
+dealloc(intTrainingMultiplier)
+dealloc(newmem_moreEfficientTraining)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+F0A19A3
+
+"FIFA20.exe"+F0A1977: EB 81                       -  jmp FIFA20.exe+F0A18FA
+"FIFA20.exe"+F0A1979: 4B 8D 04 49                 -  lea rax,[r9+r9*2]
+"FIFA20.exe"+F0A197D: F3 41 0F 10 64 83 08        -  movss xmm4,[r11+rax*4+08]
+"FIFA20.exe"+F0A1984: 44 8B 44 24 20              -  mov r8d,[rsp+20]
+"FIFA20.exe"+F0A1989: 48 89 F1                    -  mov rcx,rsi
+"FIFA20.exe"+F0A198C: 8B 54 24 24                 -  mov edx,[rsp+24]
+"FIFA20.exe"+F0A1990: 8B 5D 08                    -  mov ebx,[rbp+08]
+"FIFA20.exe"+F0A1993: E8 D8 05 79 F4              -  call FIFA20.exe+3831F70
+"FIFA20.exe"+F0A1998: 48 63 84 24 C8 00 00 00     -  movsxd  rax,dword ptr [rsp+000000C8]
+"FIFA20.exe"+F0A19A0: 8D 4B FF                    -  lea ecx,[rbx-01]
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+F0A19A3: 66 0F 6E 5E 1C              -  movd xmm3,[rsi+1C]
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+F0A19A8: 45 31 DB                    -  xor r11d,r11d
+"FIFA20.exe"+F0A19AB: 0F 5B DB                    -  cvtdq2ps xmm3,xmm3
+"FIFA20.exe"+F0A19AE: 4C 63 C1                    -  movsxd  r8,ecx
+"FIFA20.exe"+F0A19B1: 44 89 D9                    -  mov ecx,r11d
+"FIFA20.exe"+F0A19B4: F3 0F 59 9C 86 44 03 00 00  -  mulss xmm3,[rsi+rax*4+00000344]
+"FIFA20.exe"+F0A19BD: 48 63 84 24 D0 00 00 00     -  movsxd  rax,dword ptr [rsp+000000D0]
+"FIFA20.exe"+F0A19C5: F3 0F 59 9C 86 58 03 00 00  -  mulss xmm3,[rsi+rax*4+00000358]
+"FIFA20.exe"+F0A19CE: F3 0F 59 9C BE 64 03 00 00  -  mulss xmm3,[rsi+rdi*4+00000364]
+"FIFA20.exe"+F0A19D7: F3 0F 59 DC                 -  mulss xmm3,xmm4
+"FIFA20.exe"+F0A19DB: F3 0F 59 C3                 -  mulss xmm0,xmm3
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2950</ID>
+                  <Description>"Multiplier"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>intTrainingMultiplier</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2664</ID>
+              <Description>"Training Everyday"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 1/5 (Very small chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  This script allows you to perfmorm training sessions everyday instead of one session per 7 days.
+  (will not work on an match day)
+
+HOW TO USE:
+  1. Activate script
+  2. Advance to next day in game
+  3. Training sessinos should refresh.
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_TrainingEveryDay = get_validated_address('AOB_TrainingEveryDay')
+ORG_TrainingEveryDay = readBytes(INJECT_TrainingEveryDay, 10, true)
+
+{$asm}
+alloc(newmem_TrainingEveryDay,$500,$INJECT_TrainingEveryDay)
+
+label(code_TrainingEveryDay)
+label(ret_TrainingEveryDay)
+label(clear_sessions_TrainingEveryDay)
+label(funcret_TrainingEveryDay)
+
+newmem_TrainingEveryDay:
+  push r14
+  push rbx
+
+code_TrainingEveryDay:
+  mov [rdi+14],00000005
+  mov [rdi+38],00000005
+  mov [rdi+3C],00000007
+
+  mov r14,[rdi+00000088]
+  cmp r14,[rdi+00000090]
+  je funcret_TrainingEveryDay
+
+clear_sessions_TrainingEveryDay:
+  mov byte ptr [r14+14],01
+  mov qword ptr [r14+0C],FFFFFFFF
+  mov [r14+18],FFFFFFFF
+  mov rsi,[r14+20]
+  mov [r14+28],rsi
+  add r14,40
+  cmp r14,[rdi+00000090]
+  jne clear_sessions_TrainingEveryDay
+  jmp funcret_TrainingEveryDay
+
+funcret_TrainingEveryDay:
+  pop rbx
+  pop r14
+  mov rbx,[rsp+48]
+  mov rsi,[rsp+50]
+  add rsp, 30
+  pop rdi
+  ret
+
+$INJECT_TrainingEveryDay:
+  jmp newmem_TrainingEveryDay
+  nop
+  nop
+  nop
+  nop
+  nop
+ret_TrainingEveryDay:
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_TrainingEveryDay, ORG_TrainingEveryDay)
+{$asm}
+
+dealloc(newmem_TrainingEveryDay)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+4934594
+// Remaining days
+"FIFA20.exe"+493456A: E8 61 07 55 FF           -  call FIFA20.exe+3E84CD0
+"FIFA20.exe"+493456F: B9 07 00 00 00           -  mov ecx,00000007
+"FIFA20.exe"+4934574: 2B C8                    -  sub ecx,eax
+"FIFA20.exe"+4934576: 89 4F 3C                 -  mov [rdi+3C],ecx
+"FIFA20.exe"+4934579: 48 8D 8F 88 00 00 00     -  lea rcx,[rdi+00000088]
+"FIFA20.exe"+4934580: 48 8B 5C 24 48           -  mov rbx,[rsp+48]
+"FIFA20.exe"+4934585: 48 8B 74 24 50           -  mov rsi,[rsp+50]
+"FIFA20.exe"+493458A: 48 83 C4 30              -  add rsp,30
+"FIFA20.exe"+493458E: 5F                       -  pop rdi
+"FIFA20.exe"+493458F: E9 8C 7B 06 00           -  jmp FIFA20.exe+499C120
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+4934594: 83 6F 3C 01              -  sub dword ptr [rdi+3C],01
+"FIFA20.exe"+4934598: 0F 89 2D 03 00 00        -  jns FIFA20.exe+49348CB
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+493459E: B9 07 00 00 00           -  mov ecx,00000007
+"FIFA20.exe"+49345A3: 89 4F 3C                 -  mov [rdi+3C],ecx
+"FIFA20.exe"+49345A6: 48 8B 5C 24 48           -  mov rbx,[rsp+48]
+"FIFA20.exe"+49345AB: 48 8B 74 24 50           -  mov rsi,[rsp+50]
+"FIFA20.exe"+49345B0: 48 83 C4 30              -  add rsp,30
+"FIFA20.exe"+49345B4: 5F                       -  pop rdi
+"FIFA20.exe"+49345B5: C3                       -  ret
+"FIFA20.exe"+49345B6: 8B 47 14                 -  mov eax,[rdi+14]
+"FIFA20.exe"+49345B9: B9 07 00 00 00           -  mov ecx,00000007
+"FIFA20.exe"+49345BE: 89 4F 3C                 -  mov [rdi+3C],ecx
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2501</ID>
+              <Description>"Training sim - A"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  The grade of the training simulation will be always 'A' (highest possible)
+
+HOW TO USE:
+  1. Activate script
+  2. Simulate training
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_SimA = get_validated_address('AOB_SimA')
+ORG_SimA = readBytes(INJECT_SimA, 12, true)
+
+{$asm}
+alloc(newmem_SimA,$500,$INJECT_SimA)
+
+label(code)
+label(return)
+
+newmem_SimA:
+  mov eax,#0
+code:
+  mov ebx,eax
+  lea r8,[rsp+38]
+  jmp return
+
+$INJECT_SimA:
+  jmp newmem_SimA
+  nop
+  nop
+return:
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_SimA, ORG_SimA)
+{$asm}
+
+dealloc(newmem_SimA)
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+37B3656
+GM_EVENT_SIMULATE_ALL_TRAINING_SESSIONS
+"FIFA20.exe"+37B3628: 44 8B B4 24 B8 00 00 00        -  mov r14d,[rsp+000000B8]
+"FIFA20.exe"+37B3630: 41 83 FF 05                    -  cmp r15d,05
+"FIFA20.exe"+37B3634: 73 07                          -  jae FIFA20.exe+37B363D
+"FIFA20.exe"+37B3636: 44 89 BF 38 01 00 00           -  mov [rdi+00000138],r15d
+"FIFA20.exe"+37B363D: 44 89 6C 24 20                 -  mov [rsp+20],r13d
+"FIFA20.exe"+37B3642: 45 8B CE                       -  mov r9d,r14d
+"FIFA20.exe"+37B3645: 44 8B C5                       -  mov r8d,ebp
+"FIFA20.exe"+37B3648: 8B D3                          -  mov edx,ebx
+"FIFA20.exe"+37B364A: 48 8B 8F C0 00 00 00           -  mov rcx,[rdi+000000C0]
+"FIFA20.exe"+37B3651: E8 6A EC 07 00                 -  call FIFA20.exe+38322C0
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+37B3656: 8B D8                          -  mov ebx,eax
+"FIFA20.exe"+37B3658: 4C 8D 44 24 38                 -  lea r8,[rsp+38]
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+37B365D: 8B D0                          -  mov edx,eax
+"FIFA20.exe"+37B365F: 48 8B CF                       -  mov rcx,rdi
+"FIFA20.exe"+37B3662: E8 F9 1D 00 00                 -  call FIFA20.exe+37B5460
+"FIFA20.exe"+37B3667: 8B 8F 38 01 00 00              -  mov ecx,[rdi+00000138]
+"FIFA20.exe"+37B366D: 89 8C 24 B8 00 00 00           -  mov [rsp+000000B8],ecx
+"FIFA20.exe"+37B3674: 4C 8B 87 D8 00 00 00           -  mov r8,[rdi+000000D8]
+"FIFA20.exe"+37B367B: 48 8B 8F E0 00 00 00           -  mov rcx,[rdi+000000E0]
+"FIFA20.exe"+37B3682: 49 2B C8                       -  sub rcx,r8
+"FIFA20.exe"+37B3685: 48 B8 65 21 0B 59 C8 42 16 B2  -  mov rax,B21642C8590B2165
+"FIFA20.exe"+37B368F: 48 F7 E9                       -  imul rcx
+}
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>440</ID>
+          <Description>"Global Transfer Network"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>441</ID>
+              <Description>"---- Scripts that needs to be activated before you load CM save ----"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>0000FF</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2506</ID>
+                  <Description>"Reveal player data (scouting players not needed)"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  If you enter 'Global Transfer Network' in game you will have all info about the scouted player.
+  You don't need to assign scout to generate raports.
+  All players ovr and attributes will be revealed in game.
+
+HOW TO USE:
+  1. Activate script before you load your game save
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_gtn_reveal = get_validated_address('AOB_GtnRevealPlayerData')
+
+{$asm}
+alloc(newmem_gtn_reveal,$500,$INJECT_gtn_reveal)
+
+label(code)
+label(return)
+
+newmem_gtn_reveal:
+
+code:
+  test eax,eax
+  jmp $INJECT_gtn_reveal+10
+
+$INJECT_gtn_reveal:
+  jmp newmem_gtn_reveal
+  nop
+  nop
+  nop
+  nop
+  nop
+  nop
+return:
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+$INJECT_gtn_reveal:
+  test eax,eax
+  jne $INJECT_gtn_reveal+10
+  lea r8,[rsi+0000028C]
+
+dealloc(newmem_gtn_reveal)
+
+{
+[FamousPlayerIntRep]
+
+// ORIGINAL CODE - INJECTION POINT: "FIFA19.exe"+42EB80C
+
+"FIFA19.exe"+42EB7DD: 85 C0                 -  test eax,eax
+"FIFA19.exe"+42EB7DF: 75 0C                 -  jne FIFA19.exe+42EB7ED
+"FIFA19.exe"+42EB7E1: 4C 8D 86 88 02 00 00  -  lea r8,[rsi+00000288]
+"FIFA19.exe"+42EB7E8: E9 86 02 00 00        -  jmp FIFA19.exe+42EBA73
+"FIFA19.exe"+42EB7ED: 48 8D 0D 24 F1 0B 01  -  lea rcx,[FIFA19.exe+53AA918]
+"FIFA19.exe"+42EB7F4: E8 B7 36 04 FC        -  call FIFA19.exe+32EEB0
+"FIFA19.exe"+42EB7F9: 4C 8B C0              -  mov r8,rax
+"FIFA19.exe"+42EB7FC: 48 8D 15 15 F1 0B 01  -  lea rdx,[FIFA19.exe+53AA918]
+"FIFA19.exe"+42EB803: 48 8B CF              -  mov rcx,rdi
+"FIFA19.exe"+42EB806: FF 15 1C AD 89 00     -  call qword ptr [FIFA19.exe+4B86528]
+// ---------- INJECTING HERE ----------
+"FIFA19.exe"+42EB80C: 85 C0                 -  test eax,eax
+"FIFA19.exe"+42EB80E: 75 0C                 -  jne FIFA19.exe+42EB81C
+"FIFA19.exe"+42EB810: 4C 8D 86 8C 02 00 00  -  lea r8,[rsi+0000028C]
+// ---------- DONE INJECTING  ----------
+"FIFA19.exe"+42EB817: E9 57 02 00 00        -  jmp FIFA19.exe+42EBA73
+"FIFA19.exe"+42EB81C: 48 8D 0D CD F0 0B 01  -  lea rcx,[FIFA19.exe+53AA8F0]
+"FIFA19.exe"+42EB823: E8 88 36 04 FC        -  call FIFA19.exe+32EEB0
+"FIFA19.exe"+42EB828: 4C 8B C0              -  mov r8,rax
+"FIFA19.exe"+42EB82B: 48 8D 15 BE F0 0B 01  -  lea rdx,[FIFA19.exe+53AA8F0]
+"FIFA19.exe"+42EB832: 48 8B CF              -  mov rcx,rdi
+"FIFA19.exe"+42EB835: FF 15 ED AC 89 00     -  call qword ptr [FIFA19.exe+4B86528]
+"FIFA19.exe"+42EB83B: 85 C0                 -  test eax,eax
+"FIFA19.exe"+42EB83D: 75 25                 -  jne FIFA19.exe+42EB864
+"FIFA19.exe"+42EB83F: 44 8D 48 01           -  lea r9d,[rax+01]
+}
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2677</ID>
+          <Description>"Side Changer"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  With this script you can change the side you controll during match.
+
+
+HOW TO USE:
+  1. Activate script during match.
+  2. Change 'Controller ID' from 0 to '4' if you are playing on keyboard!
+  3. Activate on of the available options
+
+
+VIDEO TUTORIAL:
+- https://youtu.be/BA61PXXqfz4
+}
+
+[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_SideManipulator = get_validated_address('AOB_SideManipulator')
+ORG_SideManipulator = readBytes(INJECT_SideManipulator, 8, true)
+
+{$asm}
+alloc(newmem_SideManipulator,$500,$INJECT_SideManipulator)
+
+label(code_SideManipulator)
+label(ret_SideManipulator)
+label(SetUserController)
+label(SetCPUOneController)
+label(SetCPUTwoController)
+
+alloc(intUserController, 4, $INJECT_SideManipulator)
+registersymbol(intUserController)
+intUserController:
+db FF FF FF FF
+
+alloc(intCPUOneController, 4, $INJECT_SideManipulator)
+registersymbol(intCPUOneController)
+intCPUOneController:
+db 00
+
+alloc(intCPUTwoController, 4, $INJECT_SideManipulator)
+registersymbol(intCPUTwoController)
+intCPUTwoController:
+db 01
+
+alloc(intControllerID, 4, $INJECT_SideManipulator)
+registersymbol(intControllerID)
+intControllerID:
+db 00
+
+newmem_SideManipulator:
+
+code_SideManipulator:
+  mov rax,[rbx+rcx*8+00000118]
+  cmp rcx , [intControllerID]
+  je SetUserController
+  cmp rcx, 16
+  je SetCPUOneController
+  cmp rcx, 17
+  je SetCPUTwoController
+  jmp ret_SideManipulator
+
+SetUserController:
+  push rcx
+  mov rcx, [intUserController]
+  mov [rax+30], rcx
+  pop rcx
+  jmp ret_SideManipulator
+
+SetCPUOneController:
+  push rcx
+  mov rcx, [intCPUOneController]
+  mov [rax+30], rcx
+  pop rcx
+  jmp ret_SideManipulator
+
+SetCPUTwoController:
+  push rcx
+  mov rcx, [intCPUTwoController]
+  mov [rax+30], rcx
+  pop rcx
+  jmp ret_SideManipulator
+
+$INJECT_SideManipulator:
+  jmp newmem_SideManipulator
+  nop
+  nop
+  nop
+ret_SideManipulator:
+
+[DISABLE]
+//code_SideManipulator from here till the end of the code_SideManipulator will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_SideManipulator, ORG_SideManipulator)
+{$asm}
+
+dealloc(newmem_SideManipulator)
+unregistersymbol(intUserController)
+unregistersymbol(intCPUOneController)
+unregistersymbol(intCPUTwoController)
+unregistersymbol(intControllerID)
+dealloc(intUserController)
+dealloc(intCPUOneController)
+dealloc(intCPUTwoController)
+dealloc(intControllerID)
+
+
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA19.exe"+26F92A7
+
+"FIFA19.exe"+26F9277: 48 3B 71 60              -  cmp rsi,[rcx+60]
+"FIFA19.exe"+26F927B: 0F 84 13 02 00 00        -  je FIFA19.exe+26F9494
+"FIFA19.exe"+26F9281: 4C 89 7C 24 30           -  mov [rsp+30],r15
+"FIFA19.exe"+26F9286: 45 33 FF                 -  xor r15d,r15d
+"FIFA19.exe"+26F9289: 48 89 6C 24 50           -  mov [rsp+50],rbp
+"FIFA19.exe"+26F928E: 48 89 7C 24 58           -  mov [rsp+58],rdi
+"FIFA19.exe"+26F9293: 4C 89 74 24 60           -  mov [rsp+60],r14
+"FIFA19.exe"+26F9298: 0F 1F 84 00 00 00 00 00  -  nop [rax+rax+00000000]
+"FIFA19.exe"+26F92A0: 48 8B 06                 -  mov rax,[rsi]
+"FIFA19.exe"+26F92A3: 48 63 48 30              -  movsxd  rcx,dword ptr [rax+30]
+// ---------- INJECTING HERE ----------
+"FIFA19.exe"+26F92A7: 48 8B 84 CB 18 01 00 00  -  mov rax,[rbx+rcx*8+00000118]
+// ---------- DONE INJECTING  ----------
+"FIFA19.exe"+26F92AF: 83 78 30 FF              -  cmp dword ptr [rax+30],-01
+"FIFA19.exe"+26F92B3: 0F 84 D9 00 00 00        -  je FIFA19.exe+26F9392
+"FIFA19.exe"+26F92B9: 48 8B 8B 80 00 00 00     -  mov rcx,[rbx+00000080]
+"FIFA19.exe"+26F92C0: 48 3B 8B 88 00 00 00     -  cmp rcx,[rbx+00000088]
+"FIFA19.exe"+26F92C7: 73 16                    -  jae FIFA19.exe+26F92DF
+"FIFA19.exe"+26F92C9: 48 8D 41 08              -  lea rax,[rcx+08]
+"FIFA19.exe"+26F92CD: 48 89 83 80 00 00 00     -  mov [rbx+00000080],rax
+"FIFA19.exe"+26F92D4: 48 8B 06                 -  mov rax,[rsi]
+"FIFA19.exe"+26F92D7: 48 89 01                 -  mov [rcx],rax
+"FIFA19.exe"+26F92DA: E9 93 01 00 00           -  jmp FIFA19.exe+26F9472
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1875</ID>
+              <Description>"CPU vs CPU"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+intUserController:
+dd (int)-1
+intCPUOneController:
+dd (int)0
+intCPUTwoController:
+dd (int)1
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1876</ID>
+              <Description>"Control Home Team"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+intUserController:
+dd (int)0
+intCPUOneController:
+dd (int)-1
+intCPUTwoController:
+dd (int)1
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1877</ID>
+              <Description>"Control Away Team"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+intUserController:
+dd (int)1
+intCPUOneController:
+dd (int)0
+intCPUTwoController:
+dd (int)-1
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1878</ID>
+              <Description>"Controller ID"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>intControllerID</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2952</ID>
+          <Description>"Youth Academy"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1790</ID>
+              <Description>"Send scout to any country"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  Your scout will bring you players with any nationality you want (that are avilable in game)
+
+  FIFA 19 ids: https://docs.google.com/spreadsheets/d/1eYx5j7FZwlaPKymv3_G-ezZKtfWmQ6hwjXukAfqYoto/edit#gid=0
+  You can use the "tabs" at the bottom of the page to navigate what section you want.
+  For nationality ids check 'Nationality' tab
+
+HOW TO USE:
+  1. Activate script
+  2. Change 'Nationality ID'
+  3. Send your scout on a mission. Doesn't matter which country you pick now.
+     If you will use id '37' (Poland) then your scout will brings you players
+     from Poland even if you send him to Germany
+VIDEO TUTORIAL:
+- https://youtu.be/qVEnMdiH0Po?list=PLx3DZm1ifjQw5exchXxcZpj0oN7_eDy-Q&amp;t=2528
+}
+
+[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_allCountriesAvailable = get_validated_address('AOB_YouthAcademyAllCountriesAvailable')
+ORG_allCountriesAvailable = readBytes(INJECT_allCountriesAvailable, 9, true)
+
+{$asm}
+alloc(newmem_allCountriesAvailable,$500,$INJECT_allCountriesAvailable)
+
+label(code_allCountriesAvailable)
+label(ret_allCountriesAvailable)
+alloc(ptr_YA_NatID, 4, $INJECT_allCountriesAvailable)
+registersymbol(ptr_YA_NatID)
+ptr_YA_NatID:
+dd (int)0
+
+newmem_allCountriesAvailable:
+  mov [rsp+30],ecx
+  mov ecx, [ptr_YA_NatID]
+  cmp ecx, 0
+  je code_allCountriesAvailable
+  mov [rsp+30],ecx
+  jmp code_allCountriesAvailable
+
+code_allCountriesAvailable:
+  mov ecx,00000004
+  jmp ret_allCountriesAvailable
+
+$INJECT_allCountriesAvailable:
+  jmp newmem_allCountriesAvailable
+  nop
+  nop
+  nop
+  nop
+ret_allCountriesAvailable:
+
+[DISABLE]
+//code_allCountriesAvailable from here till the end of the code_allCountriesAvailable will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_allCountriesAvailable, ORG_allCountriesAvailable)
+{$asm}
+
+dealloc(newmem_allCountriesAvailable)
+unregistersymbol(ptr_YA_NatID)
+dealloc(ptr_YA_NatID)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA19.exe"+3FD152F
+
+"FIFA19.exe"+3FD1502: 48 8D 54 24 40           -  lea rdx,[rsp+40]
+"FIFA19.exe"+3FD1507: 45 33 C0                 -  xor r8d,r8d
+"FIFA19.exe"+3FD150A: 48 8D 4C 24 44           -  lea rcx,[rsp+44]
+"FIFA19.exe"+3FD150F: E8 0C 5A F8 FF           -  call FIFA19.exe+3F56F20
+"FIFA19.exe"+3FD1514: 48 8D 15 6D F8 EE 00     -  lea rdx,[FIFA19.exe+4EC0D88]
+"FIFA19.exe"+3FD151B: 48 8D 04 76              -  lea rax,[rsi+rsi*2]
+"FIFA19.exe"+3FD151F: 48 8B 04 C2              -  mov rax,[rdx+rax*8]
+"FIFA19.exe"+3FD1523: 49 8D 57 10              -  lea rdx,[r15+10]
+"FIFA19.exe"+3FD1527: 42 8B 0C 98              -  mov ecx,[rax+r11*4]
+"FIFA19.exe"+3FD152B: 48 8D 45 E0              -  lea rax,[rbp-20]
+// ---------- INJECTING HERE ----------
+"FIFA19.exe"+3FD152F: 89 4C 24 30              -  mov [rsp+30],ecx
+"FIFA19.exe"+3FD1533: B9 04 00 00 00           -  mov ecx,00000004
+// ---------- DONE INJECTING  ----------
+"FIFA19.exe"+3FD1538: 0F 1F 84 00 00 00 00 00  -  nop [rax+rax+00000000]
+"FIFA19.exe"+3FD1540: 48 8D 80 80 00 00 00     -  lea rax,[rax+00000080]
+"FIFA19.exe"+3FD1547: 0F 10 02                 -  movups xmm0,[rdx]
+"FIFA19.exe"+3FD154A: 0F 10 4A 10              -  movups xmm1,[rdx+10]
+"FIFA19.exe"+3FD154E: 48 8D 92 80 00 00 00     -  lea rdx,[rdx+00000080]
+"FIFA19.exe"+3FD1555: 0F 11 40 80              -  movups [rax-80],xmm0
+"FIFA19.exe"+3FD1559: 0F 10 42 A0              -  movups xmm0,[rdx-60]
+"FIFA19.exe"+3FD155D: 0F 11 48 90              -  movups [rax-70],xmm1
+"FIFA19.exe"+3FD1561: 0F 10 4A B0              -  movups xmm1,[rdx-50]
+"FIFA19.exe"+3FD1565: 0F 11 40 A0              -  movups [rax-60],xmm0
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1791</ID>
+                  <Description>"Nationality ID"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>ptr_YA_NatID</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2659</ID>
+              <Description>"Set up multiple scouting networks in the same country"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  Your scout will bring you players with any nationality you want (that are avilable in game)
+
+  FIFA 19 ids: https://docs.google.com/spreadsheets/d/1eYx5j7FZwlaPKymv3_G-ezZKtfWmQ6hwjXukAfqYoto/edit#gid=0
+  You can use the "tabs" at the bottom of the page to navigate what section you want.
+  For nationality ids check 'Nationality' tab
+
+HOW TO USE:
+  1. Activate script
+  2. Send your scout on a mission.
+
+VIDEO TUTORIAL:
+- https://youtu.be/qVEnMdiH0Po?list=PLx3DZm1ifjQw5exchXxcZpj0oN7_eDy-Q&amp;t=2528
+}
+
+[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_CountryIsBeingScouted = get_validated_address('AOB_CountryIsBeingScouted')
+ORG_CountryIsBeingScouted = readBytes(INJECT_CountryIsBeingScouted, 5, true)
+
+{$asm}
+alloc(newmem_CountryIsBeingScouted,$500,$INJECT_CountryIsBeingScouted)
+
+label(code_CountryIsBeingScouted)
+label(ret_CountryIsBeingScouted)
+
+newmem_CountryIsBeingScouted:
+
+code_CountryIsBeingScouted:
+  cmp bl,01                // "CMYS_Popup_CountryIsBeingScouted"
+  jmp $INJECT_CountryIsBeingScouted+11
+  jmp ret_CountryIsBeingScouted
+
+$INJECT_CountryIsBeingScouted:
+  jmp newmem_CountryIsBeingScouted
+ret_CountryIsBeingScouted:
+
+[DISABLE]
+//code_CountryIsBeingScouted from here till the end of the code_CountryIsBeingScouted will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_CountryIsBeingScouted, ORG_CountryIsBeingScouted)
+{$asm}
+
+dealloc(newmem_CountryIsBeingScouted)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA19.exe"+3FD1808
+
+"FIFA19.exe"+3FD17E0: 48 8D 4C 24 28           -  lea rcx,[rsp+28]
+"FIFA19.exe"+3FD17E5: E8 C6 C2 50 FC           -  call FIFA19.exe+4DDAB0
+"FIFA19.exe"+3FD17EA: 90                       -  nop
+"FIFA19.exe"+3FD17EB: 48 8B CE                 -  mov rcx,rsi
+"FIFA19.exe"+3FD17EE: E8 ED D8 FF FF           -  call FIFA19.exe+3FCF0E0
+"FIFA19.exe"+3FD17F3: 0F B6 D8                 -  movzx ebx,al
+"FIFA19.exe"+3FD17F6: 48 8D 15 FB 5F 38 01     -  lea rdx,[FIFA19.exe+53577F8]
+"FIFA19.exe"+3FD17FD: 48 8D 4C 24 60           -  lea rcx,[rsp+60]
+"FIFA19.exe"+3FD1802: E8 D9 E1 25 00           -  call FIFA19.exe+422F9E0
+"FIFA19.exe"+3FD1807: 90                       -  nop
+// ---------- INJECTING HERE ----------
+"FIFA19.exe"+3FD1808: 80 FB 01                 -  cmp bl,01
+"FIFA19.exe"+3FD180B: 75 0C                    -  jne FIFA19.exe+3FD1819
+// ---------- DONE INJECTING  ----------
+"FIFA19.exe"+3FD180D: 4C 8D 05 14 D4 38 01     -  lea r8,[FIFA19.exe+535EC28]
+"FIFA19.exe"+3FD1814: E9 4C 01 00 00           -  jmp FIFA19.exe+3FD1965
+"FIFA19.exe"+3FD1819: 8B BE 3C 01 00 00        -  mov edi,[rsi+0000013C]
+"FIFA19.exe"+3FD181F: 49 8B 07                 -  mov rax,[r15]
+"FIFA19.exe"+3FD1822: BA 02 00 00 00           -  mov edx,00000002
+"FIFA19.exe"+3FD1827: 49 8B CF                 -  mov rcx,r15
+"FIFA19.exe"+3FD182A: FF 50 10                 -  call qword ptr [rax+10]
+"FIFA19.exe"+3FD182D: 8B D8                    -  mov ebx,eax
+"FIFA19.exe"+3FD182F: 4D 8B 07                 -  mov r8,[r15]
+"FIFA19.exe"+3FD1832: BA 01 00 00 00           -  mov edx,00000001
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2953</ID>
+              <Description>"---- Scripts that needs to be activated before you load CM save ----"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>0000FF</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1266</ID>
+                  <Description>"Reveal ovr and pot"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  You will immediately see the ovr and pot of the player
+  without any further scouting or checking it in the cheat table.
+
+HOW TO USE:
+  1. Activate script
+  2. Load your game save
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_YA_REVEAL_POT_AND_OVR = get_validated_address('AOB_YouthAcademyRevealPotAndOvr')
+ORG_YA_REVEAL_POT_AND_OVR = readBytes(INJECT_YA_REVEAL_POT_AND_OVR, 20, true)
+
+{$asm}
+alloc(newmem_YA_REVEAL_POT_AND_OVR,$500,$INJECT_YA_REVEAL_POT_AND_OVR)
+
+label(code_YA_REVEAL_POT_AND_OVR)
+label(ret_YA_REVEAL_POT_AND_OVR)
+
+newmem_YA_REVEAL_POT_AND_OVR:
+  xor eax, eax
+
+code_YA_REVEAL_POT_AND_OVR:
+  mov r9d,edi
+  mov [rsi-18],eax
+  jmp ret_YA_REVEAL_POT_AND_OVR
+
+$INJECT_YA_REVEAL_POT_AND_OVR+5:
+  jmp newmem_YA_REVEAL_POT_AND_OVR
+  nop
+ret_YA_REVEAL_POT_AND_OVR:
+
+[DISABLE]
+//code_YA_REVEAL_POT_AND_OVR from here till the end of the code_YA_REVEAL_POT_AND_OVR will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_YA_REVEAL_POT_AND_OVR, ORG_YA_REVEAL_POT_AND_OVR)
+{$asm}
+
+dealloc(newmem_YA_REVEAL_POT_AND_OVR)
+
+{
+// POTENTIAL_SWING_VARIANCE
+// POTENTIAL_VARIANCE_PERC
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+FD8258A
+
+"FIFA20.exe"+FD82555: 66 66 2E 0F 1F 84 00 00 00 00 00  -  nop cs:[rax+rax+00000000]
+"FIFA20.exe"+FD82560: 41 89 F9                          -  mov r9d,edi
+"FIFA20.exe"+FD82563: 4C 8D 05 76 82 06 F6              -  lea r8,[FIFA20.exe+5DEA7E0]
+"FIFA20.exe"+FD8256A: BA 64 00 00 00                    -  mov edx,00000064
+"FIFA20.exe"+FD8256F: 48 8D 4D A0                       -  lea rcx,[rbp-60]
+"FIFA20.exe"+FD82573: E8 C8 3E 82 F0                    -  call FIFA20.exe+5A6440
+"FIFA20.exe"+FD82578: 41 B8 FF FF FF FF                 -  mov r8d,FFFFFFFF
+"FIFA20.exe"+FD8257E: 48 8D 55 A0                       -  lea rdx,[rbp-60]
+"FIFA20.exe"+FD82582: 48 89 D9                          -  mov rcx,rbx
+"FIFA20.exe"+FD82585: E8 16 3A 60 F2                    -  call FIFA20.exe+2385FA0
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+FD8258A: 41 89 F9                          -  mov r9d,edi
+"FIFA20.exe"+FD8258D: 89 46 E8                          -  mov [rsi-18],eax
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+FD82590: 4C 8D 05 79 82 06 F6              -  lea r8,[FIFA20.exe+5DEA810]
+"FIFA20.exe"+FD82597: BA 64 00 00 00                    -  mov edx,00000064
+"FIFA20.exe"+FD8259C: 48 8D 4D A0                       -  lea rcx,[rbp-60]
+"FIFA20.exe"+FD825A0: E8 9B 3E 82 F0                    -  call FIFA20.exe+5A6440
+"FIFA20.exe"+FD825A5: 41 B8 FF FF FF FF                 -  mov r8d,FFFFFFFF
+"FIFA20.exe"+FD825AB: 48 8D 55 A0                       -  lea rdx,[rbp-60]
+"FIFA20.exe"+FD825AF: 48 89 D9                          -  mov rcx,rbx
+"FIFA20.exe"+FD825B2: E8 E9 39 60 F2                    -  call FIFA20.exe+2385FA0
+"FIFA20.exe"+FD825B7: FF C7                             -  inc edi
+"FIFA20.exe"+FD825B9: 89 06                             -  mov [rsi],eax
+}
+</AssemblerScript>
                 </CheatEntry>
               </CheatEntries>
             </CheatEntry>

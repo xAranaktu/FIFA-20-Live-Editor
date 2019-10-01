@@ -60,6 +60,7 @@ function after_attach()
         form.AlphaBlendValue = CFG_DATA.gui.opacity or 255
     end
     MainFormRemoveLoadingPanel()
+    unhideMainCEwindow()
     do_log('Ready to use.', 'INFO')
     update_status_label("Program is ready to use.")
     showMessage("Live Editor is ready to use.")
@@ -654,7 +655,18 @@ end
 -- load AOBs
 function load_aobs()
     return {
+        AOB_IsEditPlayerUnlocked = '49 8B CB E8 ?? ?? ?? ?? 85 C0 75 ?? 48 8B 46 08 40 ?? ?? 48 8B 80 B8 0F 00 00',
+        AOB_AltTab = '48 83 EC 48 4C 8B 05 ?? ?? ?? ?? 4D 85 C0',
         AOB_DatabaseRead = '48 ?? ?? 4C 03 46 30 E8',
+        AOB_UnlimitedTraining = '41 8B 7E 38 45 8B 76 3C',
+        AOB_MoreEfficientTraining = '66 0F 6E 5E 1C 45',
+        AOB_TrainingEveryDay =  '83 6F 3C 01 0F 89 2D 03 00 00',
+        AOB_SimA = '8B D8 4C 8D 44 24 38 8B D0 48 8B CF',
+        AOB_SideManipulator = '48 8B 84 CB 18 01 00 00 83',
+        AOB_GtnRevealPlayerData = '85 C0 75 0C 4C 8D 86 8C 02 00 00',
+        AOB_YouthAcademyAllCountriesAvailable = '89 4C 24 30 B9 04 00 00 00',
+        AOB_CountryIsBeingScouted = '80 FB 01 75 0C 4C',
+        AOB_YouthAcademyRevealPotAndOvr = 'E8 ?? ?? ?? ?? 41 89 F9 89 46 E8 4C 8D 05',
     }
 end
 

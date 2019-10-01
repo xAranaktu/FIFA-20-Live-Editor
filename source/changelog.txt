@@ -1,2 +1,20 @@
 v20.1.0.0:
     - Added "Database Tables" -> "Players Table"
+
+v20.1.0.1:
+    - Added "Side Changer" script. (CPU vs CPU) 
+    - Added scripts to "Non-CM Related":
+        - Dont Pause Game on AltTab
+    - Added scripts to "Editing Player":
+        - Unlock "Edit Player" in career menu
+    - Added scripts to "Editing Player":
+        - Unlimited Training Sessions
+        - More efficient training
+        - Training Everyday
+        - Training sim - A
+    - Added scripts to "Global Transfer Network":
+        - Reveal player data (scouting players not needed)
+    - Added scripts to "Youth Academy":
+        - Send scout to any country
+        - Set up multiple scouting networks in the same country
+        - Reveal ovr and pot

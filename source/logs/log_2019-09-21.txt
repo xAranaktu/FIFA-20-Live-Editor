@@ -1,0 +1,35 @@
+[ INFO ] 09/21/19 11:59:25 - New session started
+[ INFO ] 09/21/19 11:59:25 - Cheat engine version: 6.810000
+[ INFO ] 09/21/19 11:59:25 - Live Editor version: 20.1.0.1
+[ INFO ] 09/21/19 11:59:25 - Loading CFG_DATA from C:/Users/Pawel/Documents/FIFA 20/Live Editor/data/config.ini
+[ INFO ] 09/21/19 11:59:25 - Loading OFFSETS_DATA from C:/Users/Pawel/Documents/FIFA 20/Live Editor/data/offsets.ini
+[ INFO ] 09/21/19 11:59:25 - Loading Theme from themes.ini
+[ INFO ] 09/21/19 11:59:28 - Attached to FIFA20.exe
+[ INFO ] 09/21/19 11:59:29 - Patrons ver -  20.1.0.0, free ver - 
+20.1.0.0
+[ INFO ] 09/21/19 11:59:29 - Saving CFG_DATA to C:/Users/Pawel/Documents/FIFA 20/Live Editor/data/config.ini
+[ INFO ] 09/21/19 11:59:29 - Activating Scripts (7)
+[ INFO ] 09/21/19 11:59:29 - Activating Scripts (7)
+[ INFO ] 09/21/19 11:59:29 - TODO initPtrs
+[ INFO ] 09/21/19 11:59:29 - TODO: Load Img
+[ INFO ] 09/21/19 11:59:29 - Ready to use.
+[ INFO ] 09/21/19 12:01:38 - New session started
+[ INFO ] 09/21/19 12:01:38 - Cheat engine version: 6.810000
+[ INFO ] 09/21/19 12:01:38 - Live Editor version: 20.1.0.1
+[ INFO ] 09/21/19 12:01:38 - Loading CFG_DATA from C:/Users/Pawel/Documents/FIFA 20/Live Editor/data/config.ini
+[ INFO ] 09/21/19 12:01:38 - Loading OFFSETS_DATA from C:/Users/Pawel/Documents/FIFA 20/Live Editor/data/offsets.ini
+[ INFO ] 09/21/19 12:01:38 - Loading Theme from themes.ini
+[ INFO ] 09/21/19 12:01:42 - Attached to FIFA20.exe
+[ INFO ] 09/21/19 12:01:42 - Patrons ver -  20.1.0.0, free ver - 
+20.1.0.0
+[ INFO ] 09/21/19 12:01:43 - Saving CFG_DATA to C:/Users/Pawel/Documents/FIFA 20/Live Editor/data/config.ini
+[ INFO ] 09/21/19 12:01:43 - Activating Scripts (7)
+[ INFO ] 09/21/19 12:01:43 - Activating Scripts (7)
+[ INFO ] 09/21/19 12:01:43 - TODO initPtrs
+[ INFO ] 09/21/19 12:01:43 - TODO: Load Img
+[ INFO ] 09/21/19 12:01:43 - Ready to use.
+[ INFO ] 09/21/19 12:11:28 - Veryfing AOB_DatabaseRead offset
+[ INFO ] 09/21/19 12:11:28 - addres_to_check 1410D9E21, aob: 48 ?? ?? 4C 03 46 30 E8
+[ WARNING ] 09/21/19 12:11:28 - Veryfing AOB_DatabaseRead offset failed
+[ WARNING ] 09/21/19 12:11:28 - Bytes in memory: E9 DA 61 F1 FE 90 90 E8 != AOB_DatabaseRead: 48 ?? ?? 4C 03 46 30 E8
+[ ERROR ] 09/21/19 12:11:29 - jmp already set. This happen when you close and reopen Live Editor without deactivating scripts. Now, restart FIFA and Cheat Engine to fix this problem
