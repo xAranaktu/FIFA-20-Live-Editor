@@ -670,6 +670,13 @@ function load_aobs()
         AOB_YouthAcademyRevealPotAndOvr = 'E8 ?? ?? ?? ?? 41 89 F9 89 46 E8 4C 8D 05',
         AOB_ManagerRating = '89 83 74 05 00 00 48 83',
         AOB_HireScout = '41 8B 01 89 45 48 41 8B',
+        AOB_EditReleaseClause = '8B 48 08 83 F9 FF 74 06 89 8B',
+        AOB_AllowTransferAppBtnClick = '41 FF D1 8B F0 83 F8',
+        AOB_AllowTransferAppThTxt = 'E8 ?? ?? ?? ?? 8B D8 83 F8 0E ?? ?? B8 65 65 00 00 0F A3 D8',
+        AOB_UnlimitedPlayerRelease = '39 47 54 41 0F 9C C4',
+        AOB_ReleasePlayerMsgBox = '4C 8B E0 85 FF 0F',
+        AOB_ReleasePlayerFee = '41 89 04 24 89 C3',
+        AOB_IngameStamina = '8B 43 68 41 89 82 F8 03 00 00',
 
         AOB_SimMaxCards = '41 89 86 5C 01 00 00 E8',
         AOB_SimMaxInjuries = '41 89 86 24 01 00 00 E8',

@@ -6,7 +6,7 @@
   <CheatEntries>
     <CheatEntry>
       <ID>0</ID>
-      <Description>"v20.1.0.2"</Description>
+      <Description>"v20.1.0.3"</Description>
       <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
     </CheatEntry>
@@ -8383,7 +8383,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2464</ID>
                       <Description>"Nationality"</Description>
-                      <LastState Value="45" RealAddress="AE4EF658"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8399,7 +8398,6 @@ bFreeScouts:
 3: '4 Stars'
 4: '5 Stars'
 </DropDownList>
-                      <LastState Value="4" RealAddress="AE4EF65C"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8415,7 +8413,6 @@ bFreeScouts:
 3: '4 Stars'
 4: '5 Stars'
 </DropDownList>
-                      <LastState Value="4" RealAddress="AE4EF660"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8425,7 +8422,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2468</ID>
                       <Description>"Cost"</Description>
-                      <LastState Value="0" RealAddress="AE4EF668"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8435,7 +8431,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2469</ID>
                       <Description>"First Name"</Description>
-                      <LastState RealAddress="AE4EF678"/>
                       <VariableType>String</VariableType>
                       <Length>40</Length>
                       <Unicode>0</Unicode>
@@ -8449,7 +8444,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2470</ID>
                       <Description>"Last Name"</Description>
-                      <LastState RealAddress="AE4EF6A5"/>
                       <VariableType>String</VariableType>
                       <Length>40</Length>
                       <Unicode>0</Unicode>
@@ -8472,7 +8466,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2472</ID>
                       <Description>"Nationality"</Description>
-                      <LastState Value="45" RealAddress="AE4EF6DC"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8488,7 +8481,6 @@ bFreeScouts:
 3: '4 Stars'
 4: '5 Stars'
 </DropDownList>
-                      <LastState Value="4" RealAddress="AE4EF6E0"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8504,7 +8496,6 @@ bFreeScouts:
 3: '4 Stars'
 4: '5 Stars'
 </DropDownList>
-                      <LastState Value="4" RealAddress="AE4EF6E4"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8514,7 +8505,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2475</ID>
                       <Description>"Cost"</Description>
-                      <LastState Value="0" RealAddress="AE4EF6EC"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8524,7 +8514,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2476</ID>
                       <Description>"First Name"</Description>
-                      <LastState RealAddress="AE4EF6FC"/>
                       <VariableType>String</VariableType>
                       <Length>40</Length>
                       <Unicode>0</Unicode>
@@ -8538,7 +8527,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2477</ID>
                       <Description>"Last Name"</Description>
-                      <LastState RealAddress="AE4EF729"/>
                       <VariableType>String</VariableType>
                       <Length>40</Length>
                       <Unicode>0</Unicode>
@@ -8561,7 +8549,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2479</ID>
                       <Description>"Nationality"</Description>
-                      <LastState Value="48" RealAddress="AE4EF760"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8577,7 +8564,6 @@ bFreeScouts:
 3: '4 Stars'
 4: '5 Stars'
 </DropDownList>
-                      <LastState Value="4" RealAddress="AE4EF764"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8593,7 +8579,6 @@ bFreeScouts:
 3: '4 Stars'
 4: '5 Stars'
 </DropDownList>
-                      <LastState Value="4" RealAddress="AE4EF768"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8603,7 +8588,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2482</ID>
                       <Description>"Cost"</Description>
-                      <LastState Value="0" RealAddress="AE4EF770"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8613,7 +8597,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2483</ID>
                       <Description>"First Name"</Description>
-                      <LastState RealAddress="AE4EF780"/>
                       <VariableType>String</VariableType>
                       <Length>40</Length>
                       <Unicode>0</Unicode>
@@ -8627,7 +8610,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2484</ID>
                       <Description>"Last Name"</Description>
-                      <LastState RealAddress="AE4EF7AD"/>
                       <VariableType>String</VariableType>
                       <Length>40</Length>
                       <Unicode>0</Unicode>
@@ -8650,7 +8632,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2486</ID>
                       <Description>"Nationality"</Description>
-                      <LastState Value="10" RealAddress="AE4EF7E4"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8666,7 +8647,6 @@ bFreeScouts:
 3: '4 Stars'
 4: '5 Stars'
 </DropDownList>
-                      <LastState Value="4" RealAddress="AE4EF7E8"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8682,7 +8662,6 @@ bFreeScouts:
 3: '4 Stars'
 4: '5 Stars'
 </DropDownList>
-                      <LastState Value="4" RealAddress="AE4EF7EC"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8692,7 +8671,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2489</ID>
                       <Description>"Cost"</Description>
-                      <LastState Value="0" RealAddress="AE4EF7F4"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8702,7 +8680,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2490</ID>
                       <Description>"First Name"</Description>
-                      <LastState RealAddress="AE4EF804"/>
                       <VariableType>String</VariableType>
                       <Length>40</Length>
                       <Unicode>0</Unicode>
@@ -8716,7 +8693,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2491</ID>
                       <Description>"Last Name"</Description>
-                      <LastState RealAddress="AE4EF831"/>
                       <VariableType>String</VariableType>
                       <Length>40</Length>
                       <Unicode>0</Unicode>
@@ -8739,7 +8715,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2493</ID>
                       <Description>"Nationality"</Description>
-                      <LastState Value="22" RealAddress="AE4EF868"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8755,7 +8730,6 @@ bFreeScouts:
 3: '4 Stars'
 4: '5 Stars'
 </DropDownList>
-                      <LastState Value="4" RealAddress="AE4EF86C"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8771,7 +8745,6 @@ bFreeScouts:
 3: '4 Stars'
 4: '5 Stars'
 </DropDownList>
-                      <LastState Value="4" RealAddress="AE4EF870"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8781,7 +8754,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2496</ID>
                       <Description>"Cost"</Description>
-                      <LastState Value="0" RealAddress="AE4EF878"/>
                       <VariableType>4 Bytes</VariableType>
                       <Address>scoutPtr</Address>
                       <Offsets>
@@ -8791,7 +8763,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2497</ID>
                       <Description>"First Name"</Description>
-                      <LastState RealAddress="AE4EF888"/>
                       <VariableType>String</VariableType>
                       <Length>40</Length>
                       <Unicode>0</Unicode>
@@ -8805,7 +8776,6 @@ bFreeScouts:
                     <CheatEntry>
                       <ID>2498</ID>
                       <Description>"Last Name"</Description>
-                      <LastState RealAddress="AE4EF8B5"/>
                       <VariableType>String</VariableType>
                       <Length>40</Length>
                       <Unicode>0</Unicode>
@@ -9793,6 +9763,1040 @@ dealloc(newmem_FatigueBase)
 "FIFA20.exe"+FC36421: 48 8D 15 D8 7A 18 F6  -  lea rdx,[FIFA20.exe+5DBDF00]
 "FIFA20.exe"+FC36428: 41 B8 FF FF FF FF     -  mov r8d,FFFFFFFF
 }
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1971</ID>
+          <Description>"Transfer HUB"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>2682</ID>
+              <Description>"Change Release Clause value to 1$"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 1/5 (Very small chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  This script will change release clause of all players that got an release clause and are on your shortlist in transfer hub.
+  If player doesn't have any release clause then nothing will happen.
+
+HOW TO USE:
+  1. Add player(s) with release clause to your shortlist in game
+  2. Activate script
+  3. In game go to Transfer Hub and enter shortlist
+  4. Done, all players that got previous release clause got new release clause set at $1.
+
+VIDEO TUTORIAL:
+- https://www.youtube.com/watch?v=qVEnMdiH0Po&amp;list=PLx3DZm1ifjQw5exchXxcZpj0oN7_eDy-Q&amp;index=4&amp;t=2047s
+}
+
+[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_EditReleaseClause = get_validated_address('AOB_EditReleaseClause')
+ORG_EditReleaseClause = readBytes(INJECT_EditReleaseClause, 6, true)
+
+{$asm}
+alloc(newmem_EditReleaseClause,$500,$INJECT_EditReleaseClause)
+
+label(code_EditReleaseClause)
+label(ret_EditReleaseClause)
+
+newmem_EditReleaseClause:
+  mov [rax+08], #1
+
+code_EditReleaseClause:
+  mov ecx,[rax+08]
+  cmp ecx,-01
+  jmp ret_EditReleaseClause
+
+$INJECT_EditReleaseClause:
+  jmp newmem_EditReleaseClause
+  nop
+ret_EditReleaseClause:
+
+[DISABLE]
+{$lua}
+writeBytes(INJECT_EditReleaseClause, ORG_EditReleaseClause)
+{$asm}
+
+dealloc(newmem_EditReleaseClause)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA19.exe"+3EE434A
+
+"FIFA19.exe"+3EE432F: B9 01 00 00 00           -  mov ecx,00000001
+"FIFA19.exe"+3EE4334: EB 02                    -  jmp FIFA19.exe+3EE4338
+"FIFA19.exe"+3EE4336: 33 C9                    -  xor ecx,ecx
+"FIFA19.exe"+3EE4338: 84 C9                    -  test cl,cl
+"FIFA19.exe"+3EE433A: 75 09                    -  jne FIFA19.exe+3EE4345
+"FIFA19.exe"+3EE433C: 48 83 C0 0C              -  add rax,0C
+"FIFA19.exe"+3EE4340: 48 3B C2                 -  cmp rax,rdx
+"FIFA19.exe"+3EE4343: 75 DF                    -  jne FIFA19.exe+3EE4324
+"FIFA19.exe"+3EE4345: 48 3B C2                 -  cmp rax,rdx
+"FIFA19.exe"+3EE4348: 74 0E                    -  je FIFA19.exe+3EE4358
+// ---------- INJECTING HERE ----------
+"FIFA19.exe"+3EE434A: 8B 48 08                 -  mov ecx,[rax+08]
+"FIFA19.exe"+3EE434D: 83 F9 FF                 -  cmp ecx,-01
+// ---------- DONE INJECTING  ----------
+"FIFA19.exe"+3EE4350: 74 06                    -  je FIFA19.exe+3EE4358
+"FIFA19.exe"+3EE4352: 89 8B A8 00 00 00        -  mov [rbx+000000A8],ecx
+"FIFA19.exe"+3EE4358: 48 8B 5C 24 50           -  mov rbx,[rsp+50]
+"FIFA19.exe"+3EE435D: 48 83 C4 40              -  add rsp,40
+"FIFA19.exe"+3EE4361: 5F                       -  pop rdi
+"FIFA19.exe"+3EE4362: C3                       -  ret
+"FIFA19.exe"+3EE4363: CC                       -  int 3
+"FIFA19.exe"+3EE4364: CC                       -  int 3
+"FIFA19.exe"+3EE4365: CC                       -  int 3
+"FIFA19.exe"+3EE4366: CC                       -  int 3
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2060</ID>
+              <Description>"Allow Transfer approach"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 3/5 (Safe to use if you will not try to buy players that are on loan)
+
+DESCRIPTION:
+  This script will allow you to buy players that are 'unwilling to relocate' etc.
+  DON'T try to buy players that are on loan!
+
+HOW TO USE:
+  1. Activate script
+  2. 'Aproach to buy' the player
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_allowtransferapp_thtxt = get_validated_address('AOB_AllowTransferAppThTxt')
+ORG_allowtransferapp_thtxt = readBytes(INJECT_allowtransferapp_thtxt, 12, true)
+
+{$asm}
+alloc(newmem_allowtransferapp_thtxt,$500,$INJECT_allowtransferapp_thtxt)
+
+label(code_allowtransferapp_thtxt)
+label(ret_allowtransferapp_thtxt)
+
+newmem_allowtransferapp_thtxt:
+  mov eax, D
+code_allowtransferapp_thtxt:
+  mov ebx,eax
+  cmp eax,0E
+  jmp ret_allowtransferapp_thtxt
+
+$INJECT_allowtransferapp_thtxt+5:
+  jmp newmem_allowtransferapp_thtxt
+ret_allowtransferapp_thtxt:
+
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_allowtransferapp_btnclick = get_validated_address('AOB_AllowTransferAppBtnClick')
+ORG_allowtransferapp_btnclick = readBytes(INJECT_allowtransferapp_btnclick, 12, true)
+
+{$asm}
+alloc(newmem_allowtransferapp_btnclick,$500,$INJECT_allowtransferapp_btnclick)
+
+label(code_allowtransferapp_btnclick)
+label(ret_allowtransferapp_btnclick)
+
+newmem_allowtransferapp_btnclick:
+  call r9
+  mov eax, D
+  mov esi,eax
+
+code_allowtransferapp_btnclick:
+  jmp ret_allowtransferapp_btnclick
+
+$INJECT_allowtransferapp_btnclick:
+  jmp newmem_allowtransferapp_btnclick
+ret_allowtransferapp_btnclick:
+
+[DISABLE]
+//code_allowtransferapp_thtxt from here till the end of the code_allowtransferapp_thtxt will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_allowtransferapp_thtxt, ORG_allowtransferapp_thtxt)
+{$asm}
+
+dealloc(newmem_allowtransferapp_thtxt)
+
+{$lua}
+writeBytes(INJECT_allowtransferapp_btnclick, ORG_allowtransferapp_btnclick)
+{$asm}
+
+dealloc(newmem_allowtransferapp_btnclick)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+3C8FDF4
+
+"FIFA20.exe"+3C8FDCC: 45 32 F6              -  xor r14l,r14l
+"FIFA20.exe"+3C8FDCF: 48 8B 4D 67           -  mov rcx,[rbp+67]
+"FIFA20.exe"+3C8FDD3: 48 8B 01              -  mov rax,[rcx]
+"FIFA20.exe"+3C8FDD6: FF 90 20 01 00 00     -  call qword ptr [rax+00000120]
+"FIFA20.exe"+3C8FDDC: 48 89 45 7F           -  mov [rbp+7F],rax
+"FIFA20.exe"+3C8FDE0: 48 8B 4F 20           -  mov rcx,[rdi+20]
+"FIFA20.exe"+3C8FDE4: 48 8B 11              -  mov rdx,[rcx]
+"FIFA20.exe"+3C8FDE7: 4C 8B 8A E8 00 00 00  -  mov r9,[rdx+000000E8]
+"FIFA20.exe"+3C8FDEE: 44 8B C6              -  mov r8d,esi
+"FIFA20.exe"+3C8FDF1: 41 8B D5              -  mov edx,r13d
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+3C8FDF4: 41 FF D1              -  call r9
+"FIFA20.exe"+3C8FDF7: 8B F0                 -  mov esi,eax
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+3C8FDF9: 83 F8 0E              -  cmp eax,0E
+"FIFA20.exe"+3C8FDFC: 77 10                 -  ja FIFA20.exe+3C8FE0E
+"FIFA20.exe"+3C8FDFE: B8 65 65 00 00        -  mov eax,00006565
+"FIFA20.exe"+3C8FE03: 0F A3 F0              -  bt eax,esi
+"FIFA20.exe"+3C8FE06: 73 06                 -  jae FIFA20.exe+3C8FE0E
+"FIFA20.exe"+3C8FE08: 41 BF 01 00 00 00     -  mov r15d,00000001
+"FIFA20.exe"+3C8FE0E: 45 84 FF              -  test r15l,r15l
+"FIFA20.exe"+3C8FE11: 0F 84 BA 01 00 00     -  je FIFA20.exe+3C8FFD1
+"FIFA20.exe"+3C8FE17: 49 8B 04 24           -  mov rax,[r12]
+"FIFA20.exe"+3C8FE1B: 49 8B CC              -  mov rcx,r12
+}
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1626</ID>
+          <Description>"Free &amp; Unlimited Releasing Players"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  You can release as many players from your team as you want.
+  But of course you need to have at least 18 players.
+  Releasing players will also be free.
+
+HOW TO USE:
+  1. Activate script.
+  2. Release player.
+VIDEO TUTORIAL:
+- NONE
+}
+
+
+[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_UnlimitedPlayerRelease = get_validated_address('AOB_UnlimitedPlayerRelease')
+ORG_UnlimitedPlayerRelease = readBytes(INJECT_UnlimitedPlayerRelease, 12, true)
+
+{$asm}
+alloc(newmem_UnlimitedPlayerRelease,$500,$INJECT_UnlimitedPlayerRelease)
+
+label(code_UnlimitedPlayerRelease)
+label(ret_UnlimitedPlayerRelease)
+
+newmem_UnlimitedPlayerRelease:
+  mov [rbx+14], #999
+  mov [rdi+54], #0
+  mov eax, [rbx+14]
+code_UnlimitedPlayerRelease:
+  mov r12l, 1
+  jmp ret_UnlimitedPlayerRelease
+
+$INJECT_UnlimitedPlayerRelease:
+  jmp newmem_UnlimitedPlayerRelease
+  nop
+  nop
+ret_UnlimitedPlayerRelease:
+
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_ReleasePlayerMsgBox = get_validated_address('AOB_ReleasePlayerMsgBox')
+ORG_ReleasePlayerMsgBox = readBytes(INJECT_ReleasePlayerMsgBox, 12, true)
+
+{$asm}
+alloc(newmem_ReleasePlayerMsgBox,$500,$INJECT_ReleasePlayerMsgBox)
+
+label(code_ReleasePlayerMsgBox)
+label(ret_ReleasePlayerMsgBox)
+
+newmem_ReleasePlayerMsgBox:
+  xor r13, r13             // Just to let user know that release will cost 0 euro.
+code_ReleasePlayerMsgBox:
+  mov r12,rax
+  test edi,edi
+  jmp ret_ReleasePlayerMsgBox
+
+$INJECT_ReleasePlayerMsgBox:
+  jmp newmem_ReleasePlayerMsgBox
+ret_ReleasePlayerMsgBox:
+
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_ReleasePlayerFee = get_validated_address('AOB_ReleasePlayerFee')
+ORG_ReleasePlayerFee = readBytes(INJECT_ReleasePlayerFee, 12, true)
+
+{$asm}
+alloc(newmem_ReleasePlayerFee,$500,$INJECT_ReleasePlayerFee)
+
+label(code_ReleasePlayerFee)
+label(ret_ReleasePlayerFee)
+
+newmem_ReleasePlayerFee:
+  xor eax, eax          // Cost of player release
+code_ReleasePlayerFee:
+  mov [r12],eax
+  mov ebx,eax
+  jmp ret_ReleasePlayerFee
+
+$INJECT_ReleasePlayerFee:
+  jmp newmem_ReleasePlayerFee
+  nop
+ret_ReleasePlayerFee:
+
+[DISABLE]
+//code_UnlimitedPlayerRelease from here till the end of the code_UnlimitedPlayerRelease will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_UnlimitedPlayerRelease, ORG_UnlimitedPlayerRelease)
+{$asm}
+
+dealloc(newmem_UnlimitedPlayerRelease)
+
+{$lua}
+writeBytes(INJECT_ReleasePlayerMsgBox, ORG_ReleasePlayerMsgBox)
+{$asm}
+
+dealloc(newmem_ReleasePlayerMsgBox)
+
+{$lua}
+writeBytes(INJECT_ReleasePlayerFee, ORG_ReleasePlayerFee)
+{$asm}
+
+dealloc(newmem_ReleasePlayerFee)
+
+{
+- START -&gt; cm_ap_release_releasetoomanyplayers
+"FIFA20.exe"+49639B2: 48 8B 10                 -  mov rdx,[rax]
+"FIFA20.exe"+49639B5: 44 8B 6A 30              -  mov r13d,[rdx+30]
+"FIFA20.exe"+49639B9: 8B D5                    -  mov edx,ebp
+"FIFA20.exe"+49639BB: E8 50 35 D5 FF           -  call FIFA20.exe+46B6F10
+"FIFA20.exe"+49639C0: 44 8B F0                 -  mov r14d,eax
+"FIFA20.exe"+49639C3: 8B D6                    -  mov edx,esi
+"FIFA20.exe"+49639C5: 48 8B CB                 -  mov rcx,rbx
+"FIFA20.exe"+49639C8: E8 73 D8 D5 FF           -  call FIFA20.exe+46C1240
+"FIFA20.exe"+49639CD: 89 84 24 C0 00 00 00     -  mov [rsp+000000C0],eax
+"FIFA20.exe"+49639D4: 8B 43 14                 -  mov eax,[rbx+14]
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+49639D7: 39 47 54                 -  cmp [rdi+54],eax
+"FIFA20.exe"+49639DA: 41 0F 9C C4              -  setl r12l
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+49639DE: 49 8B 1F                 -  mov rbx,[r15]
+"FIFA20.exe"+49639E1: 48 89 5C 24 48           -  mov [rsp+48],rbx
+"FIFA20.exe"+49639E6: C7 44 24 70 FF FF FF FF  -  mov [rsp+70],swresample-ttv-0.dll+3FFFF
+"FIFA20.exe"+49639EE: 45 33 FF                 -  xor r15d,r15d
+"FIFA20.exe"+49639F1: 44 89 BC 24 D8 00 00 00  -  mov [rsp+000000D8],r15d
+"FIFA20.exe"+49639F9: 48 8D 84 24 D8 00 00 00  -  lea rax,[rsp+000000D8]
+"FIFA20.exe"+4963A01: 48 89 44 24 28           -  mov [rsp+28],rax
+"FIFA20.exe"+4963A06: 48 8B 0D 8B 41 46 02     -  mov rcx,[FIFA20.exe+6DC7B98]
+"FIFA20.exe"+4963A0D: 48 89 4C 24 30           -  mov [rsp+30],rcx
+"FIFA20.exe"+4963A12: 48 8B 01                 -  mov rax,[rcx]
+}
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA19.exe"+38A67EB
+
+"FIFA19.exe"+38A67C8: 41 8B 56 18           -  mov edx,[r14+18]
+"FIFA19.exe"+38A67CC: 48 8B CB              -  mov rcx,rbx
+"FIFA19.exe"+38A67CF: 41 FF 50 30           -  call qword ptr [r8+30]
+"FIFA19.exe"+38A67D3: 44 8B E8              -  mov r13d,eax
+"FIFA19.exe"+38A67D6: 49 8B 17              -  mov rdx,[r15]
+"FIFA19.exe"+38A67D9: 49 8B CF              -  mov rcx,r15
+"FIFA19.exe"+38A67DC: FF 92 C0 01 00 00     -  call qword ptr [rdx+000001C0]
+"FIFA19.exe"+38A67E2: 48 8B 10              -  mov rdx,[rax]
+"FIFA19.exe"+38A67E5: 48 8B C8              -  mov rcx,rax
+"FIFA19.exe"+38A67E8: FF 52 50              -  call qword ptr [rdx+50]
+// ---------- INJECTING HERE ----------
+"FIFA19.exe"+38A67EB: 4C 8B E0              -  mov r12,rax
+"FIFA19.exe"+38A67EE: 85 FF                 -  test edi,edi
+// ---------- DONE INJECTING  ----------
+"FIFA19.exe"+38A67F0: 0F 84 16 08 00 00     -  je FIFA19.exe+38A700C
+"FIFA19.exe"+38A67F6: 83 EF 01              -  sub edi,01
+"FIFA19.exe"+38A67F9: 0F 84 0E 06 00 00     -  je FIFA19.exe+38A6E0D
+"FIFA19.exe"+38A67FF: 83 EF 01              -  sub edi,01
+"FIFA19.exe"+38A6802: 0F 84 06 04 00 00     -  je FIFA19.exe+38A6C0E
+"FIFA19.exe"+38A6808: 83 EF 01              -  sub edi,01
+"FIFA19.exe"+38A680B: 0F 84 FE 01 00 00     -  je FIFA19.exe+38A6A0F
+"FIFA19.exe"+38A6811: 83 FF 01              -  cmp edi,01
+"FIFA19.exe"+38A6814: 0F 85 A9 0B 00 00     -  jne FIFA19.exe+38A73C3
+"FIFA19.exe"+38A681A: 48 8D 0D 9F 7F 43 02  -  lea rcx,[FIFA19.exe+5CDE7C0]
+}
+
+{
+"FIFA20.exe"+FD419F7: 89 44 24 30              -  mov [rsp+30],eax
+"FIFA20.exe"+FD419FB: E8 80 37 14 F4           -  call FIFA20.exe+3E85180
+"FIFA20.exe"+FD41A00: 4C 8D 44 24 40           -  lea r8,[rsp+40]
+"FIFA20.exe"+FD41A05: C7 44 24 48 00 00 00 00  -  mov [rsp+48],00000000
+"FIFA20.exe"+FD41A0D: 44 89 FA                 -  mov edx,r15d
+"FIFA20.exe"+FD41A10: 48 89 D9                 -  mov rcx,rbx
+"FIFA20.exe"+FD41A13: E8 78 A0 99 F4           -  call FIFA20.exe+46DBA90
+"FIFA20.exe"+FD41A18: 44 89 FA                 -  mov edx,r15d
+"FIFA20.exe"+FD41A1B: 48 89 E9                 -  mov rcx,rbp
+"FIFA20.exe"+FD41A1E: E8 1D F8 97 F4           -  call FIFA20.exe+46C1240    &lt; --
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+FD41A23: 41 89 04 24              -  mov [r12],eax
+"FIFA20.exe"+FD41A27: 89 C3                    -  mov ebx,eax
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+FD41A29: 48 8B 45 08              -  mov rax,[rbp+08]
+"FIFA20.exe"+FD41A2D: 48 8B 80 78 07 00 00     -  mov rax,[rax+00000778]
+"FIFA20.exe"+FD41A34: 4C 8B 20                 -  mov r12,[rax]
+"FIFA20.exe"+FD41A37: 8B 45 14                 -  mov eax,[rbp+14]
+"FIFA20.exe"+FD41A3A: 48 8B AC 24 C8 00 00 00  -  mov rbp,[rsp+000000C8]
+"FIFA20.exe"+FD41A42: 41 39 44 24 54           -  cmp [r12+54],eax
+"FIFA20.exe"+FD41A47: 0F 8F 93 00 00 00        -  jg FIFA20.exe+FD41AE0
+"FIFA20.exe"+FD41A4D: 45 8B 45 30              -  mov r8d,[r13+30]
+"FIFA20.exe"+FD41A51: 44 89 F2                 -  mov edx,r14d
+"FIFA20.exe"+FD41A54: 48 89 F1                 -  mov rcx,rsi
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>469</ID>
+          <Description>"Gameplay"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  Things you apply during match
+HOW TO USE:
+  1. Activate the script
+VIDEO TUTORIAL:
+- NONE
+}
+
+
+[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_ingame_stamina = get_validated_address('AOB_IngameStamina')
+ORG_ingame_stamina = readBytes(INJECT_ingame_stamina, 10, true)
+
+{$asm}
+alloc(cave_ingame_stamina,$500,$INJECT_ingame_stamina)
+
+alloc(bHomeTeam_Tired, 1, $INJECT_ingame_stamina)
+registersymbol(bHomeTeam_Tired)
+bHomeTeam_Tired:
+db 00
+
+alloc(bHomeTeam_NeverTired, 1, $INJECT_ingame_stamina)
+registersymbol(bHomeTeam_NeverTired)
+bHomeTeam_NeverTired:
+db 00
+
+alloc(bAwayTeam_Tired, 1, $INJECT_ingame_stamina)
+registersymbol(bAwayTeam_Tired)
+bAwayTeam_Tired:
+db 00
+
+alloc(bAwayTeam_NeverTired, 1, $INJECT_ingame_stamina)
+registersymbol(bAwayTeam_NeverTired)
+bAwayTeam_NeverTired:
+db 00
+
+alloc(bHomeTeam_Injured, 1, $INJECT_ingame_stamina)
+registersymbol(bHomeTeam_Injured)
+bHomeTeam_Injured:
+db 00
+
+alloc(bHomeTeam_NeverInjured, 1, $INJECT_ingame_stamina)
+registersymbol(bHomeTeam_NeverInjured)
+bHomeTeam_NeverInjured:
+db 00
+
+alloc(bAwayTeam_Injured, 1, $INJECT_ingame_stamina)
+registersymbol(bAwayTeam_Injured)
+bAwayTeam_Injured:
+db 00
+
+alloc(bAwayTeam_NeverInjured, 1, $INJECT_ingame_stamina)
+registersymbol(bAwayTeam_NeverInjured)
+bAwayTeam_NeverInjured:
+db 00
+
+alloc(bHomeTeam_FiveStars, 1, $INJECT_ingame_stamina)
+registersymbol(bHomeTeam_FiveStars)
+bHomeTeam_FiveStars:
+db 00
+
+alloc(bAwayTeam_FiveStars, 1, $INJECT_ingame_stamina)
+registersymbol(bAwayTeam_FiveStars)
+bAwayTeam_FiveStars:
+db 00
+
+label(code_ingame_stamina)
+label(HomeTeam_Stamina)
+label(HomeTeam_Injuries)
+label(AwayTeam_Stamina)
+label(AwayTeam_Injuries)
+label(HomeTeam_Tired)
+label(HomeTeam_NeverTired)
+label(AwayTeam_Tired)
+label(AwayTeam_NeverTired)
+
+// Injures
+label(HomeTeam_Injured)
+label(HomeTeam_NeverInjured)
+label(AwayTeam_Injured)
+label(AwayTeam_NeverInjured)
+
+// Skill moves
+label(HomeTeam_skillmoves)
+label(AwayTeam_skillmoves)
+
+label(ret_ingame_stamina)
+
+cave_ingame_stamina:
+  pushf
+  mov eax, [rbx+18]
+  cmp [eax+C], 0 // HomeTeam
+  je HomeTeam_Stamina
+  cmp [eax+C], 1 // AwayTeam
+  je AwayTeam_Stamina
+  jmp code_ingame_stamina
+
+HomeTeam_Stamina:
+  cmp byte ptr [bHomeTeam_Tired], 1
+  je HomeTeam_Tired
+  cmp byte ptr [bHomeTeam_NeverTired], 1
+  je HomeTeam_NeverTired
+  jmp HomeTeam_Injuries
+
+HomeTeam_Tired:
+  mov [rbx+68], (float)1
+  mov [rbx+64], (float)1
+  jmp HomeTeam_Injuries
+
+HomeTeam_NeverTired:
+  mov [rbx+68], (float)0
+  mov [rbx+64], (float)0
+  jmp HomeTeam_Injuries
+
+HomeTeam_Injuries:
+  cmp byte ptr [bHomeTeam_Injured], 1
+  je HomeTeam_Injured
+  cmp byte ptr [bHomeTeam_NeverInjured], 1
+  je HomeTeam_NeverInjured
+  jmp HomeTeam_skillmoves
+
+HomeTeam_Injured:
+  mov [rbx+80], #3
+  jmp HomeTeam_skillmoves
+
+HomeTeam_NeverInjured:
+  mov [rbx+80], #0
+  jmp HomeTeam_skillmoves
+
+HomeTeam_skillmoves:
+  cmp byte ptr [bHomeTeam_FiveStars], 01
+  jne code_ingame_stamina
+  mov [rax+1B0], #4 // Skill moves, 5 stars
+  jmp code_ingame_stamina
+
+AwayTeam_Stamina:
+  cmp byte ptr [bAwayTeam_Tired], 1
+  je AwayTeam_Tired
+  cmp byte ptr [bAwayTeam_NeverTired], 1
+  je AwayTeam_NeverTired
+  jmp AwayTeam_Injuries
+
+AwayTeam_Tired:
+  mov [rbx+68], (float)1
+  mov [rbx+64], (float)1
+  jmp AwayTeam_Injuries
+
+AwayTeam_NeverTired:
+  mov [rbx+68], (float)0
+  mov [rbx+64], (float)0
+  jmp AwayTeam_Injuries
+
+AwayTeam_Injuries:
+  cmp byte ptr [bAwayTeam_Injured], 1
+  je AwayTeam_Injured
+  cmp byte ptr [bAwayTeam_NeverInjured], 1
+  je AwayTeam_NeverInjured
+  jmp AwayTeam_skillmoves
+
+AwayTeam_Injured:
+  mov [rbx+80], #3
+  jmp AwayTeam_skillmoves
+
+AwayTeam_NeverInjured:
+  mov [rbx+80], #0
+  jmp AwayTeam_skillmoves
+
+AwayTeam_skillmoves:
+  cmp byte ptr [bAwayTeam_FiveStars], 01
+  jne code_ingame_stamina
+  mov [rax+1B0], #4 // Skill moves, 5 stars
+  jmp code_ingame_stamina
+
+code_ingame_stamina:
+  mov eax,[rbx+68]
+  mov [r10+000003F8],eax
+  popf
+  jmp ret_ingame_stamina
+
+$INJECT_ingame_stamina:
+  jmp cave_ingame_stamina
+  nop
+  nop
+  nop
+  nop
+  nop
+ret_ingame_stamina:
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+
+$INJECT_ingame_stamina:
+  db 8B 43 68 41 89 82 F8 03 00 00
+
+dealloc(cave_ingame_stamina)
+unregistersymbol(bHomeTeam_Tired)
+dealloc(bHomeTeam_Tired)
+unregistersymbol(bHomeTeam_NeverTired)
+dealloc(bHomeTeam_NeverTired)
+unregistersymbol(bAwayTeam_Tired)
+dealloc(bAwayTeam_Tired)
+unregistersymbol(bAwayTeam_NeverTired)
+dealloc(bAwayTeam_NeverTired)
+unregistersymbol(bHomeTeam_Injured)
+dealloc(bHomeTeam_Injured)
+unregistersymbol(bHomeTeam_NeverInjured)
+dealloc(bHomeTeam_NeverInjured)
+unregistersymbol(bAwayTeam_Injured)
+dealloc(bAwayTeam_Injured)
+unregistersymbol(bAwayTeam_NeverInjured)
+dealloc(bAwayTeam_NeverInjured)
+unregistersymbol(bHomeTeam_FiveStars)
+dealloc(bHomeTeam_FiveStars)
+unregistersymbol(bAwayTeam_FiveStars)
+dealloc(bAwayTeam_FiveStars)
+
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+25811EB
+// Stamina org code
+// https://www.patreon.com/posts/how-to-4-find-28043075
+
+"FIFA20.exe"+25811C0: 8B 83 9C 00 00 00              -  mov eax,[rbx+0000009C]
+"FIFA20.exe"+25811C6: 41 89 82 F0 03 00 00           -  mov [r10+000003F0],eax
+"FIFA20.exe"+25811CD: 8B 83 84 00 00 00              -  mov eax,[rbx+00000084]
+"FIFA20.exe"+25811D3: 85 C0                          -  test eax,eax
+"FIFA20.exe"+25811D5: 74 0B                          -  je FIFA20.exe+25811E2
+"FIFA20.exe"+25811D7: 3B 83 98 00 00 00              -  cmp eax,[rbx+00000098]
+"FIFA20.exe"+25811DD: 41 8B C1                       -  mov eax,r9d
+"FIFA20.exe"+25811E0: 74 02                          -  je FIFA20.exe+25811E4
+"FIFA20.exe"+25811E2: 8B C7                          -  mov eax,edi
+"FIFA20.exe"+25811E4: 41 88 82 F4 03 00 00           -  mov [r10+000003F4],al
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+25811EB: 8B 43 68                       -  mov eax,[rbx+68]
+"FIFA20.exe"+25811EE: 41 89 82 F8 03 00 00           -  mov [r10+000003F8],eax
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+25811F5: 4C 8B 5B 28                    -  mov r11,[rbx+28]
+"FIFA20.exe"+25811F9: F3 0F 10 4B 64                 -  movss xmm1,[rbx+64]
+"FIFA20.exe"+25811FE: 4D 85 DB                       -  test r11,r11
+"FIFA20.exe"+2581201: 74 23                          -  je FIFA20.exe+2581226
+"FIFA20.exe"+2581203: 48 8B 43 18                    -  mov rax,[rbx+18]
+"FIFA20.exe"+2581207: 0F 28 C1                       -  movaps xmm0,xmm1
+"FIFA20.exe"+258120A: 0F 57 C9                       -  xorps xmm1,xmm1
+"FIFA20.exe"+258120D: 48 63 10                       -  movsxd  rdx,dword ptr [rax]
+"FIFA20.exe"+2581210: F3 41 0F 58 84 93 18 17 00 00  -  addss xmm0,dword ptr [r11+rdx*4+00001718]
+"FIFA20.exe"+258121A: F3 0F 5F C8                    -  maxss xmm1,xmm0
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>595</ID>
+              <Description>"Home Team"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>609</ID>
+                  <Description>"Home - Injured players"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  All Home Team players will be injured.
+
+HOW TO USE:
+  1. Activate the script while you are playing the match
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+
+[ENABLE]
+bHomeTeam_Injured:
+  db 1
+bHomeTeam_NeverInjured:
+  db 0
+[DISABLE]
+bHomeTeam_Injured:
+  db 0
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>603</ID>
+                  <Description>"Home - 5 stars skill moves"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  All Home Team players will be able to perform 5* skill moves.
+
+HOW TO USE:
+  1. Activate the script while you are playing the match
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+bHomeTeam_FiveStars:
+  db 1
+[DISABLE]
+bHomeTeam_FiveStars:
+  db 0
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>607</ID>
+                  <Description>"Home - NeverTired players"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  All Home Team players will have always full stamina bar.
+
+HOW TO USE:
+  1. Activate the script while you are playing the match
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+bHomeTeam_NeverTired:
+  db 1
+bHomeTeam_Tired:
+  db 0
+[DISABLE]
+bHomeTeam_NeverTired:
+  db 0
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>606</ID>
+                  <Description>"Home - Tired players"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  All Home Team players will have always empty stamina bar.
+
+HOW TO USE:
+  1. Activate the script while you are playing the match
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+bHomeTeam_Tired:
+  db 1
+bHomeTeam_NeverTired:
+  db 0
+[DISABLE]
+bHomeTeam_Tired:
+  db 0
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>596</ID>
+              <Description>"Away Team"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>612</ID>
+                  <Description>"Away - Injured players"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  All Away Team players will be injured.
+
+HOW TO USE:
+  1. Activate the script while you are playing the match
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+bAwayTeam_Injured:
+  db 1
+bAwayTeam_NeverInjured:
+  db 0
+[DISABLE]
+bAwayTeam_Injured:
+  db 0
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2678</ID>
+                  <Description>"Away - 5 stars skill moves"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  All Away Team players will be able to perform 5* skill moves.
+
+HOW TO USE:
+  1. Activate the script while you are playing the match
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+bAwayTeam_FiveStars:
+  db 1
+[DISABLE]
+bAwayTeam_FiveStars:
+  db 0
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>611</ID>
+                  <Description>"Away - NeverTired players"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  All Away Team players will have always full stamina bar.
+
+HOW TO USE:
+  1. Activate the script while you are playing the match
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+bAwayTeam_NeverTired:
+  db 1
+bAwayTeam_Tired:
+  db 0
+[DISABLE]
+bAwayTeam_NeverTired:
+  db 0
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>610</ID>
+                  <Description>"Away - Tired players"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  All Away Team players will have always empty stamina bar.
+
+HOW TO USE:
+  1. Activate the script while you are playing the match
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+bAwayTeam_Tired:
+  db 1
+bAwayTeam_NeverTired:
+  db 0
+[DISABLE]
+bAwayTeam_Tired:
+  db 0
 </AssemblerScript>
                 </CheatEntry>
               </CheatEntries>
