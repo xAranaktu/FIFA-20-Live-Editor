@@ -677,6 +677,9 @@ function load_aobs()
         AOB_ReleasePlayerMsgBox = '4C 8B E0 85 FF 0F',
         AOB_ReleasePlayerFee = '41 89 04 24 89 C3',
         AOB_IngameStamina = '8B 43 68 41 89 82 F8 03 00 00',
+        AOB_MatchTimer = '8B 41 50 89 47 10',
+        AOB_MatchScore = '0F 10 48 10 0F 11 49 10 41 8B 55',
+        AOB_UnlimitedSubstitutions = '8B 84 01 74 8F 00 00',
 
         AOB_SimMaxCards = '41 89 86 5C 01 00 00 E8',
         AOB_SimMaxInjuries = '41 89 86 24 01 00 00 E8',

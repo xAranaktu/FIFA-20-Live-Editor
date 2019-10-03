@@ -15,7 +15,7 @@ require 'lua/helpers';
 
 -- GUI Events
 require 'lua/GUI/forms/mainform/events';
-
+require 'lua/GUI/forms/settingsform/events';
 
 do_log('New session started', 'INFO')
 
@@ -45,7 +45,7 @@ DEBUG_MODE = false
 MainWindowForm.LoadingPanel.Visible = true
 MainWindowForm.LoadingPanel.Caption = _translate('Loading data...')
 update_status_label("Waiting for FIFA 20...")
--- ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['GUI_SCRIPT']).Active = true
+ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['GUI_SCRIPT']).Active = true
 
 -- Check version of Live Editor and Cheat Engine
 check_ce_version()

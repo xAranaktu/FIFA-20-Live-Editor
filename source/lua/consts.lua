@@ -17,5 +17,5 @@ CT_MEMORY_RECORDS = {
 
 -- All available forms
 FORMS = {
-    MainWindowForm
+    MainWindowForm, SettingsForm
 }

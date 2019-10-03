@@ -113,9 +113,8 @@ end
 
 -- Show Settings Form
 function MainSettingsClick(sender)
-    showMessage("Not implemented yet, sorry!")
-    -- SETTINGS_INDEX = 0
-    -- SettingsForm.show()
+    SETTINGS_INDEX = 0
+    SettingsForm.show()
 end
 
 -- Hide/Show CE

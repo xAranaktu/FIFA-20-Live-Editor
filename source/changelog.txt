@@ -46,3 +46,15 @@ v20.1.0.3:
         - 5 stars skill moves
         - NeverTired players
         - Tired players
+
+v20.1.0.4:
+    - Fixed "Gameplay" -> "5 stars skill moves"
+    - You can now access Live Editor settings through GUI and use "Auto Activator"
+    - Added to "FIFA Database Tables":
+        - TeamPlayerLinks Table
+        - Teams Table
+        - Manager Table
+    - Added to "Gameplay":
+        - Unlimited SUBS (USER)
+        - Match Timer
+        - Home & Away Score
