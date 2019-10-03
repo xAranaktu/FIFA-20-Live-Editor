@@ -160,3 +160,10 @@ v20.1.1.3:
         - Time Of Day
         - Half Length
         - Weather
+v20.1.1.4:
+    - Added to "Non-CM Related":
+        - Free Fly Camera
+    - Added to "Play As Player":
+        - Accomplishments
+    - Added to "Manager":
+        - seasoncount = 1
