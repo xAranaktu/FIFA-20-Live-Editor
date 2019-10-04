@@ -58,3 +58,10 @@ v20.1.0.4:
         - Unlimited SUBS (USER)
         - Match Timer
         - Home & Away Score
+        
+v20.1.0.5:
+    - Added to "Player Contract":
+        - Contract Negotiation
+    - Added to "Gameplay":
+        - Home/Away Unlimited subs (CPU)
+        - Home/Away Disable subs (CPU)
