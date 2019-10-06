@@ -681,9 +681,10 @@ function load_aobs()
         AOB_MatchScore = '0F 10 48 10 0F 11 49 10 41 8B 55',
         AOB_UnlimitedSubstitutions = '8B 84 01 74 8F 00 00',
         AOB_DisableSubstitutions = '42 8B BC 2B 84 97 00 00 46',
-
-        AOB_NegStatusCheck = '49 8B CE FF 90 F8 00 00 00 89',
+        AOB_NegStatusCheck = '49 8B CE FF 90 00 01 00 00 89',
         AOB_ContractNeg = '04 48 8B 41 20 4C 8B 41 18 48 8B 50 38 0F 10 42 B4',
+
+        AOB_IntJobOffer = '48 2B 81 80 01 00 00 48 C1 F8 06 85',
 
         AOB_SimMaxCards = '41 89 86 5C 01 00 00 E8',
         AOB_SimMaxInjuries = '41 89 86 24 01 00 00 E8',

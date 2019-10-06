@@ -68,3 +68,10 @@ v20.1.0.5:
 
 v20.1.0.6:    
     - Added "real_manager_headmodel.lua" (users lua scripts directory in folder with live editor)
+    
+v20.1.0.7: 
+    - Added to "Player Contract":  
+        - Disable negotiation status checks
+    - Added to "Job Offers":
+        - National Team
+    - Added "real_player_as_manager.lua" (users lua scripts directory in folder with live editor)
