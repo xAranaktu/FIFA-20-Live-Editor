@@ -683,12 +683,18 @@ function load_aobs()
         AOB_DisableSubstitutions = '42 8B BC 2B 84 97 00 00 46',
         AOB_NegStatusCheck = '49 8B CE FF 90 00 01 00 00 89',
         AOB_ContractNeg = '04 48 8B 41 20 4C 8B 41 18 48 8B 50 38 0F 10 42 B4',
-
         AOB_IntJobOffer = '48 2B 81 80 01 00 00 48 C1 F8 06 85',
-
+        AOB_ClubJobOffer = '49 8B 9E D8 00 00 00 49',
+        AOB_ClubJobOfferAlwaysAccept = 'FF 50 08 3B 47 2C',
+        AOB_DisableMorale = '41 88 45 00 84 C0',
+        AOB_BetterMorale = '41 89 45 10 45 8D 44 24 9B',
+        AOB_Form_Settings = '41 B8 FF FF FF FF 41 89 85 88',
         AOB_SimMaxCards = '41 89 86 5C 01 00 00 E8',
         AOB_SimMaxInjuries = '41 89 86 24 01 00 00 E8',
         AOB_SimFatigueBase = '41 B8 FF FF FF FF 41 89 46 10',
+        AOB_YouthAcademyMoreYouthPlayers = '89 06 FF C7 48 83 C6 04 83 FF 02 7C BF 48 8B 7C 24 30 41 FF C7 49 FF C4',
+        -- VOLTA
+        AOB_VoltaSkillPoints = '8B 81 A8 21 00 00',
 
         -- PAP
         AOB_AgreeTransferRequest = "41 89 C5 48 8B 89 98 01 00 00",

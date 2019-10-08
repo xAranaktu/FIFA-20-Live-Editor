@@ -7,7 +7,7 @@
   <CheatEntries>
     <CheatEntry>
       <ID>0</ID>
-      <Description>"v20.1.0.7"</Description>
+      <Description>"v20.1.0.8"</Description>
       <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
     </CheatEntry>
@@ -122,6 +122,104 @@ MainWindowForm.hide()
 
 </AssemblerScript>
       <CheatEntries>
+        <CheatEntry>
+          <ID>3670</ID>
+          <Description>"Volta"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>3668</ID>
+              <Description>"Activate before you enter Volta"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_VoltaSkillPoints = get_validated_address('AOB_VoltaSkillPoints')
+ORG_VoltaSkillPoints = readBytes(INJECT_VoltaSkillPoints, 12, true)
+
+{$asm}
+alloc(newmem_VoltaSkillPoints,$500,$INJECT_VoltaSkillPoints)
+alloc(VoltaPtr, 8, $INJECT_VoltaSkillPoints)
+registersymbol(VoltaPtr)
+VoltaPtr:
+dq 0
+
+label(code_VoltaSkillPoints)
+label(ret_VoltaSkillPoints)
+
+newmem_VoltaSkillPoints:
+
+code_VoltaSkillPoints:
+  mov [VoltaPtr], rcx
+  mov eax,[rcx+000021A8]
+  jmp ret_VoltaSkillPoints
+
+$INJECT_VoltaSkillPoints:
+  jmp newmem_VoltaSkillPoints
+  nop
+ret_VoltaSkillPoints:
+
+[DISABLE]
+//code_VoltaSkillPoints from here till the end of the code_VoltaSkillPoints will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_VoltaSkillPoints, ORG_VoltaSkillPoints)
+{$asm}
+
+dealloc(newmem_VoltaSkillPoints)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+F4CF520
+
+"FIFA20.exe"+F4CF4FA: C3                             -  ret
+"FIFA20.exe"+F4CF4FB: 53                             -  push rbx
+"FIFA20.exe"+F4CF4FC: 4D 89 CA                       -  mov r10,r9
+"FIFA20.exe"+F4CF4FF: 48 F7 1C 24                    -  neg [rsp]
+"FIFA20.exe"+F4CF503: 4C 2B 24 24                    -  sub r12,[rsp]
+"FIFA20.exe"+F4CF507: 48 8D 64 24 08                 -  lea rsp,[rsp+08]
+"FIFA20.exe"+F4CF50C: 4C 87 14 24                    -  xchg [rsp],r10
+"FIFA20.exe"+F4CF510: C3                             -  ret
+"FIFA20.exe"+F4CF511: A9 66 66 66 66                 -  test eax,66666666
+"FIFA20.exe"+F4CF516: 66 2E 0F 1F 84 00 00 00 00 00  -  nop cs:[rax+rax+00000000]
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+F4CF520: 8B 81 A8 21 00 00              -  mov eax,[rcx+000021A8]
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+F4CF526: C3                             -  ret
+"FIFA20.exe"+F4CF527: F7 1C 24                       -  neg [rsp]
+"FIFA20.exe"+F4CF52A: FF 0C 24                       -  dec [rsp]
+"FIFA20.exe"+F4CF52D: 50                             -  push rax
+"FIFA20.exe"+F4CF52E: 48 8D 44 24 08                 -  lea rax,[rsp+08]
+"FIFA20.exe"+F4CF533: 41 C1 C3 1A                    -  rol r11d,1A
+"FIFA20.exe"+F4CF537: 48 2D ED A4 CA FB              -  sub rax,FBCAA4ED
+"FIFA20.exe"+F4CF53D: 44 23 90 ED A4 CA FB           -  and r10d,[rax-04355B13]
+"FIFA20.exe"+F4CF544: 58                             -  pop rax
+"FIFA20.exe"+F4CF545: 4C 89 2C 24                    -  mov [rsp],r13
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>3671</ID>
+                  <Description>"Skill Points"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>VoltaPtr</Address>
+                  <Offsets>
+                    <Offset>21a8</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
         <CheatEntry>
           <ID>2951</ID>
           <Description>"Non-CM Related"</Description>
@@ -10553,6 +10651,119 @@ $INJECT_IntJobOffer:
 return_IntJobOffer:
 
 
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_ClubJobOffer = get_validated_address('AOB_ClubJobOffer')
+ORG_ClubJobOffer = readBytes(INJECT_ClubJobOffer, 12, true)
+
+{$asm}
+alloc(cave_ClubJobOffer,$500,$INJECT_ClubJobOffer)
+alloc(ClubJobOfferStruct, 20, $INJECT_ClubJobOffer)
+registersymbol(ClubJobOfferStruct)
+ClubJobOfferStruct:
+db 00 00 00 00 0D 00 00 00 0A 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF FF FF FF A0 86 01 00
+label(code_ClubJobOffer)
+label(return_ClubJobOffer)
+
+cave_ClubJobOffer:
+  push rcx
+  pushf
+  mov ebx, [ClubJobOfferStruct]  //TeamID
+  cmp ebx, 0
+  je code_ClubJobOffer
+
+  mov rbx, [r14+000000D0]
+
+  //TeamID
+  mov ecx, [ClubJobOfferStruct]
+  mov [rbx], ecx
+
+  //LeagueID
+  mov ecx, [ClubJobOfferStruct+4]
+  mov [rbx+4], ecx
+
+  //LeaguePosition
+  mov ecx, [ClubJobOfferStruct+8]
+  mov [rbx+8], ecx
+
+  //W
+  mov ecx, [ClubJobOfferStruct+C]
+  mov [rbx+C], ecx
+
+  //D
+  mov ecx, [ClubJobOfferStruct+10]
+  mov [rbx+10], ecx
+
+  //L
+  mov ecx, [ClubJobOfferStruct+14]
+  mov [rbx+14], ecx
+
+  //UNK
+  mov ecx, [ClubJobOfferStruct+18]
+  mov [rbx+18], ecx
+
+  //Wage
+  mov ecx, [ClubJobOfferStruct+1C]
+  mov [rbx+1C], ecx
+
+  // 1 ClubJobOffer
+  mov rbx, [r14+000000D0]
+  add rbx, 20 // SizeOf End
+  mov [r14+000000D8], rbx
+  jmp code_ClubJobOffer
+
+code_ClubJobOffer:
+  popf
+  pop rcx
+  mov rbx,[r14+000000D8]
+  jmp return_ClubJobOffer
+
+
+$INJECT_ClubJobOffer:
+  jmp cave_ClubJobOffer
+  nop
+  nop
+return_ClubJobOffer:
+
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_ClubJobOfferAlwaysAccept = get_validated_address('AOB_ClubJobOfferAlwaysAccept')
+ORG_ClubJobOfferAlwaysAccept = readBytes(INJECT_ClubJobOfferAlwaysAccept, 12, true)
+
+{$asm}
+alloc(newmem_ClubJobOfferAlwaysAccept,$500,$INJECT_ClubJobOfferAlwaysAccept)
+
+label(code_ClubJobOfferAlwaysAccept)
+label(ret_ClubJobOfferAlwaysAccept)
+
+newmem_ClubJobOfferAlwaysAccept:
+
+code_ClubJobOfferAlwaysAccept:
+  call qword ptr [rax+08] // ORG
+  mov eax, 64
+  mov ebp, FFFFFFF2
+  cmp eax,[rdi+2C] // ORG
+  jmp ret_ClubJobOfferAlwaysAccept
+
+$INJECT_ClubJobOfferAlwaysAccept:
+  jmp newmem_ClubJobOfferAlwaysAccept
+  nop
+ret_ClubJobOfferAlwaysAccept:
+
 [DISABLE]
 {$lua}
 writeBytes(INJECT_IntJobOffer, ORG_IntJobOffer)
@@ -10561,6 +10772,20 @@ writeBytes(INJECT_IntJobOffer, ORG_IntJobOffer)
 unregistersymbol(IntJobOfferStruct)
 dealloc(IntJobOfferStruct)
 dealloc(cave_IntJobOffer)
+
+{$lua}
+writeBytes(INJECT_ClubJobOffer, ORG_ClubJobOffer)
+{$asm}
+
+unregistersymbol(ClubJobOfferStruct)
+dealloc(cave_ClubJobOffer)
+dealloc(ClubJobOfferStruct)
+
+{$lua}
+writeBytes(INJECT_ClubJobOfferAlwaysAccept, ORG_ClubJobOfferAlwaysAccept)
+{$asm}
+
+dealloc(newmem_ClubJobOfferAlwaysAccept)
 
 {
 // ORIGINAL CODE - INJECTION POINT: "FIFA19.exe"+3F88E03
@@ -10591,34 +10816,124 @@ dealloc(cave_IntJobOffer)
 }
 
 {
-// ORIGINAL CODE - INJECTION POINT: "FIFA19.exe"+3F7B4D0
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+45F0B49
 // Find wage
-"FIFA19.exe"+3F7B4A7: FF C2                    -  inc edx
-"FIFA19.exe"+3F7B4A9: 89 54 24 60              -  mov [rsp+60],edx
-"FIFA19.exe"+3F7B4AD: 85 FF                    -  test edi,edi
-"FIFA19.exe"+3F7B4AF: 0F 8E 2E 09 00 00        -  jng FIFA19.exe+3F7BDE3
-"FIFA19.exe"+3F7B4B5: 33 C9                    -  xor ecx,ecx
-"FIFA19.exe"+3F7B4B7: 48 89 4D C8              -  mov [rbp-38],rcx
-"FIFA19.exe"+3F7B4BB: 8B C7                    -  mov eax,edi
-"FIFA19.exe"+3F7B4BD: 48 89 45 80              -  mov [rbp-80],rax
-"FIFA19.exe"+3F7B4C1: 48 8D 3D 10 81 32 01     -  lea rdi,[FIFA19.exe+52A35D8]
-"FIFA19.exe"+3F7B4C8: 0F 1F 84 00 00 00 00 00  -  nop [rax+rax+00000000]
+"FIFA20.exe"+45F0B1A: 8B 97 A0 01 00 00     -  mov edx,[rdi+000001A0]
+"FIFA20.exe"+45F0B20: E8 4B 22 0E 00        -  call FIFA20.exe+46D2D70
+"FIFA20.exe"+45F0B25: 49 8B 45 08           -  mov rax,[r13+08]
+"FIFA20.exe"+45F0B29: 48 8B 80 D8 06 00 00  -  mov rax,[rax+000006D8]
+"FIFA20.exe"+45F0B30: 4C 8B 30              -  mov r14,[rax]
+"FIFA20.exe"+45F0B33: 4C 89 74 24 70        -  mov [rsp+70],r14
+"FIFA20.exe"+45F0B38: 49 8B 45 00           -  mov rax,[r13+00]
+"FIFA20.exe"+45F0B3C: 48 8D 15 D1 6A 7C 01  -  lea rdx,[FIFA20.exe+5DB7614]
+"FIFA20.exe"+45F0B43: 49 8B CD              -  mov rcx,r13
+"FIFA20.exe"+45F0B46: FF 50 78              -  call qword ptr [rax+78]
 // ---------- INJECTING HERE ----------
-"FIFA19.exe"+3F7B4D0: 48 8B 83 D0 00 00 00     -  mov rax,[rbx+000000D0]
+"FIFA20.exe"+45F0B49: 49 8B 9E D8 00 00 00  -  mov rbx,[r14+000000D8]
 // ---------- DONE INJECTING  ----------
-"FIFA19.exe"+3F7B4D7: 44 8B 24 08              -  mov r12d,[rax+rcx]
-"FIFA19.exe"+3F7B4DB: 44 89 65 B4              -  mov [rbp-4C],r12d
-"FIFA19.exe"+3F7B4DF: 44 8B 6C 08 04           -  mov r13d,[rax+rcx+04]
-"FIFA19.exe"+3F7B4E4: 8B 54 08 1C              -  mov edx,[rax+rcx+1C]
-"FIFA19.exe"+3F7B4E8: 89 55 B8                 -  mov [rbp-48],edx
-"FIFA19.exe"+3F7B4EB: 8B 54 08 08              -  mov edx,[rax+rcx+08]
-"FIFA19.exe"+3F7B4EF: 89 55 BC                 -  mov [rbp-44],edx
-"FIFA19.exe"+3F7B4F2: 8B 54 08 0C              -  mov edx,[rax+rcx+0C]
-"FIFA19.exe"+3F7B4F6: 89 54 24 68              -  mov [rsp+68],edx
-"FIFA19.exe"+3F7B4FA: 8B 54 08 10              -  mov edx,[rax+rcx+10]
+"FIFA20.exe"+45F0B50: 49 2B 9E D0 00 00 00  -  sub rbx,[r14+000000D0]
+"FIFA20.exe"+45F0B57: 48 C1 FB 05           -  sar rbx,05
+"FIFA20.exe"+45F0B5B: 48 8B 0D 46 A0 7D 02  -  mov rcx,[FIFA20.exe+6DCABA8]
+"FIFA20.exe"+45F0B62: 45 33 C9              -  xor r9d,r9d
+"FIFA20.exe"+45F0B65: 4C 8D 05 64 FB 7D 01  -  lea r8,[FIFA20.exe+5DD06D0]
+"FIFA20.exe"+45F0B6C: 41 8D 51 28           -  lea edx,[r9+28]
+"FIFA20.exe"+45F0B70: 85 DB                 -  test ebx,ebx
+"FIFA20.exe"+45F0B72: 0F 8E FE 0A 00 00     -  jng FIFA20.exe+45F1676
+"FIFA20.exe"+45F0B78: 44 89 7D A0           -  mov [rbp-60],r15d
+"FIFA20.exe"+45F0B7C: 48 8D 45 A0           -  lea rax,[rbp-60]
+}
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+477CE22
+// Backtrace from CM_Email_Body_JobApplicationDeclined
+
+"FIFA20.exe"+477CDF8: 4C 8B 81 B8 00 00 00     -  mov r8,[rcx+000000B8]
+"FIFA20.exe"+477CDFF: 41 8B D6                 -  mov edx,r14d
+"FIFA20.exe"+477CE02: 48 8B CE                 -  mov rcx,rsi
+"FIFA20.exe"+477CE05: 41 FF D0                 -  call r8
+"FIFA20.exe"+477CE08: 2B E8                    -  sub ebp,eax
+"FIFA20.exe"+477CE0A: 48 8B 4F 08              -  mov rcx,[rdi+08]
+"FIFA20.exe"+477CE0E: 48 8B 89 D8 0F 00 00     -  mov rcx,[rcx+00000FD8]
+"FIFA20.exe"+477CE15: 48 8B 11                 -  mov rdx,[rcx]
+"FIFA20.exe"+477CE18: 48 8D 8A 48 0C 00 00     -  lea rcx,[rdx+00000C48]
+"FIFA20.exe"+477CE1F: 48 8B 01                 -  mov rax,[rcx]
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+477CE22: FF 50 08                 -  call qword ptr [rax+08]
+"FIFA20.exe"+477CE25: 3B 47 2C                 -  cmp eax,[rdi+2C]
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+477CE28: 7D 0A                    -  jnl FIFA20.exe+477CE34
+"FIFA20.exe"+477CE2A: 80 7F 11 01              -  cmp byte ptr [rdi+11],01
+"FIFA20.exe"+477CE2E: 74 04                    -  je FIFA20.exe+477CE34
+"FIFA20.exe"+477CE30: 32 C9                    -  xor cl,cl
+"FIFA20.exe"+477CE32: EB 02                    -  jmp FIFA20.exe+477CE36
+"FIFA20.exe"+477CE34: B1 01                    -  mov cl,01
+"FIFA20.exe"+477CE36: 83 FD 07                 -  cmp ebp,07
+"FIFA20.exe"+477CE39: 41 0F 96 C0              -  setbe r8l
+"FIFA20.exe"+477CE3D: 84 C9                    -  test cl,cl
+"FIFA20.exe"+477CE3F: 74 0C                    -  je FIFA20.exe+477CE4D
 }
 </AssemblerScript>
           <CheatEntries>
+            <CheatEntry>
+              <ID>3659</ID>
+              <Description>"Club Team"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>3660</ID>
+                  <Description>"Club Team ID"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>ClubJobOfferStruct</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3661</ID>
+                  <Description>"Wage"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>ClubJobOfferStruct+1C</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3662</ID>
+                  <Description>"Optional (only visual change)"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>3663</ID>
+                      <Description>"League ID"</Description>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>ClubJobOfferStruct+4</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>3664</ID>
+                      <Description>"Table Position"</Description>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>ClubJobOfferStruct+8</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>3665</ID>
+                      <Description>"W"</Description>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>ClubJobOfferStruct+C</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>3667</ID>
+                      <Description>"D"</Description>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>ClubJobOfferStruct+10</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>3666</ID>
+                      <Description>"L"</Description>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>ClubJobOfferStruct+14</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
             <CheatEntry>
               <ID>3656</ID>
               <Description>"National Team"</Description>
@@ -10681,7 +10996,7 @@ dealloc(cave_IntJobOffer)
                 <CheatEntry>
                   <ID>2506</ID>
                   <Description>"Reveal player data (scouting players not needed)"</Description>
-                  <LastState Activated="1"/>
+                  <LastState/>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{
 AUTHOR:
@@ -10779,6 +11094,336 @@ dealloc(newmem_gtn_reveal)
 "FIFA19.exe"+42EB83B: 85 C0                 -  test eax,eax
 "FIFA19.exe"+42EB83D: 75 25                 -  jne FIFA19.exe+42EB864
 "FIFA19.exe"+42EB83F: 44 8D 48 01           -  lea r9d,[rax+01]
+}
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2503</ID>
+          <Description>"Morale"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>3673</ID>
+              <Description>"---- Scripts that needs to be activated before you load CM save ----"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>0000FF</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2504</ID>
+                  <Description>"Disable Morale"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 4/5 (This script will harm your cm save if you mess up something with your editions.)
+
+DESCRIPTION:
+  Script should disable morale. No idea what does it mean exactly.
+  I'm using it to keep my star players even if they are benched for the whole season.
+  If you used it once you probably will need to use if forever to avoid game crashes.
+
+HOW TO USE:
+  1. Activate script before you load your career save.
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_disablemorale = get_validated_address('AOB_DisableMorale')
+ORG_disablemorale = readBytes(INJECT_disablemorale, 6, true)
+
+{$asm}
+alloc(newmem_disablemorale,$500,$INJECT_disablemorale)
+
+label(code)
+label(return)
+
+newmem_disablemorale:
+  xor al, al
+code:
+  mov [r13+00],al
+  test al,al
+  jmp return
+
+$INJECT_disablemorale:
+  jmp newmem_disablemorale
+  nop
+return:
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_disablemorale, ORG_disablemorale)
+{$asm}
+
+dealloc(newmem_disablemorale)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA19.exe"+40F8C2B
+
+"FIFA20.exe"+47618D9: 0F 84 2E 19 00 00        -  je FIFA20.exe+476320D
+"FIFA20.exe"+47618DF: 4C 89 AC 24 00 01 00 00  -  mov [rsp+00000100],r13
+"FIFA20.exe"+47618E7: 48 8D 15 A2 D2 68 01     -  lea rdx,[FIFA20.exe+5DEEB90]
+"FIFA20.exe"+47618EE: 41 B1 01                 -  mov r9l,01
+"FIFA20.exe"+47618F1: 4C 8D 68 10              -  lea r13,[rax+10]
+"FIFA20.exe"+47618F5: 45 33 C0                 -  xor r8d,r8d
+"FIFA20.exe"+47618F8: 48 8B CF                 -  mov rcx,rdi
+"FIFA20.exe"+47618FB: E8 D0 50 C2 FD           -  call FIFA20.exe+23869D0
+"FIFA20.exe"+4761900: 85 C0                    -  test eax,eax
+"FIFA20.exe"+4761902: 0F 95 C0                 -  setne al
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+4761905: 41 88 45 00              -  mov [r13+00],al
+"FIFA20.exe"+4761909: 84 C0                    -  test al,al
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+476190B: 0F 84 F4 18 00 00        -  je FIFA20.exe+4763205
+"FIFA20.exe"+4761911: 48 89 9C 24 40 01 00 00  -  mov [rsp+00000140],rbx
+"FIFA20.exe"+4761919: 48 8D 4C 24 20           -  lea rcx,[rsp+20]
+"FIFA20.exe"+476191E: 48 89 AC 24 18 01 00 00  -  mov [rsp+00000118],rbp
+"FIFA20.exe"+4761926: 33 D2                    -  xor edx,edx
+"FIFA20.exe"+4761928: 48 89 B4 24 10 01 00 00  -  mov [rsp+00000110],rsi
+"FIFA20.exe"+4761930: 4C 89 A4 24 08 01 00 00  -  mov [rsp+00000108],r12
+"FIFA20.exe"+4761938: 41 BC 64 00 00 00        -  mov r12d,00000064
+"FIFA20.exe"+476193E: 4C 89 B4 24 F8 00 00 00  -  mov [rsp+000000F8],r14
+"FIFA20.exe"+4761946: 45 8B C4                 -  mov r8d,r12d
+}
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2502</ID>
+                  <Description>"Happier players"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 4/5 (This script will harm your cm save if you mess up something with your editions.)
+
+DESCRIPTION:
+  Script is editing 'MORALE_LEVELS' in one of the .ini files.
+  Basically, if one of your players is unhappy then after activating this script he will be happy.
+
+HOW TO USE:
+  1. Activate script before you load your career save.
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+
+[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_bettermorale = get_validated_address('AOB_BetterMorale')
+ORG_bettermorale = readBytes(INJECT_bettermorale, 12, true)
+
+{$asm}
+alloc(newmem_bettermorale,$500,$INJECT_bettermorale)
+
+label(code)
+label(return)
+
+newmem_bettermorale:
+  //[MORALE_LEVELS]
+  mov [r13+20], #4 // VERY_HIGH
+  mov [r13+1C], #3 // HIGH
+  mov [r13+18], #2 // NORMAL
+  mov [r13+14], #1  // LOW
+  mov eax, #0  // VERY LOW [r13+10]
+code:
+  mov [r13+10],eax
+  lea r8d,[r12-65]
+  jmp return
+
+$INJECT_bettermorale:
+  jmp newmem_bettermorale
+  nop
+  nop
+  nop
+  nop
+return:
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_bettermorale, ORG_bettermorale)
+{$asm}
+
+dealloc(newmem_bettermorale)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+4761A1A
+
+"FIFA20.exe"+47619ED: 48 8B CF                 -  mov rcx,rdi
+"FIFA20.exe"+47619F0: 48 8D 15 39 D2 68 01     -  lea rdx,[FIFA20.exe+5DEEC30]
+"FIFA20.exe"+47619F7: E8 D4 4F C2 FD           -  call FIFA20.exe+23869D0
+"FIFA20.exe"+47619FC: 41 B1 01                 -  mov r9l,01
+"FIFA20.exe"+47619FF: 41 89 45 14              -  mov [r13+14],eax
+"FIFA20.exe"+4761A03: 45 8D 44 24 9B           -  lea r8d,[r12-65]
+"FIFA20.exe"+4761A08: 48 8B CF                 -  mov rcx,rdi
+"FIFA20.exe"+4761A0B: 48 8D 15 E6 CF 68 01     -  lea rdx,[FIFA20.exe+5DEE9F8]
+"FIFA20.exe"+4761A12: E8 B9 4F C2 FD           -  call FIFA20.exe+23869D0
+"FIFA20.exe"+4761A17: 41 B1 01                 -  mov r9l,01
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+4761A1A: 41 89 45 10              -  mov [r13+10],eax
+"FIFA20.exe"+4761A1E: 45 8D 44 24 9B           -  lea r8d,[r12-65]
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+4761A23: 48 8B CF                 -  mov rcx,rdi
+"FIFA20.exe"+4761A26: 48 8D 15 E3 CF 68 01     -  lea rdx,[FIFA20.exe+5DEEA10]
+"FIFA20.exe"+4761A2D: E8 9E 4F C2 FD           -  call FIFA20.exe+23869D0
+"FIFA20.exe"+4761A32: 41 B1 01                 -  mov r9l,01
+"FIFA20.exe"+4761A35: 41 89 45 24              -  mov [r13+24],eax
+"FIFA20.exe"+4761A39: 45 8D 44 24 9B           -  lea r8d,[r12-65]
+"FIFA20.exe"+4761A3E: 48 8B CF                 -  mov rcx,rdi
+"FIFA20.exe"+4761A41: 48 8D 15 E8 CF 68 01     -  lea rdx,[FIFA20.exe+5DEEA30]
+"FIFA20.exe"+4761A48: E8 83 4F C2 FD           -  call FIFA20.exe+23869D0
+"FIFA20.exe"+4761A4D: F3 0F 10 35 EB 34 6C 01  -  movss xmm6,[FIFA20.exe+5E24F40]
+}
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2899</ID>
+          <Description>"Form"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>3672</ID>
+              <Description>"---- Scripts that needs to be activated before you load CM save ----"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <Color>0000FF</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2900</ID>
+                  <Description>"Disable players form"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- ??
+
+DESCRIPTION:
+  No idea what this script is doing exactly. :D
+  It was request by one of the users.
+
+HOW TO USE:
+  1. Activate script before you load your game save.
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_FORM_SETTINGS = get_validated_address('AOB_Form_Settings')
+ORG_FORM_SETTINGS = readBytes(INJECT_FORM_SETTINGS, 12, true)
+
+{$asm}
+alloc(newmem_formsettings,$500,$INJECT_FORM_SETTINGS)
+
+label(code_formsettings)
+label(ret_formsettings)
+
+newmem_formsettings:
+  mov [r13+00000184], #0    // PLAYER_EVAL/BAD
+  mov eax, #99              // PLAYER_EVAL/NEUTRAL
+code_formsettings:
+  mov r8d,FFFFFFFF
+  jmp ret_formsettings
+
+$INJECT_FORM_SETTINGS:
+  jmp newmem_formsettings
+  nop
+ret_formsettings:
+
+[DISABLE]
+//code_formsettings from here till the end of the code_formsettings will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_FORM_SETTINGS, ORG_FORM_SETTINGS)
+{$asm}
+
+dealloc(newmem_formsettings)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+FAF3815
+
+"FIFA20.exe"+FAF37DD: 41 B8 FF FF FF FF        -  mov r8d,FFFFFFFF
+"FIFA20.exe"+FAF37E3: 41 89 85 74 01 00 00     -  mov [r13+00000174],eax
+"FIFA20.exe"+FAF37EA: 48 8D 15 2F D4 2F F6     -  lea rdx,[FIFA20.exe+5DF0C20]
+"FIFA20.exe"+FAF37F1: 4C 89 F1                 -  mov rcx,r14
+"FIFA20.exe"+FAF37F4: E8 D7 31 89 F2           -  call FIFA20.exe+23869D0
+"FIFA20.exe"+FAF37F9: 41 B8 FF FF FF FF        -  mov r8d,FFFFFFFF
+"FIFA20.exe"+FAF37FF: 41 89 85 84 01 00 00     -  mov [r13+00000184],eax
+"FIFA20.exe"+FAF3806: 48 8D 15 23 D4 2F F6     -  lea rdx,[FIFA20.exe+5DF0C30]
+"FIFA20.exe"+FAF380D: 4C 89 F1                 -  mov rcx,r14
+"FIFA20.exe"+FAF3810: E8 BB 31 89 F2           -  call FIFA20.exe+23869D0
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+FAF3815: 41 B8 FF FF FF FF        -  mov r8d,FFFFFFFF
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+FAF381B: 41 89 85 88 01 00 00     -  mov [r13+00000188],eax
+"FIFA20.exe"+FAF3822: 48 8D 15 1F D4 2F F6     -  lea rdx,[FIFA20.exe+5DF0C48]
+"FIFA20.exe"+FAF3829: 4C 89 F1                 -  mov rcx,r14
+"FIFA20.exe"+FAF382C: E8 9F 31 89 F2           -  call FIFA20.exe+23869D0
+"FIFA20.exe"+FAF3831: F3 0F 10 0D 07 17 33 F6  -  movss xmm1,[FIFA20.exe+5E24F40]
+"FIFA20.exe"+FAF3839: 0F 28 D1                 -  movaps xmm2,xmm1
+"FIFA20.exe"+FAF383C: 41 89 85 8C 01 00 00     -  mov [r13+0000018C],eax
+"FIFA20.exe"+FAF3843: 48 8D 15 16 D4 2F F6     -  lea rdx,[FIFA20.exe+5DF0C60]
+"FIFA20.exe"+FAF384A: 4C 89 F1                 -  mov rcx,r14
+"FIFA20.exe"+FAF384D: E8 0E 32 89 F2           -  call FIFA20.exe+2386A60
 }
 </AssemblerScript>
                 </CheatEntry>
@@ -11131,7 +11776,227 @@ dealloc(ptr_YA_NatID)
               <CheatEntries>
                 <CheatEntry>
                   <ID>1791</ID>
-                  <Description>"Nationality ID"</Description>
+                  <Description>"Nationality"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'Click to change'
+149: 'Afghanistan'
+1: 'Albania'
+97: 'Algeria'
+194: 'American Samoa'
+2: 'Andorra'
+98: 'Angola'
+62: 'Anguilla'
+63: 'Antigua and Barbuda'
+52: 'Argentina'
+3: 'Armenia'
+64: 'Aruba'
+195: 'Australia'
+4: 'Austria'
+5: 'Azerbaijan'
+65: 'Bahamas'
+150: 'Bahrain'
+151: 'Bangladesh'
+66: 'Barbados'
+6: 'Belarus'
+7: 'Belgium'
+67: 'Belize'
+99: 'Benin'
+68: 'Bermuda'
+152: 'Bhutan'
+53: 'Bolivia'
+8: 'Bosnia and Herzegovina'
+100: 'Botswana'
+54: 'Brazil'
+69: 'British Virgin Islands'
+153: 'Brunei Darussalam'
+9: 'Bulgaria'
+101: 'Burkina Faso'
+102: 'Burundi'
+154: 'Cambodia'
+103: 'Cameroon'
+70: 'Canada'
+104: 'Cape Verde Islands'
+71: 'Cayman Islands'
+105: 'Central African Republic'
+106: 'Chad'
+55: 'Chile'
+155: 'China PR'
+213: 'Chinese Taipei'
+56: 'Colombia'
+214: 'Comoros'
+107: 'Congo'
+110: 'Congo DR'
+196: 'Cook Islands'
+72: 'Costa Rica'
+108: 'Côte d'Ivoire'
+209: 'Created Players Country'
+216: 'Creation Zone'
+10: 'Croatia'
+73: 'Cuba'
+85: 'Curaçao'
+11: 'Cyprus'
+12: 'Czech Republic'
+13: 'Denmark'
+109: 'Djibouti'
+74: 'Dominica'
+207: 'Dominican Republic'
+57: 'Ecuador'
+111: 'Egypt'
+76: 'El Salvador'
+14: 'England'
+112: 'Equatorial Guinea'
+113: 'Eritrea'
+208: 'Estonia'
+114: 'Ethiopia'
+16: 'Faroe Islands'
+197: 'Fiji'
+17: 'Finland'
+18: 'France'
+210: 'Free Agents Country'
+19: 'FYR Macedonia'
+115: 'Gabon'
+116: 'Gambia'
+20: 'Georgia'
+21: 'Germany'
+117: 'Ghana'
+205: 'Gibraltar'
+22: 'Greece'
+206: 'Greenland'
+77: 'Grenada'
+157: 'Guam'
+78: 'Guatemala'
+118: 'Guinea'
+119: 'Guinea-Bissau'
+79: 'Guyana'
+80: 'Haiti'
+34: 'Holland'
+81: 'Honduras'
+158: 'Hong Kong'
+23: 'Hungary'
+24: 'Iceland'
+159: 'India'
+160: 'Indonesia'
+75: 'International'
+222: 'International Women'
+161: 'Iran'
+162: 'Iraq'
+26: 'Israel'
+27: 'Italy'
+82: 'Jamaica'
+163: 'Japan'
+164: 'Jordan'
+165: 'Kazakhstan'
+120: 'Kenya'
+166: 'Korea DPR'
+167: 'Korea Republic'
+219: 'Kosovo'
+168: 'Kuwait'
+169: 'Kyrgyzstan'
+170: 'Laos'
+28: 'Latvia'
+171: 'Lebanon'
+121: 'Lesotho'
+122: 'Liberia'
+123: 'Libya'
+29: 'Liechtenstein'
+30: 'Lithuania'
+31: 'Luxembourg'
+172: 'Macau'
+124: 'Madagascar'
+125: 'Malawi'
+173: 'Malaysia'
+174: 'Maldives'
+126: 'Mali'
+32: 'Malta'
+127: 'Mauritania'
+128: 'Mauritius'
+83: 'Mexico'
+33: 'Moldova'
+175: 'Mongolia'
+15: 'Montenegro'
+84: 'Montserrat'
+129: 'Morocco'
+130: 'Mozambique'
+176: 'Myanmar'
+131: 'Namibia'
+177: 'Nepal'
+215: 'New Caledonia'
+198: 'New Zealand'
+86: 'Nicaragua'
+132: 'Niger'
+133: 'Nigeria'
+35: 'Northern Ireland'
+36: 'Norway'
+178: 'Oman'
+179: 'Pakistan'
+180: 'Palestine'
+87: 'Panama'
+199: 'Papua New Guinea'
+58: 'Paraguay'
+59: 'Peru'
+181: 'Philippines'
+37: 'Poland'
+38: 'Portugal'
+88: 'Puerto Rico'
+182: 'Qatar'
+25: 'Republic of Ireland'
+211: 'Rest of World'
+39: 'Romania'
+40: 'Russia'
+134: 'Rwanda'
+200: 'Samoa'
+41: 'San Marino'
+135: 'São Tomé e Príncipe'
+183: 'Saudi Arabia'
+42: 'Scotland'
+136: 'Senegal'
+51: 'Serbia'
+137: 'Seychelles'
+138: 'Sierra Leone'
+184: 'Singapore'
+43: 'Slovakia'
+44: 'Slovenia'
+201: 'Solomon Islands'
+139: 'Somalia'
+140: 'South Africa'
+218: 'South Sudan'
+45: 'Spain'
+185: 'Sri Lanka'
+89: 'St. Kitts and Nevis'
+90: 'St. Lucia'
+91: 'St. Vincent and the Grenadines'
+141: 'Sudan'
+92: 'Suriname'
+142: 'Swaziland'
+46: 'Sweden'
+47: 'Switzerland'
+186: 'Syria'
+202: 'Tahiti'
+187: 'Tajikistan'
+143: 'Tanzania'
+188: 'Thailand'
+212: 'Timor-Leste'
+144: 'Togo'
+203: 'Tonga'
+93: 'Trinidad and Tobago'
+145: 'Tunisia'
+48: 'Turkey'
+189: 'Turkmenistan'
+94: 'Turks and Caicos Islands'
+146: 'Uganda'
+49: 'Ukraine'
+190: 'United Arab Emirates'
+95: 'United States'
+60: 'Uruguay'
+96: 'US Virgin Islands'
+191: 'Uzbekistan'
+204: 'Vanuatu'
+61: 'Venezuela'
+192: 'Vietnam'
+50: 'Wales'
+193: 'Yemen'
+147: 'Zambia'
+148: 'Zimbabwe'
+</DropDownList>
                   <VariableType>4 Bytes</VariableType>
                   <Address>ptr_YA_NatID</Address>
                 </CheatEntry>
@@ -11244,9 +12109,120 @@ dealloc(newmem_CountryIsBeingScouted)
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
+                  <ID>1264</ID>
+                  <Description>"15 Players per report"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  Control how many players your scout can bring you each month.
+  15 is the max probably.
+  Make sure you release unwanted players or sign them.
+
+HOW TO USE:
+  1. Activate script
+  2. Change 'Players per report' value (optional)
+  3. Load your game save
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    assert(false, error)
+end
+
+INJECT_moreyouthplayers = get_validated_address('AOB_YouthAcademyMoreYouthPlayers')
+ORG_moreyouthplayers = readBytes(INJECT_moreyouthplayers, 8, true)
+
+{$asm}
+alloc(newmem_moreyoungplayers,$500,$INJECT_moreyouthplayers)
+
+label(code)
+label(return)
+
+alloc(intScoutReportPlayers, 4, $INJECT_moreyouthplayers)
+registersymbol(intScoutReportPlayers)
+intScoutReportPlayers:
+dd (int)15
+
+newmem_moreyoungplayers:
+  mov eax, [intScoutReportPlayers]
+code:
+  mov [rsi],eax
+  inc edi
+  add rsi,04
+  jmp return
+
+$INJECT_moreyouthplayers:
+  jmp newmem_moreyoungplayers
+  nop
+  nop
+  nop
+return:
+
+[DISABLE]
+{$lua}
+writeBytes(INJECT_moreyouthplayers, ORG_moreyouthplayers)
+{$asm}
+
+unregistersymbol(intScoutReportPlayers)
+dealloc(intScoutReportPlayers)
+dealloc(newmem_moreyoungplayers)
+
+
+
+{
+// EXPERIENCE_%d_PERC_FIND_PLAYERS_RANGE
+// ORIGINAL CODE - INJECTION POINT: "FIFA19.exe"+40F3D8A
+
+"FIFA19.exe"+40F3D60: 4D 85 C0                    -  test r8,r8
+"FIFA19.exe"+40F3D63: 74 12                       -  je FIFA19.exe+40F3D77
+"FIFA19.exe"+40F3D65: 41 3B 10                    -  cmp edx,[r8]
+"FIFA19.exe"+40F3D68: 0F 84 CE 04 00 00           -  je FIFA19.exe+40F423C
+"FIFA19.exe"+40F3D6E: 4D 8B 40 10                 -  mov r8,[r8+10]
+"FIFA19.exe"+40F3D72: 4D 85 C0                    -  test r8,r8
+"FIFA19.exe"+40F3D75: 75 EE                       -  jne FIFA19.exe+40F3D65
+"FIFA19.exe"+40F3D77: B8 FF FF FF FF              -  mov eax,FFFFFFFF
+"FIFA19.exe"+40F3D7C: F0 FF 05 61 B7 26 02        - lock  inc [FIFA19.exe+635F4E4]
+"FIFA19.exe"+40F3D83: F0 FF 05 5A B7 26 02        - lock  inc [FIFA19.exe+635F4E4]
+// ---------- INJECTING HERE ----------
+"FIFA19.exe"+40F3D8A: 89 06                       -  mov [rsi],eax
+"FIFA19.exe"+40F3D8C: FF C7                       -  inc edi
+"FIFA19.exe"+40F3D8E: 48 83 C6 04                 -  add rsi,04
+// ---------- DONE INJECTING  ----------
+"FIFA19.exe"+40F3D92: 83 FF 02                    -  cmp edi,02
+"FIFA19.exe"+40F3D95: 0F 8C B5 FE FF FF           -  jl FIFA19.exe+40F3C50
+"FIFA19.exe"+40F3D9B: 49 FF C7                    -  inc r15
+"FIFA19.exe"+40F3D9E: 49 83 FF 05                 -  cmp r15,05
+"FIFA19.exe"+40F3DA2: 0F 8C B8 FA FF FF           -  jl FIFA19.exe+40F3860
+"FIFA19.exe"+40F3DA8: 45 8B FD                    -  mov r15d,r13d
+"FIFA19.exe"+40F3DAB: 4D 8B E5                    -  mov r12,r13
+"FIFA19.exe"+40F3DAE: 66 90                       -  nop
+"FIFA19.exe"+40F3DB0: 41 FF C7                    -  inc r15d
+"FIFA19.exe"+40F3DB3: 4C 8D 05 E6 7C 28 01        -  lea r8,[FIFA19.exe+537BAA0]
+}
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
                   <ID>1266</ID>
                   <Description>"Reveal ovr and pot"</Description>
-                  <LastState Activated="1"/>
+                  <LastState/>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>{
 AUTHOR:
