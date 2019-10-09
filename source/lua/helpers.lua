@@ -257,7 +257,7 @@ function getIntFunctionsAddrs()
     local funcGenReport_aob = tonumber(get_validated_address('AOB_F_GEN_REPORT'), 16)
     writeQword(
         "funcGenReport",
-        byteTableToDword(readBytes(funcGenReport_aob+4, 4, true)) + funcGenReport_aob + 8
+        byteTableToDword(readBytes(funcGenReport_aob+4, 4, true)) + funcGenReport_aob + 8 - 0x100000000
     )
 end
 
@@ -526,8 +526,7 @@ function autoactivate_scripts()
             end
         end
     end
-    do_log('TODO initPtrs')
-    -- initPtrs()
+    initPtrs()
 end
 
 -- find record in game database and update pointer in CT
@@ -605,46 +604,46 @@ function logScreenID()
 end
 
 function initPtrs()
-    local codeGameDB = tonumber(get_validated_address('AOB_codeGameDB'), 16)
-    local base_ptr = readPointer(byteTableToDword(readBytes(codeGameDB+4, 4, true)) + codeGameDB + 8)
+    -- local codeGameDB = tonumber(get_validated_address('AOB_codeGameDB'), 16)
+    -- local base_ptr = readPointer(byteTableToDword(readBytes(codeGameDB+4, 4, true)) + codeGameDB + 8)
 
-    local DB_One_Tables_ptr = readMultilevelPointer(base_ptr, {0x10, 0x390})
-    local DB_Two_Tables_ptr = readMultilevelPointer(base_ptr, {0x10, 0x3C0})
+    -- local DB_One_Tables_ptr = readMultilevelPointer(base_ptr, {0x10, 0x390})
+    -- local DB_Two_Tables_ptr = readMultilevelPointer(base_ptr, {0x10, 0x3C0})
 
-    -- Players Table
-    local players_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0xA8, 0x28, 0x30})
-    writeQword("firstPlayerDataPtr", players_firstrecord)
-    writeQword("playerDataPtr", players_firstrecord)
+    -- -- Players Table
+    -- local players_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0xA8, 0x28, 0x30})
+    -- writeQword("firstPlayerDataPtr", players_firstrecord)
+    -- writeQword("playerDataPtr", players_firstrecord)
 
-    -- Teamplayerlinks Table
-    local teamplayerlinks_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0x120, 0x28, 0x30})
-    writeQword("ptrFirstTeamplayerlinks", teamplayerlinks_firstrecord)
-    writeQword("ptrTeamplayerlinks", teamplayerlinks_firstrecord)
+    -- -- Teamplayerlinks Table
+    -- local teamplayerlinks_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0x120, 0x28, 0x30})
+    -- writeQword("ptrFirstTeamplayerlinks", teamplayerlinks_firstrecord)
+    -- writeQword("ptrTeamplayerlinks", teamplayerlinks_firstrecord)
 
-    -- LeagueTeamLinks Table
-    local leagueteamlinks_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0x148, 0x28, 0x30})
-    writeQword("leagueteamlinksDataFirstPtr", leagueteamlinks_firstrecord)
-    writeQword("leagueteamlinksDataPtr", leagueteamlinks_firstrecord)
+    -- -- LeagueTeamLinks Table
+    -- local leagueteamlinks_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0x148, 0x28, 0x30})
+    -- writeQword("leagueteamlinksDataFirstPtr", leagueteamlinks_firstrecord)
+    -- writeQword("leagueteamlinksDataPtr", leagueteamlinks_firstrecord)
 
-    -- career_calendar Table
-    local careercalendar_firstrecord = readMultilevelPointer(DB_Two_Tables_ptr, {0xC0, 0x28, 0x30})
-    writeQword("ptrCareerCalendar", careercalendar_firstrecord)
+    -- -- career_calendar Table
+    -- local careercalendar_firstrecord = readMultilevelPointer(DB_Two_Tables_ptr, {0xC0, 0x28, 0x30})
+    -- writeQword("ptrCareerCalendar", careercalendar_firstrecord)
 
-    -- BASE PTR FOR STAMINA & INJURES
-    local code = tonumber(get_validated_address('AOB_BASE_STAMINA_INJURES'), 16)
-    tmp = byteTableToDword(readBytes(code+10, 4, true)) + code + 14
-    autoAssemble([[ 
-        globalalloc(basePtrStaminaInjures, 8, $tmp)
-    ]])
-    writeQword("basePtrStaminaInjures", tmp)
+    -- -- BASE PTR FOR STAMINA & INJURES
+    -- local code = tonumber(get_validated_address('AOB_BASE_STAMINA_INJURES'), 16)
+    -- tmp = byteTableToDword(readBytes(code+10, 4, true)) + code + 14
+    -- autoAssemble([[ 
+    --     globalalloc(basePtrStaminaInjures, 8, $tmp)
+    -- ]])
+    -- writeQword("basePtrStaminaInjures", tmp)
 
-    -- BASE PTR FOR FORM & MORALE
-    local code = tonumber(get_validated_address('AOB_BASE_FORM_MORALE'), 16)
-    tmp = byteTableToDword(readBytes(code+8, 4, true)) + code + 12
-    autoAssemble([[ 
-        globalalloc(basePtrTeamFormMorale, 8, $tmp)
-    ]])
-    writeQword("basePtrTeamFormMorale", tmp)
+    -- -- BASE PTR FOR FORM & MORALE
+    -- local code = tonumber(get_validated_address('AOB_BASE_FORM_MORALE'), 16)
+    -- tmp = byteTableToDword(readBytes(code+8, 4, true)) + code + 12
+    -- autoAssemble([[ 
+    --     globalalloc(basePtrTeamFormMorale, 8, $tmp)
+    -- ]])
+    -- writeQword("basePtrTeamFormMorale", tmp)
 
 
     setup_internal_calls()
@@ -655,6 +654,9 @@ end
 -- load AOBs
 function load_aobs()
     return {
+        AOB_SCRIPTS_BASE_PTR = '48 8B 47 10 4C 89 32',
+        AOB_F_GEN_REPORT = '48 89 D9 E8 ?? ?? ?? ?? 48 89 D9 48 8B 5C 24 38 48 8B 74 24 40 48 83 C4 20',
+
         AOB_TransferBudget = '44 8B 48 08 45 8B 87 90 02 00 00',
         AOB_IsEditPlayerUnlocked = '49 8B CB E8 ?? ?? ?? ?? 85 C0 75 ?? 48 8B 46 08 40 ?? ?? 48 8B 80 B8 0F 00 00',
         AOB_AltTab = '48 83 EC 48 4C 8B 05 ?? ?? ?? ?? 4D 85 C0',
@@ -694,6 +696,16 @@ function load_aobs()
         AOB_SimFatigueBase = '41 B8 FF FF FF FF 41 89 46 10',
         AOB_YouthAcademyMoreYouthPlayers = '89 06 FF C7 48 83 C6 04 83 FF 02 7C BF 48 8B 7C 24 30 41 FF C7 49 FF C4',
         AOB_EditPlayerName_KnownAs = '48 05 9B 00 00 00 49 C7 C0 FF FF FF FF',
+        AOB_YouthAcademyPrimAttr = '41 89 F9 89 46 04',
+        AOB_YouthAcademySecAttr = '4C 8B 7C 24 30 89 46',
+        AOB_YouthAcademyMinAgeForPromotion = '41 B8 03 00 00 00 89 85 E4',
+        AOB_YouthAcademyPlayerAgeRange = '41 89 44 24 08 66 66',
+        AOB_YouthAcademyYouthPlayersRetirement = '89 07 48 8D 7F 04 41 83 FD',
+        AOB_YouthAcademyPlayerPotential = 'FF C6 41 89 04 24',
+        AOB_YouthAcademyWeakFootChance = 'FF C7 89 06 48 8D 76 04 83 FF 06 7C C9',
+        AOB_YouthAcademySkillMoveChance = '89 85 4C 01 00 00 4C',
+        AOB_YouthAcademyGeneratePlayer = 'FF 40 32 F6 48 8B 9C 24 80 00 00 00',
+        AOB_GENERATE_NEW_YA_REPORT = "8D 43 0E 89 44 24 3C",
 
         -- PAP
         AOB_AgreeTransferRequest = "41 89 C5 48 8B 89 98 01 00 00",
