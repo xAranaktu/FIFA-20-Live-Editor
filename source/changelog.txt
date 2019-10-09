@@ -88,3 +88,10 @@ v20.1.0.8:
         - Disable players form (may not work at all this year)
     - Added to "Youth Academy":
         - 15 Players per report
+v20.1.0.9:
+    - Removed "Volta"
+    - Added to "Editing Player -> Player Data"
+        - First Name
+        - Last Name
+        - Known As
+        - Kit Name

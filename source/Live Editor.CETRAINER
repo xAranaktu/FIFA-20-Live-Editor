@@ -7,7 +7,7 @@
   <CheatEntries>
     <CheatEntry>
       <ID>0</ID>
-      <Description>"v20.1.0.8"</Description>
+      <Description>"v20.1.0.9"</Description>
       <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
     </CheatEntry>
@@ -122,104 +122,6 @@ MainWindowForm.hide()
 
 </AssemblerScript>
       <CheatEntries>
-        <CheatEntry>
-          <ID>3670</ID>
-          <Description>"Volta"</Description>
-          <Options moHideChildren="1"/>
-          <LastState Value="" RealAddress="00000000"/>
-          <GroupHeader>1</GroupHeader>
-          <CheatEntries>
-            <CheatEntry>
-              <ID>3668</ID>
-              <Description>"Activate before you enter Volta"</Description>
-              <Options moHideChildren="1"/>
-              <LastState/>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-{$lua}
--- Check if user has set up CT correctly
-local status, error = pcall(get_validated_address)
-if not status then
-    showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
-    assert(false, error)
-end
-
-INJECT_VoltaSkillPoints = get_validated_address('AOB_VoltaSkillPoints')
-ORG_VoltaSkillPoints = readBytes(INJECT_VoltaSkillPoints, 12, true)
-
-{$asm}
-alloc(newmem_VoltaSkillPoints,$500,$INJECT_VoltaSkillPoints)
-alloc(VoltaPtr, 8, $INJECT_VoltaSkillPoints)
-registersymbol(VoltaPtr)
-VoltaPtr:
-dq 0
-
-label(code_VoltaSkillPoints)
-label(ret_VoltaSkillPoints)
-
-newmem_VoltaSkillPoints:
-
-code_VoltaSkillPoints:
-  mov [VoltaPtr], rcx
-  mov eax,[rcx+000021A8]
-  jmp ret_VoltaSkillPoints
-
-$INJECT_VoltaSkillPoints:
-  jmp newmem_VoltaSkillPoints
-  nop
-ret_VoltaSkillPoints:
-
-[DISABLE]
-//code_VoltaSkillPoints from here till the end of the code_VoltaSkillPoints will be used to disable the cheat
-{$lua}
-writeBytes(INJECT_VoltaSkillPoints, ORG_VoltaSkillPoints)
-{$asm}
-
-dealloc(newmem_VoltaSkillPoints)
-
-{
-// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+F4CF520
-
-"FIFA20.exe"+F4CF4FA: C3                             -  ret
-"FIFA20.exe"+F4CF4FB: 53                             -  push rbx
-"FIFA20.exe"+F4CF4FC: 4D 89 CA                       -  mov r10,r9
-"FIFA20.exe"+F4CF4FF: 48 F7 1C 24                    -  neg [rsp]
-"FIFA20.exe"+F4CF503: 4C 2B 24 24                    -  sub r12,[rsp]
-"FIFA20.exe"+F4CF507: 48 8D 64 24 08                 -  lea rsp,[rsp+08]
-"FIFA20.exe"+F4CF50C: 4C 87 14 24                    -  xchg [rsp],r10
-"FIFA20.exe"+F4CF510: C3                             -  ret
-"FIFA20.exe"+F4CF511: A9 66 66 66 66                 -  test eax,66666666
-"FIFA20.exe"+F4CF516: 66 2E 0F 1F 84 00 00 00 00 00  -  nop cs:[rax+rax+00000000]
-// ---------- INJECTING HERE ----------
-"FIFA20.exe"+F4CF520: 8B 81 A8 21 00 00              -  mov eax,[rcx+000021A8]
-// ---------- DONE INJECTING  ----------
-"FIFA20.exe"+F4CF526: C3                             -  ret
-"FIFA20.exe"+F4CF527: F7 1C 24                       -  neg [rsp]
-"FIFA20.exe"+F4CF52A: FF 0C 24                       -  dec [rsp]
-"FIFA20.exe"+F4CF52D: 50                             -  push rax
-"FIFA20.exe"+F4CF52E: 48 8D 44 24 08                 -  lea rax,[rsp+08]
-"FIFA20.exe"+F4CF533: 41 C1 C3 1A                    -  rol r11d,1A
-"FIFA20.exe"+F4CF537: 48 2D ED A4 CA FB              -  sub rax,FBCAA4ED
-"FIFA20.exe"+F4CF53D: 44 23 90 ED A4 CA FB           -  and r10d,[rax-04355B13]
-"FIFA20.exe"+F4CF544: 58                             -  pop rax
-"FIFA20.exe"+F4CF545: 4C 89 2C 24                    -  mov [rsp],r13
-}
-</AssemblerScript>
-              <CheatEntries>
-                <CheatEntry>
-                  <ID>3671</ID>
-                  <Description>"Skill Points"</Description>
-                  <VariableType>4 Bytes</VariableType>
-                  <Address>VoltaPtr</Address>
-                  <Offsets>
-                    <Offset>21a8</Offset>
-                  </Offsets>
-                </CheatEntry>
-              </CheatEntries>
-            </CheatEntry>
-          </CheatEntries>
-        </CheatEntry>
         <CheatEntry>
           <ID>2951</ID>
           <Description>"Non-CM Related"</Description>
@@ -9230,6 +9132,163 @@ unregistersymbol(_dojmp_ISEDITPLAYERUNLOCKED)
 }
 </AssemblerScript>
             </CheatEntry>
+            <CheatEntry>
+              <ID>3675</ID>
+              <Description>"Player Data"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 
+
+DESCRIPTION:
+  This script allows you to remove injury of any player in game game.
+
+HOW TO USE:
+  Activate script before you enter "Edit Player"  in game.
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+-- Check if user has set up CT correctly
+if syntaxcheck then return end
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
+    assert(false, error)
+end
+
+INJECT_EditPlayerName_KnownAs = get_validated_address('AOB_EditPlayerName_KnownAs')
+ORG_EditPlayerName_KnownAs = readBytes(INJECT_EditPlayerName_KnownAs, 12, true)
+
+{$asm}
+alloc(newmem_EditPlayerName_KnownAs,$500,$INJECT_EditPlayerName_KnownAs)
+
+label(code_EditPlayerName_KnownAs)
+label(ret_EditPlayerName_KnownAs)
+
+alloc(EditPlayerName_Ptr, 8, $INJECT_EditPlayerName_KnownAs)
+registersymbol(EditPlayerName_Ptr)
+EditPlayerName_Ptr:
+dq 0
+
+newmem_EditPlayerName_KnownAs:
+  mov [EditPlayerName_Ptr], rax
+code_EditPlayerName_KnownAs:
+  add rax,0000009B
+  jmp ret_EditPlayerName_KnownAs
+
+$INJECT_EditPlayerName_KnownAs:
+  jmp newmem_EditPlayerName_KnownAs
+  nop
+ret_EditPlayerName_KnownAs:
+
+[DISABLE]
+//code_EditPlayerName_KnownAs from here till the end of the code_EditPlayerName_KnownAs will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_EditPlayerName_KnownAs, ORG_EditPlayerName_KnownAs)
+{$asm}
+
+unregistersymbol(EditPlayerName_Ptr)
+dealloc(newmem_EditPlayerName_KnownAs)
+dealloc(EditPlayerName_Ptr)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+F911AA3
+// WritePlayer
+// 0x4D
+
+"FIFA20.exe"+F911A76: 4C 8D 0D 7A E6 B6 02                       -  lea r9,[FIFA20.exe+124800F7]
+"FIFA20.exe"+F911A7D: 4C 87 0C 24                                -  xchg [rsp],r9
+"FIFA20.exe"+F911A81: C3                                         -  ret
+"FIFA20.exe"+F911A82: 66 66 66 66 66 2E 0F 1F 84 00 00 00 00 00  -  nop cs:[rax+rax+00000000]
+"FIFA20.exe"+F911A90: 40 53                                      -  push rbx
+"FIFA20.exe"+F911A92: 48 83 EC 40                                -  sub rsp,40
+"FIFA20.exe"+F911A96: 48 8B 49 08                                -  mov rcx,[rcx+08]
+"FIFA20.exe"+F911A9A: 48 89 D3                                   -  mov rbx,rdx
+"FIFA20.exe"+F911A9D: 48 8B 01                                   -  mov rax,[rcx]
+"FIFA20.exe"+F911AA0: FF 50 10                                   -  call qword ptr [rax+10]
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+F911AA3: 48 05 9B 00 00 00                          -  add rax,0000009B
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+F911AA9: 49 C7 C0 FF FF FF FF                       -  mov r8,libmp3lame-ttv.dll+3FFFF
+"FIFA20.exe"+F911AB0: 31 C9                                      -  xor ecx,ecx
+"FIFA20.exe"+F911AB2: 48 89 4C 24 28                             -  mov [rsp+28],rcx
+"FIFA20.exe"+F911AB7: C6 44 24 2F 0F                             -  mov byte ptr [rsp+2F],0F
+"FIFA20.exe"+F911ABC: 48 89 4C 24 20                             -  mov [rsp+20],rcx
+"FIFA20.exe"+F911AC1: 48 89 4C 24 30                             -  mov [rsp+30],rcx
+"FIFA20.exe"+F911AC6: 49 FF C0                                   -  inc r8
+"FIFA20.exe"+F911AC9: 42 38 0C 00                                -  cmp [rax+r8],cl
+"FIFA20.exe"+F911ACD: 75 F7                                      -  jne FIFA20.exe+F911AC6
+"FIFA20.exe"+F911ACF: 49 01 C0                                   -  add r8,rax
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>3676</ID>
+                  <Description>"First Name"</Description>
+                  <VariableType>String</VariableType>
+                  <Length>25</Length>
+                  <Unicode>0</Unicode>
+                  <CodePage>0</CodePage>
+                  <ZeroTerminate>1</ZeroTerminate>
+                  <Address>EditPlayerName_Ptr</Address>
+                  <Offsets>
+                    <Offset>1</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3679</ID>
+                  <Description>"Last Name"</Description>
+                  <VariableType>String</VariableType>
+                  <Length>25</Length>
+                  <Unicode>0</Unicode>
+                  <CodePage>0</CodePage>
+                  <ZeroTerminate>1</ZeroTerminate>
+                  <Address>EditPlayerName_Ptr</Address>
+                  <Offsets>
+                    <Offset>4E</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3678</ID>
+                  <Description>"Known As"</Description>
+                  <VariableType>String</VariableType>
+                  <Length>25</Length>
+                  <Unicode>0</Unicode>
+                  <CodePage>0</CodePage>
+                  <ZeroTerminate>1</ZeroTerminate>
+                  <Address>EditPlayerName_Ptr</Address>
+                  <Offsets>
+                    <Offset>9B</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3677</ID>
+                  <Description>"Kit Name"</Description>
+                  <VariableType>String</VariableType>
+                  <Length>25</Length>
+                  <Unicode>0</Unicode>
+                  <CodePage>0</CodePage>
+                  <ZeroTerminate>1</ZeroTerminate>
+                  <Address>EditPlayerName_Ptr</Address>
+                  <Offsets>
+                    <Offset>e8</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
           </CheatEntries>
         </CheatEntry>
         <CheatEntry>
@@ -10563,10 +10622,11 @@ VIDEO TUTORIAL:
 [ENABLE]
 {$lua}
 -- Check if user has set up CT correctly
+if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -10653,10 +10713,11 @@ return_IntJobOffer:
 
 {$lua}
 -- Check if user has set up CT correctly
+if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -10734,10 +10795,11 @@ return_ClubJobOffer:
 
 {$lua}
 -- Check if user has set up CT correctly
+if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this:https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -11024,6 +11086,7 @@ VIDEO TUTORIAL:
 {$lua}
 if syntaxcheck then return end
 -- Check if user has set up CT correctly
+
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
@@ -11145,10 +11208,11 @@ VIDEO TUTORIAL:
 [ENABLE]
 {$lua}
 -- Check if user has set up CT correctly
+if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this:https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -11241,10 +11305,11 @@ VIDEO TUTORIAL:
 [ENABLE]
 {$lua}
 -- Check if user has set up CT correctly
+if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this:https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -11362,10 +11427,11 @@ VIDEO TUTORIAL:
 [ENABLE]
 {$lua}
 -- Check if user has set up CT correctly
+if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this:https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -12140,10 +12206,11 @@ VIDEO TUTORIAL:
 [ENABLE]
 {$lua}
 -- Check if user has set up CT correctly
+if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this:https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -12666,7 +12733,7 @@ if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this:https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -12763,7 +12830,7 @@ if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this:https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -12789,10 +12856,11 @@ ret_allowtransferapp_thtxt:
 
 {$lua}
 -- Check if user has set up CT correctly
+if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this:https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -12903,10 +12971,11 @@ VIDEO TUTORIAL:
 [ENABLE]
 {$lua}
 -- Check if user has set up CT correctly
+if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this:https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -13150,7 +13219,7 @@ if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this:https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -13254,7 +13323,7 @@ if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this:https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -13283,10 +13352,11 @@ ret_UnlimitedPlayerRelease:
 
 {$lua}
 -- Check if user has set up CT correctly
+if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this:https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -13312,10 +13382,11 @@ ret_ReleasePlayerMsgBox:
 
 {$lua}
 -- Check if user has set up CT correctly
+if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this:https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -13477,7 +13548,7 @@ if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this:https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -13529,10 +13600,11 @@ return_matchscore:
 
 {$lua}
 -- Check if user has set up CT correctly
+if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this:https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -13611,10 +13683,11 @@ ret_DisableSubstitutions:
 
 {$lua}
 -- Check if user has set up CT correctly
+if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this:https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -13997,7 +14070,7 @@ if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this:https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 
@@ -14149,7 +14222,7 @@ if syntaxcheck then return end
 local status, error = pcall(get_validated_address)
 if not status then
     showMessage('Error during script activation, error:\n' .. error)
-    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-19---Career-Mode-Cheat-Table#getting-started")
+    print("Read guide to avoid problems like this:https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
     assert(false, error)
 end
 

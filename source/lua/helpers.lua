@@ -693,8 +693,7 @@ function load_aobs()
         AOB_SimMaxInjuries = '41 89 86 24 01 00 00 E8',
         AOB_SimFatigueBase = '41 B8 FF FF FF FF 41 89 46 10',
         AOB_YouthAcademyMoreYouthPlayers = '89 06 FF C7 48 83 C6 04 83 FF 02 7C BF 48 8B 7C 24 30 41 FF C7 49 FF C4',
-        -- VOLTA
-        AOB_VoltaSkillPoints = '8B 81 A8 21 00 00',
+        AOB_EditPlayerName_KnownAs = '48 05 9B 00 00 00 49 C7 C0 FF FF FF FF',
 
         -- PAP
         AOB_AgreeTransferRequest = "41 89 C5 48 8B 89 98 01 00 00",
