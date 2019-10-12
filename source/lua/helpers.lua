@@ -387,7 +387,7 @@ function verify_offset(name)
     for i =1,aob_len do
         bytes_to_verify[i] = string.format('%02X', temp_bytes[i])
     end
-    
+
     local index = 1
     for b in string.gmatch(aob, "%S+") do
         if b == "??" then
@@ -396,13 +396,13 @@ function verify_offset(name)
             do_log(string.format("Veryfing %s offset failed", name), 'WARNING')
             do_log(string.format("Bytes in memory: %s != %s: %s", table.concat(bytes_to_verify, ' '), name, aob), 'WARNING')
             if bytes_to_verify[1] == 'E9' then
-                do_log('jmp already set. This happen when you close and reopen Live Editor without deactivating scripts. Now, restart FIFA and Cheat Engine to fix this problem', 'ERROR')
-                assert(false, 'jmp already set, restart required')
+                do_log('jmp already set. This happen when you close and reopen Live Editor without deactivating scripts. Now, restart FIFA and Cheat Engine to fix this problem', 'WARNING')
             end
             return false
         end
         index = index + 1
     end
+
     do_log(string.format("Veryfing %s offset success", name), 'INFO')
     return addres_to_check
 end
@@ -706,6 +706,8 @@ function load_aobs()
         AOB_YouthAcademySkillMoveChance = '89 85 4C 01 00 00 4C',
         AOB_YouthAcademyGeneratePlayer = 'FF 40 32 F6 48 8B 9C 24 80 00 00 00',
         AOB_GENERATE_NEW_YA_REPORT = "8D 43 0E 89 44 24 3C",
+        AOB_UniqueDribble = '44 8B 80 84 01 00 00',
+        AOB_UniqueSprint = '45 8B 8A 84 01 00 00',
 
         -- PAP
         AOB_AgreeTransferRequest = "41 89 C5 48 8B 89 98 01 00 00",

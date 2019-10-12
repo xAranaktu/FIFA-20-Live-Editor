@@ -116,3 +116,38 @@ v20.1.1.1:
         - Birth Month
         - Birth Day
         - Kit Number
+        
+v20.1.1.2:
+    - Fixed invalid "jmp already set" error.
+    - Added to "Unique Player Movement -> Unique Run Style":
+        - Sterling
+        - Robben
+        - Messi
+        - Fernando Torres
+        - Yaya Toure
+        - Jordi Alba
+        - Luis Suarez
+        - Kante
+        - Salah
+        - De Bruyne
+        - Lukaku
+        - Dybala
+        - Pogba
+    - Added to "Unique Player Movement -> Unique Sprint Style":
+        - Messi
+        - Cristiano Ronaldo
+        - Robben
+        - Yaya Toure
+        - Bale
+        - Pogba
+        - Mbappe
+        - Neymar
+        - Lukaku
+        - Aubameyang
+        - Aguero
+        - A.Sanchez
+        - Dybala
+        - De Bruyne
+        - Salah
+        - Jordi Alba
+        - Alphonso Davies
