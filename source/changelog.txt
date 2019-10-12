@@ -151,3 +151,12 @@ v20.1.1.2:
         - Salah
         - Jordi Alba
         - Alphonso Davies
+        
+v20.1.1.3:
+    - Added to "Transfer HUB"
+        - Allow Loan approach
+    - Added to "Match Settings"
+        - Change Stadium
+        - Time Of Day
+        - Half Length
+        - Weather

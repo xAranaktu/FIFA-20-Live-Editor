@@ -673,6 +673,7 @@ function load_aobs()
         AOB_ManagerRating = '89 83 74 05 00 00 48 83',
         AOB_HireScout = '41 8B 01 89 45 48 41 8B',
         AOB_EditReleaseClause = '8B 48 08 83 F9 FF 74 06 89 8B',
+        AOB_AllowLoanApp = '44 8B F8 83 F8 0A',
         AOB_AllowTransferAppBtnClick = '41 FF D1 8B F0 83 F8',
         AOB_AllowTransferAppThTxt = 'E8 ?? ?? ?? ?? 8B D8 83 F8 0E ?? ?? B8 65 65 00 00 0F A3 D8',
         AOB_UnlimitedPlayerRelease = '39 47 54 41 0F 9C C4',
@@ -708,6 +709,11 @@ function load_aobs()
         AOB_GENERATE_NEW_YA_REPORT = "8D 43 0E 89 44 24 3C",
         AOB_UniqueDribble = '44 8B 80 84 01 00 00',
         AOB_UniqueSprint = '45 8B 8A 84 01 00 00',
+        AOB_ChangeStadium = '45 8B B4 24 24 17 00 00',
+        AOB_MatchHalfLength = '45 8B 84 24 48 17 00 00',
+        AOB_TODDisplay = '48 8B 03 4C 8B 90 38 02 00 00',
+        AOB_TODReal = '4C 8B CF 49 8B CD B8',
+        AOB_MatchWeather = '41 83 FF FF 44 0F 44 7D 68 41',
 
         -- PAP
         AOB_AgreeTransferRequest = "41 89 C5 48 8B 89 98 01 00 00",

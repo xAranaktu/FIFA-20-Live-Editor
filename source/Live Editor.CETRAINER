@@ -7,7 +7,7 @@
   <CheatEntries>
     <CheatEntry>
       <ID>0</ID>
-      <Description>"v20.1.1.2"</Description>
+      <Description>"v20.1.1.3"</Description>
       <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
     </CheatEntry>
@@ -12574,7 +12574,7 @@ dealloc(scoutPtr)
             <CheatEntry>
               <ID>598</ID>
               <Description>"Free 5/5 Scouts"</Description>
-              <LastState/>
+              <LastState Activated="1"/>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>{
 AUTHOR:
@@ -16069,6 +16069,591 @@ dealloc(newmem_SkillMoveChance)
           </CheatEntries>
         </CheatEntry>
         <CheatEntry>
+          <ID>1807</ID>
+          <Description>"Match Settings"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>683</ID>
+              <Description>"Change Stadium"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  Change stadium where the next match will be played.
+
+  FIFA 19 ids: https://docs.google.com/spreadsheets/d/1eYx5j7FZwlaPKymv3_G-ezZKtfWmQ6hwjXukAfqYoto/edit#gid=0
+  You can use the "tabs" at the bottom of the page to navigate what section you want.
+  For Stadium ids check 'Stadiums' tab
+
+HOW TO USE:
+  1. Go to 'Cental' Tab in your career main menu.
+  2. Active script
+  3. Change 'StadiumID'. By default it will be 'Estadio Santiago Bernabéu'
+  4. Press 'Play Match' in game
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
+    assert(false, error)
+end
+
+INJECT_ChangeStadium = get_validated_address('AOB_ChangeStadium')
+ORG_ChangeStadium = readBytes(INJECT_ChangeStadium, 12, true)
+
+{$asm}
+alloc(newmem_ChangeStadium,$500,$INJECT_ChangeStadium)
+
+label(code_ChangeStadium)
+label(ret_ChangeStadium)
+
+alloc(StadiumID, 4, $INJECT_ChangeStadium)
+registersymbol(StadiumID)
+StadiumID:
+dd (int)0
+
+newmem_ChangeStadium:
+  mov r14d, [StadiumID]
+  cmp r14d, 0
+  je code_ChangeStadium
+  mov [r12+00001724], r14d
+
+code_ChangeStadium:
+  mov r14d,[r12+00001724]
+  jmp ret_ChangeStadium
+
+$INJECT_ChangeStadium:
+  jmp newmem_ChangeStadium
+  nop
+  nop
+  nop
+ret_ChangeStadium:
+
+[DISABLE]
+//code_ChangeStadium from here till the end of the code_ChangeStadium will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_ChangeStadium, ORG_ChangeStadium)
+{$asm}
+
+dealloc(newmem_ChangeStadium)
+unregistersymbol(StadiumID)
+dealloc(StadiumID)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+39D5EDC
+V FCEGameModes::Internal::MatchSetupReturnMessage
+^ FORCED_DRAW_DESIRABILITY_HOME
+^ OVERRIDE/HOMETEAM
+"FIFA20.exe"+39D5EAF: 41 8B 44 24 30           -  mov eax,[r12+30]
+"FIFA20.exe"+39D5EB4: 89 86 3C 19 00 00        -  mov [rsi+0000193C],eax
+"FIFA20.exe"+39D5EBA: 41 8B 84 24 A4 0B 00 00  -  mov eax,[r12+00000BA4]
+"FIFA20.exe"+39D5EC2: 89 86 40 19 00 00        -  mov [rsi+00001940],eax
+"FIFA20.exe"+39D5EC8: B2 01                    -  mov dl,01
+"FIFA20.exe"+39D5ECA: 48 8B CE                 -  mov rcx,rsi
+"FIFA20.exe"+39D5ECD: E8 9E A2 03 00           -  call FIFA20.exe+3A10170
+"FIFA20.exe"+39D5ED2: 33 D2                    -  xor edx,edx
+"FIFA20.exe"+39D5ED4: 48 8B CE                 -  mov rcx,rsi
+"FIFA20.exe"+39D5ED7: E8 94 A2 03 00           -  call FIFA20.exe+3A10170
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+39D5EDC: 45 8B B4 24 24 17 00 00  -  mov r14d,[r12+00001724]
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+39D5EE4: 44 89 B6 94 18 00 00     -  mov [rsi+00001894],r14d
+"FIFA20.exe"+39D5EEB: 48 8B 5C 24 58           -  mov rbx,[rsp+58]
+"FIFA20.exe"+39D5EF0: 48 8B 03                 -  mov rax,[rbx]
+"FIFA20.exe"+39D5EF3: 45 8B C6                 -  mov r8d,r14d
+"FIFA20.exe"+39D5EF6: BA 09 00 00 00           -  mov edx,00000009
+"FIFA20.exe"+39D5EFB: 48 8B CB                 -  mov rcx,rbx
+"FIFA20.exe"+39D5EFE: FF 50 58                 -  call qword ptr [rax+58]
+"FIFA20.exe"+39D5F01: 41 8B 84 24 2C 17 00 00  -  mov eax,[r12+0000172C]
+"FIFA20.exe"+39D5F09: 89 45 67                 -  mov [rbp+67],eax
+"FIFA20.exe"+39D5F0C: 41 8B 84 24 30 17 00 00  -  mov eax,[r12+00001730]
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>684</ID>
+                  <Description>"StadiumID"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>StadiumID</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2956</ID>
+              <Description>"Time Of Day"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  Change Time of Day for next match
+
+HOW TO USE:
+  1. Go to 'Cental' Tab in your career main menu.
+  2. Active script
+  3. Change 'Time Of Day'. By default it will be '2000', which is 8PM in game.
+     Sometimes game may add or substract from it a few hours.
+     So check on Match Preview screen what time exactly will be played.
+     If you want to play at 8PM, you have set the value at '2000' and game displays 10PM
+     substract 2 hours from the value in Cheat table (put '1800' in this case).
+  4. Press 'Play Match' in game
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
+    assert(false, error)
+end
+
+
+INJECT_TODDisplay = get_validated_address('AOB_TODDisplay')
+ORG_TODDisplay = readBytes(INJECT_TODDisplay, 12, true)
+
+INJECT_TODReal = get_validated_address('AOB_TODReal')
+ORG_TODReal = readBytes(INJECT_TODReal, 12, true)
+
+{$asm}
+alloc(newmem_TODDisplay,$500,$INJECT_TODDisplay)
+
+label(code_TODDisplay)
+label(ret_TODDisplay)
+
+alloc(intTOD, 4, $INJECT_TODDisplay)
+registersymbol(intTOD)
+
+// 2000 = 20:00. Game may add 2 hours?
+intTOD:
+dd (int)2000
+
+newmem_TODDisplay:
+  mov r10d, [intTOD]
+  mov [rsp+50], r10d
+
+code_TODDisplay:
+  mov rax,[rbx]
+  mov r10,[rax+00000238]
+  jmp ret_TODDisplay
+
+
+$INJECT_TODDisplay:
+  jmp newmem_TODDisplay
+  nop
+  nop
+  nop
+  nop
+  nop
+ret_TODDisplay:
+
+alloc(newmem_TODReal,$500,$INJECT_TODReal)
+
+label(code_TODReal)
+label(ret_TODReal)
+
+newmem_TODReal:
+  mov rcx, [intTOD]
+  mov [r13+40], rcx
+
+code_TODReal:
+  mov r9,rdi
+  mov rcx,r13
+  jmp ret_TODReal
+
+
+$INJECT_TODReal:
+  jmp newmem_TODReal
+  nop
+ret_TODReal:
+
+[DISABLE]
+//code_TODDisplay from here till the end of the code_TODDisplay will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_TODDisplay, ORG_TODDisplay)
+writeBytes(INJECT_TODReal, ORG_TODReal)
+{$asm}
+
+dealloc(newmem_TODDisplay)
+dealloc(newmem_TODReal)
+unregistersymbol(intTOD)
+dealloc(intTOD)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+3D354BA
+TOD_DISP:
+V  | %s %s
+V StadiumNameInfo
+^CM_Match_Kickoff
+"FIFA20.exe"+3D35490: 48 89 75 27              -  mov [rbp+27],rsi
+"FIFA20.exe"+3D35494: 33 C0                    -  xor eax,eax
+"FIFA20.exe"+3D35496: 48 89 45 07              -  mov [rbp+07],rax
+"FIFA20.exe"+3D3549A: 48 89 45 0F              -  mov [rbp+0F],rax
+"FIFA20.exe"+3D3549E: C6 45 16 0F              -  mov byte ptr [rbp+16],0F
+"FIFA20.exe"+3D354A2: 4C 8D 05 8B 11 B7 01     -  lea r8,[FIFA20.exe+58A6634]
+"FIFA20.exe"+3D354A9: 48 8D 15 84 11 B7 01     -  lea rdx,[FIFA20.exe+58A6634]
+"FIFA20.exe"+3D354B0: 48 8D 4D 07              -  lea rcx,[rbp+07]
+"FIFA20.exe"+3D354B4: E8 67 97 86 FC           -  call FIFA20.exe+59EC20
+"FIFA20.exe"+3D354B9: 90                       -  nop
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+3D354BA: 48 8B 03                 -  mov rax,[rbx]
+"FIFA20.exe"+3D354BD: 4C 8B 90 38 02 00 00     -  mov r10,[rax+00000238]
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+3D354C4: C7 44 24 30 01 00 00 00  -  mov [rsp+30],00000001
+"FIFA20.exe"+3D354CC: C6 44 24 28 00           -  mov byte ptr [rsp+28],00
+"FIFA20.exe"+3D354D1: 8B 45 D3                 -  mov eax,[rbp-2D]
+"FIFA20.exe"+3D354D4: 89 44 24 20              -  mov [rsp+20],eax
+"FIFA20.exe"+3D354D8: 41 B1 01                 -  mov r9l,01
+"FIFA20.exe"+3D354DB: 45 33 C0                 -  xor r8d,r8d
+"FIFA20.exe"+3D354DE: 48 8D 55 07              -  lea rdx,[rbp+07]
+"FIFA20.exe"+3D354E2: 48 8B CB                 -  mov rcx,rbx
+"FIFA20.exe"+3D354E5: 41 FF D2                 -  call r10
+"FIFA20.exe"+3D354E8: 48 8D 0D 89 2F BD 02     -  lea rcx,[FIFA20.exe+6908478]
+}
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+4721B85
+V 0000000145336968:"HANDLE_USER_CHANGE"
+^ 0000000145351478:"SUNNY"
+^ 0000000145351410:" TOD     : %s\n"
+"FIFA20.exe"+4721B56: 48 8D 15 9B 45 6B 01  -  lea rdx,[FIFA20.exe+5DD60F8]
+"FIFA20.exe"+4721B5D: 48 8B CF              -  mov rcx,rdi
+"FIFA20.exe"+4721B60: FF 90 B0 00 00 00     -  call qword ptr [rax+000000B0]
+"FIFA20.exe"+4721B66: 48 8B 4B 38           -  mov rcx,[rbx+38]
+"FIFA20.exe"+4721B6A: FF 15 30 6D BD 00     -  call qword ptr [FIFA20.exe+52F88A0]
+"FIFA20.exe"+4721B70: 49 8D 7F 48           -  lea rdi,[r15+48]
+"FIFA20.exe"+4721B74: EB 07                 -  jmp FIFA20.exe+4721B7D
+"FIFA20.exe"+4721B76: 49 8D BF 90 01 00 00  -  lea rdi,[r15+00000190]
+"FIFA20.exe"+4721B7D: 48 8B CF              -  mov rcx,rdi
+"FIFA20.exe"+4721B80: E8 1B C8 FC FF        -  call FIFA20.exe+46EE3A0
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+4721B85: 4C 8B CF              -  mov r9,rdi
+"FIFA20.exe"+4721B88: 49 8B CD              -  mov rcx,r13
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+4721B8B: B8 02 00 00 00        -  mov eax,00000002
+"FIFA20.exe"+4721B90: 0F 10 01              -  movups xmm0,[rcx]
+"FIFA20.exe"+4721B93: 41 0F 11 01           -  movups [r9],xmm0
+"FIFA20.exe"+4721B97: 0F 10 49 10           -  movups xmm1,[rcx+10]
+"FIFA20.exe"+4721B9B: 41 0F 11 49 10        -  movups [r9+10],xmm1
+"FIFA20.exe"+4721BA0: 0F 10 41 20           -  movups xmm0,[rcx+20]
+"FIFA20.exe"+4721BA4: 41 0F 11 41 20        -  movups [r9+20],xmm0
+"FIFA20.exe"+4721BA9: 0F 10 49 30           -  movups xmm1,[rcx+30]
+"FIFA20.exe"+4721BAD: 41 0F 11 49 30        -  movups [r9+30],xmm1
+"FIFA20.exe"+4721BB2: 0F 10 41 40           -  movups xmm0,[rcx+40]
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2959</ID>
+                  <Description>"Time Of Day"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>intTOD</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1982</ID>
+              <Description>"Half Length"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  Change Half Length for next match
+
+HOW TO USE:
+  1. Go to 'Cental' Tab in your career main menu.
+  2. Active script
+  3. Change 'Half Length'. By default it will be '1', which is 1min in game.
+     Max is probably 30 minutes
+  4. Press 'Play Match' in game
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
+    assert(false, error)
+end
+
+
+INJECT_Match_Half_Length = get_validated_address('AOB_MatchHalfLength')
+ORG_Match_Half_Length = readBytes(INJECT_Match_Half_Length, 12, true)
+
+{$asm}
+alloc(newmem_Match_Half_Length,$500,$INJECT_Match_Half_Length)
+
+label(code_Match_Half_Length)
+label(ret_Match_Half_Length)
+
+alloc(HalfLength, 4, $INJECT_Match_Half_Length)
+registersymbol(HalfLength)
+HalfLength:
+dd (int)1
+
+newmem_Match_Half_Length:
+  mov r8d, [HalfLength]
+  cmp r8d, 0
+  je code_Match_Half_Length
+  mov [r12+00001748], r8d
+
+code_Match_Half_Length:
+  mov r8d,[r12+00001748]
+  jmp ret_Match_Half_Length
+
+$INJECT_Match_Half_Length:
+  jmp newmem_Match_Half_Length
+  nop
+  nop
+  nop
+ret_Match_Half_Length:
+
+[DISABLE]
+//code_Match_Half_Length from here till the end of the code_Match_Half_Length will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_Match_Half_Length, ORG_Match_Half_Length)
+{$asm}
+
+dealloc(newmem_Match_Half_Length)
+unregistersymbol(HalfLength)
+dealloc(HalfLength)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+39D6158
+V FCEGameModes::Internal::MatchSetupReturnMessage
+^ FORCED_DRAW_DESIRABILITY_HOME
+^ OVERRIDE/HOMETEAM
+"FIFA20.exe"+39D6129: 41 FF D2                 -  call r10
+"FIFA20.exe"+39D612C: 89 86 BC 18 00 00        -  mov [rsi+000018BC],eax
+"FIFA20.exe"+39D6132: 49 8B 45 00              -  mov rax,[r13+00]
+"FIFA20.exe"+39D6136: 49 8B CD                 -  mov rcx,r13
+"FIFA20.exe"+39D6139: FF 50 28                 -  call qword ptr [rax+28]
+"FIFA20.exe"+39D613C: 89 86 C0 18 00 00        -  mov [rsi+000018C0],eax
+"FIFA20.exe"+39D6142: 41 8B 84 24 44 17 00 00  -  mov eax,[r12+00001744]
+"FIFA20.exe"+39D614A: 89 86 64 22 00 00        -  mov [rsi+00002264],eax
+"FIFA20.exe"+39D6150: 48 8B 7C 24 58           -  mov rdi,[rsp+58]
+"FIFA20.exe"+39D6155: 48 8B 07                 -  mov rax,[rdi]
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+39D6158: 45 8B 84 24 48 17 00 00  -  mov r8d,[r12+00001748]
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+39D6160: 33 D2                    -  xor edx,edx
+"FIFA20.exe"+39D6162: 48 8B CF                 -  mov rcx,rdi
+"FIFA20.exe"+39D6165: FF 50 58                 -  call qword ptr [rax+58]
+"FIFA20.exe"+39D6168: 48 8B 07                 -  mov rax,[rdi]
+"FIFA20.exe"+39D616B: 45 8B 84 24 4C 17 00 00  -  mov r8d,[r12+0000174C]
+"FIFA20.exe"+39D6173: BA 03 00 00 00           -  mov edx,00000003
+"FIFA20.exe"+39D6178: 48 8B CF                 -  mov rcx,rdi
+"FIFA20.exe"+39D617B: FF 50 58                 -  call qword ptr [rax+58]
+"FIFA20.exe"+39D617E: 48 8B 07                 -  mov rax,[rdi]
+"FIFA20.exe"+39D6181: 45 8B 84 24 4C 17 00 00  -  mov r8d,[r12+0000174C]
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1985</ID>
+                  <Description>"Half Length"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>HalfLength</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1986</ID>
+              <Description>"Weather"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 0/5 (There is no chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  Change weather for the next match.
+
+
+HOW TO USE:
+  1. Go to 'Cental' Tab in your career main menu.
+  2. Active script
+  3. Change 'Weather'. By default it will be 'Clear'
+  4. Press 'Play Match' in game
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
+    assert(false, error)
+end
+
+INJECT_Match_Weather = get_validated_address('AOB_MatchWeather')
+ORG_Match_Weather = readBytes(INJECT_Match_Weather, 12, true)
+
+{$asm}
+alloc(newmem_Match_Weather,$500,$INJECT_Match_Weather)
+
+label(code_Match_Weather)
+label(ret_Match_Weather)
+
+alloc(Weather, 4, $INJECT_Match_Weather)
+registersymbol(Weather)
+
+// Weather IDs:
+// 0 - Clear
+// 1 - Hazy
+// 2 - Cloudy
+// 3 - Rain
+// 4 - Showers
+// 5 - Snow
+// 6 - Flurries
+// 7 - Overcast
+// 8 - Foggy
+// OVERRIDE/WEATHER
+Weather:
+dd (int)0
+
+newmem_Match_Weather:
+  mov r15d, [Weather]
+  mov [rbp+68], r15d
+
+code_Match_Weather:
+  cmp r15d,-01
+  cmove r15d,[rbp+68]
+  jmp ret_Match_Weather
+
+$INJECT_Match_Weather:
+  jmp newmem_Match_Weather
+  nop
+  nop
+  nop
+  nop
+ret_Match_Weather:
+
+[DISABLE]
+//code_Match_Weather from here till the end of the code_Match_Weather will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_Match_Weather, ORG_Match_Weather)
+{$asm}
+
+dealloc(newmem_Match_Weather)
+unregistersymbol(Weather)
+dealloc(Weather)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+3837B1E
+Weather
+000000014536F670:"OVERRIDE/WEATHER"
+"FIFA20.exe"+3837AF0: 48 8D 15 39 25 4D 02        -  lea rdx,[FIFA20.exe+5D0A030]
+"FIFA20.exe"+3837AF7: 49 8B CB                    -  mov rcx,r11
+"FIFA20.exe"+3837AFA: E8 C1 0B B5 FE              -  call FIFA20.exe+23886C0
+"FIFA20.exe"+3837AFF: 84 C0                       -  test al,al
+"FIFA20.exe"+3837B01: 74 12                       -  je FIFA20.exe+3837B15
+"FIFA20.exe"+3837B03: 48 8D 15 26 25 4D 02        -  lea rdx,[FIFA20.exe+5D0A030]
+"FIFA20.exe"+3837B0A: 49 8B CB                    -  mov rcx,r11
+"FIFA20.exe"+3837B0D: E8 AE 0E B5 FE              -  call FIFA20.exe+23889C0
+"FIFA20.exe"+3837B12: 44 8B F8                    -  mov r15d,eax
+"FIFA20.exe"+3837B15: F0 44 0F C1 25 A6 2C 6F 03  - lock  xadd [FIFA20.exe+6F2A7C4],r12d
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+3837B1E: 41 83 FF FF                 -  cmp r15d,-01
+"FIFA20.exe"+3837B22: 44 0F 44 7D 68              -  cmove r15d,[rbp+68]
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+3837B27: 41 8B C7                    -  mov eax,r15d
+"FIFA20.exe"+3837B2A: EB 02                       -  jmp FIFA20.exe+3837B2E
+"FIFA20.exe"+3837B2C: 8B C7                       -  mov eax,edi
+"FIFA20.exe"+3837B2E: 48 81 C4 18 01 00 00        -  add rsp,00000118
+"FIFA20.exe"+3837B35: 41 5F                       -  pop r15
+"FIFA20.exe"+3837B37: 41 5E                       -  pop r14
+"FIFA20.exe"+3837B39: 41 5D                       -  pop r13
+"FIFA20.exe"+3837B3B: 41 5C                       -  pop r12
+"FIFA20.exe"+3837B3D: 5F                          -  pop rdi
+"FIFA20.exe"+3837B3E: 5E                          -  pop rsi
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1983</ID>
+                  <Description>"Weather"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'Clear'
+1: 'Hazy'
+2: 'Cloudy'
+3: 'Rain'
+4: 'Showers'
+5: 'Snow'
+6: 'Flurries'
+7: 'Overcast'
+8: 'Foggy'
+</DropDownList>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>Weather</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
           <ID>1611</ID>
           <Description>"Sim Match Settings"</Description>
           <Options moHideChildren="1"/>
@@ -16604,6 +17189,102 @@ dealloc(newmem_allowtransferapp_btnclick)
 "FIFA20.exe"+3C8FE11: 0F 84 BA 01 00 00     -  je FIFA20.exe+3C8FFD1
 "FIFA20.exe"+3C8FE17: 49 8B 04 24           -  mov rax,[r12]
 "FIFA20.exe"+3C8FE1B: 49 8B CC              -  mov rcx,r12
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>3685</ID>
+              <Description>"Allow Loan approach"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{
+AUTHOR:
+- Aranaktu
+
+GAME VERSION:
+- Script should always work with newest version of the game which can be downloaded from Origin.
+
+RISK LEVEL:
+- 1/5 (Very small chance that this script will harm your cm save.)
+
+DESCRIPTION:
+  This script will allow you to start loan negotiations
+
+HOW TO USE:
+  1. Activate script
+  2. Start negotiations
+
+VIDEO TUTORIAL:
+- NONE
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
+    assert(false, error)
+end
+
+INJECT_AllowLoanApp = get_validated_address('AOB_AllowLoanApp')
+ORG_AllowLoanApp = readBytes(INJECT_AllowLoanApp, 12, true)
+
+{$asm}
+alloc(newmem_AllowLoanApp,$500,$INJECT_AllowLoanApp)
+
+label(code_AllowLoanApp)
+label(ret_AllowLoanApp)
+
+newmem_AllowLoanApp:
+  xor eax, eax
+code_AllowLoanApp:
+  mov r15d,eax
+  cmp eax,0A
+  jmp ret_AllowLoanApp
+
+$INJECT_AllowLoanApp:
+  jmp newmem_AllowLoanApp
+  nop
+ret_AllowLoanApp:
+
+[DISABLE]
+//code_AllowLoanApp from here till the end of the code_AllowLoanApp will be used to disable the cheat
+{$lua}
+writeBytes(INJECT_AllowLoanApp, ORG_AllowLoanApp)
+{$asm}
+
+dealloc(newmem_AllowLoanApp)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+3C93891
+// CM_Transfer_CannotLoan_NotDesired
+"FIFA20.exe"+3C93869: 48 89 45 7F           -  mov [rbp+7F],rax
+"FIFA20.exe"+3C9386D: 48 C7 C3 FF FF FF FF  -  mov rbx,FFFFFFFF
+"FIFA20.exe"+3C93874: 89 5D 67              -  mov [rbp+67],ebx
+"FIFA20.exe"+3C93877: 89 5D 77              -  mov [rbp+77],ebx
+"FIFA20.exe"+3C9387A: 48 8B 4E 20           -  mov rcx,[rsi+20]
+"FIFA20.exe"+3C9387E: 48 8B 11              -  mov rdx,[rcx]
+"FIFA20.exe"+3C93881: 4C 8B 8A F8 00 00 00  -  mov r9,[rdx+000000F8]
+"FIFA20.exe"+3C93888: 45 8B C5              -  mov r8d,r13d
+"FIFA20.exe"+3C9388B: 41 8B D4              -  mov edx,r12d
+"FIFA20.exe"+3C9388E: 41 FF D1              -  call r9
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+3C93891: 44 8B F8              -  mov r15d,eax
+"FIFA20.exe"+3C93894: 83 F8 0A              -  cmp eax,0A
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+3C93897: 77 11                 -  ja FIFA20.exe+3C938AA
+"FIFA20.exe"+3C93899: B8 65 05 00 00        -  mov eax,00000565
+"FIFA20.exe"+3C9389E: 44 0F A3 F8           -  bt eax,r15d
+"FIFA20.exe"+3C938A2: 73 06                 -  jae FIFA20.exe+3C938AA
+"FIFA20.exe"+3C938A4: 41 BE 01 00 00 00     -  mov r14d,00000001
+"FIFA20.exe"+3C938AA: 45 84 F6              -  test r14l,r14l
+"FIFA20.exe"+3C938AD: 0F 84 9A 01 00 00     -  je FIFA20.exe+3C93A4D
+"FIFA20.exe"+3C938B3: 48 8B 07              -  mov rax,[rdi]
+"FIFA20.exe"+3C938B6: 48 8B CF              -  mov rcx,rdi
+"FIFA20.exe"+3C938B9: FF 90 08 02 00 00     -  call qword ptr [rax+00000208]
 }
 </AssemblerScript>
             </CheatEntry>
@@ -18425,11 +19106,11 @@ bAwayTeam_Tired:
   <UserdefinedSymbols>
     <SymbolEntry>
       <Name>ptrBaseScripts</Name>
-      <Address>13FFE0000</Address>
+      <Address>13FFF0000</Address>
     </SymbolEntry>
     <SymbolEntry>
       <Name>funcGenReport</Name>
-      <Address>13FFE0010</Address>
+      <Address>13FFF0010</Address>
     </SymbolEntry>
     <SymbolEntry>
       <Name>bNewReport</Name>
