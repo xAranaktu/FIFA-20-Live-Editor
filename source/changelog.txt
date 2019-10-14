@@ -168,3 +168,26 @@ v20.1.1.4:
         - Accomplishments
     - Added to "Manager":
         - seasoncount = 1
+        
+v20.1.1.5:
+    - Added following lua scripts to "users lua scripts" folder:
+        - make everyone 16 (or any other age).lua
+        - randomize.lua
+        - untuck_shirts.lua
+        - randomize_shoe_models.lua
+        - medium_socklenghtcode.lua
+        - is_retiring=0.lua
+    - Added to "Non-CM Related -> Game Settings":
+        - Camera
+    - Added to "FIFA Database Tables":
+        - Teamkits Table
+        - LeagueTeamLinks Table
+        - TeamStadiumLinks Table
+        - Career_ManagerPref Table
+        - Career_PresignedContract Table
+        - Career_ManagerInfo Table
+        - Career_Users Table
+        - Career_PlayerContract Table
+        - Career_Calendar Table
+        - Career_Scouts Table
+        - Career_ScoutMission Table

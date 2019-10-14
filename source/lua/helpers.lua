@@ -348,6 +348,9 @@ end
 -- AOBScanModule
 -- https://www.cheatengine.org/forum/viewtopic.php?p=5621132&sid=c4dd9b1a4d0ddabf23f99b8f9bfe5f4e
 function AOBScanModule(aob, module_name, module_size)
+    if aob == nil then
+        do_log("AOB is NULL. Update not properly installed. Remove all versions of the live editor tool you have and download the latest one again", 'ERROR')
+    end
     if module_name == nil then
         module_name = FIFA_PROCESS_NAME
     end
@@ -715,6 +718,7 @@ function load_aobs()
         AOB_TODReal = '4C 8B CF 49 8B CD B8',
         AOB_MatchWeather = '41 83 FF FF 44 0F 44 7D 68 41',
         AOB_EditCareerUsers = '8B 03 89 45 90 8B',
+        AOB_GameSettingsCam = '8B 7C C6 58 89 7D 68',
 
         -- PAP
         AOB_AgreeTransferRequest = "41 89 C5 48 8B 89 98 01 00 00",
