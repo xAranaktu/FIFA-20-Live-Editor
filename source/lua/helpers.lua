@@ -714,10 +714,24 @@ function load_aobs()
         AOB_TODDisplay = '48 8B 03 4C 8B 90 38 02 00 00',
         AOB_TODReal = '4C 8B CF 49 8B CD B8',
         AOB_MatchWeather = '41 83 FF FF 44 0F 44 7D 68 41',
+        AOB_EditCareerUsers = '8B 03 89 45 90 8B',
 
         -- PAP
         AOB_AgreeTransferRequest = "41 89 C5 48 8B 89 98 01 00 00",
         AOB_PAP_NEW_OFFER = "8B 81 9C 01 00 00 83 F8 FF",
+        AOB_PAPAccompl = "8B 84 A9 18 07 00 00",
+        AOB_BDRanges = "8B 49 78 3B D1",
+
+        -- FREE CAM
+        AOB_CAM_TARGET = "0F 11 AB 60 0B 00 00",
+
+        AOB_CAM_ROTATE = "F3 0F 11 83 C8 05 00 00 F3",
+        AOB_CAM_V_ROTATE_SPEED_MUL = "F3 0F 5E C7 F3 0F 11 83 B0 0B 00 00",
+        AOB_CAM_H_ROTATE_SPEED_MUL = "F3 0F 11 83 AC 0B 00 00",
+        AOB_CAM_Z_ROTATE_SPEED_MUL = "F3 0F 11 83 B4 0B 00 00 F3",
+        AOB_STADIUM_BOUNDARY = "0F 10 32 0F 28 C6 0F 29",
+        AOB_CAM_Z_BOUNDARY = "66 0F 70 0A 55 0F 28",
+        AOB_FULL_ANGLE_ROTV = "F3 0F 10 40 60 F3 0F 58 83 B4",
     }
 end
 
