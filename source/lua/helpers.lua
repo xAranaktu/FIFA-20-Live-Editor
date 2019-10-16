@@ -24,27 +24,22 @@ end
 function after_attach()
     update_status_label("Attached to the game process.")
     check_for_le_update()
+    
     -- "FIFA19.exe"+06267F98
     -- MM_TAB_HOME
     -- MM_TAB_PLAY
     -- MM_TAB_ONLINE
-    -- local screenid_aob = tonumber(get_validated_address('AOB_screenID'), 16)
-    -- SCREEN_ID_PTR = byteTableToDword(readBytes(screenid_aob+4, 4, true)) + screenid_aob + 8
-    -- logScreenID()
+    local screenid_aob = tonumber(get_validated_address('AOB_screenID'), 16)
+    SCREEN_ID_PTR = byteTableToDword(readBytes(screenid_aob+4, 4, true)) + screenid_aob + 8
+    logScreenID()
 
-    -- -- Don't activate too early
-    -- do_log("Waiting for valid screen")
-    -- -- if getScreenID() == nil then
-    -- --     print("Cheat Engine is waiting until you enter main menu in game. It may stop responding until you do that. Please, don't report this problem. It's working that way on purpose")
-    -- --     sleep(5000)
-    -- -- end
-    
-    -- while getScreenID() == nil do
-    --     ShowMessage('You are not in main menu in game. Enter there and close this window')
-    --     sleep(1500)
-    -- end
-    -- logScreenID()
-    sleep(500)
+    -- Don't activate too early
+    do_log("Waiting for valid screen")
+    while getScreenID() == nil do
+        ShowMessage('You are not in main menu in game. Enter there and close this window')
+        sleep(1500)
+    end
+    logScreenID()
 
     -- update_offsets()
     save_cfg()
@@ -507,7 +502,8 @@ function autoactivate_scripts()
     -- Always activate database tables script
     -- And globalAllocs
     local always_activate = {
-        7
+        7, 
+        CT_MEMORY_RECORDS['CURRENT_DATE_SCRIPT']
     }
 
     for i=1, #always_activate do
@@ -607,46 +603,46 @@ function logScreenID()
 end
 
 function initPtrs()
-    -- local codeGameDB = tonumber(get_validated_address('AOB_codeGameDB'), 16)
-    -- local base_ptr = readPointer(byteTableToDword(readBytes(codeGameDB+4, 4, true)) + codeGameDB + 8)
+    local codeGameDB = tonumber(get_validated_address('AOB_codeGameDB'), 16)
+    local base_ptr = readPointer(byteTableToDword(readBytes(codeGameDB+4, 4, true)) + codeGameDB + 8)
 
-    -- local DB_One_Tables_ptr = readMultilevelPointer(base_ptr, {0x10, 0x390})
-    -- local DB_Two_Tables_ptr = readMultilevelPointer(base_ptr, {0x10, 0x3C0})
+    local DB_One_Tables_ptr = readMultilevelPointer(base_ptr, {0x10, 0x390})
+    local DB_Two_Tables_ptr = readMultilevelPointer(base_ptr, {0x10, 0x3C0})
 
-    -- -- Players Table
-    -- local players_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0xA8, 0x28, 0x30})
-    -- writeQword("firstPlayerDataPtr", players_firstrecord)
-    -- writeQword("playerDataPtr", players_firstrecord)
+    -- Players Table
+    local players_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0xB0, 0x28, 0x30})
+    writeQword("firstPlayerDataPtr", players_firstrecord)
+    writeQword("playerDataPtr", players_firstrecord)
 
-    -- -- Teamplayerlinks Table
-    -- local teamplayerlinks_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0x120, 0x28, 0x30})
-    -- writeQword("ptrFirstTeamplayerlinks", teamplayerlinks_firstrecord)
-    -- writeQword("ptrTeamplayerlinks", teamplayerlinks_firstrecord)
+    -- Teamplayerlinks Table
+    local teamplayerlinks_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0x128, 0x28, 0x30})
+    writeQword("ptrFirstTeamplayerlinks", teamplayerlinks_firstrecord)
+    writeQword("ptrTeamplayerlinks", teamplayerlinks_firstrecord)
 
-    -- -- LeagueTeamLinks Table
-    -- local leagueteamlinks_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0x148, 0x28, 0x30})
-    -- writeQword("leagueteamlinksDataFirstPtr", leagueteamlinks_firstrecord)
-    -- writeQword("leagueteamlinksDataPtr", leagueteamlinks_firstrecord)
+    -- LeagueTeamLinks Table
+    local leagueteamlinks_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0x150, 0x28, 0x30})
+    writeQword("leagueteamlinksDataFirstPtr", leagueteamlinks_firstrecord)
+    writeQword("leagueteamlinksDataPtr", leagueteamlinks_firstrecord)
 
     -- -- career_calendar Table
     -- local careercalendar_firstrecord = readMultilevelPointer(DB_Two_Tables_ptr, {0xC0, 0x28, 0x30})
     -- writeQword("ptrCareerCalendar", careercalendar_firstrecord)
 
-    -- -- BASE PTR FOR STAMINA & INJURES
-    -- local code = tonumber(get_validated_address('AOB_BASE_STAMINA_INJURES'), 16)
-    -- tmp = byteTableToDword(readBytes(code+10, 4, true)) + code + 14
-    -- autoAssemble([[ 
-    --     globalalloc(basePtrStaminaInjures, 8, $tmp)
-    -- ]])
-    -- writeQword("basePtrStaminaInjures", tmp)
+    -- BASE PTR FOR STAMINA & INJURES
+    local code = tonumber(get_validated_address('AOB_BASE_STAMINA_INJURES'), 16)
+    tmp = byteTableToDword(readBytes(code+3, 4, true)) + code + 7
+    autoAssemble([[ 
+        globalalloc(basePtrStaminaInjures, 8, $tmp)
+    ]])
+    writeQword("basePtrStaminaInjures", tmp)
 
-    -- -- BASE PTR FOR FORM & MORALE
-    -- local code = tonumber(get_validated_address('AOB_BASE_FORM_MORALE'), 16)
-    -- tmp = byteTableToDword(readBytes(code+8, 4, true)) + code + 12
-    -- autoAssemble([[ 
-    --     globalalloc(basePtrTeamFormMorale, 8, $tmp)
-    -- ]])
-    -- writeQword("basePtrTeamFormMorale", tmp)
+    -- BASE PTR FOR FORM, MORALE and Release Clause
+    local code = tonumber(get_validated_address('AOB_BASE_FORM_MORALE_RLC'), 16)
+    tmp = byteTableToDword(readBytes(code+3, 4, true)) + code + 7
+    autoAssemble([[ 
+        globalalloc(basePtrTeamFormMoraleRLC, 8, $tmp)
+    ]])
+    writeQword("basePtrTeamFormMoraleRLC", tmp)
 
 
     setup_internal_calls()
@@ -657,8 +653,13 @@ end
 -- load AOBs
 function load_aobs()
     return {
+        AOB_screenID = '4C 0F 45 3D ?? ?? ?? ?? 48 8B FE',
+        AOB_codeGameDB = '4C 0F 44 35 ?? ?? ?? ?? 41 8B 4E 08',
+        AOB_CalendarCurrentDate = '44 8B 7A 34 44 8B 62 38',
+        AOB_BASE_STAMINA_INJURES = '48 89 3D ?? ?? ?? ?? 48 89 05 ?? ?? ?? ?? EB 03',
         AOB_SCRIPTS_BASE_PTR = '48 8B 47 10 4C 89 32',
         AOB_F_GEN_REPORT = '48 89 D9 E8 ?? ?? ?? ?? 48 89 D9 48 8B 5C 24 38 48 8B 74 24 40 48 83 C4 20',
+        AOB_BASE_FORM_MORALE_RLC = '48 89 35 ?? ?? ?? ?? 48 89 3D ?? ?? ?? ?? 48 89 0D ?? ?? ?? ??', 
 
         AOB_TransferBudget = '44 8B 48 08 45 8B 87 90 02 00 00',
         AOB_IsEditPlayerUnlocked = '49 8B CB E8 ?? ?? ?? ?? 85 C0 75 ?? 48 8B 46 08 40 ?? ?? 48 8B 80 B8 0F 00 00',

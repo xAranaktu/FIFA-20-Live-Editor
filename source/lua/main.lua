@@ -16,6 +16,7 @@ require 'lua/helpers';
 -- GUI Events
 require 'lua/GUI/forms/mainform/events';
 require 'lua/GUI/forms/settingsform/events';
+require 'lua/GUI/forms/playerseditorform/events';
 
 do_log('New session started', 'INFO')
 

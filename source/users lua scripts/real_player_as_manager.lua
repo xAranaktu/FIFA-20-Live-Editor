@@ -12,6 +12,7 @@
 
 --- AUTHOR: ARANAKTU
 
+require 'lua/GUI/forms/playerseditorform/consts';
 require 'lua/consts';
 
 -- EDIT

@@ -14,6 +14,7 @@
 
 --- AUTHOR: FIFER
 
+require 'lua/GUI/forms/playerseditorform/consts';
 require 'lua/consts';
 
 -- EDIT THIS. CHANGE 0 (or the value next to locale season =) TO THE SEASON YOU ARE IN (0 being first, 1 being second, etc)

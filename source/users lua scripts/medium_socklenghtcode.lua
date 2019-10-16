@@ -11,6 +11,7 @@
 
 --- AUTHOR: ARANAKTU
 
+require 'lua/GUI/forms/playerseditorform/consts';
 require 'lua/consts';
 
 local comp_desc = get_components_description_player_edit()

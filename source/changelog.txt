@@ -191,3 +191,8 @@ v20.1.1.5:
         - Career_Calendar Table
         - Career_Scouts Table
         - Career_ScoutMission Table
+
+v20.1.1.6:
+    - Minor bug fixes
+    - Added to GUI:
+        - Player Editor

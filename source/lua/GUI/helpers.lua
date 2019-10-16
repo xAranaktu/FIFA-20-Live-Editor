@@ -94,7 +94,12 @@ function load_headshot(playerid, headtypecode, haircolorcode)
             fpath = string.format('youthheads/p%d%02d.png', headtypecode, haircolorcode)
         end
     end
-    local url = string.format('https://fifatracker.net/static/img/assets/%d/%s', FIFA, fpath)
+
+    -- TODO Update FOR 20
+    local tmp_fifa_asset = 19
+
+    -- local url = string.format('https://fifatracker.net/static/img/assets/%d/%s', FIFA, fpath)
+    local url = string.format('https://fifatracker.net/static/img/assets/%d/%s', tmp_fifa_asset, fpath)
     local img_ss = load_img(fpath, url)
     
     -- If file is not a png file use notfound.png
@@ -105,7 +110,12 @@ end
 
 function load_crest(teamid)
     local fpath = string.format('crest/l%d.png', teamid)
-    local url = string.format('https://fifatracker.net/static/img/assets/%d/%s', FIFA, fpath)
+
+    -- TODO Update FOR 20
+    local tmp_fifa_asset = 19
+
+    -- local url = string.format('https://fifatracker.net/static/img/assets/%d/%s', FIFA, fpath)
+    local url = string.format('https://fifatracker.net/static/img/assets/%d/%s', tmp_fifa_asset, fpath)
 
     local img_ss = load_img(fpath, url)
     

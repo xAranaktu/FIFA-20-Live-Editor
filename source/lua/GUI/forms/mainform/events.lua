@@ -68,30 +68,28 @@ function MainMenuFormShow(sender)
     end
 
     -- Load Img if attached to the game process
-    do_log("TODO: Load Img")
-    -- if BASE_ADDRESS then
-    --     local stream = load_headshot(
-    --         tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['PLAYERID']).Value),
-    --         tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HEADTYPECODE']).Value),
-    --         tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HAIRCOLORCODE']).Value)
-    --     )
-    --     MainWindowForm.PlayersEditorImg.Picture.LoadFromStream(stream)
-    --     stream.destroy()
-    -- end
+    if BASE_ADDRESS then
+        local stream = load_headshot(
+            tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['PLAYERID']).Value),
+            tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HEADTYPECODE']).Value),
+            tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HAIRCOLORCODE']).Value)
+        )
+        MainWindowForm.PlayersEditorImg.Picture.LoadFromStream(stream)
+        stream.destroy()
+    end
 end
 
 function MainFormRemoveLoadingPanel()
     MainWindowForm.LoadingPanel.Visible = false
 
     -- load headshot
-    do_log("TODO: Load Img")
-    -- local stream = load_headshot(
-    --     tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['PLAYERID']).Value),
-    --     tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HEADTYPECODE']).Value),
-    --     tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HAIRCOLORCODE']).Value)
-    -- )
-    -- MainWindowForm.PlayersEditorImg.Picture.LoadFromStream(stream)
-    -- stream.destroy()
+    local stream = load_headshot(
+        tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['PLAYERID']).Value),
+        tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HEADTYPECODE']).Value),
+        tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HAIRCOLORCODE']).Value)
+    )
+    MainWindowForm.PlayersEditorImg.Picture.LoadFromStream(stream)
+    stream.destroy()
 end
 
 
@@ -105,8 +103,10 @@ function MainExitClick(sender)
     -- Deactivate scripts on Exit while in DEBUG MODE
     if DEBUG_MODE then
         deactive_all(getAddressList().getMemoryRecordByDescription('Scripts'))
-    end
 
+        -- Deactivate CURRENT_DATE_SCRIPT
+        ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_SCRIPT']).Active = false
+    end
     -- Deactivate "GUI" script
     ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['GUI_SCRIPT']).Active = false
 end
