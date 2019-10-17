@@ -153,7 +153,7 @@ function recalculate_ovr(update_ovr_edit)
         calculated_ovrs[posid] = sum
     end
     if update_ovr_edit then
-        PlayersEditorForm.OverallEdit.Text = calculated_ovrs[string.format("%d", preferred_position_id)]
+        PlayersEditorForm.OverallEdit.Text = calculated_ovrs[string.format("%d", preferred_position_id)] + tonumber(PlayersEditorForm.ModifierEdit.Text)
     end
 
     for k,v in pairs(unique_ovrs) do
@@ -306,11 +306,40 @@ function find_player_by_id(playerid)
 end
 
 function birthdate_to_age(args)
-    local current_date = os.time{
-        year=ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_YEAR']).Value,
-        month=ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_MONTH']).Value,
-        day=ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_DAY']).Value
-    }
+    local current_date = nil
+    if is_cm_loaded() then
+        local y = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_YEAR']).Value)
+        local m = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_MONTH']).Value)
+        local d = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_DAY']).Value)
+
+        -- if date is invalid
+        local default_year = math.floor(2019 + (FIFA - 20))
+        if ((y == nil) or (y < default_year) or (y > 2100)) or ((m == nil) or (m < 1) or (m > 12)) or ((d == nil) or (d < 1) or (d > 31)) then
+            y = default_year
+            m = 7
+            d = 1
+        end
+
+        current_date = os.time{
+            year=y,
+            month=m,
+            day=d
+        }
+    else
+        -- 01.07.2019 -- FIFA 20
+        local add_year = math.floor(11 + ((math.floor(FIFA - 20) * 365)))
+        default_date = string.format("%d0600", add_year)
+        local str_current_date = string.format("%d", 20080101 + (tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRDATE']).Value) or default_date))
+
+        if DEBUG_MODE then
+            do_log(str_current_date)
+        end
+        current_date = os.time{
+            year=tonumber(string.sub(str_current_date, 1, 4)),
+            month=tonumber(string.sub(str_current_date, 5, 6)),
+            day=tonumber(string.sub(str_current_date, 7, 8))
+        }
+    end
 
     local birthdate = convert_from_days(args['birthdate']) or convert_from_days(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['BIRTHDATE']).Value)
     return math.floor(os.difftime(current_date, birthdate) / (24*60*60*365.25))
@@ -472,7 +501,7 @@ function get_player_fitness_addr(playerid, free)
         {0x0, 0x8, 0x5D8, 0x0}
     )
 
-    if fitness_ptr == 0 then
+    if fitness_ptr == 0 or fitness_ptr == nil then
         return 0
     end
 
@@ -536,9 +565,17 @@ function date_to_value(d)
     return tonumber(m_date)
 end
 
-function load_player_release_clause(playerid)
+function load_player_release_clause(playerid, is_cm_loaded)
     if not playerid then
         return
+    end
+    if not is_cm_loaded then
+        PlayersEditorForm.ReleaseClauseEdit.Visible = false
+        PlayersEditorForm.ReleaseClauseLabel.Visible = false
+        return
+    else
+        PlayersEditorForm.ReleaseClauseEdit.Visible = true
+        PlayersEditorForm.ReleaseClauseLabel.Visible = true
     end
     do_log(string.format("load_player_release_clause. PlayerID: %d", playerid))
 
@@ -556,11 +593,19 @@ function load_player_release_clause(playerid)
     PlayersEditorForm.ReleaseClauseEdit.Text = readInteger(addr+RLC_STRUCT['value'])
 end
 
-function load_player_morale(playerid)
+function load_player_morale(playerid, is_cm_loaded)
     if not playerid then
         PlayersEditorForm.MoraleCB.Visible = false
         PlayersEditorForm.MoraleLabel.Visible = false
         return
+    end
+    if not is_cm_loaded then
+        PlayersEditorForm.MoraleCB.Visible = false
+        PlayersEditorForm.MoraleLabel.Visible = false
+        return
+    else
+        PlayersEditorForm.MoraleCB.Visible = true
+        PlayersEditorForm.MoraleLabel.Visible = true
     end
     do_log(string.format("load_player_morale. PlayerID: %d", playerid))
     local addr = get_player_morale_addr(playerid)
@@ -589,11 +634,19 @@ function load_player_morale(playerid)
     PlayersEditorForm.MoraleCB.ItemIndex = morale_level
 end
 
-function load_player_match_form(playerid)
+function load_player_match_form(playerid, is_cm_loaded)
     if not playerid then
         PlayersEditorForm.FormCB.Visible = false
         PlayersEditorForm.FormLabel.Visible = false
         return
+    end
+    if not is_cm_loaded then
+        PlayersEditorForm.FormCB.Visible = false
+        PlayersEditorForm.FormLabel.Visible = false
+        return
+    else
+        PlayersEditorForm.FormCB.Visible = true
+        PlayersEditorForm.FormLabel.Visible = true
     end
     do_log(string.format("load_player_match_form. PlayerID: %d", playerid))
     local addr = get_player_form_addr(playerid)
@@ -626,9 +679,30 @@ function load_player_match_form(playerid)
     -- }
 end
 
-function load_player_fitness(playerid)
+function load_player_fitness(playerid, is_cm_loaded)
     if not playerid then
         return
+    end
+
+    if not is_cm_loaded then
+        PlayersEditorForm.IsInjuredCB.Visible = false
+        PlayersEditorForm.InjuredLabel.Visible = false
+        PlayersEditorForm.InjuryCB.Visible = false
+        PlayersEditorForm.InjuryLabel.Visible = false
+        PlayersEditorForm.DurabilityEdit.Visible = false
+        PlayersEditorForm.DurabilityLabel.Visible = false
+        PlayersEditorForm.FullFitDateEdit.Visible = false
+        PlayersEditorForm.FullFitDateLabel.Visible = false
+        return
+    else
+        PlayersEditorForm.IsInjuredCB.Visible = true
+        PlayersEditorForm.InjuredLabel.Visible = true
+        PlayersEditorForm.InjuryCB.Visible = true
+        PlayersEditorForm.InjuryLabel.Visible = true
+        PlayersEditorForm.DurabilityEdit.Visible = true
+        PlayersEditorForm.DurabilityLabel.Visible = true
+        PlayersEditorForm.FullFitDateEdit.Visible = true
+        PlayersEditorForm.FullFitDateLabel.Visible = true
     end
     do_log(string.format("load_player_fitness. PlayerID: %d", playerid))
 
@@ -1031,18 +1105,19 @@ function FillPlayerEditForm(playerid)
 
     local iPlayerID = tonumber(PlayersEditorForm.PlayerIDEdit.Text)
 
+    local is_cm_loaded = is_cm_loaded()
+    IS_CM_LOADED_AT_ENTER = is_cm_loaded
     -- Player info - fitness & injury
-    -- TODO
-    load_player_fitness(iPlayerID)
+    load_player_fitness(iPlayerID, is_cm_loaded)
 
     -- Player info - form
-    load_player_match_form(iPlayerID)
+    load_player_match_form(iPlayerID, is_cm_loaded)
 
     -- Player info - Morale
-    load_player_morale(iPlayerID)
+    load_player_morale(iPlayerID, is_cm_loaded)
 
     -- Player info - Release Clause
-    load_player_release_clause(iPlayerID)
+    load_player_release_clause(iPlayerID, is_cm_loaded)
     do_log("FillPlayerEditForm Finished")
 end
 
@@ -1057,21 +1132,45 @@ function age_to_birthdate(args)
     end
 
     local comp_desc = args['comp_desc']
-    local str_current_date = string.format("%d", 20080101 + (tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRDATE']).Value) or 0))
 
-    local current_date = os.time{
-        year=tonumber(string.sub(str_current_date, 1, 4)),
-        month=tonumber(string.sub(str_current_date, 5, 6)),
-        day=tonumber(string.sub(str_current_date, 7, 8))
-    }
+    local new_birthdate = nil
 
-    local new_birthdate = convert_to_days(os.time{
-        year=tonumber(string.sub(str_current_date, 1, 4)) - age,
-        month=tonumber(string.sub(str_current_date, 5, 6)),
-        day=tonumber(string.sub(str_current_date, 7, 8))
-    })
+    if is_cm_loaded() then
+        local y = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_YEAR']).Value)
+        local m = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_MONTH']).Value)
+        local d = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_DAY']).Value)
 
-    return new_birthdate 
+        -- if date is invalid
+        local default_year = math.floor(2019 + (FIFA - 20))
+        if ((y == nil) or (y < default_year) or (y > 2100)) or ((m == nil) or (m < 1) or (m > 12)) or ((d == nil) or (d < 1) or (d > 31)) then
+            y = default_year
+            m = 7
+            d = 1
+        end
+
+        new_birthdate = convert_to_days(os.time{
+            year=y - age,
+            month=m,
+            day=d
+        })
+    else
+        -- 01.07.2019 -- FIFA 20
+        local add_year = math.floor(11 + ((math.floor(FIFA - 20) * 365)))
+        default_date = string.format("%d0600", add_year)
+        local str_current_date = string.format("%d", 20080101 + (tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRDATE']).Value) or default_date))
+
+        if DEBUG_MODE then
+            do_log(str_current_date)
+        end
+
+        new_birthdate = convert_to_days(os.time{
+            year=tonumber(string.sub(str_current_date, 1, 4)) - age,
+            month=tonumber(string.sub(str_current_date, 5, 6)),
+            day=tonumber(string.sub(str_current_date, 7, 8))
+        })
+    end
+
+    return new_birthdate
 end
 
 -- From GUI to CT
@@ -1139,12 +1238,12 @@ function ApplyChanges()
 
     local iPlayerID = tonumber(PlayersEditorForm.PlayerIDEdit.Text)
 
-    save_player_fitness(iPlayerID)
-
-    -- TODO
-    save_player_match_form(iPlayerID)
-    save_player_morale(iPlayerID)
-    save_player_release_clause(iPlayerID)
+    if IS_CM_LOADED_AT_ENTER then
+        save_player_fitness(iPlayerID)
+        save_player_match_form(iPlayerID)
+        save_player_morale(iPlayerID)
+        save_player_release_clause(iPlayerID)
+    end
 
     HAS_UNAPPLIED_PLAYER_CHANGES = false
     showMessage("Player edited.")

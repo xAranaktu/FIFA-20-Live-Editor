@@ -15,6 +15,19 @@ function _translate(txt)
     return translated
 end
 
+function is_cm_loaded()
+local modules = enumModules()
+    for _, module in ipairs(modules) do
+        if module.Name == 'FootballCompEng_Win64_retail.dll' then
+            -- We are in career mode
+            return true
+        end
+    end
+
+    -- We are outside career mode
+    return false
+end
+
 function execute_cmd(cmd)
     do_log(string.format('execute cmd -  %s', cmd))
     do_log(string.format('execute cmd result - %s', io.popen(cmd):read'*l'))

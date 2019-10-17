@@ -196,3 +196,12 @@ v20.1.1.6:
     - Minor bug fixes
     - Added to GUI:
         - Player Editor
+        
+v20.1.1.7:
+    - Fixed:
+        - Saving player age in Players Editor
+        - Saving head type in Players Editor
+        - You can now open Players Editor outside of career mode
+    - Added following lua scripts to "users lua scripts" folder:
+        - modifier=0.lua
+    - Minor bug fixes

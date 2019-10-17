@@ -34,6 +34,9 @@ CT_MEMORY_RECORDS = {
     -- Leagueteamlinks
     LEAGUEID = 4239,
     LTL_TEAMID = 4246, 
+
+    -- Calendar
+    CURRDATE = 4362,
 }
 
 DB_TABLE_SIZEOF = {

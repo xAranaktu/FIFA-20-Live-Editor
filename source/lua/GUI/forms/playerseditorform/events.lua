@@ -20,7 +20,7 @@ function PlayerEditFormShow(sender)
 
 
     -- No current date
-    if ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_DAY']).Value == '??' then
+    if ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_DAY']).Value == '??' and is_cm_loaded() then
         do_log("No ptr for current date. Reload your CM save and try again", 'ERROR')
         PlayersEditorForm.hide()
         MainWindowForm.show()
