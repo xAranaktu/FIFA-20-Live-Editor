@@ -218,4 +218,16 @@ v20.1.1.9:
         - This script will also reduce the chance of you being sacked from now.
     - Updated "Players Training" -> "Training Everyday":
         - This script will also allow you to traing your players on match day.
+
+v20.1.2.0:
+    - Added to GUI:
+        - Transfer Players
+    - Added to GUI -> Player Editor -> Clone:
+        - Don't Copy Nationality
+    - Added to "FIFA Database Tables":
+        - Competitionkits Table
+    - Added to "Manager":
+        - Make ManagerID editable
+    - Fixed error with loading "themes.ini"
+    - Minor bug fixes
     
