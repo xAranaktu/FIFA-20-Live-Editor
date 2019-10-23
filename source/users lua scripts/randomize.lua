@@ -70,50 +70,52 @@ while true do
     if current_playerid == 0 then
         break
     end
+    
+    if current_playerid >= 280000 then
+        writeQword('playerDataPtr', readPointer('firstPlayerDataPtr') + i*sizeOf)
+        
+        -- get ovr_formula for player primiary position
+        local ovr_formula = deepcopy(OVR_FORMULA[ADDR_LIST.getMemoryRecordByID(comp_desc['PreferredPosition1CB']['id']).Value])
+        
+        -- Randomize Attributes
+        local new_ovr = 0
+        for j=1, #attributes_to_randomize do
+            local new_attr_val = math.random(19, 98)
+            local attr_name = attributes_to_randomize[j] .. 'Edit'
+            for attr, perc in pairs(ovr_formula) do
+                if attr == attr_name then
+                    new_ovr = new_ovr + (new_attr_val * perc)
+                end
+            end
+            ovr_formula[attr_name] = nil
 
-    writeQword('playerDataPtr', readPointer('firstPlayerDataPtr') + i*sizeOf)
-    
-    -- get ovr_formula for player primiary position
-    local ovr_formula = deepcopy(OVR_FORMULA[ADDR_LIST.getMemoryRecordByID(comp_desc['PreferredPosition1CB']['id']).Value])
-    
-    -- Randomize Attributes
-    local new_ovr = 0
-    for j=1, #attributes_to_randomize do
-        local new_attr_val = math.random(19, 98)
-        local attr_name = attributes_to_randomize[j] .. 'Edit'
-        for attr, perc in pairs(ovr_formula) do
-            if attr == attr_name then
-                new_ovr = new_ovr + (new_attr_val * perc)
+            ADDR_LIST.getMemoryRecordByID(comp_desc[attr_name]['id']).Value = new_attr_val
+        end
+        
+        -- Update OVR
+        new_ovr = math.floor(new_ovr)
+        ADDR_LIST.getMemoryRecordByID(comp_desc['OverallEdit']['id']).Value = new_ovr
+        
+        -- Keep potential higher than ovr
+        local new_pot = tonumber(ADDR_LIST.getMemoryRecordByID(comp_desc['PotentialEdit']['id']).Value)
+        if new_pot < new_ovr then
+            if new_ovr >= 94 then
+                ADDR_LIST.getMemoryRecordByID(comp_desc['PotentialEdit']['id']).Value = 99
+            else
+                ADDR_LIST.getMemoryRecordByID(comp_desc['PotentialEdit']['id']).Value = new_ovr + 5
             end
         end
-        ovr_formula[attr_name] = nil
-
-        ADDR_LIST.getMemoryRecordByID(comp_desc[attr_name]['id']).Value = new_attr_val
-    end
-    
-    -- Update OVR
-    new_ovr = math.floor(new_ovr)
-    ADDR_LIST.getMemoryRecordByID(comp_desc['OverallEdit']['id']).Value = new_ovr
-    
-    -- Keep potential higher than ovr
-    local new_pot = tonumber(ADDR_LIST.getMemoryRecordByID(comp_desc['PotentialEdit']['id']).Value)
-    if new_pot < new_ovr then
-        if new_ovr >= 94 then
-            ADDR_LIST.getMemoryRecordByID(comp_desc['PotentialEdit']['id']).Value = 99
+        
+        -- Randomize Age
+        local bd_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['BIRTHDATE'])
+        local current_age = tonumber(bd_record.Value)
+        if math.random() >= 0.50 then
+            -- younger
+            bd_record.Value = current_age + (math.random(0, 10) * 365)
         else
-            ADDR_LIST.getMemoryRecordByID(comp_desc['PotentialEdit']['id']).Value = new_ovr + 5
+            -- older
+            bd_record.Value = current_age - (math.random(0, 10) * 365)
         end
-    end
-    
-    -- Randomize Age
-    local bd_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['BIRTHDATE'])
-    local current_age = tonumber(bd_record.Value)
-    if math.random() >= 0.50 then
-        -- younger
-        bd_record.Value = current_age + (math.random(0, 10) * 365)
-    else
-        -- older
-        bd_record.Value = current_age - (math.random(0, 10) * 365)
     end
 
     i = i + 1

@@ -1,9 +1,15 @@
 json = require 'lua/requirements/json';
 
+-- FUT_URLS = {
+--     card_bg = 'https://www.easports.com/fifa/ultimate-team/web-app/content/7D49A6B1-760B-4491-B10C-167FBC81D58A/2019/fut/items/images/backgrounds/itemCompanionBGs/large/cards_bg_e_1_',
+--     display = 'https://www.easports.com/fifa/ultimate-team/api/fut/display',
+--     player_search = 'https://www.easports.com/fifa/ultimate-team/api/fut/item?jsonParamObject='
+-- }
+
 FUT_URLS = {
-    card_bg = 'https://www.easports.com/fifa/ultimate-team/web-app/content/7D49A6B1-760B-4491-B10C-167FBC81D58A/2019/fut/items/images/backgrounds/itemCompanionBGs/large/cards_bg_e_1_',
-    display = 'https://www.easports.com/fifa/ultimate-team/api/fut/display',
-    player_search = 'https://www.easports.com/fifa/ultimate-team/api/fut/item?jsonParamObject='
+    player_details = 'https://www.futbin.com/%d/player/%d/',
+    player_search = 'https://www.futbin.com/search',
+    card_bg = 'https://cdn.futbin.com/content/fifa20/img/cards/',
 }
 
 function encodeURI(str)
@@ -16,26 +22,118 @@ function encodeURI(str)
    return str
 end
 
-function fut_get_rarity_display()
+function fut_get_player_details(playerid, fut_fifa)
+    do_log(string.format("Loading FUT%d player: %d", fut_fifa, playerid))
+    local request = string.format(
+        FUT_URLS['player_details'],
+        fut_fifa,
+        playerid
+    )
     local r = getInternet()
-    local request = FUT_URLS['display']
     local reply = r.getURL(request)
     if reply == nil then
         do_log('No internet connection? No reply from: ' .. request, 'ERROR')
         return nil
     end
-    
-    local response = json.decode(
-        reply
-    )
-    r.destroy()
 
-    return response
+    local base_playerid = string.match(reply, 'data%-baseid="(%d+)"')
+
+    local miniface_img = string.match(reply, '<img class="pcdisplay%-picture%-width " id="player_pic" src="(%a+://[%a+%./%d%?%=]+)')
+    local club_img = string.match(reply, '<img id="player_club" src="(%a+://[%a+%./%d%?%=]+)')
+    local club_id = string.match(club_img, 'clubs/(%d+).png')
+
+    local nation_img = string.match(reply, '<img id="player_nation" src="(%a+://[%a+%./%d%?%=]+)')
+    local nation_id = string.match(nation_img, 'nation/(%d+).png')
+
+    local ovr = string.match(reply, '<div style="color:[#%S+;|;]+" class="pcdisplay%-rat">(%d+)</div>')
+    local name = string.match(reply, '<div style="color:[#%S+;|;]+" class="pcdisplay%-name">([%S-? ?]+)</div>')
+    local pos = string.match(reply, '<div style="color:[#%S+;|;]+" class="pcdisplay%-pos">([%w]+)</div>')
+
+    local stat1_name, stat1_val = string.match(reply, '<div%A+class="pcdisplay%-ovr1 stat%-val" data%-stat="(%w+)">(%d+)</div>')
+    local stat2_name, stat2_val = string.match(reply, '<div%A+class="pcdisplay%-ovr2 stat%-val" data%-stat="(%w+)">(%d+)</div>')
+    local stat3_name, stat3_val = string.match(reply, '<div%A+class="pcdisplay%-ovr3 stat%-val" data%-stat="(%w+)">(%d+)</div>')
+    local stat4_name, stat4_val = string.match(reply, '<div%A+class="pcdisplay%-ovr4 stat%-val" data%-stat="(%w+)">(%d+)</div>')
+    local stat5_name, stat5_val = string.match(reply, '<div%A+class="pcdisplay%-ovr5 stat%-val" data%-stat="(%w+)">(%d+)</div>')
+    local stat6_name, stat6_val = string.match(reply, '<div%A+class="pcdisplay%-ovr6 stat%-val" data%-stat="(%w+)">(%d+)</div>')
+    local stat_json = string.match(reply, '<div style="display: none;" id="player_stats_json">([{"%w:,}]+)</div>')
+
+    local special_img, rev, lvl, rare_type = string.match(reply, '<div id="Player%-card" data%-special%-img="(%d)" data%-revision="([(%w+_?)"|"]+) data%-level="(%w+)" data%-rare%-type="(%d+)"')
+
+    local card = nil
+    local card_type = nil
+
+    if rev == '"' then
+        rev = nil
+    else
+        rev = string.gsub(rev, '"', '')
+    end
+
+    if fut_fifa == 20  then
+        if (rev == nil) or (rev == 'if') then
+            -- TODO Other FIFAs
+            card = string.format(
+                "%d_%s.png",
+                rare_type, lvl
+            )
+            card_type = string.format('%s-%s', rare_type, lvl)
+        else
+            card = string.format(
+                "%d_%s.png",
+                rare_type, rev
+            )
+            card_type = string.format('%s-%s', rare_type, rev)
+        end
+    else
+        rare_type = 1
+        rev = 'gold'
+        card = string.format(
+            "%d_%s.png",
+            rare_type, rev
+        )
+        card_type = string.format('%s-%s', rare_type, rev)
+    end
+
+    if stat_json ~= nil then
+        stat_json = json.decode(stat_json)
+    end
+
+    if DEBUG_MODE then
+        do_log(card)
+        do_log(card_type)
+    end
+
+    return {
+        base_playerid = base_playerid,
+        special_img = special_img,
+        card = card,
+        card_type = card_type,
+        miniface_img = miniface_img,
+        club_img = club_img,
+        nation_img = nation_img,
+        club_id = club_id,
+        nation_id = nation_id,
+        ovr = ovr,
+        name = name,
+        pos = pos,
+        stat1_name = stat1_name,
+        stat1_val = stat1_val,
+        stat2_name = stat2_name,
+        stat2_val = stat2_val,
+        stat3_name = stat3_name,
+        stat3_val = stat3_val,
+        stat4_name = stat4_name,
+        stat4_val = stat4_val,
+        stat5_name = stat5_name,
+        stat5_val = stat5_val,
+        stat6_name = stat6_name,
+        stat6_val = stat6_val,
+        stat_json = stat_json
+    }
 end
 
-function fut_find_player(player_data, page)
+function fut_find_player(player_name, page, fut_fifa)
     -- print(fut_find_player('ronaldo')['items'][1]['age'])
-    if string.match(player_data, '[0-9]') then
+    if string.match(player_name, '[0-9]') then
         -- TODO player name from playerid
     end
 
@@ -43,10 +141,10 @@ function fut_find_player(player_data, page)
         page = 1
     end
 
-    local request = FUT_URLS['player_search'] .. encodeURI(string.format(
-        '{"name":"%s", "page": "%d"}',
-        player_data, page
-    ))
+    local request = FUT_URLS['player_search'] .. string.format(
+        '?year=%d&extra=1&term=%s',
+        fut_fifa, encodeURI(player_name)
+    )
 
     local r = getInternet()
     local reply = r.getURL(request)
@@ -59,6 +157,10 @@ function fut_find_player(player_data, page)
         reply
     )
     r.destroy()
+
+    if response['error'] then
+        return nil
+    end
 
     return response
 end

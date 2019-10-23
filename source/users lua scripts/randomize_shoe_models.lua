@@ -19,226 +19,172 @@ require 'lua/consts';
 local comp_desc = get_components_description_player_edit()
 
 local shoe_id_list = {
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23,
-    24,
-    25,
-    26,
-    27,
-    28,
-    29,
-    30,
-    31,
-    32,
-    33,
-    34,
-    35,
-    36,
-    37,
-    38,
-    39,
-    40,
-    41,
-    42,
-    43,
-    44,
-    45,
-    46,
-    47,
-    48,
-    49,
-    50,
-    51,
-    52,
-    53,
-    54,
-    55,
-    56,
-    57,
-    58,
-    59,
-    60,
-    61,
-    62,
-    63,
-    64,
-    65,
-    66,
-    67,
-    68,
-    69,
-    70,
-    71,
-    72,
-    73,
-    74,
-    75,
-    76,
-    77,
-    78,
-    79,
-    80,
-    81,
-    82,
-    83,
-    84,
-    85,
-    86,
-    87,
-    88,
-    89,
-    90,
-    91,
-    92,
-    93,
-    94,
-    95,
-    96,
-    97,
-    98,
-    99,
-    100,
-    101,
-    102,
-    103,
-    104,
-    105,
-    106,
-    107,
-    108,
-    109,
-    110,
-    111,
-    112,
-    113,
-    114,
-    115,
-    116,
-    117,
-    118,
-    119,
-    120,
-    121,
-    122,
-    123,
-    124,
-    125,
-    126,
-    127,
-    128,
-    130,
-    131,
-    132,
-    133,
-    134,
-    135,
-    136,
-    137,
-    138,
-    139,
-    140,
-    141,
-    142,
-    165,
-    166,
-    167,
-    168,
-    169,
-    170,
-    171,
-    172,
-    173,
-    174,
-    175,
-    176,
-    177,
-    178,
-    179,
-    180,
-    181,
-    182,
-    183,
-    184,
-    185,
-    186,
-    192,
-    193,
-    194,
-    195,
-    197,
-    198,
-    199,
-    200,
-    201,
-    204,
-    205,
-    206,
-    209,
-    210,
-    211,
-    216,
-    217,
-    218,
-    219,
-    220,
-    227,
-    228,
-    231,
-    232,
-    233,
-    234,
-    235,
-    237,
-    238,
-    239,
-    255,
-    256,
-    257,
-    258,
-    259,
-    260,
-    261,
-    262,
-    263,
-    264,
-    265,
-    266,
-    267,
-    271,
-    272,
-    275,
-    276,
-    277,
-    279,
-    280,
-    282,
-    283,
-    284,
-    285,
-    338,
-    339,
-    340,
-    341,
-    342,
-    343,
-    344,
-    345,
-    346,
-    347,
-    348,
-    349,
-    350,
-    351,
-    352,
-    353,
-    354
+    16, --- adidas NEMEZIZ MESSI 19.1 302 REDIRECT
+    17, --- adidas COPA 19+ 302 REDIRECT
+    18, --- adidas NEMEZIZ 19+ 302 REDIRECT
+    19, --- adidas PREDATOR 19+ 302 REDIRECT
+    20, --- adidas X19+ 302 REDIRECT
+    21, --- adidas COPA 19+ INPUT CODE
+    22, --- adidas NEMEZIZ 19+ INNER GAME
+    23, --- adidas PREDATOR 19+ INPUT CODE
+    24, --- adidas X19+ INNER GAME
+    25, --- adidas COPA 19+ HARD WIRED
+    26, --- adidas NEMEZIZ 19+ HARD WIRED
+    27, --- adidas PREDATOR 19+ HARD WIRED
+    28, --- adidas X19+ HARD WIRED
+    33, --- Lotto Solista 100 III Gravity
+    34, --- JOMA Propulsion
+    35, --- ASICS DS LIGHT X-FLY 4
+    36, --- ASICS DS LIGHT AVANTE
+    37, --- Hummel Rapid X Blade Bluebird
+    38, --- New Balance Furon V5 - Bayside/Supercell
+    39, --- New Balance Tekela V2 - Supercell/Bayside
+    45, --- UA Magnetico Control - Black/Glow Orange/White
+    46, --- UA Magnetico Control - Glow Orange/White/Black
+    47, --- UA Magnetico Pro - Glow Orange/White/Black
+    48, --- UA Magnetico Pro - White/Glow Orange/Black
+    49, --- Pirma Gladiator Activity
+    50, --- Pirma Supreme Legion
+    51, --- Mizuno Morelia Neo II - Chinese Red/Silver
+    54, --- Mizuno Morelia Neo II Beta - Silver/Gold
+    57, --- PUMA FUTURE Anthem
+    58, --- PUMA ONE Anthem
+    59, --- PUMA FUTUE Rush
+    60, --- PUMA ONE Rush
+    61, --- umbro Medusae 3 Elite – Black/White
+    62, --- umbro Velocita 4 Pro - Black/White
+    63, --- umbro Medusae 3 Elite – White/Plum
+    64, --- umbro Velocita 4 Pro - White/Plum
+    69, --- Nike Mercurial Superfly Elite - Blue
+    70, --- Nike PHANTOM VSN - Volt
+    71, --- Nike PHANTOM VNM - Volt
+    72, --- Nike Tiempo Elite - Black
+    73, --- Nike Neymar Jr. Vapor Elite
+    130, --- adidas PREDATOR 18+ SHADOW MODE
+    131, --- adidas X 18+ SHADOW MODE
+    132, --- adidas NEMEZIZ 18+ SHADOW MODE
+    133, --- adidas PREDATOR 18.1 W
+    134, --- adidas NEMEZIZ 18.1 W
+    135, --- adidas PREDATOR 18+ TEAM MODE
+    136, --- adidas X 18+ TEAM MODE
+    137, --- adidas NEMEZIZ 18+ TEAM MODE
+    138, --- adidas PAUL POGBA PREDATOR 18+
+    139, --- adidas PREDATOR 18+ SPECTRAL MODE
+    140, --- adidas X 18+ SPECTRAL MODE
+    141, --- adidas NEMEZIZ 18+ SPECTRAL MODE
+    142, --- adidas COPA 18.1 SPECTRAL MODE
+    143, --- adidas PREDATOR 18+ COLD MODE
+    144, --- adidas X 18+ COLD MODE
+    145, --- adidas NEMEZIZ 18+ COLD MODE
+    146, --- adidas COPA MID GTX
+    147, --- adidas COPA 19+ INITIATOR
+    148, --- adidas PREDATOR 19+ INITIATOR
+    149, --- adidas X 19+ INITIATOR
+    150, --- adidas NEMEZIZ 19+ INITIATOR
+    151, --- adidas COPA 19+ ARCHETIC
+    152, --- adidas PREDATOR 19+ ARCHETIC
+    153, --- adidas X 19+ ARCHETIC
+    154, --- adidas NEMEZIZ 19+ ARCHETIC
+    155, --- adidas COPA 19+ EXHIBIT
+    156, --- adidas PREDATOR 19+ EXHIBIT
+    157, --- adidas X 19+ EXHIBIT
+    158, --- adidas NEMEZIZ 19+ EXHIBIT
+    159, --- adidas COPA 19+ VIRTUSO
+    160, --- adidas PREDATOR 19+ VIRTUSO
+    161, --- adidas X 19+ VIRTUSO
+    162, --- adidas NEMEZIZ 19+ VIRTUSO
+    163, --- adidas COPA 19.1 W
+    164, --- adidas PREDATOR 19.1 W
+    165, --- Pantofola Superleggera
+    166, --- adidas COPA 18.1 SHADOW MODE
+    167, --- adidas NEMEZIZ MESSI 18.1 SPECTRAL MODE
+    168, --- adidas NEMEZIZ MESSI 18.1 TEAM MODE
+    169, --- adidas COPA 18.1 TEAM MODE
+    170, --- Nike Hypervenom 3PLUS Phantom - Pure Platinum/Alt. Crimson
+    171, --- Nike Hypervenom 3PLUS Phantom - Black
+    172, --- Nike Hypervenom Phantom Elite DF - Black
+    173, --- Nike Hypervenom Phantom Elite DF - Crimson/Wolf Grey
+    174, --- Nike Mercurial Superfly Elite - Black
+    175, --- Nike Mercurial Superfly Elite - Team Red
+    176, --- Nike Mercurial Superfly Elite - Wolf Grey
+    177, --- Nike PHANTOM VSN - Black
+    178, --- Nike PHANTOM VSN - Pure Platinum
+    179, --- Nike PHANTOM VSN - Team Red
+    180, --- Nike Tiempo Legend Elite - Black
+    181, --- Nike Tiempo Legend Elite - Black/Crimson
+    182, --- Nike Neymar Vapor XII Elite
+    183, --- Nike Vapor Elite - Black
+    184, --- Nike Vapor Elite - Team Red
+    185, --- Nike Vapor Elite - Wolf Grey
+    186, --- Nike PHANTOM VSN Elite EA SPORTS
+    187, --- Nike PHANTOM VSN Black Cat
+    188, --- Nike Vapor Elite Black Cat
+    189, --- Nike Tiempo 10R
+    190, --- Nike Total 90
+    191, --- Nike GS3
+    192, --- adidas GLITCH Prep Skin 1
+    193, --- adidas GLITCH Prep Skin 2
+    194, --- adidas GLITCH Exert Skin
+    195, --- Umbro Velocita 4 Pro - Black/White/Caribbean Sea
+    196, --- Umbro Velocita 4 Pro - Bright Marigold/Peacoat/Spectrum Blue
+    197, --- Umbro Velocita 4 Pro - White/Black/Acid Lime
+    198, --- Umbro Medusae 2 Elite - White/Black/Acid Lime
+    199, --- Umbro Medusae 2 Elite - Black/White/Caribbean Sea
+    200, --- Umbro UX Accuro II Pro - Black/White/Caribbean Sea
+    201, --- Umbro UX Accuro II Pro - White/Black/Acid Lime
+    202, --- Umbro Velocita 4 Pro - Black/White/Marine Green
+    203, --- Umbro Medusae 3 Elite - Black/Marine Green
+    204, --- UA MAGNETICO PRO - Faded Gold/Black
+    205, --- UA MAGNETICO PRO - Red
+    206, --- UA Spotlight Pro - Grey
+    207, --- UA MAGNETICO PRO - Blue/White
+    208, --- UA Spotlight Pro - White/Blue
+    209, --- Mizuno Morelia Neo II - Gold
+    210, --- Mizuno Morelia Neo II Japan - Black
+    211, --- Mizuno Rebula 2 V1 Japan - Gold
+    212, --- Mizuno Morelia Neo II Japan - White/Blue
+    213, --- Mizuno Rebula 2 V1 Japan - White/Blue
+    214, --- Mizuno Morelia Wave Cup Legend - White/Blue
+    215, --- adidas NEMEZIZ MESSI 19.1 INITIATOR
+    216, --- Umbro Speciali 98 – Black/White/Royal Blue
+    217, --- PUMA ONE 1 Lth - Silver/Black/Shocking Orange
+    218, --- PUMA FUTURE 2.1 NETFIT - Black/Shocking Orange
+    219, --- PUMA FUTURE 2.1 NETFIT - Black/Iron Gate
+    220, --- PUMA ONE 1 Lth - Black/Iron Gate
+    221, --- PUMA FUTURE 2.1 NETFIT - Silver/Peacoat
+    222, --- PUMA ONE 1 Lth - Sodalite Blue/Silver
+    223, --- PUMA FUTURE 2.1 NETFIT - Laurel Wreath/White
+    224, --- PUMA ONE 1 Lth - Black/White/Laurel Wreath
+    225, --- PUMA FUTURE 19.1 - Red Blast/Bleu Azure
+    226, --- PUMA ONE 19.1 - Black.Bleu Azure/Red Blast
+    227, --- New Balance Furon v4 Pro - Flame/Aztec Gold
+    228, --- New Balance Tekela v1 Pro - Polaris/Galaxy
+    229, --- New Balance Furon v4 Pro - Bright Cherry/Black
+    230, --- New Balance Tekela v1 Pro - White/Bright Cherry
+    231, --- Pirma Gladiator Veneno
+    232, --- Joma Propulsion Lite
+    233, --- Joma Numero 10 Pro FG
+    234, --- Joma Propulsion 4.0
+    235, --- Joma Aguila Gol FG
+    236, --- ASICS Menace 3
+    237, --- adidas GLITCH Exhibit Skin
+    238, --- adidas GLITCH Initiator Skin
+    240, --- BootName_240_Auth-FullChar
+    504, --- Nike Tiempo Legend Elite - Black/Crimson
+    505, --- Nike Vapor Elite - Wolf Grey
+    506, --- Nike Neymar Vapor XII Silêncio
+    507, --- adidas NEMEZIZ 19.1 302 REDIRECT
+    508, --- adidas NEMEZIZ 19.1 HARD WIRED
+    509, --- adidas PREDATOR 19.1 Black/Black/Matte Gold
+    510, --- adidas Predator White and Gold
+    511, --- adidas PREDATOR 19.1 HARD WIRED
+    512, --- Nike Lunar Gato II
+    514, --- New Balance Audazo V4 Pro
+    516, --- PUMA 365 Roma 1TT - Gray Dawn/NRGY Red
+    517, --- umbro Chaleira 2 Pro - White/Black/Regal Blue
+    547, --- adidas Samba - Black
+    548, --- adidas Samba - Blue
+    549, --- adidas Samba - White
 }
 
 function inTable(tbl, item)

@@ -87,6 +87,8 @@ function TruePlayerEditFormShow()
     PlayersEditorForm.CloneFromListBox.setItemIndex(0)
     PlayersEditorForm.CardContainerPanel.Visible = false
 
+    PlayersEditorForm.FutFIFACB.Hint = ''
+
     -- Hide Loading Panel and show components
     PlayerInfoTabClick()
     PlayersEditorForm.FindPlayerByID.Text = 'Find player by ID...'
@@ -727,10 +729,11 @@ function FUTChemStyleCBChange(sender)
 
     -- Labels on card
     local selected = PlayersEditorForm.FUTPickPlayerListBox.ItemIndex + 1
-    local player = FOUND_FUT_PLAYERS['items'][selected]
+    local player = FOUND_FUT_PLAYERS[selected]
     if not player then return end
+    if not player['details'] then return end
 
-    fut_fill_attributes(player)
+    fut_fill_attributes(player['details'])
 end
 
 function FindPlayerByNameFUTEditClick(sender)
@@ -742,6 +745,8 @@ end
 
 FOUND_FUT_PLAYERS = nil
 function SearchPlayerByNameFUTBtnClick(sender)
+    PlayersEditorForm.CardContainerPanel.Visible = false
+    PlayersEditorForm.FUTPickPlayerListBox.clear()
     if PlayersEditorForm.FindPlayerByNameFUTEdit.Text == '' then return end
     if PlayersEditorForm.FindPlayerByNameFUTEdit.Text == 'Enter player name you want to find' then return end
     fut_search_player(PlayersEditorForm.FindPlayerByNameFUTEdit.Text, 1)
@@ -749,10 +754,10 @@ end
 
 function FUTPickPlayerListBoxSelectionChange(sender, user)
     local selected = PlayersEditorForm.FUTPickPlayerListBox.ItemIndex + 1
-    local player = FOUND_FUT_PLAYERS['items'][selected]
+    local player = FOUND_FUT_PLAYERS[selected]
     if not player then return end
     -- Create CARD in GUI
-    fut_create_card(player)
+    fut_create_card(player, selected)
 
     if not PlayersEditorForm.CardContainerPanel.Visible then
         PlayersEditorForm.CardContainerPanel.Visible = true
@@ -792,12 +797,37 @@ end
 
 function FUTCopyPlayerBtnClick(sender)
     local selected = PlayersEditorForm.FUTPickPlayerListBox.ItemIndex + 1
-    local player = FOUND_FUT_PLAYERS['items'][selected]
+    local player = FOUND_FUT_PLAYERS[selected]
 
     if not player then
         do_log('Select player card first.', 'ERROR')
         return
     end
 
+    if player['details'] == nil then
+        local fut_fifa = FIFA - PlayersEditorForm.FutFIFACB.ItemIndex
+        player['details'] = fut_get_player_details(player['id'], fut_fifa)
+        FOUND_FUT_PLAYERS[selected]['details'] = player
+    end
+
     fut_copy_card_to_gui(player)
+end
+
+function CardContainerPanelClick(sender)
+    local selected = PlayersEditorForm.FUTPickPlayerListBox.ItemIndex + 1
+    local player = FOUND_FUT_PLAYERS[selected]
+
+    local fut_fifa = FIFA - PlayersEditorForm.FutFIFACB.ItemIndex
+
+    local player_page = string.format(
+        FUT_URLS['player_details'],
+        fut_fifa,
+        player['id']
+    )
+    print(player_page)
+    shellExecute(player_page)
+end
+
+function FutFIFACBChange(sender)
+    SearchPlayerByNameFUTBtnClick(sender)
 end

@@ -205,3 +205,8 @@ v20.1.1.7:
     - Added following lua scripts to "users lua scripts" folder:
         - modifier=0.lua
     - Minor bug fixes
+
+v20.1.1.8:
+    - Added to GUI -> Player Editor:
+        - Clone
+    - Minor bug fixes

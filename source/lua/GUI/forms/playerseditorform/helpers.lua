@@ -261,7 +261,6 @@ function find_player_by_id(playerid)
 
             writeQword('ptrTeamplayerlinks', teamplayerlink['addr'])
             local teamid = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['TEAMID']).Value) + 1
-            table.insert(team_ids, teamid)
             -- find league-team link
             local ltl_teamid_record_id = CT_MEMORY_RECORDS['LTL_TEAMID'] -- TeamID in leagueteamlinks table
             local ltl_sizeOf = DB_TABLE_SIZEOF['LEAGUETEAMLINKS'] -- Size of one record in leagueteamlinks database table (0x1C)
@@ -295,9 +294,14 @@ function find_player_by_id(playerid)
                 addr = teamplayerlink['addr'],
                 team_type = team_type
             }
+            table.insert(team_ids, teamid)
         end
         -- set first team in CT
-        writeQword('ptrTeamplayerlinks', PlayerTeamContext[team_ids[1]]['addr'])
+        if #team_ids >= 1 then
+            writeQword('ptrTeamplayerlinks', PlayerTeamContext[team_ids[1]]['addr'])
+        else
+            do_log(string.format("No link for player with ID: %d.", playerid), 'WARNING')
+        end
         return true
     else
         do_log(string.format("Unable to find player with ID: %d.", playerid), 'ERROR')
@@ -1147,6 +1151,7 @@ function age_to_birthdate(args)
             m = 7
             d = 1
         end
+        do_log(string.format("Y-M-D: %d-%d-%d", y, m, d))
 
         new_birthdate = convert_to_days(os.time{
             year=y - age,
@@ -1159,9 +1164,7 @@ function age_to_birthdate(args)
         default_date = string.format("%d0600", add_year)
         local str_current_date = string.format("%d", 20080101 + (tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRDATE']).Value) or default_date))
 
-        if DEBUG_MODE then
-            do_log(str_current_date)
-        end
+        do_log(string.format("str_current_date: %s", str_current_date))
 
         new_birthdate = convert_to_days(os.time{
             year=tonumber(string.sub(str_current_date, 1, 4)) - age,
@@ -1250,125 +1253,132 @@ function ApplyChanges()
 end
 
 function fut_copy_card_to_gui(player)
+
     local columns = {
         firstnameid = 1,
         lastnameid = 2,
         playerjerseynameid = 3,
         commonnameid = 4,
-        trait2 = 5,
-        haircolorcode = 6,
-        facialhairtypecode = 7,
-        curve = 8,
-        jerseystylecode = 9,
-        agility = 10,
-        accessorycode4 = 11,
-        gksavetype = 12,
-        positioning = 13,
-        tattooleftarm = 14,
-        hairtypecode = 15,
-        standingtackle = 16,
-        tattoobackneck = 17,
-        preferredposition3 = 18,
-        longpassing = 19,
-        penalties = 20,
-        animfreekickstartposcode = 21,
-        animpenaltieskickstylecode = 22,
-        isretiring = 23,
-        longshots = 24,
-        gkdiving = 25,
-        interceptions = 26,
-        shoecolorcode2 = 27,
-        crossing = 28,
-        potential = 29,
-        gkreflexes = 30,
-        finishingcode1 = 31,
-        reactions = 32,
-        composure = 33,
-        vision = 34,
-        contractvaliduntil = 35,
-        animpenaltiesapproachcode = 36,
-        finishing = 37,
-        dribbling = 38,
-        slidingtackle = 39,
-        accessorycode3 = 40,
-        accessorycolourcode1 = 41,
-        headtypecode = 42,
-        sprintspeed = 43,
-        height = 44,
-        hasseasonaljersey = 45,
-        preferredposition2 = 46,
-        strength = 47,
-        shoetypecode = 48,
-        birthdate = 49,
-        preferredposition1 = 50,
-        ballcontrol = 51,
-        shotpower = 52,
-        trait1 = 53,
-        socklengthcode = 54,
-        weight = 55,
-        hashighqualityhead = 56,
-        gkglovetypecode = 57,
-        tattoorightarm = 58,
-        balance = 59,
-        gender = 60,
-        headassetid = 61,
-        gkkicking = 62,
-        internationalrep = 63,
-        animpenaltiesmotionstylecode = 64,
-        shortpassing = 65,
-        freekickaccuracy = 66,
-        skillmoves = 67,
-        faceposerpreset = 68,
-        usercaneditname = 69,
-        attackingworkrate = 70,
-        finishingcode2 = 71,
-        aggression = 72,
-        acceleration = 73,
-        headingaccuracy = 74,
-        iscustomized = 75,
-        eyebrowcode = 76,
-        runningcode2 = 77,
-        modifier = 78,
-        gkhandling = 79,
-        eyecolorcode = 80,
-        jerseysleevelengthcode = 81,
-        accessorycolourcode3 = 82,
-        accessorycode1 = 83,
-        playerjointeamdate = 84,
-        headclasscode = 85,
-        defensiveworkrate = 86,
-        nationality = 87,
-        preferredfoot = 88,
-        sideburnscode = 89,
-        weakfootabilitytypecode = 90,
-        jumping = 91,
-        skintypecode = 92,
-        tattoorightneck = 93,
-        gkkickstyle = 94,
-        stamina = 95,
-        playerid = 96,
-        marking = 97,
-        accessorycolourcode4 = 98,
-        gkpositioning = 99,
-        headvariation = 100,
-        skillmoveslikelihood = 101,
-        skintonecode = 102,
-        shortstyle = 103,
-        overallrating = 104,
-        tattooleftneck = 105,
-        emotion = 106,
-        jerseyfit = 107,
-        accessorycode2 = 108,
-        shoedesigncode = 109,
-        shoecolorcode1 = 110,
-        hairstylecode = 111,
-        bodytypecode = 112,
-        animpenaltiesstartposcode = 113,
-        runningcode1 = 114,
-        preferredposition4 = 115,
-        volleys = 116,
-        accessorycolourcode2 = 117,
-        facialhaircolorcode = 118,
+        skintypecode = 5,
+        trait2 = 6,
+        bodytypecode = 7,
+        haircolorcode = 8,
+        facialhairtypecode = 9,
+        curve = 10,
+        jerseystylecode = 11,
+        agility = 12,
+        tattooback = 13,
+        accessorycode4 = 14,
+        gksavetype = 15,
+        positioning = 16,
+        tattooleftarm = 17,
+        hairtypecode = 18,
+        standingtackle = 19,
+        preferredposition3 = 20,
+        longpassing = 21,
+        penalties = 22,
+        animfreekickstartposcode = 23,
+        animpenaltieskickstylecode = 24,
+        isretiring = 25,
+        longshots = 26,
+        gkdiving = 27,
+        interceptions = 28,
+        shoecolorcode2 = 29,
+        crossing = 30,
+        potential = 31,
+        gkreflexes = 32,
+        finishingcode1 = 33,
+        reactions = 34,
+        composure = 35,
+        vision = 36,
+        contractvaliduntil = 37,
+        animpenaltiesapproachcode = 38,
+        finishing = 39,
+        dribbling = 40,
+        slidingtackle = 41,
+        accessorycode3 = 42,
+        accessorycolourcode1 = 43,
+        headtypecode = 44,
+        sprintspeed = 45,
+        height = 46,
+        hasseasonaljersey = 47,
+        tattoohead = 48,
+        preferredposition2 = 49,
+        strength = 50,
+        shoetypecode = 51,
+        birthdate = 52,
+        preferredposition1 = 53,
+        tattooleftleg = 54,
+        ballcontrol = 55,
+        shotpower = 56,
+        trait1 = 57,
+        socklengthcode = 58,
+        weight = 59,
+        hashighqualityhead = 60,
+        gkglovetypecode = 61,
+        tattoorightarm = 62,
+        balance = 63,
+        gender = 64,
+        headassetid = 65,
+        gkkicking = 66,
+        internationalrep = 67,
+        animpenaltiesmotionstylecode = 68,
+        shortpassing = 69,
+        freekickaccuracy = 70,
+        skillmoves = 71,
+        faceposerpreset = 72,
+        usercaneditname = 73,
+        avatarpomid = 74,
+        attackingworkrate = 75,
+        finishingcode2 = 76,
+        aggression = 77,
+        acceleration = 78,
+        headingaccuracy = 79,
+        iscustomized = 80,
+        eyebrowcode = 81,
+        runningcode2 = 82,
+        modifier = 83,
+        gkhandling = 84,
+        eyecolorcode = 85,
+        jerseysleevelengthcode = 86,
+        accessorycolourcode3 = 87,
+        accessorycode1 = 88,
+        playerjointeamdate = 89,
+        headclasscode = 90,
+        defensiveworkrate = 91,
+        tattoofront = 92,
+        nationality = 93,
+        preferredfoot = 94,
+        sideburnscode = 95,
+        weakfootabilitytypecode = 96,
+        jumping = 97,
+        personality = 98,
+        gkkickstyle = 99,
+        stamina = 100,
+        playerid = 101,
+        marking = 102,
+        accessorycolourcode4 = 103,
+        gkpositioning = 104,
+        headvariation = 105,
+        skillmoveslikelihood = 106,
+        skintonecode = 107,
+        shortstyle = 108,
+        overallrating = 109,
+        smallsidedshoetypecode = 110,
+        emotion = 111,
+        runstylecode = 112,
+        jerseyfit = 113,
+        accessorycode2 = 114,
+        shoedesigncode = 115,
+        shoecolorcode1 = 116,
+        hairstylecode = 117,
+        animpenaltiesstartposcode = 118,
+        runningcode1 = 119,
+        preferredposition4 = 120,
+        volleys = 121,
+        accessorycolourcode2 = 122,
+        tattoorightleg = 123,
+        facialhaircolorcode = 124
     }
 
     local comp_to_column = {
@@ -1480,10 +1490,20 @@ function fut_copy_card_to_gui(player)
     }
 
     local comp_to_fut = {
-        OverallEdit = "rating",
+        OverallEdit = "ovr",
+        LongShotsEdit = "longshotsaccuracy"
     }
 
-    local playerid = tonumber(player['baseId'])
+    local playerid = tonumber(player['details']['base_playerid'])
+    if DEBUG_MODE then
+        print("baseplayerid")
+        print(playerid)
+    end
+    if playerid == nil then
+        do_log('COPY ERROR\n baseplayerid is nil:', 'ERROR')
+        return
+    end
+
     local fut_players_file_path = "other/fut/base_fut_players.csv"
 
     for line in io.lines(fut_players_file_path) do
@@ -1494,18 +1514,13 @@ function fut_copy_card_to_gui(player)
         if f_playerid == playerid then
             if PlayersEditorForm.FUTCopyAttribsCB.State == 0 then
                 local trait1_comps = {
-                    "InflexibilityCB",
                     "LongThrowInCB",
                     "PowerFreeKickCB",
-                    "DiverCB",
                     "InjuryProneCB",
                     "SolidPlayerCB",
-                    "AvoidsusingweakerfootCB",
                     "DivesIntoTacklesCB",
-                    "TriestobeatdefensivelineCB",
-                    "SelfishCB",
+                    "",
                     "LeadershipCB",
-                    "ArguesWithRefereeCB",
                     "EarlyCrosserCB",
                     "FinesseShotCB",
                     "FlairCB",
@@ -1513,17 +1528,22 @@ function fut_copy_card_to_gui(player)
                     "LongShotTakerCB",
                     "SpeedDribblerCB",
                     "PlaymakerCB",
-                    "GKupforcornersCB",
-                    "PuncherCB",
                     "GKLongthrowCB",
                     "PowerheaderCB",
-                    "GKOneonOneCB",
                     "GiantthrowinCB",
                     "OutsitefootshotCB",
-                    "FansfavouriteCB",
                     "SwervePassCB",
                     "SecondWindCB",
-                    "AcrobaticClearanceCB"
+                    "FlairPassesCB",
+                    "BicycleKicksCB",
+                    "GKFlatKickCB",
+                    "OneClubPlayerCB",
+                    "TeamPlayerCB",
+                    "ChipShotCB",
+                    "TechnicalDribblerCB",
+                    "RushesOutOfGoalCB",
+                    "CautiousWithCrossesCB",
+                    "ComesForCrossessCB"
                 }
                 local trait1 = toBits(tonumber(values[columns['trait1']]))
                 local index = 1
@@ -1536,30 +1556,9 @@ function fut_copy_card_to_gui(player)
                 end
 
                 local trait2_comps = {
-                    "SkilledDribblingCB",
-                    "FlairPassesCB",
-                    "FancyFlicksCB",
-                    "StutterPenaltyCB",
-                    "ChippedPenaltyCB",
-                    "BicycleKicksCB",
-                    "DivingHeaderCB",
-                    "DrivenPassCB",
-                    "GKFlatKickCB",
-                    "OneClubPlayerCB",
-                    "TeamPlayerCB",
-                    "ChipShotCB",
-                    "TechnicalDribblerCB",
-                    "RushesOutOfGoalCB",
-                    "BacksBacksIntoPlayerCB",
-                    "HiddenSetPlaySpecialistCB",
-                    "TakesFinesseFreeKicksCB",
-                    "TargetForwardCB",
-                    "CautiousWithCrossesCB",
-                    "ComesForCrossessCB",
-                    "BlamesTeammatesCB",
+                    "",
                     "SaveswithFeetCB",
-                    "SetPlaySpecialistCB",
-                    "TornadoSkillmoveCB",
+                    "SetPlaySpecialistCB"
                 }
                 local trait2 = toBits(tonumber(values[columns['trait2']]))
                 local index = 1
@@ -1571,14 +1570,18 @@ function fut_copy_card_to_gui(player)
                     index = index + 1
                 end
             end
-
+            
+            local dont_copy_headmodel = (
+                PlayersEditorForm.FUTCopyHeadModelCB.State == 1 or
+                PlayersEditorForm.FutFIFACB.ItemIndex > 0
+            )
             for key, value in pairs(comp_to_column) do
                 local component = PlayersEditorForm[key]
                 local component_name = component.Name
                 local comp_desc = COMPONENTS_DESCRIPTION_PLAYER_EDIT[component_name]
                 local component_class = component.ClassName
 
-                if PlayersEditorForm.FUTCopyHeadModelCB.State == 1 and (
+                if dont_copy_headmodel and (
                     component_name == 'HeadClassCodeEdit' or 
                     component_name == 'HeadAssetIDEdit' or 
                     component_name == 'HeadVariationEdit' or 
@@ -1633,13 +1636,26 @@ function fut_copy_card_to_gui(player)
                         -- clear
                         component.OnChange = nil
 
-                        local new_comp_text = player[value] or player[comp_to_fut[key]] or values[columns[value]]
+                        local new_comp_text = (
+                            player['details']['stat_json'][value] or 
+                            player['details'][comp_to_fut[key]] or 
+                            player['details']['stat_json'][comp_to_fut[key]] or 
+                            values[columns[value]]
+                        )
                         -- if not tonumber(new_comp_text) then
                         --     print(component_name)
                         --     print(new_comp_text)
                         --     print(value)
                         -- end
                         
+                        -- Composure has been added in FIFA 18
+                        if (
+                            component.Name == 'ComposureEdit' and
+                            tonumber(new_comp_text) == 0
+                        ) then
+                            new_comp_text = tonumber(player['details']['ovr']) - 6
+                        end
+
                         component.Text = tonumber(new_comp_text)
             
                         if comp_desc['events'] then
@@ -1693,7 +1709,12 @@ function fut_copy_card_to_gui(player)
                             }
                             new_comp_val = pos_name_to_id[player['position']]
                         else
-                            new_comp_val = player[value] or player[comp_to_fut[key]] or values[columns[value]]
+                            new_comp_val = (
+                                player['details']['stat_json'][value] or
+                                player['details'][comp_to_fut[key]] or
+                                player['details']['stat_json'][comp_to_fut[key]] or
+                                values[columns[value]]
+                            )
                         end
 
                         local dropdown = ADDR_LIST.getMemoryRecordByID(comp_desc['id'])
@@ -2079,71 +2100,53 @@ function fut_copy_card_to_gui(player)
     end
 end
 
-function fut_create_card(player)
+function fut_create_card(player, idx)
     if not player then return end
 
-    local rarity = player['rarityId']
+    local fut_fifa = FIFA - PlayersEditorForm.FutFIFACB.ItemIndex
+    local player_details = fut_get_player_details(player['id'], fut_fifa)
 
-    local quality_map = {
-        gold = 3,
-        silver = 2,
-        bronze = 1
-    }
+    FOUND_FUT_PLAYERS[idx]['details'] = player_details
 
-    local quality = quality_map[player['quality']]
+    -- Cards img
+    local card = player_details['card']
+    if card ~= nil then
+        local url = FUT_URLS['card_bg'] .. card .. '?v=119'
+        local stream = load_img('ut/cards_bg/' .. card, url)
 
-    -- Cards with bronze/silver/gold version
-    local card = string.format('%d_%d.png', rarity, quality)
-    local url = FUT_URLS['card_bg'] .. card
-    local stream = load_img('ut/cards_bg/' .. card, url)
-    
-    if not stream then
-        -- If image doesn't exists try with quality = 0
-        card = string.format('%d_%d.png', rarity, 0)
-        url = FUT_URLS['card_bg'] .. card
-        stream = load_img('ut/cards_bg/' .. card, url)
+        if stream ~= nil then
+            PlayersEditorForm.CardBGImage.Picture.LoadFromStream(stream)
+            stream.destroy()
+        end
     end
-
-    if not stream then
-        return false
-    end
-
-    PlayersEditorForm.CardBGImage.Picture.LoadFromStream(stream)
-    stream.destroy()
-
     -- Headshot
-    if player['headshot']['isDynamicPortrait'] then
-        PlayersEditorForm.CardHeadshotImage.Visible = false
-        PlayersEditorForm.CardSpecialHeadshotImage.Visible = true
-
+    if player_details['miniface_img'] ~= nil then
+        local img_comp = nil
+        if player_details['special_img'] == 1 then
+            img_comp = PlayersEditorForm.CardSpecialHeadshotImage
+            PlayersEditorForm.CardHeadshotImage.Visible = false
+            PlayersEditorForm.CardSpecialHeadshotImage.Visible = true
+        else
+            img_comp = PlayersEditorForm.CardHeadshotImage
+            PlayersEditorForm.CardHeadshotImage.Visible = true
+            PlayersEditorForm.CardSpecialHeadshotImage.Visible = false
+        end
         -- print(player['headshot']['imgUrl'])
 
         stream = load_img(
             string.format('heads/p%d.png', player['id']),
-            player['headshot']['imgUrl']
+            player_details['miniface_img']
         )
         if stream then
-            PlayersEditorForm.CardSpecialHeadshotImage.Picture.LoadFromStream(stream)
-            stream.destroy()
-        end
-    else
-        PlayersEditorForm.CardSpecialHeadshotImage.Visible = false
-        PlayersEditorForm.CardHeadshotImage.Visible = true
-        
-        stream = load_img(
-            string.format('heads/p%d.png', player['baseId']),
-            player['headshot']['imgUrl']
-        )
-        if stream then
-            PlayersEditorForm.CardHeadshotImage.Picture.LoadFromStream(stream)
+            img_comp.Picture.LoadFromStream(stream)
             stream.destroy()
         end
     end
 
     -- Nationality Img
     stream = load_img(
-        string.format('flags/f%d.png', player['nation']['id']),
-        player['nation']['imageUrls']['small']
+        string.format('flags/f%d.png', player_details['nation_id']),
+        player_details['nation_img']
     )
     if stream then
         PlayersEditorForm.CardNatImage.Picture.LoadFromStream(stream)
@@ -2152,8 +2155,8 @@ function fut_create_card(player)
 
     -- Club crest Img
     stream = load_img(
-        string.format('crest/l%d.png', player['club']['id']),
-        player['club']['imageUrls']['dark']['small']
+        string.format('crest/l%d.png', player_details['club_id']),
+        player_details['club_img']
     )
     if stream then
         PlayersEditorForm.CardClubImage.Picture.LoadFromStream(stream)
@@ -2213,7 +2216,7 @@ function fut_create_card(player)
         ['80-gold'] = '0x12FCC6',
 
         -- Icons
-        ['12-gold'] = '0x625217',
+        ['12-icon'] = '0x625217',
 
         -- The journey
         ['17-gold'] = '0xE9CC74',
@@ -2222,7 +2225,7 @@ function fut_create_card(player)
         ['21-gold'] = '0xFF4782',
 
         -- Ultimate SCREAM
-        ['21-gold'] = '0xFF690D',
+        ['21-otw'] = '0xFF690D',
 
         -- SBC
         ['24-gold'] = '0x72C0FF',
@@ -2255,7 +2258,7 @@ function fut_create_card(player)
         ['49-gold'] = '0xFBFBFB',
 
         -- Flashback sbc
-        ['51-gold'] = '0xE4D7BC',
+        ['51-sbc_flashback'] = '0xB0FFEB',
         
         -- Swap Deals I
         ['52-bronze'] = '0x05b3c3',
@@ -2351,26 +2354,26 @@ function fut_create_card(player)
     }
 
     -- print(string.format('%d-%s', player['rarityId'], player['quality']))
-    local f_color = type_color_map[string.format('%d-%s', player['rarityId'], player['quality'])]
+    local f_color = type_color_map[player_details['card_type']]
 
     if f_color == nil then
         f_color = '0xFBFBFB'
     end
 
     -- OVR LABEL
-    PlayersEditorForm.CardNameLabel.Caption = player['rating']
+    PlayersEditorForm.CardNameLabel.Caption = player_details['ovr']
     PlayersEditorForm.CardNameLabel.Font.Color = f_color
 
     -- Position LABEL
-    PlayersEditorForm.CardPosLabel.Caption = player['position']
+    PlayersEditorForm.CardPosLabel.Caption = player_details['pos']
     PlayersEditorForm.CardPosLabel.Font.Color = f_color
 
     -- Player Name Label
-    PlayersEditorForm.CardPlayerNameLabel.Caption = player['name']
+    PlayersEditorForm.CardPlayerNameLabel.Caption = player_details['name']
     PlayersEditorForm.CardPlayerNameLabel.Font.Color = f_color
 
     -- Attributes
-    fut_fill_attributes(player, f_color)
+    fut_fill_attributes(player_details, f_color)
 end
 
 function fut_fill_attributes(player, f_color)
@@ -2391,11 +2394,25 @@ function fut_fill_attributes(player, f_color)
     end
 
     -- Attributes
-    for i=1, #player['attributes'] do
+    local attr_abbr = {
+        pace = "PAC",
+        shooting = "SHO",
+        passing = "PAS",
+        dribblingp = "DRI",
+        defending = "DEF",
+        heading = "PHY",
+        gkdiving = "DIV",
+        gkhandling = "HAN",
+        gkkicking = "KIC",
+        gkreflexes = "REF",
+        speed = "SPE",
+        gkpositioning = "POS"
+    }
+    TEST = player
+    for i=1, 6 do
         local component = PlayersEditorForm[string.format('CardPlayerAttrLabel%d', i)]
-        local attribute = player['attributes'][i]
-        local attr_name = string.gsub(attribute['name'], 'fut.attribute.','')
-        local attr_val = attribute['value']
+        local attr_name = attr_abbr[player[string.format('stat%d_name', i)]]
+        local attr_val = player[string.format('stat%d_val', i)]
         if chanded_attr_arr[attr_name] then
             attr_val = string.format("%d +%d", attr_val, chanded_attr_arr[attr_name])
         end
@@ -2412,26 +2429,26 @@ end
 
 FUT_API_PAGE = 1
 function fut_search_player(player_data, page)
-    if RARITY_DISPLAY == nil then
-        RARITY_DISPLAY = fut_get_rarity_display()
+    if string.len(player_data) < 3 then
+        showMessage("Input at least 3 characters.")
+        return
     end
-    if RARITY_DISPLAY == nil then return end
 
-    PlayersEditorForm.CardContainerPanel.Visible = false
-    PlayersEditorForm.FUTPickPlayerListBox.clear()
-    
-    FOUND_FUT_PLAYERS = fut_find_player(player_data, page)
+    local fut_fifa = FIFA - PlayersEditorForm.FutFIFACB.ItemIndex
+    FOUND_FUT_PLAYERS = fut_find_player(player_data, page, fut_fifa)
     if FOUND_FUT_PLAYERS == nil then return end
 
     local players = FOUND_FUT_PLAYERS
+    local players_count = #players
     local scrollbox_width = 310
 
-    if players['count'] >= 24 then
-        can_continue = true
-    else
-        can_continue = false
-    end
+    -- if players_count >= 24 then
+    --     can_continue = true
+    -- else
+    --     can_continue = false
+    -- end
 
+    can_continue = false
     PlayersEditorForm.NextPage.Enabled = can_continue
 
     if page == 1 then
@@ -2440,12 +2457,12 @@ function fut_search_player(player_data, page)
         PlayersEditorForm.PrevPage.Enabled = true
     end
 
-    for i=1, players['count'] do
-        local player = players['items'][i]
-        local card_type = RARITY_DISPLAY['dynamicRarities'][string.format('%d-%s', player['rarityId'], player['quality'])]
+    for i=1, players_count do
+        local player = players[i]
+        local card_type = player['version'] or 'Normal'
         local formated_string = string.format(
             '%s - %s - %d ovr - %s',
-            player['name'], card_type, player['rating'], player['position']
+            player['full_name'], card_type, player['rating'], player['position']
         )
 
         -- Dynamic width
@@ -2470,7 +2487,7 @@ function fut_search_player(player_data, page)
         PlayersEditorForm.FUTPickPlayerScrollBox.HorzScrollBar.Visible = false
     end
 
-    if players['count'] >= 28 then
+    if players_count >= 27 then
         PlayersEditorForm.FUTPickPlayerScrollBox.VertScrollBar.Visible = true
     else
         PlayersEditorForm.FUTPickPlayerScrollBox.VertScrollBar.Visible = false
