@@ -20,12 +20,12 @@ function PlayerEditFormShow(sender)
 
 
     -- No current date
-    if ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_DAY']).Value == '??' and is_cm_loaded() then
-        do_log("No ptr for current date. Reload your CM save and try again", 'ERROR')
-        PlayersEditorForm.hide()
-        MainWindowForm.show()
-        return
-    end
+    -- if ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_DAY']).Value == '??' and is_cm_loaded() then
+    --     do_log("No ptr for current date. Reload your CM save and try again", 'ERROR')
+    --     PlayersEditorForm.hide()
+    --     MainWindowForm.show()
+    --     return
+    -- end
 
     local playerid_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['PLAYERID'])
     
@@ -457,7 +457,7 @@ function Crest64x64MouseLeave(sender)
 end
 
 function HeadTypeCodeCBOnChange(sender)
-    -- OnChange for headtypecode or haircolorcode
+    -- OnChange for headtypecode or haircolorcode or skintonecode
     local playerid = tonumber(PlayersEditorForm.PlayerIDEdit.Text)
     if playerid >= 280000 then
         local headtypecode = tonumber(
@@ -470,8 +470,14 @@ function HeadTypeCodeCBOnChange(sender)
             haircolorcode = tonumber(ADDR_LIST.getMemoryRecordByID(COMPONENTS_DESCRIPTION_PLAYER_EDIT['HairColorCB']['id']).Value)
         end
 
+        local skintonecode = tonumber(
+            PlayersEditorForm.SkinColorCB.ItemIndex or
+            ADDR_LIST.getMemoryRecordByID(COMPONENTS_DESCRIPTION_PLAYER_EDIT['SkinColorCB']['id']).Value
+        )
+
         local ss_hs = load_headshot(
             playerid,
+            skintonecode,
             headtypecode,
             haircolorcode
         )
@@ -655,6 +661,7 @@ function CopyCMSearchPlayerByIDClick(sender)
     -- load headshot
     local stream = load_headshot(
         tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['PLAYERID']).Value),
+        tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['SKINTONECODE']).Value),
         tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HEADTYPECODE']).Value),
         tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HAIRCOLORCODE']).Value)
     )
@@ -712,6 +719,7 @@ function CopyCMPlayerBtnClick(sender)
     -- Load Img
     local ss_hs = load_headshot(
         tonumber(PlayersEditorForm.PlayerIDEdit.Text),
+        tonumber(PlayersEditorForm.SkinColorCB.Text),
         tonumber(PlayersEditorForm.HeadTypeCodeCB.Items[PlayersEditorForm.HeadTypeCodeCB.ItemIndex]),
         tonumber(PlayersEditorForm.HairColorCB.ItemIndex)
     )

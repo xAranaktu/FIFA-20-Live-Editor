@@ -510,7 +510,16 @@ function get_components_description_player_edit()
         EyebrowEdit = {id = 89, modifier = 0},
         EyeColorEdit = {id = 93, modifier = 0},
         SkinTypeEdit = {id = 89, modifier = 0},
-        SkinColorCB = {id = 117, modifier = 1},
+        SkinColorCB = {
+            id = CT_MEMORY_RECORDS['SKINTONECODE'],
+            modifier = 1,
+            events = {
+                OnChange = HeadTypeCodeCBOnChange,
+                OnDropDown = CommonCBOnDropDown,
+                OnMouseEnter = CommonCBOnMouseEnter,
+                OnMouseLeave = CommonCBOnMouseLeave,
+            },
+        },
 
         HasHighQualityHeadCB = {id = 67, modifier = 0},
         HeadAssetIDEdit = {id = 72, modifier = 0},

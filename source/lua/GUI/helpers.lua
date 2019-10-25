@@ -75,7 +75,7 @@ end
 
 -- load player head
 -- return string stream
-function load_headshot(playerid, headtypecode, haircolorcode)
+function load_headshot(playerid, skintonecode, headtypecode, haircolorcode)
     if not playerid then
         return load_img('heads/notfound.png', 'https://fifatracker.net/static/img/assets/common/heads/notfound.png')
     end
@@ -88,18 +88,10 @@ function load_headshot(playerid, headtypecode, haircolorcode)
         fpath = string.format('heads/p%d.png', playerid)
     else
         -- youthheads
-        if headtypecode == 0 then
-            fpath = string.format('youthheads/p%d.png', haircolorcode)
-        else
-            fpath = string.format('youthheads/p%d%02d.png', headtypecode, haircolorcode)
-        end
+        fpath = string.format('youthheads/p%d%04d%02d.png', skintonecode+1, headtypecode, haircolorcode)
     end
-
-    -- TODO Update FOR 20
-    local tmp_fifa_asset = 19
-
-    -- local url = string.format('https://fifatracker.net/static/img/assets/%d/%s', FIFA, fpath)
-    local url = string.format('https://fifatracker.net/static/img/assets/%d/%s', tmp_fifa_asset, fpath)
+    
+    local url = string.format('https://fifatracker.net/static/img/assets/%d/%s', FIFA, fpath)
     local img_ss = load_img(fpath, url)
     
     -- If file is not a png file use notfound.png

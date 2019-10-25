@@ -210,3 +210,12 @@ v20.1.1.8:
     - Added to GUI -> Player Editor:
         - Clone
     - Minor bug fixes
+    
+v20.1.1.9:
+    - Tool is not using FIFA 20 image assets
+    - Fixes in age calculation by GUI Player Editor
+    - Updated "Manager" -> "Manager Rating - 99":
+        - This script will also reduce the chance of you being sacked from now.
+    - Updated "Players Training" -> "Training Everyday":
+        - This script will also allow you to traing your players on match day.
+    

@@ -637,9 +637,9 @@ function initPtrs()
     writeQword("leagueteamlinksDataFirstPtr", leagueteamlinks_firstrecord)
     writeQword("leagueteamlinksDataPtr", leagueteamlinks_firstrecord)
 
-    -- -- career_calendar Table
-    -- local careercalendar_firstrecord = readMultilevelPointer(DB_Two_Tables_ptr, {0xC0, 0x28, 0x30})
-    -- writeQword("ptrCareerCalendar", careercalendar_firstrecord)
+    -- career_calendar Table
+    local careercalendar_firstrecord = readMultilevelPointer(DB_Two_Tables_ptr, {0xC0, 0x28, 0x30})
+    writeQword("ptrCareerCalendar", careercalendar_firstrecord)
 
     -- BASE PTR FOR STAMINA & INJURES
     local code = tonumber(get_validated_address('AOB_BASE_STAMINA_INJURES'), 16)
@@ -681,6 +681,7 @@ function load_aobs()
         AOB_UnlimitedTraining = '41 8B 7E 38 45 8B 76 3C',
         AOB_MoreEfficientTraining = '66 0F 6E 5E 1C 45',
         AOB_TrainingEveryDay =  '83 6F 3C 01 0F 89 2D 03 00 00',
+        AOB_TrainingEveryDay_DAYWITHMATCH =  '48 8B CE FF 50 20 85 C0 74 05 41',
         AOB_SimA = '8B D8 4C 8D 44 24 38 8B D0 48 8B CF',
         AOB_SideManipulator = '48 8B 84 CB 18 01 00 00 83',
         AOB_GtnRevealPlayerData = '85 C0 75 0C 4C 8D 86 8C 02 00 00',

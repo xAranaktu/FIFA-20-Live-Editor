@@ -25,6 +25,7 @@ CT_MEMORY_RECORDS = {
     HEADTYPECODE = 50,
     BIRTHDATE = 59,
     PLAYERID = 110,
+    SKINTONECODE = 117,
     HAIRCOLORCODE = 14,
 
     -- Teamplayerlinks

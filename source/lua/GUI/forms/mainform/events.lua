@@ -71,6 +71,7 @@ function MainMenuFormShow(sender)
     if BASE_ADDRESS then
         local stream = load_headshot(
             tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['PLAYERID']).Value),
+            tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['SKINTONECODE']).Value),
             tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HEADTYPECODE']).Value),
             tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HAIRCOLORCODE']).Value)
         )
@@ -85,6 +86,7 @@ function MainFormRemoveLoadingPanel()
     -- load headshot
     local stream = load_headshot(
         tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['PLAYERID']).Value),
+        tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['SKINTONECODE']).Value),
         tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HEADTYPECODE']).Value),
         tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HAIRCOLORCODE']).Value)
     )

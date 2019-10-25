@@ -310,40 +310,21 @@ function find_player_by_id(playerid)
 end
 
 function birthdate_to_age(args)
-    local current_date = nil
-    if is_cm_loaded() then
-        local y = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_YEAR']).Value)
-        local m = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_MONTH']).Value)
-        local d = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_DAY']).Value)
-
-        -- if date is invalid
-        local default_year = math.floor(2019 + (FIFA - 20))
-        if ((y == nil) or (y < default_year) or (y > 2100)) or ((m == nil) or (m < 1) or (m > 12)) or ((d == nil) or (d < 1) or (d > 31)) then
-            y = default_year
-            m = 7
-            d = 1
-        end
-
-        current_date = os.time{
-            year=y,
-            month=m,
-            day=d
-        }
-    else
+    do_log("birthdate_to_age")
+    local curr_date_cal = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRDATE']).Value)
+    if curr_date_cal == nil or curr_date_cal == 0 then
         -- 01.07.2019 -- FIFA 20
         local add_year = math.floor(11 + ((math.floor(FIFA - 20) * 365)))
-        default_date = string.format("%d0600", add_year)
-        local str_current_date = string.format("%d", 20080101 + (tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRDATE']).Value) or default_date))
-
-        if DEBUG_MODE then
-            do_log(str_current_date)
-        end
-        current_date = os.time{
-            year=tonumber(string.sub(str_current_date, 1, 4)),
-            month=tonumber(string.sub(str_current_date, 5, 6)),
-            day=tonumber(string.sub(str_current_date, 7, 8))
-        }
+        curr_date_cal = tonumber(string.format("%d0600", add_year))
     end
+    local str_current_date = string.format("%d", 20080101 + curr_date_cal)
+    do_log(string.format("str_current_date: %s", str_current_date))
+
+    local current_date = os.time{
+        year=tonumber(string.sub(str_current_date, 1, 4)),
+        month=tonumber(string.sub(str_current_date, 5, 6)),
+        day=tonumber(string.sub(str_current_date, 7, 8))
+    }
 
     local birthdate = convert_from_days(args['birthdate']) or convert_from_days(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['BIRTHDATE']).Value)
     return math.floor(os.difftime(current_date, birthdate) / (24*60*60*365.25))
@@ -1095,6 +1076,7 @@ function FillPlayerEditForm(playerid)
     -- Load Img
     local ss_hs = load_headshot(
         tonumber(PlayersEditorForm.PlayerIDEdit.Text),
+        tonumber(ADDR_LIST.getMemoryRecordByID(COMPONENTS_DESCRIPTION_PLAYER_EDIT['SkinColorCB']['id']).Value),
         tonumber(ADDR_LIST.getMemoryRecordByID(COMPONENTS_DESCRIPTION_PLAYER_EDIT['HeadTypeCodeCB']['id']).Value),
         tonumber(ADDR_LIST.getMemoryRecordByID(COMPONENTS_DESCRIPTION_PLAYER_EDIT['HairColorCB']['id']).Value)
     )
@@ -1126,6 +1108,7 @@ function FillPlayerEditForm(playerid)
 end
 
 function age_to_birthdate(args)
+    do_log("age_to_birthdate")
     local current_age = birthdate_to_age(args)
     local component = args['component']
     local age = tonumber(component.Text)
@@ -1138,40 +1121,21 @@ function age_to_birthdate(args)
     local comp_desc = args['comp_desc']
 
     local new_birthdate = nil
-
-    if is_cm_loaded() then
-        local y = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_YEAR']).Value)
-        local m = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_MONTH']).Value)
-        local d = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_DAY']).Value)
-
-        -- if date is invalid
-        local default_year = math.floor(2019 + (FIFA - 20))
-        if ((y == nil) or (y < default_year) or (y > 2100)) or ((m == nil) or (m < 1) or (m > 12)) or ((d == nil) or (d < 1) or (d > 31)) then
-            y = default_year
-            m = 7
-            d = 1
-        end
-        do_log(string.format("Y-M-D: %d-%d-%d", y, m, d))
-
-        new_birthdate = convert_to_days(os.time{
-            year=y - age,
-            month=m,
-            day=d
-        })
-    else
+    local curr_date_cal = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRDATE']).Value)
+    if curr_date_cal == nil or curr_date_cal == 0 then
         -- 01.07.2019 -- FIFA 20
         local add_year = math.floor(11 + ((math.floor(FIFA - 20) * 365)))
-        default_date = string.format("%d0600", add_year)
-        local str_current_date = string.format("%d", 20080101 + (tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRDATE']).Value) or default_date))
-
-        do_log(string.format("str_current_date: %s", str_current_date))
-
-        new_birthdate = convert_to_days(os.time{
-            year=tonumber(string.sub(str_current_date, 1, 4)) - age,
-            month=tonumber(string.sub(str_current_date, 5, 6)),
-            day=tonumber(string.sub(str_current_date, 7, 8))
-        })
+        curr_date_cal = tonumber(string.format("%d0600", add_year))
     end
+    local str_current_date = string.format("%d", 20080101 + curr_date_cal)
+
+    do_log(string.format("str_current_date: %s", str_current_date))
+
+    new_birthdate = convert_to_days(os.time{
+        year=tonumber(string.sub(str_current_date, 1, 4)) - age,
+        month=tonumber(string.sub(str_current_date, 5, 6)),
+        day=tonumber(string.sub(str_current_date, 7, 8))
+    })
 
     return new_birthdate
 end
@@ -1499,9 +1463,21 @@ function fut_copy_card_to_gui(player)
         print("baseplayerid")
         print(playerid)
     end
+
     if playerid == nil then
         do_log('COPY ERROR\n baseplayerid is nil:', 'ERROR')
         return
+    end
+    local fix_playerids = {
+        _9999931 = 7763,
+    }
+    local fix_playerid = string.format("_%d", playerid)
+
+    if fix_playerids[fix_playerid] ~= nil then
+        do_log(string.format(
+            'Fixed playerid %d -> %d', playerid, fix_playerids[fix_playerid]
+        ))
+        playerid = fix_playerids[fix_playerid]
     end
 
     local fut_players_file_path = "other/fut/base_fut_players.csv"
