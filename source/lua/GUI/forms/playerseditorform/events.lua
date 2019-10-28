@@ -818,7 +818,9 @@ function FUTCopyPlayerBtnClick(sender)
         FOUND_FUT_PLAYERS[selected]['details'] = player
     end
 
+    
     fut_copy_card_to_gui(player)
+    do_log("fut_copy_card_to_gui finished")
 end
 
 function CardContainerPanelClick(sender)
@@ -832,7 +834,6 @@ function CardContainerPanelClick(sender)
         fut_fifa,
         player['id']
     )
-    print(player_page)
     shellExecute(player_page)
 end
 

@@ -197,17 +197,17 @@ function change_vals()
         local values = split(line, ',')
         if playerid == tonumber(values[columns['playerid']]) then
             for j=1, #fields_to_edit do
-                ADDR_LIST.getMemoryRecordByID(comp_desc[fields_to_edit[j]]['id']).Value = values[columns[comp_desc[fields_to_edit[j]]['db_col']]] - comp_desc[fields_to_edit[j]]['modifier']
+                ADDR_LIST.getMemoryRecordByID(comp_desc[fields_to_edit[j]]['id']).Value = math.floor(values[columns[comp_desc[fields_to_edit[j]]['db_col']]] - comp_desc[fields_to_edit[j]]['modifier'])
             end
-            ADDR_LIST.getMemoryRecordByID(comp_desc['EthnicityEdit']['id']).Value = values[columns['skintonecode']] - comp_desc['EthnicityEdit']['modifier']
-            ADDR_LIST.getMemoryRecordByID(comp_desc['ManageridEdit']['id']).Value = values[columns['playerid']]
+            ADDR_LIST.getMemoryRecordByID(comp_desc['EthnicityEdit']['id']).Value = math.floor(values[columns['skintonecode']] - comp_desc['EthnicityEdit']['modifier'])
+            ADDR_LIST.getMemoryRecordByID(comp_desc['ManageridEdit']['id']).Value = math.floor(values[columns['playerid']] - 1)
             return true
         end
     end
 end
 
 while true do
-    if i >= 900 then
+    if i >= 1800 then
         break
     end
 

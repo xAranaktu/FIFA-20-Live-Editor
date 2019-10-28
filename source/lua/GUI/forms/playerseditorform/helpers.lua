@@ -1092,6 +1092,11 @@ function FillPlayerEditForm(playerid)
     local iPlayerID = tonumber(PlayersEditorForm.PlayerIDEdit.Text)
 
     local is_cm_loaded = is_cm_loaded()
+    if is_cm_loaded then
+        do_log("Is in CM")
+    else
+        do_log("Not in CM")
+    end
     IS_CM_LOADED_AT_ENTER = is_cm_loaded
     -- Player info - fitness & injury
     load_player_fitness(iPlayerID, is_cm_loaded)
@@ -1206,17 +1211,22 @@ function ApplyChanges()
     local iPlayerID = tonumber(PlayersEditorForm.PlayerIDEdit.Text)
 
     if IS_CM_LOADED_AT_ENTER then
+        do_log("Is in CM")
         save_player_fitness(iPlayerID)
         save_player_match_form(iPlayerID)
         save_player_morale(iPlayerID)
         save_player_release_clause(iPlayerID)
+    else
+        do_log("Not in CM")
     end
 
     HAS_UNAPPLIED_PLAYER_CHANGES = false
     showMessage("Player edited.")
+    do_log("Player edited.")
 end
 
 function fut_copy_card_to_gui(player)
+    do_log("fut_copy_card_to_gui")
 
     local columns = {
         firstnameid = 1,
@@ -1346,10 +1356,10 @@ function fut_copy_card_to_gui(player)
     }
 
     local comp_to_column = {
-        -- FirstNameIDEdit = 'firstnameid',
-        -- LastNameIDEdit = 'lastnameid',
-        -- JerseyNameIDEdit = 'playerjerseynameid',
-        -- CommonNameIDEdit = 'commonnameid',
+        FirstNameIDEdit = 'firstnameid',
+        LastNameIDEdit = 'lastnameid',
+        JerseyNameIDEdit = 'playerjerseynameid',
+        CommonNameIDEdit = 'commonnameid',
         HairColorCB = "haircolorcode",
         FacialHairTypeEdit = "facialhairtypecode",
         CurveEdit = "curve",
@@ -1608,6 +1618,13 @@ function fut_copy_card_to_gui(player)
                         component.Name == 'PotentialEdit'
                     ) then
                         -- Don't copy attributes
+                    elseif PlayersEditorForm.FUTCopyNameCB.State == 1 and (
+                        component.Name == 'FirstNameIDEdit' or
+                        component.Name == 'LastNameIDEdit' or
+                        component.Name == 'JerseyNameIDEdit' or
+                        component.Name == 'CommonNameIDEdit'
+                    ) then
+                        -- Don't copy name IDs
                     else
                         -- clear
                         component.OnChange = nil
@@ -1647,6 +1664,10 @@ function fut_copy_card_to_gui(player)
                         component.Parent.Parent.Name == 'AttributesPanel'
                     ) then
                         -- Don't copy attributes
+                    elseif PlayersEditorForm.FUTCopyNationalityCB.State == 1 and (
+                        component.Name == 'NationalityCB'
+                    ) then
+                        -- Don't copy Nationality
                     else
                         -- clear
                         component.OnChange = nil
@@ -2109,7 +2130,7 @@ function fut_create_card(player, idx)
         end
         -- print(player['headshot']['imgUrl'])
 
-        stream = load_img(
+        local stream = load_img(
             string.format('heads/p%d.png', player['id']),
             player_details['miniface_img']
         )
@@ -2120,7 +2141,7 @@ function fut_create_card(player, idx)
     end
 
     -- Nationality Img
-    stream = load_img(
+    local stream = load_img(
         string.format('flags/f%d.png', player_details['nation_id']),
         player_details['nation_img']
     )

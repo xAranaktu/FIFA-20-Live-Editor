@@ -35,15 +35,27 @@ function fut_get_player_details(playerid, fut_fifa)
         do_log('No internet connection? No reply from: ' .. request, 'ERROR')
         return nil
     end
+    do_log(string.format("Reply len: %d", string.len(reply)))
 
     local base_playerid = string.match(reply, 'data%-baseid="(%d+)"')
 
     local miniface_img = string.match(reply, '<img class="pcdisplay%-picture%-width " id="player_pic" src="(%a+://[%a+%./%d%?%=]+)')
     local club_img = string.match(reply, '<img id="player_club" src="(%a+://[%a+%./%d%?%=]+)')
-    local club_id = string.match(club_img, 'clubs/(%d+).png')
 
-    local nation_img = string.match(reply, '<img id="player_nation" src="(%a+://[%a+%./%d%?%=]+)')
-    local nation_id = string.match(nation_img, 'nation/(%d+).png')
+    local club_id = 0
+    if club_img ~= nil then
+        club_id = string.match(club_img, 'clubs/(%d+).png')
+    else
+        do_log("club_img not found")
+    end
+
+    local nation_id = string.match(reply, '<img id="player_nation" src="(%a+://[%a+%./%d%?%=]+)')
+    local nation_id = 0
+    if nation_img ~= nil then
+        nation_id = string.match(nation_img, 'nation/(%d+).png')
+    else
+        do_log("nation_img not found")
+    end
 
     local ovr = string.match(reply, '<div style="color:[#%S+;|;]+" class="pcdisplay%-rat">(%d+)</div>')
     local name = string.match(reply, '<div style="color:[#%S+;|;]+" class="pcdisplay%-name">([%S-? ?]+)</div>')
@@ -64,11 +76,11 @@ function fut_get_player_details(playerid, fut_fifa)
 
     if rev == '"' then
         rev = nil
-    else
+    elseif rev ~= nil then
         rev = string.gsub(rev, '"', '')
     end
 
-    if fut_fifa == 20  then
+    if fut_fifa == 20 and (rare_type ~= nil and lvl ~= nil)then
         if (rev == nil) or (rev == 'if') then
             -- TODO Other FIFAs
             card = string.format(
@@ -101,6 +113,7 @@ function fut_get_player_details(playerid, fut_fifa)
         do_log(card)
         do_log(card_type)
     end
+    do_log(string.format("Loading FUT%d player: %d Finished", fut_fifa, playerid))
 
     return {
         base_playerid = base_playerid,
@@ -153,12 +166,16 @@ function fut_find_player(player_name, page, fut_fifa)
         return nil
     end
 
-    local response = json.decode(
+    local status, response = pcall(
+        json.decode,
         reply
     )
-    r.destroy()
 
-    if response['error'] then
+    if status == false then
+        do_log('Futbin error: ' .. reply, 'ERROR')
+        return nil
+    elseif response['error'] then
+        do_log('Futbin error: ' .. response['error'], 'ERROR')
         return nil
     end
 

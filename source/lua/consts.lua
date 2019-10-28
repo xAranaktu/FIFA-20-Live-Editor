@@ -38,6 +38,9 @@ CT_MEMORY_RECORDS = {
 
     -- Calendar
     CURRDATE = 4362,
+
+    -- TransferPlayersScript
+    TRANSFER_PLAYERS_ID = 3034
 }
 
 DB_TABLE_SIZEOF = {
@@ -88,7 +91,7 @@ PLAYERMORALE_STRUCT = {
 
 -- All available forms
 FORMS = {
-    MainWindowForm, SettingsForm, PlayersEditorForm
+    MainWindowForm, SettingsForm, PlayersEditorForm, TransferPlayersForm
 }
 
 
@@ -114,7 +117,7 @@ function get_components_description_manager_edit()
         HeadtypecodeEdit = {id = 3629, modifier = 0, db_col = "headtypecode"},
         HeadvariationEdit = {id = 3649, modifier = 0, db_col = "headvariation"},
         HeightEdit = {id = 3631, modifier = 130, db_col = "height"},
-        ManageridEdit = {id = 3627, modifier = 1, db_col = "managerid"},
+        ManageridEdit = {id = 3627, modifier = 0, db_col = "managerid"},
         NationalityEdit = {id = 3646, modifier = 0, db_col = "nationality"},
         OutfitidEdit = {id = 3651, modifier = 0, db_col = "outfitid"},
         PersonalityidEdit = {id = 3644, modifier = 0, db_col = "personalityid"},

@@ -128,8 +128,9 @@ function check_ce_version()
     do_log(string.format('Cheat engine version: %f', ce_version))
     if(ce_version == 7.0) then
         -- Bug https://github.com/cheat-engine/cheat-engine/issues/850
-        do_log('This tool will not work with Cheat Engine 7.0. Download and install other version.', "ERROR")
-        assert(false, _translate('This tool will not work with Cheat Engine 7.0. Download and install other version.'))
+        do_log('This tool will not work with Cheat Engine 7.0. Download and install other version. Recommended one is 6.8.1', "ERROR")
+        print("Link to download Cheat Engine 6.8.1:\nhttps://github.com/cheat-engine/cheat-engine/releases/download/v6.8.1/CheatEngine681.exe")
+        assert(false, _translate('This tool will not work with Cheat Engine 7.0. Download and install other version. Recommended one is 6.8.1'))
     end
     MainWindowForm.LabelCEVer.Caption = ce_version
 end
@@ -515,7 +516,8 @@ function autoactivate_scripts()
     -- Always activate database tables script
     -- And globalAllocs
     local always_activate = {
-        7, 
+        7,  -- Scripts
+        12, -- FIFA Database Tables
         CT_MEMORY_RECORDS['CURRENT_DATE_SCRIPT']
     }
 
@@ -673,6 +675,7 @@ function load_aobs()
         AOB_SCRIPTS_BASE_PTR = '48 8B 47 10 4C 89 32',
         AOB_F_GEN_REPORT = '48 89 D9 E8 ?? ?? ?? ?? 48 89 D9 48 8B 5C 24 38 48 8B 74 24 40 48 83 C4 20',
         AOB_BASE_FORM_MORALE_RLC = '48 89 35 ?? ?? ?? ?? 48 89 3D ?? ?? ?? ?? 48 89 0D ?? ?? ?? ??', 
+        AOB_CustomTransfers = '84 C0 48 8B 01 74 11 FF 50 10',
 
         AOB_TransferBudget = '44 8B 48 08 45 8B 87 90 02 00 00',
         AOB_IsEditPlayerUnlocked = '49 8B CB E8 ?? ?? ?? ?? 85 C0 75 ?? 48 8B 46 08 40 ?? ?? 48 8B 80 B8 0F 00 00',
@@ -734,6 +737,7 @@ function load_aobs()
         AOB_MatchWeather = '41 83 FF FF 44 0F 44 7D 68 41',
         AOB_EditCareerUsers = '8B 03 89 45 90 8B',
         AOB_GameSettingsCam = '8B 7C C6 58 89 7D 68',
+        AOB_CustomManagerEditable = 'C7 45 7C 0F 27 00 00',
 
         -- PAP
         AOB_AgreeTransferRequest = "41 89 C5 48 8B 89 98 01 00 00",
@@ -756,6 +760,10 @@ end
 
 -- load content from .ini files
 function load_lang()
+    if CFG_DATA.language == nil then
+        CFG_DATA = default_cfg()
+    end
+
     local langfile = "languages/" .. CFG_DATA.language.current .. "/live_editor.mo"
     if file_exists(langfile) then
         do_log(string.format('Loading .mo file: %s', langfile), 'INFO')
@@ -765,11 +773,19 @@ end
 function load_theme()
     if file_exists("themes.ini") then
         do_log('Loading Theme from themes.ini', 'INFO')
-        local themes = LIP.load("themes.ini");
+        local themes = LIP.load("themes.ini")
+
+        if CFG_DATA.theme == nil then
+            CFG_DATA.theme = {
+                default = 'dark',
+                current = 'dark'
+            }
+            return 0
+        end
 
         return themes[CFG_DATA.theme.current]
     else
-        do_log('File themes.ini not found', 'ERROR')
+        do_log('File themes.ini not found', 'WARNING')
 
         CFG_DATA.theme.current = 'dark'
         return 0
@@ -808,7 +824,7 @@ function load_cfg()
 
         if cfg.other then
             if cfg.other.ignore_update == nil then
-                cfg.other.ignore_update = "1.0.0"
+                cfg.other.ignore_update = "20.1.0.0"
             end
         end
 
@@ -821,7 +837,7 @@ function load_cfg()
         local status, err = pcall(LIP.save, CONFIG_FILE_PATH, data)
 
         if not status then
-            do_log(string.format('LIP.SAVE FAILED for %s with err: ', CONFIG_FILE_PATH, err))
+            do_log(string.format('LIP.SAVE FAILED for %s with err: %s', CONFIG_FILE_PATH, err))
             CACHE_DIR = 'cache/'
             OFFSETS_FILE_PATH = 'offsets.ini'
         end
@@ -837,10 +853,10 @@ function default_cfg()
             deactive_on_close = false,
             hide_ce_scanner = true,
             check_for_update = true,
-            only_check_for_free_update = false,
+            only_check_for_free_update = false
         },
         directories = {
-            cache_dir = CACHE_DIR,
+            cache_dir = CACHE_DIR
         },
         game =
         {
@@ -852,6 +868,7 @@ function default_cfg()
         },
         auto_activate = {
             7,  -- Scripts
+            12 -- FIFA Database Tables
         },
         hotkeys = {
             sync_with_game = 'VK_F5',
@@ -859,14 +876,14 @@ function default_cfg()
         },
         theme = {
             default = 'dark',
-            current = 'dark',
+            current = 'dark'
         },
         language = {
             default = 'en_US',
-            current = 'en_US',
+            current = 'en_US'
         },
         other = {
-            ignore_update = "20.1.0.0",
+            ignore_update = "20.1.0.0"
         }
     };
 

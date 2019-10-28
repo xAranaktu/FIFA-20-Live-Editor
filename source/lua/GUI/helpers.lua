@@ -88,6 +88,15 @@ function load_headshot(playerid, skintonecode, headtypecode, haircolorcode)
         fpath = string.format('heads/p%d.png', playerid)
     else
         -- youthheads
+        if skintonecode == nil then
+            skintonecode = 0
+        end
+        if headtypecode == nil then
+            headtypecode = 0
+        end
+        if haircolorcode == nil then
+            haircolorcode = 0
+        end
         fpath = string.format('youthheads/p%d%04d%02d.png', skintonecode+1, headtypecode, haircolorcode)
     end
     
@@ -103,11 +112,7 @@ end
 function load_crest(teamid)
     local fpath = string.format('crest/l%d.png', teamid)
 
-    -- TODO Update FOR 20
-    local tmp_fifa_asset = 19
-
-    -- local url = string.format('https://fifatracker.net/static/img/assets/%d/%s', FIFA, fpath)
-    local url = string.format('https://fifatracker.net/static/img/assets/%d/%s', tmp_fifa_asset, fpath)
+    local url = string.format('https://fifatracker.net/static/img/assets/%d/%s', FIFA, fpath)
 
     local img_ss = load_img(fpath, url)
     

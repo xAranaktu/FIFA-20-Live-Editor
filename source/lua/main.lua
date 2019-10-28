@@ -17,6 +17,7 @@ require 'lua/helpers';
 require 'lua/GUI/forms/mainform/events';
 require 'lua/GUI/forms/settingsform/events';
 require 'lua/GUI/forms/playerseditorform/events';
+require 'lua/GUI/forms/transferplayersform/events';
 
 do_log('New session started', 'INFO')
 
