@@ -259,3 +259,6 @@ v20.1.2.3:
         - Mass edit players morale in team
     - Added to "Form":
         - Mass edit players form in team
+        
+v20.1.2.4:
+    - Fixed "Editing Player" -> "Unlock "Edit Player" in career menu"
