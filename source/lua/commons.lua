@@ -84,6 +84,15 @@ function toBits(num)
 end
 
 function file_exists(name)
-   local f=io.open(name,"r")
-   if f~=nil then io.close(f) return true else return false end
+  local f, err = io.open(name,"r")
+  if f then
+    io.close(f)
+    sleep(250)
+    return true
+  else
+    if err ~= nil then
+      do_log("file_exists err: " .. err)
+    end
+    return false
+  end
 end

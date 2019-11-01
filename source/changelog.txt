@@ -230,4 +230,19 @@ v20.1.2.0:
         - Make ManagerID editable
     - Fixed error with loading "themes.ini"
     - Minor bug fixes
-    
+
+v20.1.2.1:
+    - Added to GUI:
+        - Schedule Editor
+        - Match-fixing
+    - Added to GUI -> Player Editor -> Clone:
+        - Don't Copy NameIDs
+    - Changed following lua scripts in "users lua scripts" folder:
+        - real_manager_headmodel.lua
+            - Check if teamid is valid
+            - managerid will always be 99999
+        - real_player_as_manager.lua
+            - Check if teamid is valid
+            - Check if playerid is valid
+            - managerid will always be 99999
+    - Fixed problem with infinite loop in players transfers

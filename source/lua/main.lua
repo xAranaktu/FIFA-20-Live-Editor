@@ -18,10 +18,20 @@ require 'lua/GUI/forms/mainform/events';
 require 'lua/GUI/forms/settingsform/events';
 require 'lua/GUI/forms/playerseditorform/events';
 require 'lua/GUI/forms/transferplayersform/events';
+require 'lua/GUI/forms/matchfixingform/events';
+require 'lua/GUI/forms/matchscheduleeditorform/events';
 
 do_log('New session started', 'INFO')
 
 -- DEFAULT GLOBALS, better leave it as is
+do_log('HomeDrive')
+if os.getenv('HOMEDRIVE') then
+    do_log("os.getenv('HOMEDRIVE') " .. os.getenv('HOMEDRIVE'))
+elseif os.getenv('SystemDrive') then
+    do_log("os.getenv('SystemDrive') " .. os.getenv('SystemDrive'))
+else
+    do_log("C:")
+end
 HOMEDRIVE = os.getenv('HOMEDRIVE') or os.getenv('SystemDrive') or 'C:'
 
 FIFA_SETTINGS_DIR = string.format(

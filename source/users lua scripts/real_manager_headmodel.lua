@@ -20,6 +20,13 @@ require 'lua/consts';
 local user_teamid = 0
 local manager_from_teamid = 0
 
+if user_teamid == 0 then
+    showMessage("Change user_teamid first")
+elseif manager_from_teamid == 0 then
+    showMessage("Change manager_from_teamid first")
+end
+
+
 -- END
 
 local comp_desc = get_components_description_manager_edit()
@@ -42,7 +49,6 @@ local fields_to_edit = {
     "HeadtypecodeEdit",
     "HeadvariationEdit",
     "HeightEdit",
-    "ManageridEdit",
     "NationalityEdit",
     "OutfitidEdit",
     "PersonalityidEdit",
@@ -94,34 +100,44 @@ local i = 0
 local current_teamid = 0
 
 local teamid_record = ADDR_LIST.getMemoryRecordByID(comp_desc['TeamidEdit']['id'])
+if teamid_record.Value == '??' then
+   showMessage("Error\nActivate FIFA Database Tables script and reload your career save")
+   return
+end
 local success = false
+local reason = "Invalid user_teamid"
 while true do
-    if i >= 900 then
+    if i >= 1800 then
         break
     end
 
     local current_teamid = bAnd(bShr(readInteger(string.format('[%s]+%X', 'firstptrManager', teamid_record.getOffset(0)+(i*sizeOf))), teamid_record.Binary.Startbit), (bShl(1, teamid_record.Binary.Size) - 1))
 
     if (current_teamid + 1) == user_teamid then
+        reason = "Invalid manager_from_teamid"
         writeQword('ptrManager', readPointer('firstptrManager') + i*sizeOf)
         local managers_file_path = "other/manager.csv"
         for line in io.lines(managers_file_path) do
             local values = split(line, ',')
             if manager_from_teamid == tonumber(values[columns['teamid']]) then
                 for j=1, #fields_to_edit do
-                    ADDR_LIST.getMemoryRecordByID(comp_desc[fields_to_edit[j]]['id']).Value = values[columns[comp_desc[fields_to_edit[j]]['db_col']]] - comp_desc[fields_to_edit[j]]['modifier']
+                    local rec = ADDR_LIST.getMemoryRecordByID(comp_desc[fields_to_edit[j]]['id'])
+                    if rec.Value == '??' then
+                       showMessage("Error\nActivate FIFA Database Tables script and reload your career save")
+                       return
+                    end
+                    rec.Value = math.floor(values[columns[comp_desc[fields_to_edit[j]]['db_col']]] - comp_desc[fields_to_edit[j]]['modifier'])
                 end
+                ADDR_LIST.getMemoryRecordByID(comp_desc['ManageridEdit']['id']).Value = 99998
             end
         end
         success = true
     end
-
     i = i + 1
-
 end
 
 if success then
     showMessage("Done")
-else 
-    showMessage("Something went wrong... :(")
+else
+    showMessage("Something went wrong... :(\n" .. reason)
 end

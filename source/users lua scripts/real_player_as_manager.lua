@@ -19,7 +19,6 @@ require 'lua/consts';
 
 local user_teamid = 0
 local playerid = 0
-
 -- END
 
 if user_teamid == 0 then
@@ -189,6 +188,12 @@ local i = 0
 local current_teamid = 0
 
 local teamid_record = ADDR_LIST.getMemoryRecordByID(comp_desc['TeamidEdit']['id'])
+
+if teamid_record.Value == '??' then
+   showMessage("Error\nActivate FIFA Database Tables script and reload your career save")
+   return
+end
+
 local success = false
 
 function change_vals()
@@ -197,15 +202,24 @@ function change_vals()
         local values = split(line, ',')
         if playerid == tonumber(values[columns['playerid']]) then
             for j=1, #fields_to_edit do
-                ADDR_LIST.getMemoryRecordByID(comp_desc[fields_to_edit[j]]['id']).Value = math.floor(values[columns[comp_desc[fields_to_edit[j]]['db_col']]] - comp_desc[fields_to_edit[j]]['modifier'])
+                local rec = ADDR_LIST.getMemoryRecordByID(comp_desc[fields_to_edit[j]]['id'])
+                if rec.Value == '??' then
+                   showMessage("Error\nActivate FIFA Database Tables script and reload your career save")
+                   return
+                end
+                rec.Value = math.floor(values[columns[comp_desc[fields_to_edit[j]]['db_col']]] - comp_desc[fields_to_edit[j]]['modifier'])
             end
             ADDR_LIST.getMemoryRecordByID(comp_desc['EthnicityEdit']['id']).Value = math.floor(values[columns['skintonecode']] - comp_desc['EthnicityEdit']['modifier'])
-            ADDR_LIST.getMemoryRecordByID(comp_desc['ManageridEdit']['id']).Value = math.floor(values[columns['playerid']] - 1)
+            
+            -- +1 in game
+            ADDR_LIST.getMemoryRecordByID(comp_desc['ManageridEdit']['id']).Value = 99998
             return true
         end
     end
+    return false
 end
 
+local reason = "Invalid Teamid"
 while true do
     if i >= 1800 then
         break
@@ -215,9 +229,11 @@ while true do
 
     if (current_teamid + 1) == user_teamid then
         writeQword('ptrManager', readPointer('firstptrManager') + i*sizeOf)
-        change_vals()
-
-        success = true
+        if change_vals() then
+            success = true
+        else
+            reason = 'Invalid Playerid'
+        end
     end
 
     i = i + 1
@@ -226,6 +242,6 @@ end
 
 if success then
     showMessage("Done")
-else 
-    showMessage("Something went wrong... :(")
+else
+    showMessage("Something went wrong... :(\n" .. reason)
 end

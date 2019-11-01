@@ -30,15 +30,13 @@ end
 
 function execute_cmd(cmd)
     do_log(string.format('execute cmd -  %s', cmd))
-    do_log(string.format('execute cmd result - %s', io.popen(cmd):read'*l'))
 end
 
 -- After attach
 function after_attach()
     update_status_label("Attached to the game process.")
     check_for_le_update()
-    
-    -- "FIFA19.exe"+06267F98
+
     -- MM_TAB_HOME
     -- MM_TAB_PLAY
     -- MM_TAB_ONLINE
@@ -755,12 +753,22 @@ function load_aobs()
         AOB_STADIUM_BOUNDARY = "0F 10 32 0F 28 C6 0F 29",
         AOB_CAM_Z_BOUNDARY = "66 0F 70 0A 55 0F 28",
         AOB_FULL_ANGLE_ROTV = "F3 0F 10 40 60 F3 0F 58 83 B4",
+
+        -- FootballCompEng_Win64_retail.dll
+        FootballCompEng = {
+            MODULE_NAME = 'FootballCompEng_Win64_retail.dll',
+            AOBS = {
+                AOB_Calendar = "33 D2 48 89 54 24 48",
+                AOB_MatchFixing = "48 8B 13 48 81 C2 80 03 00 00",
+            }
+        }
     }
 end
 
 -- load content from .ini files
 function load_lang()
     if CFG_DATA.language == nil then
+        do_log("Problem with config. Loading default cfg.")
         CFG_DATA = default_cfg()
     end
 
@@ -840,6 +848,7 @@ function load_cfg()
             do_log(string.format('LIP.SAVE FAILED for %s with err: %s', CONFIG_FILE_PATH, err))
             CACHE_DIR = 'cache/'
             OFFSETS_FILE_PATH = 'offsets.ini'
+            CONFIG_FILE_PATH = 'config.ini'
         end
 
         return data

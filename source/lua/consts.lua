@@ -40,7 +40,10 @@ CT_MEMORY_RECORDS = {
     CURRDATE = 4362,
 
     -- TransferPlayersScript
-    TRANSFER_PLAYERS_ID = 3034
+    TRANSFER_PLAYERS_ID = 3034,
+
+    SCHEDULEEDITOR_SCRIPT = 2974,
+    MATCHFIXING_SCRIPT = 3511
 }
 
 DB_TABLE_SIZEOF = {
@@ -91,9 +94,9 @@ PLAYERMORALE_STRUCT = {
 
 -- All available forms
 FORMS = {
-    MainWindowForm, SettingsForm, PlayersEditorForm, TransferPlayersForm
+    MainWindowForm, SettingsForm, PlayersEditorForm, TransferPlayersForm,
+    MatchScheduleEditorForm, MatchFixingForm
 }
-
 
 
 function get_components_description_manager_edit()
