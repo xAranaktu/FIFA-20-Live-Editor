@@ -16,7 +16,7 @@ function _translate(txt)
 end
 
 function is_cm_loaded()
-local modules = enumModules()
+    local modules = enumModules()
     for _, module in ipairs(modules) do
         if module.Name == 'FootballCompEng_Win64_retail.dll' then
             -- We are in career mode
@@ -26,6 +26,25 @@ local modules = enumModules()
 
     -- We are outside career mode
     return false
+end
+
+function getAddressModule(module_name)
+    local modules = enumModules()
+    for _, module in ipairs(modules) do
+        if module.Name == module_name then
+            return module.Address
+        end
+    end
+    return nil
+end
+
+function enum_all_modules()
+    local modules = enumModules()
+    for _, module in ipairs(modules) do
+        print(
+            string.format("%s, %X", module.Name, module.Address)
+        )
+    end
 end
 
 function execute_cmd(cmd)
@@ -303,10 +322,17 @@ function get_validated_address(name, module_name, section)
         
         local res = AOBScanModule(
             getfield(string.format('AOB_DATA.%s', name)),
-            module_name,
-            module_size
+            module_name
         )
+        local res_count = res.getCount()
+        if res_count == 0 then 
+            do_log(string.format("%s AOBScanModule error. Try to restart FIFA and Cheat Engine", name), 'ERROR')
+            return '00000000'
+        elseif res_count > 1 then
+            do_log(string.format("%s AOBScanModule multiple matches - %i found", name, res_count), 'WARNING')
+        end
         do_log(string.format('AOB FROM MODULE: %s -> %s', name, res[0]), 'INFO')
+
         return res[0]
     end
 
@@ -358,26 +384,49 @@ function AOBScanModule(aob, module_name, module_size)
     if aob == nil then
         do_log("AOB is NULL. Update not properly installed. Remove all versions of the live editor tool you have and download the latest one again", 'ERROR')
     end
-    if module_name == nil then
-        module_name = FIFA_PROCESS_NAME
-    end
-
-    if module_size == nil then
-        module_size = FIFA_MODULE_SIZE
-    end
 
     local memscan = createMemScan() 
     local foundlist = createFoundList(memscan) 
-    local start = getAddress(module_name)
-    local stop = start + module_size
+
+    local start = nil
+    local stop = nil
+    if module_name == nil then
+        module_name = FIFA_PROCESS_NAME
+        module_size = FIFA_MODULE_SIZE
+        start = getAddressModule(module_name)
+    else
+        module_size = getModuleSize(module_name)
+        if module_size == nil then
+            local module_sizes = {
+                FootballCompEng_Win64_retail = 0xCE000
+            }
+            local mname = string.gsub(module_name, '.dll', '')
+            module_size = module_sizes[mname]
+        end
+        start = getAddressModule(module_name)
+    end
+
+    if module_size ~= nil then
+        do_log(string.format("Module_size %s, %X", module_name, module_size))
+        stop = start + module_size
+        do_log(string.format('%X - %X', start, stop))
+    else
+        stop = 0x7fffffffffff - start 
+        do_log(
+            string.format(
+                'Module_size %s is nil. new stop: %X',
+                module_name, stop
+            )
+        )
+    end
 
     memscan.firstScan( 
       soExactValue, vtByteArray, rtRounded, 
       aob, nil, start, stop, "*X*W", 
       fsmNotAligned, "1", true, false, false, false
     )
-    memscan.waitTillDone() 
-    foundlist.initialize() 
+    memscan.waitTillDone()
+    foundlist.initialize()
     memscan.Destroy()
 
     return foundlist

@@ -22,6 +22,10 @@ require 'lua/GUI/forms/matchfixingform/events';
 require 'lua/GUI/forms/matchscheduleeditorform/events';
 
 do_log('New session started', 'INFO')
+if cheatEngineIs64Bit() == false then
+    do_log('New session started', 'INFO')
+    assert(false, 'Run in 64-bit cheat engine')
+end
 
 -- DEFAULT GLOBALS, better leave it as is
 do_log('HomeDrive')

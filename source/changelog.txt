@@ -246,3 +246,7 @@ v20.1.2.1:
             - Check if playerid is valid
             - managerid will always be 99999
     - Fixed problem with infinite loop in players transfers
+ 
+v20.1.2.2:
+    - Fixed problem with activating "Match Fixing" script
+    - Fixed problem with activating "Fixture Edit" script
