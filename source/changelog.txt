@@ -250,3 +250,12 @@ v20.1.2.1:
 v20.1.2.2:
     - Fixed problem with activating "Match Fixing" script
     - Fixed problem with activating "Fixture Edit" script
+    
+v20.1.2.3:
+    - Fixed "Youth Academy" -> "Reveal ovr and pot"
+    - Added to "Stamina":
+        - Mass edit players stamina in team
+    - Added to "Morale":
+        - Mass edit players morale in team
+    - Added to "Form":
+        - Mass edit players form in team

@@ -288,15 +288,16 @@ function getIntFunctionsAddrs()
 end
 
 function readMultilevelPointer(base_addr, offsets)
-    if base_addr == 0 then
-        return 0
-    end
-
     for i=1, #offsets do
-        base_addr = readPointer(base_addr+offsets[i])
-        if base_addr == 0 then
+        if base_addr == 0 or base_addr == nil then
+            do_log(string.format("Invalid PTR: offset: %d", i), 'WARNING')
+            do_log("All offsets", 'WARNING')
+            for j=1, #offsets do
+                do_log(string.format("%X", offsets[j]), 'WARNING')
+            end
             return 0
         end
+        base_addr = readPointer(base_addr+offsets[i])
     end
     return base_addr
 end
@@ -737,7 +738,9 @@ function load_aobs()
         AOB_GtnRevealPlayerData = '85 C0 75 0C 4C 8D 86 8C 02 00 00',
         AOB_YouthAcademyAllCountriesAvailable = '89 4C 24 30 B9 04 00 00 00',
         AOB_CountryIsBeingScouted = '80 FB 01 75 0C 4C',
-        AOB_YouthAcademyRevealPotAndOvr = 'E8 ?? ?? ?? ?? 41 89 F9 89 46 E8 4C 8D 05',
+        AOB_YouthAcademyRevealPotAndOvr = '89 06 48 8D 76 04 83 FF 06 ?? ?? 41 B8 FF FF FF FF',
+        AOB_YouthAcademyRevealPotAndOvrTwo = 'BA 20 00 00 00 48 8D 8D 80 09',
+        AOB_YouthAcademyRevealPotAndOvrThree = '48 03 C1 48 8D 4D 70',
         AOB_ManagerRating = '89 83 74 05 00 00 48 83',
         AOB_HireScout = '41 8B 01 89 45 48 41 8B',
         AOB_EditReleaseClause = '8B 48 08 83 F9 FF 74 06 89 8B',
