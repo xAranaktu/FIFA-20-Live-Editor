@@ -726,7 +726,7 @@ function load_aobs()
         AOB_CustomTransfers = '84 C0 48 8B 01 74 11 FF 50 10',
 
         AOB_TransferBudget = '44 8B 48 08 45 8B 87 90 02 00 00',
-        AOB_IsEditPlayerUnlocked = '49 8B CB E8 ?? ?? ?? ?? 85 C0 75 ?? 48 8B 46 08 40 ?? ?? 48 8B 80 B8 0F 00 00',
+        AOB_IsEditPlayerUnlocked = '48 8B CF E8 ?? ?? ?? ?? 85 C0 75 ?? 48 8B 46 08 40 ?? ?? 48 8B 80 B8 0F 00 00',
         AOB_AltTab = '48 83 EC 48 4C 8B 05 ?? ?? ?? ?? 4D 85 C0',
         AOB_DatabaseRead = '48 ?? ?? 4C 03 46 30 E8',
         AOB_UnlimitedTraining = '41 8B 7E 38 45 8B 76 3C',
