@@ -267,3 +267,6 @@ v20.1.2.5:
     - Added "update_player_headmodels.lua" (users lua scripts directory in folder with live editor)
     - Added fields from career_playercontract table to GUI->Player Editor->Player Info
     - Added Run Style Code to GUI->Player Editor->Other
+    
+v20.1.2.6:
+    - Fixed problem with editing players in Youth Academy through GUI.
