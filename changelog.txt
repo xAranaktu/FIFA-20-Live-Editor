@@ -270,3 +270,9 @@ v20.1.2.5:
     
 v20.1.2.6:
     - Fixed problem with editing players in Youth Academy through GUI.
+	
+v20.1.2.7:
+	- Changing Time of the Day will no longer change aggregate home team score.
+	- "update_player_headmodels.lua" script will now also update João Félix face and all faces added in Patch 7.
+	- Added to Gameplay: 
+		- "Never Tired Player IDs"
