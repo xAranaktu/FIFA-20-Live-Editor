@@ -562,6 +562,54 @@ function get_components_description_player_edit()
         ModifierEdit = {id = 91, modifier = -5},
         IsCustomizedEdit = {id = 88, modifier = 0},
         UserCanEditNameEdit = {id = 81, modifier = 0},
+        RunStyleEdit = {id = 122, modifier = 0},
+
+        -- career_playercontract
+        WageEdit = {
+            id=CT_MEMORY_RECORDS['CONTRACT_WAGE'], 
+            modifier = 0,
+            custom_apply_changes = true
+        },
+        SquadRoleCB = {
+            id=CT_MEMORY_RECORDS['CONTRACT_PLAYER_ROLE'],
+            modifier = -1,
+            already_filled = true,
+            custom_apply_changes = true,
+            events = {
+                OnChange = CommonCBOnChange,
+                OnDropDown = CommonCBOnDropDown,
+                OnMouseEnter = CommonCBOnMouseEnter,
+                OnMouseLeave = CommonCBOnMouseLeave,
+            }
+        }, -- Stored in us002
+        LoanWageSplitEdit = {
+            id=CT_MEMORY_RECORDS['CONTRACT_LOAN_WAGE_SPLIT'],
+            custom_apply_changes = true,
+            modifier = -1
+        },
+        PerformanceBonusTypeCB = {
+            id=CT_MEMORY_RECORDS['CONTRACT_PERFORMANCE_BONUS_TYPE'], 
+            modifier = 0, 
+            already_filled = true,
+            custom_apply_changes = true,
+            events = {
+                OnChange = PerformanceBonusTypeCBChange,
+                OnDropDown = CommonCBOnDropDown,
+                OnMouseEnter = CommonCBOnMouseEnter,
+                OnMouseLeave = CommonCBOnMouseLeave,
+            }
+        },
+        PerformanceBonusCountEdit = {
+            id=CT_MEMORY_RECORDS['CONTRACT_PERFORMANCE_BONUS_COUNT'],
+            modifier = -1,
+            custom_apply_changes = true,
+            valFromFunc=FillPerformanceBonusCountEdit
+        },
+        PerformanceBonusValueEdit = {
+            id=CT_MEMORY_RECORDS['CONTRACT_PERFORMANCE_BONUS_VALUE'],
+            custom_apply_changes = true,
+            modifier = -1
+        },
     }
 end
 

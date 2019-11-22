@@ -18,7 +18,6 @@ function PlayerEditFormShow(sender)
     COMPONENTS_DESCRIPTION_PLAYER_EDIT = get_components_description_player_edit()
     HAS_UNAPPLIED_PLAYER_CHANGES = false
 
-
     -- No current date
     -- if ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_DAY']).Value == '??' and is_cm_loaded() then
     --     do_log("No ptr for current date. Reload your CM save and try again", 'ERROR')
@@ -839,4 +838,25 @@ end
 
 function FutFIFACBChange(sender)
     SearchPlayerByNameFUTBtnClick(sender)
+end
+
+function PerformanceBonusTypeCBChange(sender)
+    if sender.ItemIndex == 0 then
+        PlayersEditorForm.PerformanceBonusCountEdit.Text = "None"
+        PlayersEditorForm.PerformanceBonusValueEdit.Text = "None"
+
+        PlayersEditorForm.PerformanceBonusCountLabel.Visible = false
+        PlayersEditorForm.PerformanceBonusCountEdit.Visible = false
+        PlayersEditorForm.PerformanceBonusValueLabel.Visible = false
+        PlayersEditorForm.PerformanceBonusValueEdit.Visible = false
+    else
+        PlayersEditorForm.PerformanceBonusCountLabel.Visible = true
+        PlayersEditorForm.PerformanceBonusCountEdit.Visible = true
+        PlayersEditorForm.PerformanceBonusValueLabel.Visible = true
+        PlayersEditorForm.PerformanceBonusValueEdit.Visible = true
+        PlayersEditorForm.PerformanceBonusCountEdit.Text = FillPerformanceBonusCountEdit()
+        PlayersEditorForm.PerformanceBonusValueEdit.Text = tonumber(ADDR_LIST.getMemoryRecordByID(COMPONENTS_DESCRIPTION_PLAYER_EDIT['PerformanceBonusValueEdit']['id']).Value) + COMPONENTS_DESCRIPTION_PLAYER_EDIT['PerformanceBonusValueEdit']['modifier']
+    end
+    UpdateCBComponentHint(sender)
+    HAS_UNAPPLIED_PLAYER_CHANGES = true
 end

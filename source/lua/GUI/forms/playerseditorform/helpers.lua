@@ -477,6 +477,41 @@ function get_player_morale_addr(playerid)
     return nil
 end
 
+function get_player_role_addr(playerid)
+    -- struct size
+    local size_of =  ROLE_STRUCT['size']
+
+    local role_ptr = readMultilevelPointer(
+        readPointer("basePtrStaminaInjures"),
+        {0x0, 0x8, 0x9F8, 0x0}
+    )
+    if role_ptr == 0 or role_ptr == nil then
+        return 0
+    end
+    -- print(string.format("%X", role_ptr))
+
+    local role_start = readPointer(role_ptr+0x20)
+    local role_end = readPointer(role_ptr+0x28)
+
+    if (not role_start) or (not role_end) then
+        return nil
+    end
+
+    -- print(string.format("%X", role_start))
+    -- print(string.format("%X", role_end))
+    local limit = (role_end-role_start)//size_of - 1
+    for i=0, limit do
+        local pid = readInteger(role_start + ROLE_STRUCT['pid'])
+
+        if (playerid > 0) and (pid == playerid) then
+            return role_start
+        end
+
+        role_start = role_start + size_of
+    end
+    return 0
+end
+
 function get_player_fitness_addr(playerid, free)
     -- struct size
     local size_of =  INJ_FIT_STRUCT['size']
@@ -499,8 +534,6 @@ function get_player_fitness_addr(playerid, free)
 
     -- Probably limit is 2000 players, but better calc it
     local limit = (fitness_end-fitness_start)//size_of - 1
-
-    local count = 0
 
     for i=0, limit do
         local pid = readInteger(fitness_start + INJ_FIT_STRUCT['pid'])
@@ -576,6 +609,104 @@ function load_player_release_clause(playerid, is_cm_loaded)
     end
 
     PlayersEditorForm.ReleaseClauseEdit.Text = readInteger(addr+RLC_STRUCT['value'])
+end
+
+function contract_comps_vis(visible)
+    PlayersEditorForm.WageLabel.Visible = visible
+    PlayersEditorForm.WageEdit.Visible = visible
+    PlayersEditorForm.SquadRoleLabel.Visible = visible
+    PlayersEditorForm.SquadRoleCB.Visible = visible
+    PlayersEditorForm.LoanWageSplitLabel.Visible = visible
+    PlayersEditorForm.LoanWageSplitEdit.Visible = visible
+    PlayersEditorForm.PerformanceBonusTypeLabel.Visible = visible
+    PlayersEditorForm.PerformanceBonusTypeCB.Visible = visible
+    PlayersEditorForm.PerformanceBonusCountLabel.Visible = visible
+    PlayersEditorForm.PerformanceBonusCountEdit.Visible = visible
+    PlayersEditorForm.PerformanceBonusValueLabel.Visible = visible
+    PlayersEditorForm.PerformanceBonusValueEdit.Visible = visible
+end
+
+function FillPerformanceBonusCountEdit()
+    local modifier = -1
+    local current = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_PERFORMANCE_BONUS_COUNT_ACHIEVED']).Value) + modifier
+    local max = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_PERFORMANCE_BONUS_COUNT']).Value) + modifier
+
+    if max == -1 then
+        return "None"
+    end
+
+    return string.format("%d/%d", current, max)
+end
+
+function load_player_contract(playerid, is_cm_loaded)
+    if (
+        not playerid or
+        not is_cm_loaded
+    ) then
+        contract_comps_vis(false)
+        return
+    end
+
+    -- Most of the data is stored in career_playercontract
+    -- For some reason role is stored in us002
+
+    if (playerid ~= tonumber(CT_MEMORY_RECORDS['CONTRACT_PLAYERID'])) then
+        -- career_playercontract table
+        local sizeOf = DB_TABLE_SIZEOF['CAREER_PLAYERCONTRACT'] -- Size of one record in career_playercontract database table (0x1C)
+        local player_addr = find_record_in_game_db(0, CT_MEMORY_RECORDS['CONTRACT_PLAYERID'], playerid, sizeOf, 'firstplayercontractDataPtr')['addr']
+        if player_addr then
+            -- Update in Cheat Table
+            writeQword('playercontractDataPtr', player_addr)
+        else
+            contract_comps_vis(false)
+            return
+        end
+    end
+
+    -- us002 manager
+    local addr = get_player_role_addr(playerid)
+    if addr == nil then
+        contract_comps_vis(false)
+        return
+    end
+    contract_comps_vis(true)
+
+    local role = readInteger(addr+ROLE_STRUCT['role'])
+    PlayersEditorForm.SquadRoleCB.ItemIndex = role - 1
+
+    local edit_comps = {
+        'WageEdit', 'LoanWageSplitEdit', 'PerformanceBonusCountEdit', 'PerformanceBonusValueEdit'
+    }
+
+    for i=1, #edit_comps do
+        local comp_name = edit_comps[i]
+        local r = COMPONENTS_DESCRIPTION_PLAYER_EDIT[comp_name]
+        if r['valFromFunc'] then
+            PlayersEditorForm[comp_name].Text = r['valFromFunc']()
+        else
+            PlayersEditorForm[comp_name].Text = tonumber(ADDR_LIST.getMemoryRecordByID(r['id']).Value) + r['modifier']
+        end
+    end
+    PlayersEditorForm.PerformanceBonusTypeCB.ItemIndex = tonumber(ADDR_LIST.getMemoryRecordByID(COMPONENTS_DESCRIPTION_PLAYER_EDIT['PerformanceBonusTypeCB']['id']).Value)
+    
+    -- Hide comps
+    if PlayersEditorForm.PerformanceBonusTypeCB.ItemIndex == 0 then
+        PlayersEditorForm.PerformanceBonusCountEdit.Text = "None"
+        PlayersEditorForm.PerformanceBonusValueEdit.Text = "None"
+
+        PlayersEditorForm.PerformanceBonusCountLabel.Visible = false
+        PlayersEditorForm.PerformanceBonusCountEdit.Visible = false
+        PlayersEditorForm.PerformanceBonusValueLabel.Visible = false
+        PlayersEditorForm.PerformanceBonusValueEdit.Visible = false
+    end
+
+    if PlayersEditorForm.LoanWageSplitEdit.Text == '-1' then
+        PlayersEditorForm.LoanWageSplitEdit.Text = "None"
+        PlayersEditorForm.LoanWageSplitLabel.Visible = false
+        PlayersEditorForm.LoanWageSplitEdit.Visible = false
+    else
+        PlayersEditorForm.LoanWageSplitEdit.Text = PlayersEditorForm.LoanWageSplitEdit.Text .. "%"
+    end
 end
 
 function load_player_morale(playerid, is_cm_loaded)
@@ -752,6 +883,107 @@ function load_player_fitness(playerid, is_cm_loaded)
     PlayersEditorForm.InjuryCB.OnChange = icb_on_change
     PlayersEditorForm.DurabilityEdit.OnChange = de_on_change
     PlayersEditorForm.FullFitDateEdit.OnChange = ffde_on_change
+end
+
+function save_player_contract(playerid)
+    if not playerid then
+        return
+    end
+
+    local contract_playerid = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_PLAYERID']).Value)
+    if contract_playerid ~= playerid then
+        do_log(string.format("No contract. PlayerID: %d, Contract PlayerID: %d", playerid, contract_playerid))
+        return
+    end
+
+    do_log(string.format("save_player_contract. PlayerID: %d", playerid))
+
+    local modifier = 0
+
+    -- if player is on loan in our club
+    if PlayersEditorForm.LoanWageSplitEdit.Visible then
+        local loanwagesplit, _ = string.gsub(PlayersEditorForm.LoanWageSplitEdit.Text, '%D', '') -- Remove all non-digits
+        modifier = COMPONENTS_DESCRIPTION_PLAYER_EDIT['LoanWageSplitEdit']['modifier']
+        ADDR_LIST.getMemoryRecordByID(COMPONENTS_DESCRIPTION_PLAYER_EDIT['LoanWageSplitEdit']['id']).Value = loanwagesplit - modifier
+    end
+
+    -- New Wage
+    modifier = COMPONENTS_DESCRIPTION_PLAYER_EDIT['WageEdit']['modifier']
+    local wage, _ = string.gsub(PlayersEditorForm.WageEdit.Text, '%D', '') -- Remove all non-digits
+    ADDR_LIST.getMemoryRecordByID(COMPONENTS_DESCRIPTION_PLAYER_EDIT['WageEdit']['id']).Value = wage - modifier
+
+    local addr = get_player_role_addr(playerid)
+    if addr == nil then
+        do_log(string.format("No us002 for PlayerID: %d", playerid))
+        return
+    end
+
+    -- Check Contract
+    local players_valid_until_year = tonumber(PlayersEditorForm.ContractValidUntilEdit.Text)
+    local contract_date = string.format(
+        '%d',
+        tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_DATE']).Value) + 20080101
+    )
+    local contract_date_year = tonumber(string.sub(contract_date, 1,4))
+    local new_duration = (players_valid_until_year - contract_date_year) * 12
+    local contract_duration = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_DURATION_MONTHS']).Value) - 1
+
+    if new_duration ~= contract_duration then
+        -- If more than 14 years
+        if new_duration > 168 then 
+            ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_DURATION_MONTHS']).Value = 168 + 1
+            local new_con_date = tonumber(
+                string.format('%d0701', players_valid_until_year - 14)
+            ) - 20080101
+            ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_LAST_STATUS_CHANGE_DATE']).Value = new_con_date
+            ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_DATE']).Value = new_con_date
+        else
+            ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_DURATION_MONTHS']).Value = new_duration + 1
+        end
+    end
+
+    local current_bonus = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_PERFORMANCE_BONUS_TYPE']).Value)
+    local new_bonus = PlayersEditorForm.PerformanceBonusTypeCB.ItemIndex
+
+    if new_bonus == 0 then
+        -- Delete Performance Bonus
+        ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_PERFORMANCE_BONUS_TYPE']).Value = 0
+        ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_PERFORMANCE_BONUS_VALUE']).Value = 0
+        ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_IS_BONUS_ACHIEVED']).Value = 0
+        ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_PERFORMANCE_BONUS_COUNT']).Value = 0
+        ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_PERFORMANCE_BONUS_COUNT_ACHIEVED']).Value = 1
+    else
+        local bonus_val, _ = string.gsub(PlayersEditorForm.PerformanceBonusValueEdit.Text, '%D', '') -- Remove all non-digits
+        local bonus = split(PlayersEditorForm.PerformanceBonusCountEdit.Text, '/')
+        local current = tonumber(bonus[1])
+        local max = tonumber(bonus[2])
+
+        if current and max then
+            local is_achieved = 0
+            if max == current then
+                is_achieved = 1
+            end
+            ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_IS_BONUS_ACHIEVED']).Value = is_achieved
+            ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_PERFORMANCE_BONUS_COUNT']).Value = max + 1
+            ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_PERFORMANCE_BONUS_COUNT_ACHIEVED']).Value = current + 1
+
+        else
+            ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_IS_BONUS_ACHIEVED']).Value = 0
+            ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_PERFORMANCE_BONUS_COUNT']).Value = 26
+            ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_PERFORMANCE_BONUS_COUNT_ACHIEVED']).Value = 1
+        end
+
+        -- Set new Performance Bonus
+        ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_PERFORMANCE_BONUS_TYPE']).Value = new_bonus
+        ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CONTRACT_PERFORMANCE_BONUS_VALUE']).Value = (bonus_val + 1) or 0
+    end
+
+    -- New role
+    local role = PlayersEditorForm.SquadRoleCB.ItemIndex + 1
+    modifier = COMPONENTS_DESCRIPTION_PLAYER_EDIT['SquadRoleCB']['modifier']
+    writeInteger(addr+ROLE_STRUCT['role'], role)
+    ADDR_LIST.getMemoryRecordByID(COMPONENTS_DESCRIPTION_PLAYER_EDIT['SquadRoleCB']['id']).Value = role - modifier
+
 end
 
 function save_player_release_clause(playerid)
@@ -980,6 +1212,7 @@ function FillPlayerEditForm(playerid)
     if playerid ~= nil then
         find_player_by_id(playerid)
     end
+    
 
     local new_val = 0
     for i=0, PlayersEditorForm.ComponentCount-1 do
@@ -1098,6 +1331,11 @@ function FillPlayerEditForm(playerid)
         do_log("Not in CM")
     end
     IS_CM_LOADED_AT_ENTER = is_cm_loaded
+
+
+    -- player info - contract
+    load_player_contract(iPlayerID, is_cm_loaded)
+
     -- Player info - fitness & injury
     load_player_fitness(iPlayerID, is_cm_loaded)
 
@@ -1109,6 +1347,7 @@ function FillPlayerEditForm(playerid)
 
     -- Player info - Release Clause
     load_player_release_clause(iPlayerID, is_cm_loaded)
+    HAS_UNAPPLIED_PLAYER_CHANGES = false
     do_log("FillPlayerEditForm Finished")
 end
 
@@ -1182,6 +1421,9 @@ function ApplyChanges()
         local comp_desc = COMPONENTS_DESCRIPTION_PLAYER_EDIT[component_name]
         if comp_desc == nil then goto continue end
         if comp_desc['id'] == nil then goto continue end
+        -- Handle save in other func
+        if comp_desc['custom_apply_changes'] then goto continue end
+
         local component_class = component.ClassName
         
         if component_class == 'TCEEdit' then
@@ -1216,6 +1458,7 @@ function ApplyChanges()
         save_player_match_form(iPlayerID)
         save_player_morale(iPlayerID)
         save_player_release_clause(iPlayerID)
+        save_player_contract(iPlayerID)
     else
         do_log("Not in CM")
     end

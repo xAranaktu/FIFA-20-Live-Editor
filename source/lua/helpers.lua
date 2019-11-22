@@ -668,12 +668,17 @@ end
 function initPtrs()
     local codeGameDB = tonumber(get_validated_address('AOB_codeGameDB'), 16)
     local base_ptr = readPointer(byteTableToDword(readBytes(codeGameDB+4, 4, true)) + codeGameDB + 8)
+    -- print(string.format("%X", base_ptr))
 
     local DB_One_Tables_ptr = readMultilevelPointer(base_ptr, {0x10, 0x390})
     local DB_Two_Tables_ptr = readMultilevelPointer(base_ptr, {0x10, 0x3C0})
 
+    --print(string.format("%X", DB_One_Tables_ptr))
+    --print(string.format("%X", DB_Two_Tables_ptr))
+
     -- Players Table
     local players_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0xB0, 0x28, 0x30})
+    -- print(string.format("%X", players_firstrecord)) 
     writeQword("firstPlayerDataPtr", players_firstrecord)
     writeQword("playerDataPtr", players_firstrecord)
 
@@ -691,6 +696,12 @@ function initPtrs()
     local careercalendar_firstrecord = readMultilevelPointer(DB_Two_Tables_ptr, {0xC0, 0x28, 0x30})
     writeQword("ptrCareerCalendar", careercalendar_firstrecord)
 
+    -- Career_PlayerContract
+    local playercontract_firstrecord = readMultilevelPointer(DB_Two_Tables_ptr, {0x38, 0x28, 0x30})
+    -- print(string.format("%X", players_firstrecord)) 
+    writeQword("firstplayercontractDataPtr", playercontract_firstrecord)
+    writeQword("playercontractDataPtr", playercontract_firstrecord)
+
     -- BASE PTR FOR STAMINA & INJURES
     local code = tonumber(get_validated_address('AOB_BASE_STAMINA_INJURES'), 16)
     tmp = byteTableToDword(readBytes(code+3, 4, true)) + code + 7
@@ -706,7 +717,6 @@ function initPtrs()
         globalalloc(basePtrTeamFormMoraleRLC, 8, $tmp)
     ]])
     writeQword("basePtrTeamFormMoraleRLC", tmp)
-
 
     setup_internal_calls()
 end

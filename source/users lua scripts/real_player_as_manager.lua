@@ -201,6 +201,11 @@ function change_vals()
     for line in io.lines(fut_players_file_path) do
         local values = split(line, ',')
         if playerid == tonumber(values[columns['playerid']]) then
+            -- Fix women headassetid
+            if values[columns['headassetid']] == '0' then
+               values[columns['headassetid']] = values[columns['playerid']]
+            end
+        
             for j=1, #fields_to_edit do
                 local rec = ADDR_LIST.getMemoryRecordByID(comp_desc[fields_to_edit[j]]['id'])
                 if rec.Value == '??' then

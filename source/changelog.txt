@@ -262,3 +262,8 @@ v20.1.2.3:
         
 v20.1.2.4:
     - Fixed "Editing Player" -> "Unlock "Edit Player" in career menu"
+    
+v20.1.2.5:
+    - Added "update_player_headmodels.lua" (users lua scripts directory in folder with live editor)
+    - Added fields from career_playercontract table to GUI->Player Editor->Player Info
+    - Added Run Style Code to GUI->Player Editor->Other
