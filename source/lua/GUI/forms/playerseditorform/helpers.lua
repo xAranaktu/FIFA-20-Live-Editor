@@ -486,7 +486,7 @@ function get_player_role_addr(playerid)
         {0x0, 0x8, 0x9F8, 0x0}
     )
     if role_ptr == 0 or role_ptr == nil then
-        return 0
+        return nil
     end
     -- print(string.format("%X", role_ptr))
 
@@ -509,7 +509,7 @@ function get_player_role_addr(playerid)
 
         role_start = role_start + size_of
     end
-    return 0
+    return nil
 end
 
 function get_player_fitness_addr(playerid, free)
@@ -522,7 +522,7 @@ function get_player_fitness_addr(playerid, free)
     )
 
     if fitness_ptr == 0 or fitness_ptr == nil then
-        return 0
+        return nil
     end
 
     local fitness_start = readPointer(fitness_ptr+0x1988)
@@ -552,7 +552,7 @@ function get_player_fitness_addr(playerid, free)
         fitness_start = fitness_start + size_of
     end
 
-    return 0
+    return nil
 end
 
 function value_to_date(value)
@@ -852,7 +852,7 @@ function load_player_fitness(playerid, is_cm_loaded)
     end
 
     local addr = get_player_fitness_addr(playerid)
-    if addr == 0 then
+    if addr == nil then
         PlayersEditorForm.IsInjuredCB.ItemIndex = 0
         PlayersEditorForm.InjuryCB.ItemIndex = 0
         PlayersEditorForm.FullFitDateEdit.Text = "01/01/2008"
@@ -1127,13 +1127,13 @@ function save_player_fitness(playerid)
     local is_injured = PlayersEditorForm.IsInjuredCB.ItemIndex
     local stamina = PlayersEditorForm.DurabilityEdit.Text
     stamina = string.gsub(stamina, '%D', '')
-    if addr == 0 and is_injured == 0 and stamina == "100" then
+    if addr == nil and is_injured == 0 and stamina == "100" then
         return
     end
 
-    if addr == 0 then
+    if addr == nil then
         addr = get_player_fitness_addr(0, true)
-        if addr == 0 then
+        if addr == nil then
             do_log(
                 "Unable to save player fitness. Limit reached (?)",
                 'ERROR'
