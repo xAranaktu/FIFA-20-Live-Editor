@@ -276,3 +276,7 @@ v20.1.2.7:
 	- "update_player_headmodels.lua" script will now also update João Félix face and all faces added in Patch 7.
 	- Added to Gameplay: 
 		- "Never Tired Player IDs"
+		
+v20.1.2.8:
+	- Added option to define custom goal scorers in match fixing
+	- Added option to add favourite scorers
