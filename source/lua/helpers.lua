@@ -383,11 +383,11 @@ end
 -- https://www.cheatengine.org/forum/viewtopic.php?p=5621132&sid=c4dd9b1a4d0ddabf23f99b8f9bfe5f4e
 function AOBScanModule(aob, module_name, module_size)
     if aob == nil then
-        do_log("AOB is NULL. Update not properly installed. Remove all versions of the live editor tool you have and download the latest one again", 'ERROR')
+        do_log("Update not properly installed. Remove all versions of the live editor tool you have and download the latest one again", 'ERROR')
     end
 
-    local memscan = createMemScan() 
-    local foundlist = createFoundList(memscan) 
+    local memscan = createMemScan()
+    local foundlist = createFoundList(memscan)
 
     local start = nil
     local stop = nil
@@ -421,7 +421,7 @@ function AOBScanModule(aob, module_name, module_size)
         )
     end
 
-    memscan.firstScan( 
+    memscan.firstScan(
       soExactValue, vtByteArray, rtRounded, 
       aob, nil, start, stop, "*X*W", 
       fsmNotAligned, "1", true, false, false, false

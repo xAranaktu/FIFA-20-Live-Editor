@@ -1,5 +1,5 @@
 --- This script will update head models in your current save.
---- Head models added in Patch 5 & Patch 6
+--- Head models added in Patch 5, Patch 6 & Patch 7
 
 --- HOW TO USE:
 --- https://i.imgur.com/xZMqzTc.gifv
@@ -19,6 +19,32 @@ local comp_desc = get_components_description_player_edit()
 -- Players with updated head models
 -- http://soccergaming.com/index.php?threads/list-of-all-new-faces-added-in-title-update-6-tutorial-to-enable-faces.6467431/
 local new_headmodels = {
+	169078,
+	184274,
+	190362,
+	192449,
+	199383,
+	200855,
+	201368,
+	202541,
+	204193,
+	206517,
+	210881,
+	212300,
+	216433,
+	220197,
+	221982,
+	225748,
+	225793,
+	226078,
+	226162,
+	227222,
+	231743,
+	232381,
+	239097,
+	240060,
+	249119,
+	249179,
     53050,
     116308,
     152997,
@@ -114,6 +140,7 @@ local new_headmodels = {
     239380,
     241461,
     241711,
+    242444,
     242491,
     243249,
     243812,
