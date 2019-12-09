@@ -395,6 +395,9 @@ function AOBScanModule(aob, module_name, module_size)
         module_name = FIFA_PROCESS_NAME
         module_size = FIFA_MODULE_SIZE
         start = getAddressModule(module_name)
+        if start == nil then
+            start = BASE_ADDRESS
+        end
     else
         module_size = getModuleSize(module_name)
         if module_size == nil then
@@ -412,7 +415,7 @@ function AOBScanModule(aob, module_name, module_size)
         stop = start + module_size
         do_log(string.format('%X - %X', start, stop))
     else
-        stop = 0x7fffffffffff - start 
+        stop = 0x7fffffffffff - start
         do_log(
             string.format(
                 'Module_size %s is nil. new stop: %X',
@@ -822,6 +825,7 @@ function load_aobs()
             AOBS = {
                 AOB_Calendar = "33 D2 48 89 54 24 48",
                 AOB_MatchFixing = "48 8B 13 48 81 C2 80 03 00 00",
+                AOB_MatchFixingGoals = "48 8B 1C C8 48 85 DB 74 C7 48 8B 4E 20",
             }
         }
     }

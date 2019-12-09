@@ -36,17 +36,6 @@ function LabelLatestLEVerClick()
 
 end
 
-function MainWindowResizeMouseMove(sender, x, y)
-    if RESIZE_MAIN_WINDOW['allow_resize'] then
-        RESIZE_MAIN_WINDOW['w'] = x - RESIZE_MAIN_WINDOW['mx'] + MainWindowForm.Width
-        RESIZE_MAIN_WINDOW['h'] = y - RESIZE_MAIN_WINDOW['my'] + MainWindowForm.Height
-    end
-end
-function MainWindowResizeMouseUp(sender, button, x, y)
-    RESIZE_MAIN_WINDOW['allow_resize'] = false
-    MainWindowForm.Width = RESIZE_MAIN_WINDOW['w']
-    MainWindowForm.Height = RESIZE_MAIN_WINDOW['h']
-end
 
 -- stay on top
 function MainWindowAlwaysOnTopClick(sender)

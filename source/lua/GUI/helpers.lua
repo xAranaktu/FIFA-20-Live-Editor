@@ -73,6 +73,33 @@ function AlwaysOnTopClick(sender)
 end
 
 
+-- Paint button
+function onPaintButton(sender)
+    doPaint(sender, 0x3f3134)
+end
+
+-- Button hover effect
+function onBtnMouseEnter(sender)
+    doPaint(sender, 0x5c474c)
+end
+function onBtnMouseLeave(sender)
+    doPaint(sender, 0x3f3134)
+end
+
+function doPaint(sender, bgcolor)
+    local btn_txt = sender.Hint
+    sender.Canvas.Brush.Color = 0x3f3134
+    sender.Canvas.fillRect(0, 0, sender.Width, sender.Height)
+    sender.Canvas.Font.Color = 0xC0C0C0
+    sender.Canvas.Font.Size = 12
+
+    -- Text Center
+    local text_x = sender.Width//2 - sender.Canvas.getTextWidth(btn_txt)//2
+    local text_y = sender.Height//2 - sender.Canvas.getTextHeight(btn_txt)//2
+    sender.Canvas.textOut(text_x, text_y, btn_txt)
+end
+
+
 -- load player head
 -- return string stream
 function load_headshot(playerid, skintonecode, headtypecode, haircolorcode)

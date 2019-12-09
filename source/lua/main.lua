@@ -19,12 +19,13 @@ require 'lua/GUI/forms/settingsform/events';
 require 'lua/GUI/forms/playerseditorform/events';
 require 'lua/GUI/forms/transferplayersform/events';
 require 'lua/GUI/forms/matchfixingform/events';
+require 'lua/GUI/forms/newmatchfixform/events';
 require 'lua/GUI/forms/matchscheduleeditorform/events';
 
 do_log('New session started', 'INFO')
 if cheatEngineIs64Bit() == false then
-    do_log('New session started', 'INFO')
-    assert(false, 'Run in 64-bit cheat engine')
+    do_log('Run 64-bit cheat engine', 'Error')
+    assert(false, 'Run 64-bit cheat engine')
 end
 
 -- DEFAULT GLOBALS, better leave it as is

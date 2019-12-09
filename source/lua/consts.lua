@@ -122,7 +122,7 @@ PLAYERMORALE_STRUCT = {
 -- All available forms
 FORMS = {
     MainWindowForm, SettingsForm, PlayersEditorForm, TransferPlayersForm,
-    MatchScheduleEditorForm, MatchFixingForm
+    MatchScheduleEditorForm, MatchFixingForm, NewMatchFixForm
 }
 
 
@@ -131,7 +131,7 @@ function get_components_description_manager_edit()
         BodyTypeEdit = {id = 3653, modifier = 1, db_col = "bodytypecode"},
         CommonNameEdit = {id = 3636, modifier = 0, db_col = "commonname"},
         EthnicityEdit = {id = 3638, modifier = 1, db_col = "ethnicity"},
-        EyebrowcodeEdit = {id = 3642, modifier = 0, db_col = "eyebrowcode"}, 
+        EyebrowcodeEdit = {id = 3642, modifier = 0, db_col = "eyebrowcode"},
         EyecolorcodeEdit = {id = 3643, modifier = 1, db_col = "eyecolorcode"},
         FaceposerpresetEdit = {id = 3640, modifier = 0, db_col = "faceposerpreset"},
         FacialhaircolorcodeEdit = {id = 3654, modifier = 0, db_col = "facialhaircolorcode"},
