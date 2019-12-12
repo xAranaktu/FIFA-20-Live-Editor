@@ -15,7 +15,7 @@
   <CheatEntries>
     <CheatEntry>
       <ID>0</ID>
-      <Description>"v20.1.2.8"</Description>
+      <Description>"v20.1.2.9"</Description>
       <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
     </CheatEntry>
@@ -158,7 +158,7 @@ writeBytes(INJECT_CalendarCurrentDate, ORG_CalendarCurrentDate)
                 <CheatEntry>
                   <ID>4409</ID>
                   <Description>"Year"</Description>
-                  <LastState Value="2019" RealAddress="B6B1C0FC"/>
+                  <LastState Value="2019" RealAddress="17FCEDBAC"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>CalendarCurrentDatePtr</Address>
                   <Offsets>
@@ -168,7 +168,7 @@ writeBytes(INJECT_CalendarCurrentDate, ORG_CalendarCurrentDate)
                 <CheatEntry>
                   <ID>4408</ID>
                   <Description>"Day"</Description>
-                  <LastState Value="10" RealAddress="B6B1C0F4"/>
+                  <LastState Value="3" RealAddress="17FCEDBA4"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>CalendarCurrentDatePtr</Address>
                   <Offsets>
@@ -178,7 +178,7 @@ writeBytes(INJECT_CalendarCurrentDate, ORG_CalendarCurrentDate)
                 <CheatEntry>
                   <ID>4410</ID>
                   <Description>"Month"</Description>
-                  <LastState Value="7" RealAddress="B6B1C0F8"/>
+                  <LastState Value="7" RealAddress="17FCEDBA8"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>CalendarCurrentDatePtr</Address>
                   <Offsets>
@@ -6368,7 +6368,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>110</ID>
                       <Description>"playerid"</Description>
-                      <LastState Value="208574" RealAddress="A5E97DA3"/>
+                      <LastState Value="216354" RealAddress="A5ECAEE3"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>7</BitStart>
                       <BitLength>19</BitLength>
@@ -6600,7 +6600,7 @@ dealloc(ptrCompetitionkits)
 147: 'Zambia'
 148: 'Zimbabwe'
 </DropDownList>
-                      <LastState Value="51" RealAddress="A5E97D9F"/>
+                      <LastState Value="10" RealAddress="A5ECAEDF"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>2</BitStart>
                       <BitLength>12</BitLength>
@@ -6625,7 +6625,7 @@ dealloc(ptrCompetitionkits)
 9: '4'
 10: '5'
 </DropDownList>
-                      <LastState Value="6" RealAddress="A5E97D97"/>
+                      <LastState Value="7" RealAddress="A5ECAED7"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>5</BitStart>
                       <BitLength>4</BitLength>
@@ -6738,7 +6738,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                      <LastState Value="81" RealAddress="A5E97DAA"/>
+                      <LastState Value="82" RealAddress="A5ECAEEA"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>1</BitStart>
                       <BitLength>7</BitLength>
@@ -6851,7 +6851,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                      <LastState Value="81" RealAddress="A5E97D65"/>
+                      <LastState Value="82" RealAddress="A5ECAEA5"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>6</BitStart>
                       <BitLength>7</BitLength>
@@ -6893,7 +6893,7 @@ dealloc(ptrCompetitionkits)
 26: 'LS'
 27: 'LW'
 </DropDownList>
-                      <LastState Value="16" RealAddress="A5E97D7C"/>
+                      <LastState Value="25" RealAddress="A5ECAEBC"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>1</BitStart>
                       <BitLength>5</BitLength>
@@ -6936,7 +6936,7 @@ dealloc(ptrCompetitionkits)
 27: 'LS'
 28: 'LW'
 </DropDownList>
-                      <LastState Value="9" RealAddress="A5E97D76"/>
+                      <LastState Value="19" RealAddress="A5ECAEB6"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>6</BitStart>
                       <BitLength>6</BitLength>
@@ -6979,7 +6979,7 @@ dealloc(ptrCompetitionkits)
 27: 'LS'
 28: 'LW'
 </DropDownList>
-                      <LastState Value="0" RealAddress="A5E97D5E"/>
+                      <LastState Value="0" RealAddress="A5ECAE9E"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>2</BitStart>
                       <BitLength>6</BitLength>
@@ -7022,7 +7022,7 @@ dealloc(ptrCompetitionkits)
 27: 'LS'
 28: 'LW'
 </DropDownList>
-                      <LastState Value="0" RealAddress="A5E97DB2"/>
+                      <LastState Value="0" RealAddress="A5ECAEF2"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>3</BitStart>
                       <BitLength>6</BitLength>
@@ -7038,7 +7038,7 @@ dealloc(ptrCompetitionkits)
                       <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'Right'
 1: 'Left'
 </DropDownList>
-                      <LastState Value="1" RealAddress="A5E97DA0"/>
+                      <LastState Value="0" RealAddress="A5ECAEE0"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>6</BitStart>
                       <BitLength>1</BitLength>
@@ -7051,7 +7051,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>51</ID>
                       <Description>"firstnameid"</Description>
-                      <LastState Value="9109" RealAddress="A5E97D48"/>
+                      <LastState Value="1609" RealAddress="A5ECAE88"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>16</BitLength>
@@ -7064,7 +7064,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>74</ID>
                       <Description>"lastnameid"</Description>
-                      <LastState Value="15484" RealAddress="A5E97D4A"/>
+                      <LastState Value="15565" RealAddress="A5ECAE8A"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>16</BitLength>
@@ -7077,7 +7077,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>129</ID>
                       <Description>"commonnameid"</Description>
-                      <LastState Value="0" RealAddress="A5E97D4E"/>
+                      <LastState Value="0" RealAddress="A5ECAE8E"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>16</BitLength>
@@ -7090,7 +7090,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>126</ID>
                       <Description>"playerjerseynameid"</Description>
-                      <LastState Value="15484" RealAddress="A5E97D4C"/>
+                      <LastState Value="15565" RealAddress="A5ECAE8C"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>16</BitLength>
@@ -7107,7 +7107,7 @@ dealloc(ptrCompetitionkits)
 0: 'Medium'
 2: 'High'
 </DropDownList>
-                      <LastState Value="2" RealAddress="A5E97D8F"/>
+                      <LastState Value="0" RealAddress="A5ECAECF"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>7</BitStart>
                       <BitLength>2</BitLength>
@@ -7124,7 +7124,7 @@ dealloc(ptrCompetitionkits)
 0: 'Medium'
 2: 'High'
 </DropDownList>
-                      <LastState Value="2" RealAddress="A5E97D9D"/>
+                      <LastState Value="0" RealAddress="A5ECAEDD"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>6</BitStart>
                       <BitLength>2</BitLength>
@@ -7137,7 +7137,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>97</ID>
                       <Description>"playerjointeamdate"</Description>
-                      <LastState Value="159461" RealAddress="A5E97D9B"/>
+                      <LastState Value="157879" RealAddress="A5ECAEDB"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>20</BitLength>
@@ -7150,7 +7150,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>43</ID>
                       <Description>"contractvaliduntil"</Description>
-                      <LastState Value="2023" RealAddress="A5E97D6C"/>
+                      <LastState Value="2022" RealAddress="A5ECAEAC"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>2</BitStart>
                       <BitLength>11</BitLength>
@@ -7176,7 +7176,7 @@ dealloc(ptrCompetitionkits)
 10: 'Invalid'
 11: 'Invalid'
 </DropDownList>
-                      <LastState Value="1" RealAddress="A5E97D8B"/>
+                      <LastState Value="1" RealAddress="A5ECAECB"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>2</BitStart>
                       <BitLength>3</BitLength>
@@ -7202,7 +7202,7 @@ dealloc(ptrCompetitionkits)
 10: 'Invalid'
 11: 'Invalid'
 </DropDownList>
-                      <LastState Value="2" RealAddress="A5E97D8D"/>
+                      <LastState Value="3" RealAddress="A5ECAECD"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>6</BitStart>
                       <BitLength>3</BitLength>
@@ -7228,7 +7228,7 @@ dealloc(ptrCompetitionkits)
 10: 'Invalid'
 11: 'Invalid'
 </DropDownList>
-                      <LastState Value="1" RealAddress="A5E97DA1"/>
+                      <LastState Value="3" RealAddress="A5ECAEE1"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>1</BitStart>
                       <BitLength>3</BitLength>
@@ -7241,7 +7241,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>59</ID>
                       <Description>"birthdate"</Description>
-                      <LastState Value="149768" RealAddress="A5E97D79"/>
+                      <LastState Value="149267" RealAddress="A5ECAEB9"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>5</BitStart>
                       <BitLength>20</BitLength>
@@ -7257,7 +7257,7 @@ dealloc(ptrCompetitionkits)
                       <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                      <LastState Value="0" RealAddress="A5E97D61"/>
+                      <LastState Value="0" RealAddress="A5ECAEA1"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>4</BitStart>
                       <BitLength>1</BitLength>
@@ -7273,7 +7273,7 @@ dealloc(ptrCompetitionkits)
                       <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'Male'
 1: 'Female'
 </DropDownList>
-                      <LastState Value="0" RealAddress="A5E97D87"/>
+                      <LastState Value="0" RealAddress="A5ECAEC7"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>7</BitStart>
                       <BitLength>1</BitLength>
@@ -7402,7 +7402,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="71" RealAddress="A5E97D5D"/>
+                          <LastState Value="19" RealAddress="A5ECAE9D"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>3</BitStart>
                           <BitLength>7</BitLength>
@@ -7515,7 +7515,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="82" RealAddress="A5E97D6E"/>
+                          <LastState Value="85" RealAddress="A5ECAEAE"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>6</BitStart>
                           <BitLength>7</BitLength>
@@ -7628,7 +7628,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="67" RealAddress="A5E97D6F"/>
+                          <LastState Value="25" RealAddress="A5ECAEAF"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>5</BitStart>
                           <BitLength>7</BitLength>
@@ -7741,7 +7741,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="83" RealAddress="A5E97D64"/>
+                          <LastState Value="75" RealAddress="A5ECAEA4"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>7</BitStart>
                           <BitLength>7</BitLength>
@@ -7854,7 +7854,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="74" RealAddress="A5E97D8C"/>
+                          <LastState Value="78" RealAddress="A5ECAECC"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>7</BitLength>
@@ -7967,7 +7967,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="80" RealAddress="A5E97D7E"/>
+                          <LastState Value="84" RealAddress="A5ECAEBE"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>7</BitLength>
@@ -8080,7 +8080,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="50" RealAddress="A5E97D94"/>
+                          <LastState Value="68" RealAddress="A5ECAED4"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>7</BitLength>
@@ -8193,7 +8193,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="69" RealAddress="A5E97D5F"/>
+                          <LastState Value="52" RealAddress="A5ECAE9F"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>7</BitLength>
@@ -8306,7 +8306,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="68" RealAddress="A5E97DA6"/>
+                          <LastState Value="34" RealAddress="A5ECAEE6"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>2</BitStart>
                           <BitLength>7</BitLength>
@@ -8419,7 +8419,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="78" RealAddress="A5E97D56"/>
+                          <LastState Value="78" RealAddress="A5ECAE96"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>1</BitStart>
                           <BitLength>7</BitLength>
@@ -8532,7 +8532,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="69" RealAddress="A5E97DB3"/>
+                          <LastState Value="84" RealAddress="A5ECAEF3"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>1</BitStart>
                           <BitLength>7</BitLength>
@@ -8645,7 +8645,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="79" RealAddress="A5E97D8C"/>
+                          <LastState Value="73" RealAddress="A5ECAECC"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>7</BitStart>
                           <BitLength>7</BitLength>
@@ -8758,7 +8758,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="83" RealAddress="A5E97D7E"/>
+                          <LastState Value="82" RealAddress="A5ECAEBE"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>7</BitStart>
                           <BitLength>7</BitLength>
@@ -8871,7 +8871,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="73" RealAddress="A5E97D6D"/>
+                          <LastState Value="85" RealAddress="A5ECAEAD"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>7</BitStart>
                           <BitLength>7</BitLength>
@@ -8984,7 +8984,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="77" RealAddress="A5E97D61"/>
+                          <LastState Value="84" RealAddress="A5ECAEA1"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>5</BitStart>
                           <BitLength>7</BitLength>
@@ -9097,7 +9097,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="63" RealAddress="A5E97D5F"/>
+                          <LastState Value="89" RealAddress="A5ECAE9F"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>7</BitStart>
                           <BitLength>7</BitLength>
@@ -9219,7 +9219,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="66" RealAddress="A5E97DA1"/>
+                          <LastState Value="68" RealAddress="A5ECAEE1"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>4</BitStart>
                           <BitLength>7</BitLength>
@@ -9332,7 +9332,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="76" RealAddress="A5E97D77"/>
+                          <LastState Value="66" RealAddress="A5ECAEB7"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>4</BitStart>
                           <BitLength>7</BitLength>
@@ -9445,7 +9445,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="75" RealAddress="A5E97D87"/>
+                          <LastState Value="82" RealAddress="A5ECAEC7"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>7</BitLength>
@@ -9558,7 +9558,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="89" RealAddress="A5E97DA3"/>
+                          <LastState Value="76" RealAddress="A5ECAEE3"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>7</BitLength>
@@ -9671,7 +9671,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="88" RealAddress="A5E97D93"/>
+                          <LastState Value="75" RealAddress="A5ECAED3"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>1</BitStart>
                           <BitLength>7</BitLength>
@@ -9784,7 +9784,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="75" RealAddress="A5E97D57"/>
+                          <LastState Value="82" RealAddress="A5ECAE97"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>1</BitStart>
                           <BitLength>7</BitLength>
@@ -9897,7 +9897,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="88" RealAddress="A5E97D73"/>
+                          <LastState Value="69" RealAddress="A5ECAEB3"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>3</BitStart>
                           <BitLength>7</BitLength>
@@ -10019,7 +10019,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="74" RealAddress="A5E97D5A"/>
+                          <LastState Value="83" RealAddress="A5ECAE9A"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>7</BitLength>
@@ -10132,7 +10132,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="78" RealAddress="A5E97D69"/>
+                          <LastState Value="82" RealAddress="A5ECAEA9"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>5</BitStart>
                           <BitLength>7</BitLength>
@@ -10245,7 +10245,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="76" RealAddress="A5E97D6A"/>
+                          <LastState Value="81" RealAddress="A5ECAEAA"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>4</BitStart>
                           <BitLength>7</BitLength>
@@ -10358,7 +10358,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="62" RealAddress="A5E97D63"/>
+                          <LastState Value="20" RealAddress="A5ECAEA3"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>3</BitStart>
                           <BitLength>7</BitLength>
@@ -10471,7 +10471,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="77" RealAddress="A5E97D92"/>
+                          <LastState Value="72" RealAddress="A5ECAED2"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>2</BitStart>
                           <BitLength>7</BitLength>
@@ -10584,7 +10584,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="78" RealAddress="A5E97D6B"/>
+                          <LastState Value="71" RealAddress="A5ECAEAB"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>3</BitStart>
                           <BitLength>7</BitLength>
@@ -10706,7 +10706,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="12" RealAddress="A5E97D62"/>
+                          <LastState Value="7" RealAddress="A5ECAEA2"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>4</BitStart>
                           <BitLength>7</BitLength>
@@ -10819,7 +10819,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="11" RealAddress="A5E97DA7"/>
+                          <LastState Value="6" RealAddress="A5ECAEE7"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>5</BitStart>
                           <BitLength>7</BitLength>
@@ -10932,7 +10932,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="12" RealAddress="A5E97D66"/>
+                          <LastState Value="14" RealAddress="A5ECAEA6"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>5</BitStart>
                           <BitLength>7</BitLength>
@@ -11045,7 +11045,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="11" RealAddress="A5E97D8A"/>
+                          <LastState Value="13" RealAddress="A5ECAECA"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>3</BitStart>
                           <BitLength>7</BitLength>
@@ -11158,7 +11158,7 @@ dealloc(ptrCompetitionkits)
 97: '98'
 98: '99'
 </DropDownList>
-                          <LastState Value="13" RealAddress="A5E97D98"/>
+                          <LastState Value="13" RealAddress="A5ECAED8"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>1</BitStart>
                           <BitLength>7</BitLength>
@@ -11192,7 +11192,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D7F"/>
+                          <LastState Value="0" RealAddress="A5ECAEBF"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>6</BitStart>
                           <BitLength>1</BitLength>
@@ -11208,7 +11208,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D7F"/>
+                          <LastState Value="0" RealAddress="A5ECAEBF"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>7</BitStart>
                           <BitLength>1</BitLength>
@@ -11224,7 +11224,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D80"/>
+                          <LastState Value="0" RealAddress="A5ECAEC0"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>1</BitLength>
@@ -11240,7 +11240,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D80"/>
+                          <LastState Value="0" RealAddress="A5ECAEC0"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>1</BitStart>
                           <BitLength>1</BitLength>
@@ -11256,7 +11256,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="1" RealAddress="A5E97D80"/>
+                          <LastState Value="0" RealAddress="A5ECAEC0"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>2</BitStart>
                           <BitLength>1</BitLength>
@@ -11272,7 +11272,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D80"/>
+                          <LastState Value="1" RealAddress="A5ECAEC0"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>3</BitStart>
                           <BitLength>1</BitLength>
@@ -11288,7 +11288,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D80"/>
+                          <LastState Value="0" RealAddress="A5ECAEC0"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>4</BitStart>
                           <BitLength>1</BitLength>
@@ -11304,7 +11304,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D80"/>
+                          <LastState Value="0" RealAddress="A5ECAEC0"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>5</BitStart>
                           <BitLength>1</BitLength>
@@ -11320,7 +11320,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D80"/>
+                          <LastState Value="0" RealAddress="A5ECAEC0"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>6</BitStart>
                           <BitLength>1</BitLength>
@@ -11336,7 +11336,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="1" RealAddress="A5E97D80"/>
+                          <LastState Value="1" RealAddress="A5ECAEC0"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>7</BitStart>
                           <BitLength>1</BitLength>
@@ -11352,7 +11352,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D81"/>
+                          <LastState Value="0" RealAddress="A5ECAEC1"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>1</BitLength>
@@ -11368,7 +11368,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D81"/>
+                          <LastState Value="1" RealAddress="A5ECAEC1"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>1</BitStart>
                           <BitLength>1</BitLength>
@@ -11384,7 +11384,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="1" RealAddress="A5E97D81"/>
+                          <LastState Value="0" RealAddress="A5ECAEC1"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>2</BitStart>
                           <BitLength>1</BitLength>
@@ -11400,7 +11400,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D81"/>
+                          <LastState Value="0" RealAddress="A5ECAEC1"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>3</BitStart>
                           <BitLength>1</BitLength>
@@ -11416,7 +11416,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D81"/>
+                          <LastState Value="0" RealAddress="A5ECAEC1"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>4</BitStart>
                           <BitLength>1</BitLength>
@@ -11432,7 +11432,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D81"/>
+                          <LastState Value="0" RealAddress="A5ECAEC1"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>5</BitStart>
                           <BitLength>1</BitLength>
@@ -11448,7 +11448,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D81"/>
+                          <LastState Value="0" RealAddress="A5ECAEC1"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>6</BitStart>
                           <BitLength>1</BitLength>
@@ -11464,7 +11464,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D81"/>
+                          <LastState Value="0" RealAddress="A5ECAEC1"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>7</BitStart>
                           <BitLength>1</BitLength>
@@ -11480,7 +11480,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D82"/>
+                          <LastState Value="0" RealAddress="A5ECAEC2"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>1</BitLength>
@@ -11496,7 +11496,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D82"/>
+                          <LastState Value="0" RealAddress="A5ECAEC2"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>1</BitStart>
                           <BitLength>1</BitLength>
@@ -11512,7 +11512,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D82"/>
+                          <LastState Value="0" RealAddress="A5ECAEC2"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>2</BitStart>
                           <BitLength>1</BitLength>
@@ -11528,7 +11528,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D82"/>
+                          <LastState Value="0" RealAddress="A5ECAEC2"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>3</BitStart>
                           <BitLength>1</BitLength>
@@ -11544,7 +11544,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D82"/>
+                          <LastState Value="0" RealAddress="A5ECAEC2"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>4</BitStart>
                           <BitLength>1</BitLength>
@@ -11560,7 +11560,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D82"/>
+                          <LastState Value="0" RealAddress="A5ECAEC2"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>5</BitStart>
                           <BitLength>1</BitLength>
@@ -11576,7 +11576,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D82"/>
+                          <LastState Value="0" RealAddress="A5ECAEC2"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>6</BitStart>
                           <BitLength>1</BitLength>
@@ -11592,7 +11592,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D82"/>
+                          <LastState Value="1" RealAddress="A5ECAEC2"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>7</BitStart>
                           <BitLength>1</BitLength>
@@ -11608,7 +11608,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D83"/>
+                          <LastState Value="1" RealAddress="A5ECAEC3"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>1</BitLength>
@@ -11624,7 +11624,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D83"/>
+                          <LastState Value="0" RealAddress="A5ECAEC3"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>1</BitStart>
                           <BitLength>1</BitLength>
@@ -11640,7 +11640,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D83"/>
+                          <LastState Value="0" RealAddress="A5ECAEC3"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>2</BitStart>
                           <BitLength>1</BitLength>
@@ -11656,7 +11656,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D83"/>
+                          <LastState Value="0" RealAddress="A5ECAEC3"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>3</BitStart>
                           <BitLength>1</BitLength>
@@ -11681,7 +11681,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D51"/>
+                          <LastState Value="0" RealAddress="A5ECAE91"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>1</BitLength>
@@ -11697,7 +11697,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D51"/>
+                          <LastState Value="0" RealAddress="A5ECAE91"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>1</BitStart>
                           <BitLength>1</BitLength>
@@ -11713,7 +11713,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D51"/>
+                          <LastState Value="0" RealAddress="A5ECAE91"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>2</BitStart>
                           <BitLength>1</BitLength>
@@ -11729,7 +11729,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D51"/>
+                          <LastState Value="0" RealAddress="A5ECAE91"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>3</BitStart>
                           <BitLength>1</BitLength>
@@ -11745,7 +11745,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D51"/>
+                          <LastState Value="0" RealAddress="A5ECAE91"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>4</BitStart>
                           <BitLength>1</BitLength>
@@ -11761,7 +11761,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D51"/>
+                          <LastState Value="0" RealAddress="A5ECAE91"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>5</BitStart>
                           <BitLength>1</BitLength>
@@ -11777,7 +11777,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D51"/>
+                          <LastState Value="0" RealAddress="A5ECAE91"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>6</BitStart>
                           <BitLength>1</BitLength>
@@ -11793,7 +11793,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D51"/>
+                          <LastState Value="0" RealAddress="A5ECAE91"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>7</BitStart>
                           <BitLength>1</BitLength>
@@ -11809,7 +11809,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D52"/>
+                          <LastState Value="0" RealAddress="A5ECAE92"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>1</BitLength>
@@ -11825,7 +11825,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D52"/>
+                          <LastState Value="0" RealAddress="A5ECAE92"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>1</BitStart>
                           <BitLength>1</BitLength>
@@ -11841,7 +11841,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D52"/>
+                          <LastState Value="0" RealAddress="A5ECAE92"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>2</BitStart>
                           <BitLength>1</BitLength>
@@ -11857,7 +11857,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D52"/>
+                          <LastState Value="0" RealAddress="A5ECAE92"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>3</BitStart>
                           <BitLength>1</BitLength>
@@ -11873,7 +11873,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D52"/>
+                          <LastState Value="0" RealAddress="A5ECAE92"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>4</BitStart>
                           <BitLength>1</BitLength>
@@ -11889,7 +11889,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D52"/>
+                          <LastState Value="0" RealAddress="A5ECAE92"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>5</BitStart>
                           <BitLength>1</BitLength>
@@ -11905,7 +11905,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D52"/>
+                          <LastState Value="0" RealAddress="A5ECAE92"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>6</BitStart>
                           <BitLength>1</BitLength>
@@ -11921,7 +11921,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D52"/>
+                          <LastState Value="0" RealAddress="A5ECAE92"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>7</BitStart>
                           <BitLength>1</BitLength>
@@ -11937,7 +11937,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D53"/>
+                          <LastState Value="0" RealAddress="A5ECAE93"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>1</BitLength>
@@ -11953,7 +11953,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D53"/>
+                          <LastState Value="0" RealAddress="A5ECAE93"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>1</BitStart>
                           <BitLength>1</BitLength>
@@ -11969,7 +11969,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D53"/>
+                          <LastState Value="0" RealAddress="A5ECAE93"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>2</BitStart>
                           <BitLength>1</BitLength>
@@ -11985,7 +11985,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D53"/>
+                          <LastState Value="0" RealAddress="A5ECAE93"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>3</BitStart>
                           <BitLength>1</BitLength>
@@ -12001,7 +12001,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D53"/>
+                          <LastState Value="0" RealAddress="A5ECAE93"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>4</BitStart>
                           <BitLength>1</BitLength>
@@ -12017,7 +12017,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D53"/>
+                          <LastState Value="0" RealAddress="A5ECAE93"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>5</BitStart>
                           <BitLength>1</BitLength>
@@ -12033,7 +12033,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D53"/>
+                          <LastState Value="0" RealAddress="A5ECAE93"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>6</BitStart>
                           <BitLength>1</BitLength>
@@ -12049,7 +12049,7 @@ dealloc(ptrCompetitionkits)
                           <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                          <LastState Value="0" RealAddress="A5E97D53"/>
+                          <LastState Value="0" RealAddress="A5ECAE93"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>7</BitStart>
                           <BitLength>1</BitLength>
@@ -12073,7 +12073,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>120</ID>
                       <Description>"smallsidedshoetypecode"</Description>
-                      <LastState Value="512" RealAddress="A5E97DAB"/>
+                      <LastState Value="511" RealAddress="A5ECAEEB"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>10</BitLength>
@@ -12086,7 +12086,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>58</ID>
                       <Description>"shoetypecode"</Description>
-                      <LastState Value="69" RealAddress="A5E97D78"/>
+                      <LastState Value="28" RealAddress="A5ECAEB8"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>3</BitStart>
                       <BitLength>10</BitLength>
@@ -12099,7 +12099,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>35</ID>
                       <Description>"shoecolorcode2"</Description>
-                      <LastState Value="31" RealAddress="A5E97D64"/>
+                      <LastState Value="31" RealAddress="A5ECAEA4"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>2</BitStart>
                       <BitLength>5</BitLength>
@@ -12112,7 +12112,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>127</ID>
                       <Description>"shoecolorcode1"</Description>
-                      <LastState Value="30" RealAddress="A5E97DAE"/>
+                      <LastState Value="30" RealAddress="A5ECAEEE"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>4</BitStart>
                       <BitLength>5</BitLength>
@@ -12125,7 +12125,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>68</ID>
                       <Description>"gkglovetypecode"</Description>
-                      <LastState Value="0" RealAddress="A5E97D84"/>
+                      <LastState Value="0" RealAddress="A5ECAEC4"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>7</BitStart>
                       <BitLength>7</BitLength>
@@ -12138,7 +12138,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>125</ID>
                       <Description>"shoedesigncode"</Description>
-                      <LastState Value="0" RealAddress="A5E97DAE"/>
+                      <LastState Value="0" RealAddress="A5ECAEEE"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>2</BitStart>
                       <BitLength>2</BitLength>
@@ -12151,7 +12151,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>49</ID>
                       <Description>"accessorycolourcode1"</Description>
-                      <LastState Value="0" RealAddress="A5E97D71"/>
+                      <LastState Value="1" RealAddress="A5ECAEB1"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>1</BitStart>
                       <BitLength>4</BitLength>
@@ -12164,7 +12164,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>135</ID>
                       <Description>"accessorycolourcode2"</Description>
-                      <LastState Value="0" RealAddress="A5E97DB4"/>
+                      <LastState Value="0" RealAddress="A5ECAEF4"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>4</BitLength>
@@ -12177,7 +12177,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>95</ID>
                       <Description>"accessorycolourcode3"</Description>
-                      <LastState Value="0" RealAddress="A5E97D99"/>
+                      <LastState Value="0" RealAddress="A5ECAED9"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>7</BitStart>
                       <BitLength>4</BitLength>
@@ -12190,7 +12190,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>112</ID>
                       <Description>"accessorycolourcode4"</Description>
-                      <LastState Value="0" RealAddress="A5E97DA7"/>
+                      <LastState Value="0" RealAddress="A5ECAEE7"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>1</BitStart>
                       <BitLength>4</BitLength>
@@ -12203,7 +12203,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>96</ID>
                       <Description>"accessorycode1"</Description>
-                      <LastState Value="8" RealAddress="A5E97D9A"/>
+                      <LastState Value="16" RealAddress="A5ECAEDA"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>3</BitStart>
                       <BitLength>5</BitLength>
@@ -12216,7 +12216,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>124</ID>
                       <Description>"accessorycode2"</Description>
-                      <LastState Value="0" RealAddress="A5E97DAD"/>
+                      <LastState Value="0" RealAddress="A5ECAEED"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>5</BitStart>
                       <BitLength>5</BitLength>
@@ -12229,7 +12229,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>48</ID>
                       <Description>"accessorycode3"</Description>
-                      <LastState Value="0" RealAddress="A5E97D70"/>
+                      <LastState Value="0" RealAddress="A5ECAEB0"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>4</BitStart>
                       <BitLength>5</BitLength>
@@ -12242,7 +12242,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>20</ID>
                       <Description>"accessorycode4"</Description>
-                      <LastState Value="0" RealAddress="A5E97D59"/>
+                      <LastState Value="0" RealAddress="A5ECAE99"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>2</BitStart>
                       <BitLength>5</BitLength>
@@ -12264,7 +12264,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>72</ID>
                       <Description>"headassetid"</Description>
-                      <LastState Value="208574" RealAddress="A5E97D88"/>
+                      <LastState Value="216354" RealAddress="A5ECAEC8"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>19</BitLength>
@@ -12549,7 +12549,7 @@ dealloc(ptrCompetitionkits)
 10501: '10501'
 10502: '10502'
 </DropDownList>
-                      <LastState Value="1505" RealAddress="A5E97D71"/>
+                      <LastState Value="1521" RealAddress="A5ECAEB1"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>5</BitStart>
                       <BitLength>14</BitLength>
@@ -12562,7 +12562,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>24</ID>
                       <Description>"hairtypecode"</Description>
-                      <LastState Value="65" RealAddress="A5E97D5C"/>
+                      <LastState Value="105" RealAddress="A5ECAE9C"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>1</BitStart>
                       <BitLength>10</BitLength>
@@ -12831,7 +12831,7 @@ dealloc(ptrCompetitionkits)
 253: '383 cm'
 254: '384 cm'
 </DropDownList>
-                      <LastState Value="54" RealAddress="A5E97D74"/>
+                      <LastState Value="47" RealAddress="A5ECAEB4"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>2</BitStart>
                       <BitLength>7</BitLength>
@@ -12970,7 +12970,7 @@ dealloc(ptrCompetitionkits)
 123: '153 kg'
 124: '154 kg'
 </DropDownList>
-                      <LastState Value="52" RealAddress="A5E97D83"/>
+                      <LastState Value="43" RealAddress="A5ECAEC3"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>7</BitStart>
                       <BitLength>7</BitLength>
@@ -13000,7 +13000,7 @@ dealloc(ptrCompetitionkits)
 14: 'Blue'
 15: 'Blue'
 </DropDownList>
-                      <LastState Value="3" RealAddress="A5E97D55"/>
+                      <LastState Value="6" RealAddress="A5ECAE95"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>4</BitLength>
@@ -13013,7 +13013,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>93</ID>
                       <Description>"eyecolorcode"</Description>
-                      <LastState Value="2" RealAddress="A5E97D99"/>
+                      <LastState Value="1" RealAddress="A5ECAED9"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>4</BitLength>
@@ -13026,7 +13026,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>137</ID>
                       <Description>"facialhaircolorcode"</Description>
-                      <LastState Value="2" RealAddress="A5E97DB5"/>
+                      <LastState Value="2" RealAddress="A5ECAEF5"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>6</BitStart>
                       <BitLength>4</BitLength>
@@ -13039,7 +13039,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>98</ID>
                       <Description>"headclasscode"</Description>
-                      <LastState Value="0" RealAddress="A5E97D9D"/>
+                      <LastState Value="0" RealAddress="A5ECAEDD"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>4</BitStart>
                       <BitLength>2</BitLength>
@@ -13052,7 +13052,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>17</ID>
                       <Description>"jerseystylecode"</Description>
-                      <LastState Value="1" RealAddress="A5E97D57"/>
+                      <LastState Value="1" RealAddress="A5ECAE97"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>1</BitLength>
@@ -13065,7 +13065,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>106</ID>
                       <Description>"skintypecode"</Description>
-                      <LastState Value="0" RealAddress="A5E97D50"/>
+                      <LastState Value="0" RealAddress="A5ECAE90"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -13089,7 +13089,7 @@ dealloc(ptrCompetitionkits)
 8: 'Medium Brown'
 9: 'Dark Brown'
 </DropDownList>
-                      <LastState Value="1" RealAddress="A5E97DA9"/>
+                      <LastState Value="1" RealAddress="A5ECAEE9"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>4</BitStart>
                       <BitLength>4</BitLength>
@@ -13105,7 +13105,7 @@ dealloc(ptrCompetitionkits)
                       <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0: 'No'
 1: 'Yes'
 </DropDownList>
-                      <LastState Value="1" RealAddress="A5E97D84"/>
+                      <LastState Value="1" RealAddress="A5ECAEC4"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>6</BitStart>
                       <BitLength>1</BitLength>
@@ -13118,7 +13118,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>114</ID>
                       <Description>"headvariation"</Description>
-                      <LastState Value="0" RealAddress="A5E97DA8"/>
+                      <LastState Value="0" RealAddress="A5ECAEE8"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>4</BitStart>
                       <BitLength>5</BitLength>
@@ -13155,7 +13155,7 @@ dealloc(ptrCompetitionkits)
 23: 'Ronaldo (prime/medium)'
 24: 'Salah'
 </DropDownList>
-                      <LastState Value="1" RealAddress="A5E97D54"/>
+                      <LastState Value="1" RealAddress="A5ECAE94"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -13168,7 +13168,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>128</ID>
                       <Description>"hairstylecode"</Description>
-                      <LastState Value="0" RealAddress="A5E97DAF"/>
+                      <LastState Value="0" RealAddress="A5ECAEEF"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>1</BitStart>
                       <BitLength>5</BitLength>
@@ -13181,7 +13181,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>103</ID>
                       <Description>"sideburnscode"</Description>
-                      <LastState Value="0" RealAddress="A5E97DA0"/>
+                      <LastState Value="0" RealAddress="A5ECAEE0"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>7</BitStart>
                       <BitLength>2</BitLength>
@@ -13194,7 +13194,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>15</ID>
                       <Description>"facialhairtypecode"</Description>
-                      <LastState Value="6" RealAddress="A5E97D55"/>
+                      <LastState Value="6" RealAddress="A5ECAE95"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>4</BitStart>
                       <BitLength>5</BitLength>
@@ -13207,7 +13207,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>89</ID>
                       <Description>"eyebrowcode"</Description>
-                      <LastState Value="1" RealAddress="A5E97D95"/>
+                      <LastState Value="1" RealAddress="A5ECAED5"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>4</BitLength>
@@ -13220,7 +13220,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>55</ID>
                       <Description>"tattoohead"</Description>
-                      <LastState Value="0" RealAddress="A5E97D75"/>
+                      <LastState Value="0" RealAddress="A5ECAEB5"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>4</BitStart>
                       <BitLength>10</BitLength>
@@ -13233,7 +13233,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>100</ID>
                       <Description>"tattoofront"</Description>
-                      <LastState Value="0" RealAddress="A5E97D9E"/>
+                      <LastState Value="0" RealAddress="A5ECAEDE"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>10</BitLength>
@@ -13246,7 +13246,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>19</ID>
                       <Description>"tattooback"</Description>
-                      <LastState Value="0" RealAddress="A5E97D58"/>
+                      <LastState Value="0" RealAddress="A5ECAE98"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>10</BitLength>
@@ -13259,7 +13259,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>69</ID>
                       <Description>"tattoorightarm"</Description>
-                      <LastState Value="0" RealAddress="A5E97D85"/>
+                      <LastState Value="0" RealAddress="A5ECAEC5"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>6</BitStart>
                       <BitLength>10</BitLength>
@@ -13272,7 +13272,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>23</ID>
                       <Description>"tattooleftarm"</Description>
-                      <LastState Value="0" RealAddress="A5E97D5A"/>
+                      <LastState Value="0" RealAddress="A5ECAE9A"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>7</BitStart>
                       <BitLength>10</BitLength>
@@ -13285,7 +13285,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>136</ID>
                       <Description>"tattoorightleg"</Description>
-                      <LastState Value="0" RealAddress="A5E97DB4"/>
+                      <LastState Value="0" RealAddress="A5ECAEF4"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>4</BitStart>
                       <BitLength>10</BitLength>
@@ -13298,7 +13298,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>61</ID>
                       <Description>"tattooleftleg"</Description>
-                      <LastState Value="0" RealAddress="A5E97D7C"/>
+                      <LastState Value="0" RealAddress="A5ECAEBC"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>6</BitStart>
                       <BitLength>10</BitLength>
@@ -13311,7 +13311,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>118</ID>
                       <Description>"shortstyle"</Description>
-                      <LastState Value="0" RealAddress="A5E97DAA"/>
+                      <LastState Value="0" RealAddress="A5ECAEEA"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>1</BitLength>
@@ -13324,7 +13324,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>123</ID>
                       <Description>"jerseyfit"</Description>
-                      <LastState Value="1" RealAddress="A5E97DAD"/>
+                      <LastState Value="0" RealAddress="A5ECAEED"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>3</BitStart>
                       <BitLength>2</BitLength>
@@ -13337,7 +13337,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>94</ID>
                       <Description>"jerseysleevelengthcode"</Description>
-                      <LastState Value="0" RealAddress="A5E97D99"/>
+                      <LastState Value="0" RealAddress="A5ECAED9"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>4</BitStart>
                       <BitLength>3</BitLength>
@@ -13350,7 +13350,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>65</ID>
                       <Description>"socklengthcode"</Description>
-                      <LastState Value="2" RealAddress="A5E97D83"/>
+                      <LastState Value="0" RealAddress="A5ECAEC3"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>4</BitStart>
                       <BitLength>3</BitLength>
@@ -13372,7 +13372,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>80</ID>
                       <Description>"faceposerpreset"</Description>
-                      <LastState Value="4" RealAddress="A5E97D8E"/>
+                      <LastState Value="0" RealAddress="A5ECAECE"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>1</BitStart>
                       <BitLength>4</BitLength>
@@ -13385,7 +13385,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>121</ID>
                       <Description>"emotion"</Description>
-                      <LastState Value="2" RealAddress="A5E97DAC"/>
+                      <LastState Value="1" RealAddress="A5ECAEEC"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>2</BitStart>
                       <BitLength>3</BitLength>
@@ -13398,7 +13398,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>54</ID>
                       <Description>"hasseasonaljersey"</Description>
-                      <LastState Value="3" RealAddress="A5E97D75"/>
+                      <LastState Value="3" RealAddress="A5ECAEB5"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>1</BitStart>
                       <BitLength>3</BitLength>
@@ -13411,7 +13411,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>107</ID>
                       <Description>"personality"</Description>
-                      <LastState Value="2" RealAddress="A5E97DA2"/>
+                      <LastState Value="3" RealAddress="A5ECAEE2"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>3</BitStart>
                       <BitLength>3</BitLength>
@@ -13424,7 +13424,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>44</ID>
                       <Description>"animpenaltiesapproachcode"</Description>
-                      <LastState Value="1" RealAddress="A5E97D6D"/>
+                      <LastState Value="1" RealAddress="A5ECAEAD"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>5</BitStart>
                       <BitLength>2</BitLength>
@@ -13437,7 +13437,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>115</ID>
                       <Description>"skillmoveslikelihood"</Description>
-                      <LastState Value="3" RealAddress="A5E97DA9"/>
+                      <LastState Value="3" RealAddress="A5ECAEE9"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>1</BitStart>
                       <BitLength>3</BitLength>
@@ -13450,7 +13450,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>21</ID>
                       <Description>"gksavetype"</Description>
-                      <LastState Value="0" RealAddress="A5E97D59"/>
+                      <LastState Value="0" RealAddress="A5ECAE99"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>7</BitStart>
                       <BitLength>1</BitLength>
@@ -13463,7 +13463,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>108</ID>
                       <Description>"gkkickstyle"</Description>
-                      <LastState Value="0" RealAddress="A5E97DA2"/>
+                      <LastState Value="0" RealAddress="A5ECAEE2"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>6</BitStart>
                       <BitLength>2</BitLength>
@@ -13476,7 +13476,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>82</ID>
                       <Description>"avatarpomid"</Description>
-                      <LastState Value="0" RealAddress="A5E97D8E"/>
+                      <LastState Value="0" RealAddress="A5ECAECE"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>6</BitStart>
                       <BitLength>9</BitLength>
@@ -13489,7 +13489,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>29</ID>
                       <Description>"animfreekickstartposcode"</Description>
-                      <LastState Value="0" RealAddress="A5E97D60"/>
+                      <LastState Value="0" RealAddress="A5ECAEA0"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>6</BitStart>
                       <BitLength>4</BitLength>
@@ -13502,7 +13502,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>30</ID>
                       <Description>"animpenaltieskickstylecode"</Description>
-                      <LastState Value="0" RealAddress="A5E97D61"/>
+                      <LastState Value="0" RealAddress="A5ECAEA1"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>2</BitStart>
                       <BitLength>2</BitLength>
@@ -13515,7 +13515,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>76</ID>
                       <Description>"animpenaltiesmotionstylecode"</Description>
-                      <LastState Value="0" RealAddress="A5E97D8B"/>
+                      <LastState Value="0" RealAddress="A5ECAECB"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>5</BitStart>
                       <BitLength>3</BitLength>
@@ -13528,7 +13528,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>131</ID>
                       <Description>"animpenaltiesstartposcode"</Description>
-                      <LastState Value="0" RealAddress="A5E97DAF"/>
+                      <LastState Value="0" RealAddress="A5ECAEEF"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>6</BitStart>
                       <BitLength>4</BitLength>
@@ -13541,7 +13541,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>122</ID>
                       <Description>"runstylecode"</Description>
-                      <LastState Value="0" RealAddress="A5E97DAC"/>
+                      <LastState Value="0" RealAddress="A5ECAEEC"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>5</BitStart>
                       <BitLength>6</BitLength>
@@ -13554,7 +13554,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>39</ID>
                       <Description>"finishingcode1"</Description>
-                      <LastState Value="0" RealAddress="A5E97D67"/>
+                      <LastState Value="0" RealAddress="A5ECAEA7"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>4</BitStart>
                       <BitLength>17</BitLength>
@@ -13567,7 +13567,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>84</ID>
                       <Description>"finishingcode2"</Description>
-                      <LastState Value="0" RealAddress="A5E97D90"/>
+                      <LastState Value="0" RealAddress="A5ECAED0"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>1</BitStart>
                       <BitLength>17</BitLength>
@@ -13580,7 +13580,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>132</ID>
                       <Description>"runningcode1"</Description>
-                      <LastState Value="0" RealAddress="A5E97DB0"/>
+                      <LastState Value="2" RealAddress="A5ECAEF0"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>2</BitStart>
                       <BitLength>17</BitLength>
@@ -13593,7 +13593,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>90</ID>
                       <Description>"runningcode2"</Description>
-                      <LastState Value="0" RealAddress="A5E97D95"/>
+                      <LastState Value="0" RealAddress="A5ECAED5"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>4</BitStart>
                       <BitLength>17</BitLength>
@@ -13606,7 +13606,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>88</ID>
                       <Description>"iscustomized"</Description>
-                      <LastState Value="0" RealAddress="A5E97D94"/>
+                      <LastState Value="0" RealAddress="A5ECAED4"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>7</BitStart>
                       <BitLength>1</BitLength>
@@ -13619,7 +13619,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>81</ID>
                       <Description>"usercaneditname"</Description>
-                      <LastState Value="0" RealAddress="A5E97D8E"/>
+                      <LastState Value="0" RealAddress="A5ECAECE"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>5</BitStart>
                       <BitLength>1</BitLength>
@@ -13643,7 +13643,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3533</ID>
                   <Description>"playerid"</Description>
-                  <LastState Value="201179" RealAddress="A615B723"/>
+                  <LastState Value="183597" RealAddress="A6158853"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>19</BitLength>
@@ -13656,7 +13656,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3527</ID>
                   <Description>"teamid"</Description>
-                  <LastState Value="46" RealAddress="A615B71E"/>
+                  <LastState Value="10028" RealAddress="A615884E"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>18</BitLength>
@@ -13669,7 +13669,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3526</ID>
                   <Description>"artificialkey"</Description>
-                  <LastState Value="5278" RealAddress="A615B71B"/>
+                  <LastState Value="4529" RealAddress="A615884B"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>5</BitStart>
                   <BitLength>19</BitLength>
@@ -13682,7 +13682,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3525</ID>
                   <Description>"position"</Description>
-                  <LastState Value="29" RealAddress="A615B71A"/>
+                  <LastState Value="29" RealAddress="A615884A"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>7</BitStart>
                   <BitLength>6</BitLength>
@@ -13695,7 +13695,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3524</ID>
                   <Description>"jerseynumber"</Description>
-                  <LastState Value="89" RealAddress="A615B71A"/>
+                  <LastState Value="32" RealAddress="A615884A"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>7</BitLength>
@@ -13708,7 +13708,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3534</ID>
                   <Description>"form"</Description>
-                  <LastState Value="3" RealAddress="A615B725"/>
+                  <LastState Value="3" RealAddress="A6158855"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>3</BitStart>
                   <BitLength>3</BitLength>
@@ -13721,7 +13721,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3520</ID>
                   <Description>"isamongtopscorers"</Description>
-                  <LastState Value="0" RealAddress="A615B719"/>
+                  <LastState Value="0" RealAddress="A6158849"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>1</BitLength>
@@ -13734,7 +13734,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3521</ID>
                   <Description>"yellows"</Description>
-                  <LastState Value="0" RealAddress="A615B719"/>
+                  <LastState Value="0" RealAddress="A6158849"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>1</BitStart>
                   <BitLength>6</BitLength>
@@ -13747,7 +13747,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3522</ID>
                   <Description>"isamongtopscorersinteam"</Description>
-                  <LastState Value="0" RealAddress="A615B719"/>
+                  <LastState Value="0" RealAddress="A6158849"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>7</BitStart>
                   <BitLength>1</BitLength>
@@ -13760,7 +13760,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3523</ID>
                   <Description>"leaguegoals"</Description>
-                  <LastState Value="0" RealAddress="A615B718"/>
+                  <LastState Value="0" RealAddress="A6158848"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>8</BitLength>
@@ -13773,7 +13773,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3528</ID>
                   <Description>"leaguegoalsprevmatch"</Description>
-                  <LastState Value="0" RealAddress="A615B720"/>
+                  <LastState Value="0" RealAddress="A6158850"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>2</BitStart>
                   <BitLength>4</BitLength>
@@ -13786,7 +13786,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3529</ID>
                   <Description>"injury"</Description>
-                  <LastState Value="0" RealAddress="A615B720"/>
+                  <LastState Value="0" RealAddress="A6158850"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>6</BitStart>
                   <BitLength>6</BitLength>
@@ -13799,7 +13799,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3530</ID>
                   <Description>"leagueappearances"</Description>
-                  <LastState Value="0" RealAddress="A615B721"/>
+                  <LastState Value="0" RealAddress="A6158851"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>4</BitStart>
                   <BitLength>6</BitLength>
@@ -13812,7 +13812,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3531</ID>
                   <Description>"istopscorer"</Description>
-                  <LastState Value="0" RealAddress="A615B722"/>
+                  <LastState Value="0" RealAddress="A6158852"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>2</BitStart>
                   <BitLength>1</BitLength>
@@ -13825,7 +13825,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3532</ID>
                   <Description>"leaguegoalsprevthreematches"</Description>
-                  <LastState Value="0" RealAddress="A615B722"/>
+                  <LastState Value="0" RealAddress="A6158852"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>3</BitStart>
                   <BitLength>5</BitLength>
@@ -13838,7 +13838,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3535</ID>
                   <Description>"reds"</Description>
-                  <LastState Value="0" RealAddress="A615B725"/>
+                  <LastState Value="0" RealAddress="A6158855"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>6</BitStart>
                   <BitLength>5</BitLength>
@@ -13860,7 +13860,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3538</ID>
                   <Description>"attackrating"</Description>
-                  <LastState Value="81" RealAddress="A588D62A"/>
+                  <LastState Value="79" RealAddress="A5893A1A"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>5</BitStart>
                   <BitLength>7</BitLength>
@@ -13873,7 +13873,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3539</ID>
                   <Description>"ballid"</Description>
-                  <LastState Value="56" RealAddress="A588D5DA"/>
+                  <LastState Value="60" RealAddress="A58939CA"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>8</BitLength>
@@ -13886,7 +13886,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3540</ID>
                   <Description>"bodytypeid"</Description>
-                  <LastState Value="0" RealAddress="A588D634"/>
+                  <LastState Value="0" RealAddress="A5893A24"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>1</BitStart>
                   <BitLength>2</BitLength>
@@ -13899,7 +13899,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3537</ID>
                   <Description>"assetid"</Description>
-                  <LastState Value="2147483694" RealAddress="A588D5C8"/>
+                  <LastState Value="2147484253" RealAddress="A58939B8"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>32</BitLength>
@@ -13912,7 +13912,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3612</ID>
                   <Description>"teamname"</Description>
-                  <LastState Value="1769627980" RealAddress="A588D5DC"/>
+                  <LastState Value="1210084417" RealAddress="A58939CC"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>480</BitLength>
@@ -13925,7 +13925,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3618</ID>
                   <Description>"transferbudget"</Description>
-                  <LastState Value="21000000" RealAddress="A588D64E"/>
+                  <LastState Value="28250000" RealAddress="A5893A3E"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>2</BitStart>
                   <BitLength>29</BitLength>
@@ -13938,7 +13938,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3615</ID>
                   <Description>"trait1vequal"</Description>
-                  <LastState Value="1102000" RealAddress="A588D642"/>
+                  <LastState Value="181416" RealAddress="A5893A32"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>7</BitStart>
                   <BitLength>21</BitLength>
@@ -13951,7 +13951,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3616</ID>
                   <Description>"trait1vstrong"</Description>
-                  <LastState Value="542896" RealAddress="A588D65D"/>
+                  <LastState Value="1073320" RealAddress="A5893A4D"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>3</BitStart>
                   <BitLength>21</BitLength>
@@ -13964,7 +13964,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3571</ID>
                   <Description>"leftcornerkicktakerid"</Description>
-                  <LastState Value="188428" RealAddress="A588D63C"/>
+                  <LastState Value="203300" RealAddress="A5893A2C"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>5</BitStart>
                   <BitLength>19</BitLength>
@@ -13977,7 +13977,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3574</ID>
                   <Description>"longkicktakerid"</Description>
-                  <LastState Value="223849" RealAddress="A588D631"/>
+                  <LastState Value="184432" RealAddress="A5893A21"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>6</BitStart>
                   <BitLength>19</BitLength>
@@ -13990,7 +13990,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3595</ID>
                   <Description>"rightcornerkicktakerid"</Description>
-                  <LastState Value="188428" RealAddress="A588D637"/>
+                  <LastState Value="203300" RealAddress="A5893A27"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>2</BitStart>
                   <BitLength>19</BitLength>
@@ -14003,7 +14003,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3541</ID>
                   <Description>"captainid"</Description>
-                  <LastState Value="165110" RealAddress="A588D647"/>
+                  <LastState Value="207717" RealAddress="A5893A37"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>19</BitLength>
@@ -14016,7 +14016,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3572</ID>
                   <Description>"leftfreekicktakerid"</Description>
-                  <LastState Value="223849" RealAddress="A588D64A"/>
+                  <LastState Value="184432" RealAddress="A5893A3A"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>4</BitStart>
                   <BitLength>19</BitLength>
@@ -14029,7 +14029,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3586</ID>
                   <Description>"penaltytakerid"</Description>
-                  <LastState Value="192388" RealAddress="A588D654"/>
+                  <LastState Value="159146" RealAddress="A5893A44"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>3</BitStart>
                   <BitLength>19</BitLength>
@@ -14042,7 +14042,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3596</ID>
                   <Description>"rightfreekicktakerid"</Description>
-                  <LastState Value="223849" RealAddress="A588D61B"/>
+                  <LastState Value="184432" RealAddress="A5893A0B"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>2</BitStart>
                   <BitLength>19</BitLength>
@@ -14055,7 +14055,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3556</ID>
                   <Description>"freekicktakerid"</Description>
-                  <LastState Value="198707" RealAddress="A588D656"/>
+                  <LastState Value="221371" RealAddress="A5893A46"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>6</BitStart>
                   <BitLength>19</BitLength>
@@ -14068,7 +14068,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3617</ID>
                   <Description>"trait1vweak"</Description>
-                  <LastState Value="263344" RealAddress="A588D634"/>
+                  <LastState Value="181416" RealAddress="A5893A24"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>3</BitStart>
                   <BitLength>21</BitLength>
@@ -14081,7 +14081,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3543</ID>
                   <Description>"clubworth"</Description>
-                  <LastState Value="214000" RealAddress="A588D5CE"/>
+                  <LastState Value="125580" RealAddress="A58939BE"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>24</BitLength>
@@ -14094,7 +14094,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3613</ID>
                   <Description>"teamstadiumcapacity"</Description>
-                  <LastState Value="70634" RealAddress="A588D621"/>
+                  <LastState Value="25000" RealAddress="A5893A11"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>20</BitLength>
@@ -14107,7 +14107,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3611</ID>
                   <Description>"teamid"</Description>
-                  <LastState Value="45" RealAddress="A588D63F"/>
+                  <LastState Value="604" RealAddress="A5893A2F"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>4</BitStart>
                   <BitLength>18</BitLength>
@@ -14120,7 +14120,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3614</ID>
                   <Description>"trainingstadium"</Description>
-                  <LastState Value="353" RealAddress="A588D65A"/>
+                  <LastState Value="353" RealAddress="A5893A4A"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>2</BitStart>
                   <BitLength>11</BitLength>
@@ -14133,7 +14133,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3542</ID>
                   <Description>"cityid"</Description>
-                  <LastState Value="408" RealAddress="A588D623"/>
+                  <LastState Value="405" RealAddress="A5893A13"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>6</BitStart>
                   <BitLength>10</BitLength>
@@ -14146,7 +14146,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3597</ID>
                   <Description>"rivalteam"</Description>
-                  <LastState Value="51" RealAddress="A588D625"/>
+                  <LastState Value="112138" RealAddress="A5893A15"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>4</BitStart>
                   <BitLength>18</BitLength>
@@ -14159,7 +14159,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3604</ID>
                   <Description>"teamcolor1r"</Description>
-                  <LastState Value="102" RealAddress="A588D5CD"/>
+                  <LastState Value="1" RealAddress="A58939BD"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>8</BitLength>
@@ -14172,7 +14172,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3610</ID>
                   <Description>"teamcolor3r"</Description>
-                  <LastState Value="1" RealAddress="A588D5D4"/>
+                  <LastState Value="1" RealAddress="A58939C4"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>8</BitLength>
@@ -14185,7 +14185,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3603</ID>
                   <Description>"teamcolor1g"</Description>
-                  <LastState Value="178" RealAddress="A588D5CC"/>
+                  <LastState Value="1" RealAddress="A58939BC"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>8</BitLength>
@@ -14198,7 +14198,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3609</ID>
                   <Description>"teamcolor3g"</Description>
-                  <LastState Value="1" RealAddress="A588D5D8"/>
+                  <LastState Value="1" RealAddress="A58939C8"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>8</BitLength>
@@ -14211,7 +14211,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3605</ID>
                   <Description>"teamcolor2b"</Description>
-                  <LastState Value="255" RealAddress="A588D5D1"/>
+                  <LastState Value="255" RealAddress="A58939C1"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>8</BitLength>
@@ -14224,7 +14224,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3573</ID>
                   <Description>"longitude"</Description>
-                  <LastState Value="192" RealAddress="A588D62B"/>
+                  <LastState Value="226" RealAddress="A5893A1B"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>7</BitStart>
                   <BitLength>9</BitLength>
@@ -14237,7 +14237,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3555</ID>
                   <Description>"foundationyear"</Description>
-                  <LastState Value="100" RealAddress="A588D5D3"/>
+                  <LastState Value="157" RealAddress="A58939C3"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>8</BitLength>
@@ -14250,7 +14250,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3569</ID>
                   <Description>"latitude"</Description>
-                  <LastState Value="131" RealAddress="A588D5D7"/>
+                  <LastState Value="114" RealAddress="A58939C7"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>8</BitLength>
@@ -14263,7 +14263,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3583</ID>
                   <Description>"opponentstrongthreshold"</Description>
-                  <LastState Value="103" RealAddress="A588D5D9"/>
+                  <LastState Value="103" RealAddress="A58939C9"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>8</BitLength>
@@ -14276,7 +14276,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3584</ID>
                   <Description>"opponentweakthreshold"</Description>
-                  <LastState Value="103" RealAddress="A588D5D6"/>
+                  <LastState Value="105" RealAddress="A58939C6"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>8</BitLength>
@@ -14289,7 +14289,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3606</ID>
                   <Description>"teamcolor2g"</Description>
-                  <LastState Value="255" RealAddress="A588D5DB"/>
+                  <LastState Value="255" RealAddress="A58939CB"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>8</BitLength>
@@ -14302,7 +14302,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3558</ID>
                   <Description>"genericint1"</Description>
-                  <LastState Value="82" RealAddress="A588D65C"/>
+                  <LastState Value="75" RealAddress="A5893A4C"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>4</BitStart>
                   <BitLength>7</BitLength>
@@ -14315,7 +14315,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3575</ID>
                   <Description>"matchdayattackrating"</Description>
-                  <LastState Value="83" RealAddress="A588D660"/>
+                  <LastState Value="79" RealAddress="A5893A50"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>7</BitLength>
@@ -14328,7 +14328,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3577</ID>
                   <Description>"matchdaymidfieldrating"</Description>
-                  <LastState Value="81" RealAddress="A588D629"/>
+                  <LastState Value="74" RealAddress="A5893A19"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>6</BitStart>
                   <BitLength>7</BitLength>
@@ -14341,7 +14341,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3578</ID>
                   <Description>"matchdayoverallrating"</Description>
-                  <LastState Value="81" RealAddress="A588D628"/>
+                  <LastState Value="73" RealAddress="A5893A18"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>7</BitStart>
                   <BitLength>7</BitLength>
@@ -14354,7 +14354,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3579</ID>
                   <Description>"midfieldrating"</Description>
-                  <LastState Value="81" RealAddress="A588D628"/>
+                  <LastState Value="74" RealAddress="A5893A18"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>7</BitLength>
@@ -14367,7 +14367,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3585</ID>
                   <Description>"overallrating"</Description>
-                  <LastState Value="80" RealAddress="A588D651"/>
+                  <LastState Value="73" RealAddress="A5893A41"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>7</BitStart>
                   <BitLength>7</BitLength>
@@ -14380,7 +14380,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3545</ID>
                   <Description>"defenserating"</Description>
-                  <LastState Value="80" RealAddress="A588D62F"/>
+                  <LastState Value="71" RealAddress="A5893A1F"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>3</BitStart>
                   <BitLength>7</BitLength>
@@ -14393,7 +14393,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3576</ID>
                   <Description>"matchdaydefenserating"</Description>
-                  <LastState Value="79" RealAddress="A588D62D"/>
+                  <LastState Value="71" RealAddress="A5893A1D"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>7</BitLength>
@@ -14406,7 +14406,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3622</ID>
                   <Description>"utcoffset"</Description>
-                  <LastState Value="13" RealAddress="A588D653"/>
+                  <LastState Value="15" RealAddress="A5893A43"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>6</BitStart>
                   <BitLength>5</BitLength>
@@ -14419,7 +14419,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3550</ID>
                   <Description>"domesticprestige"</Description>
-                  <LastState Value="7" RealAddress="A588D61E"/>
+                  <LastState Value="10" RealAddress="A5893A0E"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>5</BitLength>
@@ -14432,7 +14432,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3607</ID>
                   <Description>"teamcolor2r"</Description>
-                  <LastState Value="255" RealAddress="A588D5D2"/>
+                  <LastState Value="255" RealAddress="A58939C2"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>8</BitLength>
@@ -14445,7 +14445,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3623</ID>
                   <Description>"youthdevelopment"</Description>
-                  <LastState Value="5" RealAddress="A588D63F"/>
+                  <LastState Value="6" RealAddress="A5893A2F"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>4</BitLength>
@@ -14458,7 +14458,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3582</ID>
                   <Description>"offensivewidth"</Description>
-                  <LastState Value="6" RealAddress="A588D652"/>
+                  <LastState Value="6" RealAddress="A5893A42"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>6</BitStart>
                   <BitLength>4</BitLength>
@@ -14471,7 +14471,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3594</ID>
                   <Description>"profitability"</Description>
-                  <LastState Value="5" RealAddress="A588D653"/>
+                  <LastState Value="1" RealAddress="A5893A43"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>2</BitStart>
                   <BitLength>4</BitLength>
@@ -14484,7 +14484,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3546</ID>
                   <Description>"defensivedepth"</Description>
-                  <LastState Value="5" RealAddress="A588D61F"/>
+                  <LastState Value="5" RealAddress="A5893A0F"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>4</BitStart>
                   <BitLength>4</BitLength>
@@ -14497,7 +14497,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3553</ID>
                   <Description>"flamethrowercannon"</Description>
-                  <LastState Value="4" RealAddress="A588D61D"/>
+                  <LastState Value="4" RealAddress="A5893A0D"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>5</BitStart>
                   <BitLength>3</BitLength>
@@ -14510,7 +14510,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3589</ID>
                   <Description>"playersinboxcross"</Description>
-                  <LastState Value="2" RealAddress="A588D649"/>
+                  <LastState Value="5" RealAddress="A5893A39"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>7</BitStart>
                   <BitLength>4</BitLength>
@@ -14523,7 +14523,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3591</ID>
                   <Description>"popularity"</Description>
-                  <LastState Value="6" RealAddress="A588D620"/>
+                  <LastState Value="6" RealAddress="A5893A10"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>3</BitStart>
                   <BitLength>4</BitLength>
@@ -14536,7 +14536,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3548</ID>
                   <Description>"defensivewidth"</Description>
-                  <LastState Value="5" RealAddress="A588D625"/>
+                  <LastState Value="6" RealAddress="A5893A15"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>4</BitLength>
@@ -14549,7 +14549,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3544</ID>
                   <Description>"crowdskintonecode"</Description>
-                  <LastState Value="2" RealAddress="A588D659"/>
+                  <LastState Value="9" RealAddress="A5893A49"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>1</BitStart>
                   <BitLength>4</BitLength>
@@ -14562,7 +14562,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3566</ID>
                   <Description>"iscompetitionpoleflagenabled"</Description>
-                  <LastState Value="1" RealAddress="A588D630"/>
+                  <LastState Value="1" RealAddress="A5893A20"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>2</BitStart>
                   <BitLength>2</BitLength>
@@ -14575,7 +14575,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3567</ID>
                   <Description>"iscompetitionscarfenabled"</Description>
-                  <LastState Value="1" RealAddress="A588D623"/>
+                  <LastState Value="1" RealAddress="A5893A13"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>4</BitStart>
                   <BitLength>2</BitLength>
@@ -14588,7 +14588,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3568</ID>
                   <Description>"jerseytype"</Description>
-                  <LastState Value="1" RealAddress="A588D620"/>
+                  <LastState Value="2" RealAddress="A5893A10"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>1</BitStart>
                   <BitLength>2</BitLength>
@@ -14601,7 +14601,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3588</ID>
                   <Description>"playersinboxcorner"</Description>
-                  <LastState Value="2" RealAddress="A588D62B"/>
+                  <LastState Value="2" RealAddress="A5893A1B"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>4</BitStart>
                   <BitLength>3</BitLength>
@@ -14614,7 +14614,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3590</ID>
                   <Description>"playersinboxfk"</Description>
-                  <LastState Value="2" RealAddress="A588D646"/>
+                  <LastState Value="2" RealAddress="A5893A36"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>3</BitStart>
                   <BitLength>3</BitLength>
@@ -14627,7 +14627,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3547</ID>
                   <Description>"defensivestyle"</Description>
-                  <LastState Value="1" RealAddress="A588D61A"/>
+                  <LastState Value="2" RealAddress="A5893A0A"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>7</BitStart>
                   <BitLength>3</BitLength>
@@ -14640,7 +14640,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3551</ID>
                   <Description>"ethnicity"</Description>
-                  <LastState Value="3" RealAddress="A588D63C"/>
+                  <LastState Value="3" RealAddress="A5893A2C"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>1</BitStart>
                   <BitLength>4</BitLength>
@@ -14653,7 +14653,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3563</ID>
                   <Description>"internationalprestige"</Description>
-                  <LastState Value="6" RealAddress="A588D659"/>
+                  <LastState Value="7" RealAddress="A5893A49"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>5</BitStart>
                   <BitLength>5</BitLength>
@@ -14666,7 +14666,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3564</ID>
                   <Description>"isbannerenabled"</Description>
-                  <LastState Value="1" RealAddress="A588D627"/>
+                  <LastState Value="1" RealAddress="A5893A17"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>6</BitStart>
                   <BitLength>2</BitLength>
@@ -14679,7 +14679,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3581</ID>
                   <Description>"offensivestyle"</Description>
-                  <LastState Value="2" RealAddress="A588D649"/>
+                  <LastState Value="1" RealAddress="A5893A39"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>3</BitStart>
                   <BitLength>2</BitLength>
@@ -14692,7 +14692,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3587</ID>
                   <Description>"personalityid"</Description>
-                  <LastState Value="1" RealAddress="A588D649"/>
+                  <LastState Value="1" RealAddress="A5893A39"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>5</BitStart>
                   <BitLength>2</BitLength>
@@ -14705,7 +14705,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3601</ID>
                   <Description>"suitvariationid"</Description>
-                  <LastState Value="1" RealAddress="A588D639"/>
+                  <LastState Value="0" RealAddress="A5893A29"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>5</BitStart>
                   <BitLength>1</BitLength>
@@ -14718,7 +14718,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3549</ID>
                   <Description>"domesticcups"</Description>
-                  <LastState Value="7" RealAddress="A588D63A"/>
+                  <LastState Value="8" RealAddress="A5893A2A"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>7</BitStart>
                   <BitLength>10</BitLength>
@@ -14731,7 +14731,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3552</ID>
                   <Description>"favoriteteamsheetid"</Description>
-                  <LastState Value="0" RealAddress="A588D62E"/>
+                  <LastState Value="0" RealAddress="A5893A1E"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>1</BitStart>
                   <BitLength>10</BitLength>
@@ -14744,7 +14744,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3554</ID>
                   <Description>"form"</Description>
-                  <LastState Value="0" RealAddress="A588D65B"/>
+                  <LastState Value="0" RealAddress="A5893A4B"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>5</BitStart>
                   <BitLength>7</BitLength>
@@ -14757,7 +14757,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3557</ID>
                   <Description>"genericbanner"</Description>
-                  <LastState Value="0" RealAddress="A588D64E"/>
+                  <LastState Value="0" RealAddress="A5893A3E"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>1</BitStart>
                   <BitLength>1</BitLength>
@@ -14770,7 +14770,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3559</ID>
                   <Description>"genericint2"</Description>
-                  <LastState Value="0" RealAddress="A588D61E"/>
+                  <LastState Value="0" RealAddress="A5893A0E"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>5</BitStart>
                   <BitLength>7</BitLength>
@@ -14783,7 +14783,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3560</ID>
                   <Description>"hasstandingcrowd"</Description>
-                  <LastState Value="1" RealAddress="A588D62D"/>
+                  <LastState Value="0" RealAddress="A5893A1D"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>7</BitStart>
                   <BitLength>2</BitLength>
@@ -14796,7 +14796,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3561</ID>
                   <Description>"hastifo"</Description>
-                  <LastState Value="1" RealAddress="A588D620"/>
+                  <LastState Value="0" RealAddress="A5893A10"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>7</BitStart>
                   <BitLength>1</BitLength>
@@ -14809,7 +14809,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3562</ID>
                   <Description>"hasvikingclap"</Description>
-                  <LastState Value="0" RealAddress="A588D620"/>
+                  <LastState Value="0" RealAddress="A5893A10"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>1</BitLength>
@@ -14822,7 +14822,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3565</ID>
                   <Description>"iscompetitioncrowdcardsenabled"</Description>
-                  <LastState Value="0" RealAddress="A588D637"/>
+                  <LastState Value="0" RealAddress="A5893A27"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>2</BitLength>
@@ -14835,7 +14835,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3570</ID>
                   <Description>"leaguetitles"</Description>
-                  <LastState Value="2" RealAddress="A588D64C"/>
+                  <LastState Value="15" RealAddress="A5893A3C"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>7</BitStart>
                   <BitLength>10</BitLength>
@@ -14848,7 +14848,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3580</ID>
                   <Description>"numtransfersin"</Description>
-                  <LastState Value="0" RealAddress="A588D645"/>
+                  <LastState Value="0" RealAddress="A5893A35"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>6</BitStart>
                   <BitLength>5</BitLength>
@@ -14861,7 +14861,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3592</ID>
                   <Description>"powid"</Description>
-                  <LastState Value="0" RealAddress="A588D619"/>
+                  <LastState Value="0" RealAddress="A5893A09"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>15</BitLength>
@@ -14874,7 +14874,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3593</ID>
                   <Description>"prev_el_champ"</Description>
-                  <LastState Value="0" RealAddress="A588D64A"/>
+                  <LastState Value="0" RealAddress="A5893A3A"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>3</BitStart>
                   <BitLength>1</BitLength>
@@ -14887,7 +14887,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3598</ID>
                   <Description>"skinnyflags"</Description>
-                  <LastState Value="0" RealAddress="A588D630"/>
+                  <LastState Value="0" RealAddress="A5893A20"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>4</BitStart>
                   <BitLength>1</BitLength>
@@ -14900,7 +14900,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3599</ID>
                   <Description>"stanchionflamethrower"</Description>
-                  <LastState Value="0" RealAddress="A588D646"/>
+                  <LastState Value="0" RealAddress="A5893A36"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>6</BitStart>
                   <BitLength>2</BitLength>
@@ -14913,7 +14913,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3600</ID>
                   <Description>"suittypeid"</Description>
-                  <LastState Value="0" RealAddress="A588D645"/>
+                  <LastState Value="0" RealAddress="A5893A35"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>4</BitStart>
                   <BitLength>2</BitLength>
@@ -14926,7 +14926,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3602</ID>
                   <Description>"teamcolor1b"</Description>
-                  <LastState Value="255" RealAddress="A588D5D5"/>
+                  <LastState Value="204" RealAddress="A58939C5"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>8</BitLength>
@@ -14939,7 +14939,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3608</ID>
                   <Description>"teamcolor3b"</Description>
-                  <LastState Value="1" RealAddress="A588D618"/>
+                  <LastState Value="153" RealAddress="A5893A08"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>8</BitLength>
@@ -14952,7 +14952,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3619</ID>
                   <Description>"uefa_cl_wins"</Description>
-                  <LastState Value="0" RealAddress="A588D639"/>
+                  <LastState Value="0" RealAddress="A5893A29"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>6</BitStart>
                   <BitLength>9</BitLength>
@@ -14965,7 +14965,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3620</ID>
                   <Description>"uefa_consecutive_wins"</Description>
-                  <LastState Value="0" RealAddress="A588D630"/>
+                  <LastState Value="0" RealAddress="A5893A20"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>5</BitStart>
                   <BitLength>9</BitLength>
@@ -14978,7 +14978,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3621</ID>
                   <Description>"uefa_el_wins"</Description>
-                  <LastState Value="0" RealAddress="A588D641"/>
+                  <LastState Value="0" RealAddress="A5893A31"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>6</BitStart>
                   <BitLength>9</BitLength>
@@ -15039,7 +15039,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3628</ID>
                   <Description>"hairtypecode"</Description>
-                  <LastState Value="291" RealAddress="A5DEA601"/>
+                  <LastState Value="279" RealAddress="A5DEA601"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>4</BitStart>
                   <BitLength>10</BitLength>
@@ -15134,7 +15134,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3635</ID>
                   <Description>"gender"</Description>
-                  <LastState Value="0" RealAddress="A5DEA608"/>
+                  <LastState Value="1" RealAddress="A5DEA608"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>7</BitStart>
                   <BitLength>1</BitLength>
@@ -15227,7 +15227,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3642</ID>
                   <Description>"eyebrowcode"</Description>
-                  <LastState Value="1" RealAddress="A5DEA60E"/>
+                  <LastState Value="5" RealAddress="A5DEA60E"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>5</BitStart>
                   <BitLength>4</BitLength>
@@ -15240,7 +15240,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3643</ID>
                   <Description>"eyecolorcode"</Description>
-                  <LastState Value="0" RealAddress="A5DEA60F"/>
+                  <LastState Value="2" RealAddress="A5DEA60F"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>1</BitStart>
                   <BitLength>4</BitLength>
@@ -15305,7 +15305,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3648</ID>
                   <Description>"skintypecode"</Description>
-                  <LastState Value="51" RealAddress="A5DEA5FC"/>
+                  <LastState Value="151" RealAddress="A5DEA5FC"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>8</BitLength>
@@ -15331,7 +15331,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3650</ID>
                   <Description>"skintonecode"</Description>
-                  <LastState Value="6" RealAddress="A5DEA612"/>
+                  <LastState Value="5" RealAddress="A5DEA612"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>4</BitStart>
                   <BitLength>4</BitLength>
@@ -15344,7 +15344,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>3651</ID>
                   <Description>"outfitid"</Description>
-                  <LastState Value="532021" RealAddress="A5DEA613"/>
+                  <LastState Value="1" RealAddress="A5DEA613"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>20</BitLength>
@@ -15405,7 +15405,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4146</ID>
                   <Description>"teamtechid"</Description>
-                  <LastState Value="18" RealAddress="A6111051"/>
+                  <LastState Value="0" RealAddress="A6110251"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>3</BitStart>
                   <BitLength>18</BitLength>
@@ -15418,7 +15418,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4144</ID>
                   <Description>"teamkitid"</Description>
-                  <LastState Value="1372" RealAddress="A6111047"/>
+                  <LastState Value="7708" RealAddress="A6110247"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>1</BitStart>
                   <BitLength>14</BitLength>
@@ -15431,7 +15431,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4145</ID>
                   <Description>"teamkittypetechid"</Description>
-                  <LastState Value="0" RealAddress="A6111044"/>
+                  <LastState Value="0" RealAddress="A6110244"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>3</BitStart>
                   <BitLength>5</BitLength>
@@ -15444,7 +15444,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4147</ID>
                   <Description>"captainarmband"</Description>
-                  <LastState Value="13" RealAddress="A6111050"/>
+                  <LastState Value="0" RealAddress="A6110250"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>2</BitStart>
                   <BitLength>9</BitLength>
@@ -15464,7 +15464,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4150</ID>
                       <Description>"jerseyrightsleevebadge"</Description>
-                      <LastState Value="13" RealAddress="A6111049"/>
+                      <LastState Value="0" RealAddress="A6110249"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>6</BitStart>
                       <BitLength>17</BitLength>
@@ -15477,7 +15477,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4149</ID>
                       <Description>"jerseyleftsleevebadge"</Description>
-                      <LastState Value="13" RealAddress="A611104C"/>
+                      <LastState Value="0" RealAddress="A611024C"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>6</BitStart>
                       <BitLength>17</BitLength>
@@ -15490,7 +15490,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4151</ID>
                       <Description>"chestbadge"</Description>
-                      <LastState Value="0" RealAddress="A6111042"/>
+                      <LastState Value="0" RealAddress="A6110242"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>2</BitStart>
                       <BitLength>17</BitLength>
@@ -15512,7 +15512,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4154</ID>
                       <Description>"jerseynamefonttype"</Description>
-                      <LastState Value="18" RealAddress="A6111028"/>
+                      <LastState Value="0" RealAddress="A6110228"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15525,7 +15525,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4153</ID>
                       <Description>"shortsnumberfonttype"</Description>
-                      <LastState Value="95" RealAddress="A611103C"/>
+                      <LastState Value="1" RealAddress="A611023C"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15538,7 +15538,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4155</ID>
                       <Description>"numberfonttype"</Description>
-                      <LastState Value="16" RealAddress="A6111024"/>
+                      <LastState Value="1" RealAddress="A6110224"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15560,7 +15560,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4157</ID>
                       <Description>"R"</Description>
-                      <LastState Value="220" RealAddress="A6111023"/>
+                      <LastState Value="0" RealAddress="A6110223"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15573,7 +15573,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4158</ID>
                       <Description>"G"</Description>
-                      <LastState Value="220" RealAddress="A6111019"/>
+                      <LastState Value="0" RealAddress="A6110219"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15586,7 +15586,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4159</ID>
                       <Description>"B"</Description>
-                      <LastState Value="220" RealAddress="A6111027"/>
+                      <LastState Value="0" RealAddress="A6110227"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15608,7 +15608,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4161</ID>
                       <Description>"R"</Description>
-                      <LastState Value="15" RealAddress="A6111041"/>
+                      <LastState Value="0" RealAddress="A6110241"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15621,7 +15621,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4162</ID>
                       <Description>"G"</Description>
-                      <LastState Value="21" RealAddress="A6111031"/>
+                      <LastState Value="0" RealAddress="A6110231"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15634,7 +15634,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4163</ID>
                       <Description>"B"</Description>
-                      <LastState Value="55" RealAddress="A6111020"/>
+                      <LastState Value="0" RealAddress="A6110220"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15656,7 +15656,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4165</ID>
                       <Description>"R"</Description>
-                      <LastState Value="15" RealAddress="A6111035"/>
+                      <LastState Value="0" RealAddress="A6110235"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15669,7 +15669,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4166</ID>
                       <Description>"G"</Description>
-                      <LastState Value="21" RealAddress="A6111038"/>
+                      <LastState Value="0" RealAddress="A6110238"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15682,7 +15682,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4167</ID>
                       <Description>"B"</Description>
-                      <LastState Value="55" RealAddress="A6111022"/>
+                      <LastState Value="0" RealAddress="A6110222"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15704,7 +15704,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4169</ID>
                       <Description>"R"</Description>
-                      <LastState Value="15" RealAddress="A611101E"/>
+                      <LastState Value="0" RealAddress="A611021E"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15717,7 +15717,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4170</ID>
                       <Description>"G"</Description>
-                      <LastState Value="21" RealAddress="A611101F"/>
+                      <LastState Value="0" RealAddress="A611021F"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15730,7 +15730,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4171</ID>
                       <Description>"B"</Description>
-                      <LastState Value="55" RealAddress="A611102B"/>
+                      <LastState Value="0" RealAddress="A611022B"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15752,7 +15752,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4173</ID>
                       <Description>"R"</Description>
-                      <LastState Value="220" RealAddress="A611101D"/>
+                      <LastState Value="0" RealAddress="A611021D"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15765,7 +15765,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4174</ID>
                       <Description>"G"</Description>
-                      <LastState Value="220" RealAddress="A6111033"/>
+                      <LastState Value="0" RealAddress="A6110233"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15778,7 +15778,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4175</ID>
                       <Description>"B"</Description>
-                      <LastState Value="220" RealAddress="A611103D"/>
+                      <LastState Value="0" RealAddress="A611023D"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15800,7 +15800,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4177</ID>
                       <Description>"R"</Description>
-                      <LastState Value="220" RealAddress="A611102A"/>
+                      <LastState Value="0" RealAddress="A611022A"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15813,7 +15813,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4178</ID>
                       <Description>"G"</Description>
-                      <LastState Value="220" RealAddress="A6111026"/>
+                      <LastState Value="0" RealAddress="A6110226"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15826,7 +15826,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4179</ID>
                       <Description>"B"</Description>
-                      <LastState Value="220" RealAddress="A611103F"/>
+                      <LastState Value="0" RealAddress="A611023F"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -15855,7 +15855,7 @@ dealloc(ptrCompetitionkits)
                         <CheatEntry>
                           <ID>4182</ID>
                           <Description>"Percent"</Description>
-                          <LastState Value="85" RealAddress="A6111048"/>
+                          <LastState Value="77" RealAddress="A6110248"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>7</BitStart>
                           <BitLength>7</BitLength>
@@ -15868,7 +15868,7 @@ dealloc(ptrCompetitionkits)
                         <CheatEntry>
                           <ID>4183</ID>
                           <Description>"R"</Description>
-                          <LastState Value="227" RealAddress="A611102E"/>
+                          <LastState Value="235" RealAddress="A611022E"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>8</BitLength>
@@ -15881,7 +15881,7 @@ dealloc(ptrCompetitionkits)
                         <CheatEntry>
                           <ID>4184</ID>
                           <Description>"G"</Description>
-                          <LastState Value="227" RealAddress="A6111021"/>
+                          <LastState Value="235" RealAddress="A6110221"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>8</BitLength>
@@ -15894,7 +15894,7 @@ dealloc(ptrCompetitionkits)
                         <CheatEntry>
                           <ID>4185</ID>
                           <Description>"B"</Description>
-                          <LastState Value="227" RealAddress="A611103A"/>
+                          <LastState Value="235" RealAddress="A611023A"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>8</BitLength>
@@ -15916,7 +15916,7 @@ dealloc(ptrCompetitionkits)
                         <CheatEntry>
                           <ID>4188</ID>
                           <Description>"R"</Description>
-                          <LastState Value="22" RealAddress="A6111036"/>
+                          <LastState Value="58" RealAddress="A6110236"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>8</BitLength>
@@ -15929,7 +15929,7 @@ dealloc(ptrCompetitionkits)
                         <CheatEntry>
                           <ID>4189</ID>
                           <Description>"G"</Description>
-                          <LastState Value="39" RealAddress="A6111030"/>
+                          <LastState Value="58" RealAddress="A6110230"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>8</BitLength>
@@ -15942,7 +15942,7 @@ dealloc(ptrCompetitionkits)
                         <CheatEntry>
                           <ID>4190</ID>
                           <Description>"B"</Description>
-                          <LastState Value="72" RealAddress="A611101A"/>
+                          <LastState Value="58" RealAddress="A611021A"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>8</BitLength>
@@ -15955,7 +15955,7 @@ dealloc(ptrCompetitionkits)
                         <CheatEntry>
                           <ID>4187</ID>
                           <Description>"Percent"</Description>
-                          <LastState Value="13" RealAddress="A611104B"/>
+                          <LastState Value="15" RealAddress="A611024B"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>7</BitStart>
                           <BitLength>7</BitLength>
@@ -15977,7 +15977,7 @@ dealloc(ptrCompetitionkits)
                         <CheatEntry>
                           <ID>4192</ID>
                           <Description>"Percent"</Description>
-                          <LastState Value="98" RealAddress="A6111054"/>
+                          <LastState Value="75" RealAddress="A6110254"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>7</BitLength>
@@ -15990,7 +15990,7 @@ dealloc(ptrCompetitionkits)
                         <CheatEntry>
                           <ID>4193</ID>
                           <Description>"R"</Description>
-                          <LastState Value="21" RealAddress="A6111032"/>
+                          <LastState Value="231" RealAddress="A6110232"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>8</BitLength>
@@ -16003,7 +16003,7 @@ dealloc(ptrCompetitionkits)
                         <CheatEntry>
                           <ID>4194</ID>
                           <Description>"G"</Description>
-                          <LastState Value="38" RealAddress="A6111040"/>
+                          <LastState Value="231" RealAddress="A6110240"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>8</BitLength>
@@ -16016,7 +16016,7 @@ dealloc(ptrCompetitionkits)
                         <CheatEntry>
                           <ID>4195</ID>
                           <Description>"B"</Description>
-                          <LastState Value="75" RealAddress="A6111025"/>
+                          <LastState Value="231" RealAddress="A6110225"/>
                           <VariableType>Binary</VariableType>
                           <BitStart>0</BitStart>
                           <BitLength>8</BitLength>
@@ -16040,7 +16040,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4209</ID>
                       <Description>"jerseynamecolorr"</Description>
-                      <LastState Value="15" RealAddress="A6111039"/>
+                      <LastState Value="0" RealAddress="A6110239"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -16053,7 +16053,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4207</ID>
                       <Description>"jerseynamecolorb"</Description>
-                      <LastState Value="55" RealAddress="A611103E"/>
+                      <LastState Value="0" RealAddress="A611023E"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -16066,7 +16066,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4208</ID>
                       <Description>"jerseynamecolorg"</Description>
-                      <LastState Value="21" RealAddress="A611102F"/>
+                      <LastState Value="0" RealAddress="A611022F"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -16079,7 +16079,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4204</ID>
                       <Description>"jerseycollargeometrytype"</Description>
-                      <LastState Value="7" RealAddress="A6111037"/>
+                      <LastState Value="0" RealAddress="A6110237"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -16092,7 +16092,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4203</ID>
                       <Description>"jerseybacknameplacementcode"</Description>
-                      <LastState Value="1" RealAddress="A611102D"/>
+                      <LastState Value="1" RealAddress="A611022D"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -16105,7 +16105,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4215</ID>
                       <Description>"shortsnumberplacementcode"</Description>
-                      <LastState Value="1" RealAddress="A6111018"/>
+                      <LastState Value="0" RealAddress="A6110218"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -16118,7 +16118,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4197</ID>
                       <Description>"dlc"</Description>
-                      <LastState Value="0" RealAddress="A6111053"/>
+                      <LastState Value="0" RealAddress="A6110253"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>7</BitStart>
                       <BitLength>1</BitLength>
@@ -16131,7 +16131,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4198</ID>
                       <Description>"hasadvertisingkit"</Description>
-                      <LastState Value="0" RealAddress="A6111053"/>
+                      <LastState Value="0" RealAddress="A6110253"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>6</BitStart>
                       <BitLength>1</BitLength>
@@ -16144,7 +16144,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4199</ID>
                       <Description>"isembargoed"</Description>
-                      <LastState Value="0" RealAddress="A6111053"/>
+                      <LastState Value="0" RealAddress="A6110253"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>5</BitStart>
                       <BitLength>1</BitLength>
@@ -16157,7 +16157,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4200</ID>
                       <Description>"isinheritbasedetailmap"</Description>
-                      <LastState Value="0" RealAddress="A6111046"/>
+                      <LastState Value="0" RealAddress="A6110246"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>7</BitStart>
                       <BitLength>1</BitLength>
@@ -16170,7 +16170,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4201</ID>
                       <Description>"islocked"</Description>
-                      <LastState Value="0" RealAddress="A6111047"/>
+                      <LastState Value="0" RealAddress="A6110247"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>1</BitLength>
@@ -16183,7 +16183,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4202</ID>
                       <Description>"jerseybacknamefontcase"</Description>
-                      <LastState Value="0" RealAddress="A6111042"/>
+                      <LastState Value="0" RealAddress="A6110242"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>2</BitLength>
@@ -16196,7 +16196,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4205</ID>
                       <Description>"jerseyfit"</Description>
-                      <LastState Value="0" RealAddress="A6111055"/>
+                      <LastState Value="0" RealAddress="A6110255"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>2</BitStart>
                       <BitLength>1</BitLength>
@@ -16209,7 +16209,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4206</ID>
                       <Description>"jerseyfrontnumberplacementcode"</Description>
-                      <LastState Value="0" RealAddress="A611101C"/>
+                      <LastState Value="0" RealAddress="A611021C"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -16222,7 +16222,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4210</ID>
                       <Description>"jerseynamelayouttype"</Description>
-                      <LastState Value="1" RealAddress="A6111029"/>
+                      <LastState Value="0" RealAddress="A6110229"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -16235,7 +16235,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4211</ID>
                       <Description>"jerseyrenderingdetailmaptype"</Description>
-                      <LastState Value="0" RealAddress="A611103B"/>
+                      <LastState Value="0" RealAddress="A611023B"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -16248,7 +16248,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4212</ID>
                       <Description>"jerseyshapestyle"</Description>
-                      <LastState Value="0" RealAddress="A611102C"/>
+                      <LastState Value="0" RealAddress="A611022C"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -16261,7 +16261,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4213</ID>
                       <Description>"powid"</Description>
-                      <LastState Value="0" RealAddress="A6111045"/>
+                      <LastState Value="1" RealAddress="A6110245"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>15</BitLength>
@@ -16274,7 +16274,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4214</ID>
                       <Description>"renderingmaterialtype"</Description>
-                      <LastState Value="0" RealAddress="A6111034"/>
+                      <LastState Value="0" RealAddress="A6110234"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -16287,7 +16287,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4216</ID>
                       <Description>"shortsrenderingdetailmaptype"</Description>
-                      <LastState Value="0" RealAddress="A611101B"/>
+                      <LastState Value="0" RealAddress="A611021B"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>0</BitStart>
                       <BitLength>8</BitLength>
@@ -16300,7 +16300,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4217</ID>
                       <Description>"shortstyle"</Description>
-                      <LastState Value="3" RealAddress="A6111054"/>
+                      <LastState Value="0" RealAddress="A6110254"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>7</BitStart>
                       <BitLength>3</BitLength>
@@ -16313,7 +16313,7 @@ dealloc(ptrCompetitionkits)
                     <CheatEntry>
                       <ID>4218</ID>
                       <Description>"year"</Description>
-                      <LastState Value="0" RealAddress="A611104E"/>
+                      <LastState Value="0" RealAddress="A611024E"/>
                       <VariableType>Binary</VariableType>
                       <BitStart>7</BitStart>
                       <BitLength>11</BitLength>
@@ -17230,7 +17230,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4391</ID>
                   <Description>"teamid"</Description>
-                  <LastState Value="447" RealAddress="A584A3EC"/>
+                  <LastState Value="462" RealAddress="A584AE14"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>3</BitStart>
                   <BitLength>18</BitLength>
@@ -17243,7 +17243,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4389</ID>
                   <Description>"stadiumid"</Description>
-                  <LastState Value="388" RealAddress="A584A3EB"/>
+                  <LastState Value="399" RealAddress="A584AE13"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>11</BitLength>
@@ -17256,7 +17256,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4388</ID>
                   <Description>"forcedhome"</Description>
-                  <LastState Value="0" RealAddress="A584A3EE"/>
+                  <LastState Value="0" RealAddress="A584AE16"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>5</BitStart>
                   <BitLength>1</BitLength>
@@ -17269,7 +17269,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4390</ID>
                   <Description>"stadiumname"</Description>
-                  <LastState RealAddress="A584A2EC"/>
+                  <LastState RealAddress="A584AD14"/>
                   <VariableType>String</VariableType>
                   <Length>254</Length>
                   <Unicode>0</Unicode>
@@ -17604,7 +17604,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4279</ID>
                   <Description>"usedsquad"</Description>
-                  <LastState Value="0" RealAddress="A0B5420D"/>
+                  <LastState Value="1" RealAddress="A0B5420D"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>3</BitStart>
                   <BitLength>2</BitLength>
@@ -19115,6 +19115,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4373</ID>
                   <Description>"experience"</Description>
+                  <LastState Value="0" RealAddress="A5A238F4"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>4</BitStart>
                   <BitLength>3</BitLength>
@@ -19127,6 +19128,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4374</ID>
                   <Description>"firstname"</Description>
+                  <LastState RealAddress="A5A23898"/>
                   <VariableType>String</VariableType>
                   <Length>44</Length>
                   <Unicode>0</Unicode>
@@ -19140,6 +19142,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4375</ID>
                   <Description>"knowledge"</Description>
+                  <LastState Value="0" RealAddress="A5A238F2"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>6</BitStart>
                   <BitLength>3</BitLength>
@@ -19152,6 +19155,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4376</ID>
                   <Description>"lastname"</Description>
+                  <LastState RealAddress="A5A238C5"/>
                   <VariableType>String</VariableType>
                   <Length>44</Length>
                   <Unicode>0</Unicode>
@@ -19165,6 +19169,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4377</ID>
                   <Description>"nationality"</Description>
+                  <LastState Value="54" RealAddress="A5A238F3"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>1</BitStart>
                   <BitLength>9</BitLength>
@@ -19177,6 +19182,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4378</ID>
                   <Description>"regionid"</Description>
+                  <LastState Value="12" RealAddress="A5A238F2"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>4</BitLength>
@@ -19189,6 +19195,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4379</ID>
                   <Description>"scoutid"</Description>
+                  <LastState Value="0" RealAddress="A5A238F4"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>2</BitStart>
                   <BitLength>2</BitLength>
@@ -19201,6 +19208,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4380</ID>
                   <Description>"state"</Description>
+                  <LastState Value="2" RealAddress="A5A238F2"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>4</BitStart>
                   <BitLength>2</BitLength>
@@ -19222,6 +19230,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4382</ID>
                   <Description>"durationid"</Description>
+                  <LastState Value="0" RealAddress="A0B900A8"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>4</BitStart>
                   <BitLength>2</BitLength>
@@ -19234,6 +19243,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4383</ID>
                   <Description>"nationality"</Description>
+                  <LastState Value="0" RealAddress="A0B900AB"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>1</BitStart>
                   <BitLength>9</BitLength>
@@ -19255,6 +19265,7 @@ dealloc(ptrCompetitionkits)
        6: '5'
      
 </DropDownList>
+                  <LastState Value="0" RealAddress="A0B900A8"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>0</BitStart>
                   <BitLength>4</BitLength>
@@ -19267,6 +19278,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4385</ID>
                   <Description>"returningdate"</Description>
+                  <LastState Value="0" RealAddress="A0B900A8"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>6</BitStart>
                   <BitLength>19</BitLength>
@@ -19279,6 +19291,7 @@ dealloc(ptrCompetitionkits)
                 <CheatEntry>
                   <ID>4386</ID>
                   <Description>"scoutid"</Description>
+                  <LastState Value="0" RealAddress="A0B900AC"/>
                   <VariableType>Binary</VariableType>
                   <BitStart>2</BitStart>
                   <BitLength>2</BitLength>
@@ -31030,245 +31043,245 @@ bAwayTeam_Tired:
                 <CheatEntry>
                   <ID>4460</ID>
                   <Description>"PlayerID 1"</Description>
-                  <LastState Value="0" RealAddress="17D811A20"/>
+                  <LastState Value="1349805390" RealAddress="17D811A20"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4466</ID>
                   <Description>"PlayerID 2"</Description>
-                  <LastState Value="0" RealAddress="17D811A24"/>
+                  <LastState Value="824210287" RealAddress="17D811A24"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+4</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4465</ID>
                   <Description>"PlayerID 3"</Description>
-                  <LastState Value="0" RealAddress="17D811A28"/>
+                  <LastState Value="220211497" RealAddress="17D811A28"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+8</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4464</ID>
                   <Description>"PlayerID 4"</Description>
-                  <LastState Value="0" RealAddress="17D811A2C"/>
+                  <LastState Value="673193994" RealAddress="17D811A2C"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+C</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4463</ID>
                   <Description>"PlayerID 5"</Description>
-                  <LastState Value="0" RealAddress="17D811A30"/>
+                  <LastState Value="220227177" RealAddress="17D811A30"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+10</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4462</ID>
                   <Description>"PlayerID 6"</Description>
-                  <LastState Value="0" RealAddress="17D811A34"/>
+                  <LastState Value="538976266" RealAddress="17D811A34"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+14</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4472</ID>
                   <Description>"PlayerID 7"</Description>
-                  <LastState Value="0" RealAddress="17D811A3C"/>
+                  <LastState Value="1635021600" RealAddress="17D811A3C"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+1C</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4473</ID>
                   <Description>"PlayerID 8"</Description>
-                  <LastState Value="0" RealAddress="17D811A40"/>
+                  <LastState Value="1730176372" RealAddress="17D811A40"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+20</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4474</ID>
                   <Description>"PlayerID 9"</Description>
-                  <LastState Value="0" RealAddress="17D811A44"/>
+                  <LastState Value="1399156065" RealAddress="17D811A44"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+24</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4475</ID>
                   <Description>"PlayerID 10"</Description>
-                  <LastState Value="0" RealAddress="17D811A48"/>
+                  <LastState Value="1702125940" RealAddress="17D811A48"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+28</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4476</ID>
                   <Description>"PlayerID 11"</Description>
-                  <LastState Value="0" RealAddress="17D811A4C"/>
+                  <LastState Value="1717920814" RealAddress="17D811A4C"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+2C</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4467</ID>
                   <Description>"PlayerID 12"</Description>
-                  <LastState Value="0" RealAddress="17D811A50"/>
+                  <LastState Value="1768189541" RealAddress="17D811A50"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+30</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4468</ID>
                   <Description>"PlayerID 13"</Description>
-                  <LastState Value="0" RealAddress="17D811A54"/>
+                  <LastState Value="539584366" RealAddress="17D811A54"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+34</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4469</ID>
                   <Description>"PlayerID 14"</Description>
-                  <LastState Value="0" RealAddress="17D811A58"/>
+                  <LastState Value="538970637" RealAddress="17D811A58"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+38</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4470</ID>
                   <Description>"PlayerID 15"</Description>
-                  <LastState Value="0" RealAddress="17D811A5C"/>
+                  <LastState Value="1814568992" RealAddress="17D811A5C"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+3C</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4471</ID>
                   <Description>"PlayerID 16"</Description>
-                  <LastState Value="0" RealAddress="17D811A60"/>
+                  <LastState Value="1952797560" RealAddress="17D811A60"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+40</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4477</ID>
                   <Description>"PlayerID 17"</Description>
-                  <LastState Value="0" RealAddress="17D811A64"/>
+                  <LastState Value="1767993940" RealAddress="17D811A64"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+44</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4478</ID>
                   <Description>"PlayerID 18"</Description>
-                  <LastState Value="0" RealAddress="17D811A68"/>
+                  <LastState Value="1131570542" RealAddress="17D811A68"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+48</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4497</ID>
                   <Description>"PlayerID 19"</Description>
-                  <LastState Value="0" RealAddress="17D811A70"/>
+                  <LastState Value="807433336" RealAddress="17D811A70"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+50</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4498</ID>
                   <Description>"PlayerID 20"</Description>
-                  <LastState Value="0" RealAddress="17D811A74"/>
+                  <LastState Value="1634882592" RealAddress="17D811A74"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+54</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4499</ID>
                   <Description>"PlayerID 21"</Description>
-                  <LastState Value="0" RealAddress="17D811A78"/>
+                  <LastState Value="1919250025" RealAddress="17D811A78"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+58</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4500</ID>
                   <Description>"PlayerID 22"</Description>
-                  <LastState Value="0" RealAddress="17D811A7C"/>
+                  <LastState Value="1953394499" RealAddress="17D811A7C"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+5C</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4501</ID>
                   <Description>"PlayerID 23"</Description>
-                  <LastState Value="0" RealAddress="17D811A80"/>
+                  <LastState Value="779384933" RealAddress="17D811A80"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+60</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4502</ID>
                   <Description>"PlayerID 24"</Description>
-                  <LastState Value="0" RealAddress="17D811A84"/>
+                  <LastState Value="1162233156" RealAddress="17D811A84"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+64</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4503</ID>
                   <Description>"PlayerID 25"</Description>
-                  <LastState Value="0" RealAddress="17D811A8C"/>
+                  <LastState Value="1381258565" RealAddress="17D811A8C"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+6C</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4504</ID>
                   <Description>"PlayerID 26"</Description>
-                  <LastState Value="0" RealAddress="17D811A90"/>
+                  <LastState Value="539577409" RealAddress="17D811A90"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+70</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4505</ID>
                   <Description>"PlayerID 27"</Description>
-                  <LastState Value="0" RealAddress="17D811A94"/>
+                  <LastState Value="538970637" RealAddress="17D811A94"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+74</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4506</ID>
                   <Description>"PlayerID 28"</Description>
-                  <LastState Value="0" RealAddress="17D811A98"/>
+                  <LastState Value="1814568992" RealAddress="17D811A98"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+78</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4507</ID>
                   <Description>"PlayerID 29"</Description>
-                  <LastState Value="0" RealAddress="17D811A9C"/>
+                  <LastState Value="1952797560" RealAddress="17D811A9C"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+7C</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4508</ID>
                   <Description>"PlayerID 30"</Description>
-                  <LastState Value="0" RealAddress="17D811AA0"/>
+                  <LastState Value="1767993940" RealAddress="17D811AA0"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+80</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4509</ID>
                   <Description>"PlayerID 31"</Description>
-                  <LastState Value="0" RealAddress="17D811AA4"/>
+                  <LastState Value="1215456622" RealAddress="17D811AA4"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+84</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4510</ID>
                   <Description>"PlayerID 32"</Description>
-                  <LastState Value="0" RealAddress="17D811AA8"/>
+                  <LastState Value="1665229941" RealAddress="17D811AA8"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+88</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4511</ID>
                   <Description>"PlayerID 33"</Description>
-                  <LastState Value="0" RealAddress="17D811AAC"/>
+                  <LastState Value="1852795252" RealAddress="17D811AAC"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+8C</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4512</ID>
                   <Description>"PlayerID 34"</Description>
-                  <LastState Value="0" RealAddress="17D811AB0"/>
+                  <LastState Value="1752459607" RealAddress="17D811AB0"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+90</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>4513</ID>
                   <Description>"PlayerID 35"</Description>
-                  <LastState Value="0" RealAddress="17D811AB4"/>
+                  <LastState Value="1769172816" RealAddress="17D811AB4"/>
                   <VariableType>4 Bytes</VariableType>
                   <Address>arrNeverTiredPlayerIDs+94</Address>
                 </CheatEntry>
@@ -31625,6 +31638,8 @@ newmem_MatchFixingGoals:
   xor r8, r8
 
   mov r10, arr_fixedGoals
+  cmp [arr_favGoalScorers], 0
+  jge checkFavScorers
   jmp loop_MatchFixingGoalsScorersGames
 
 loop_MatchFixingGoalsScorersGames:
@@ -32179,15 +32194,15 @@ dealloc(fixturesData)
     </SymbolEntry>
     <SymbolEntry>
       <Name>basePtrStaminaInjures</Name>
-      <Address>111600000</Address>
+      <Address>125540000</Address>
     </SymbolEntry>
     <SymbolEntry>
       <Name>basePtrTeamFormMoraleRLC</Name>
-      <Address>111600010</Address>
+      <Address>125540010</Address>
     </SymbolEntry>
     <SymbolEntry>
       <Name>arr_NewTransfers</Name>
-      <Address>12DAF0000</Address>
+      <Address>1302E0000</Address>
     </SymbolEntry>
     <SymbolEntry>
       <Name>FootballCompEng_Win64_retail.dll</Name>
