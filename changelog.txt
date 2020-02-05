@@ -259,7 +259,7 @@ v20.1.2.3:
         - Mass edit players morale in team
     - Added to "Form":
         - Mass edit players form in team
-        
+
 v20.1.2.4:
     - Fixed "Editing Player" -> "Unlock "Edit Player" in career menu"
     
@@ -270,16 +270,31 @@ v20.1.2.5:
     
 v20.1.2.6:
     - Fixed problem with editing players in Youth Academy through GUI.
-	
+    
 v20.1.2.7:
-	- Changing Time of the Day will no longer change aggregate home team score.
-	- "update_player_headmodels.lua" script will now also update João Félix face and all faces added in Patch 7.
-	- Added to Gameplay: 
-		- "Never Tired Player IDs"
-		
+    - Changing Time of the Day will no longer change aggregate home team score.
+    - "update_player_headmodels.lua" script will now also update João Félix face and all faces added in Patch 7.
+    - Added to Gameplay: 
+        - "Never Tired Player IDs"
+
 v20.1.2.8:
-	- Added option to define custom goal scorers in match fixing
-	- Added option to add favourite scorers
+    - Added option to define custom goal scorers in match fixing
+    - Added option to add favourite scorers
 
 v20.1.2.9:
-	- Fixed favourite scorers should now work with favourite teams
+    - Fixed favourite scorers should now work with favourite teams
+
+v20.1.3.0:
+    - Added to GUI:
+        - Teams Editor
+    - Added an option to hide players potential in Players Editor
+    - Added recently added head models to "update_player_headmodels.lua" script.
+    - Added "custom_headassetid_to_playerid.lua" (users lua scripts directory in folder with live editor)
+    - Added "custom_tattoos_to_playerid.lua" (users lua scripts directory in folder with live editor)
+    - Fixed in match-fixing:
+        - Should now work properly if you have defined more than one favourite team
+    - Fixed OVR calculation for LWB/RWB
+    - Fixed creating config.ini in Documents diretory in .zip version. 
+    - Fixed Access violation error during loading FUT cards bg.
+    - Fixed allow tranfer approach script. You can now start negotiations with player that has less than 6 months contract length.
+    - Club Finances -> Transfer Budget will now show your budget value by default. (if activated inside career mode) 
