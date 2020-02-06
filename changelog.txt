@@ -297,4 +297,8 @@ v20.1.3.0:
     - Fixed creating config.ini in Documents diretory in .zip version. 
     - Fixed Access violation error during loading FUT cards bg.
     - Fixed allow tranfer approach script. You can now start negotiations with player that has less than 6 months contract length.
-    - Club Finances -> Transfer Budget will now show your budget value by default. (if activated inside career mode) 
+    - Club Finances -> Transfer Budget will now show your budget value by default. (if activated inside career mode)
+    
+v20.1.3.1:
+    - Fixed problem with activating "Gameplay" & "Generate new report" scripts
+    - Added "Find Player" button to the Players Editor. Allows to search for players by name.
