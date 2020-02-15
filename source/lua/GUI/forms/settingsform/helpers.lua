@@ -40,13 +40,19 @@ end
 
 function save_changes_in_settingsform(new_cfg_data)
     CFG_DATA = new_cfg_data
+    if new_cfg_data.directories == nil then
+        new_cfg_data.directories = {
+            cache_dir = CACHE_DIR
+        }
+    end
 
     if new_cfg_data.directories.cache_dir ~= CACHE_DIR then
         local old_cache = string.gsub(CACHE_DIR, "/","\\"):sub(1,-2)
+        local new_cache = string.gsub(new_cfg_data.directories.cache_dir, "/","\\"):sub(1,-2)
         local copy_cmd = string.format(
             'xcopy /s "%s" "%s"', 
             old_cache,
-            string.gsub(new_cfg_data.directories.cache_dir, "/","\\"):sub(1,-2)
+            new_cache
         )
 
         execute_cmd(copy_cmd)

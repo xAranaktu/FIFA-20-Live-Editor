@@ -16,6 +16,7 @@ function _translate(txt)
 end
 
 function is_cm_loaded()
+    do_log("Check is_cm_loaded")
     local modules = enumModules()
     for _, module in ipairs(modules) do
         if module.Name == 'FootballCompEng_Win64_retail.dll' then
@@ -49,6 +50,12 @@ end
 
 function execute_cmd(cmd)
     do_log(string.format('execute cmd -  %s', cmd))
+    local p = assert(io.popen(cmd))
+    local result = p:read("*all")
+    p:close()
+    if result then
+        do_log(string.format('execute cmd result -  %s', result))
+    end
 end
 
 -- After attach
@@ -74,7 +81,8 @@ function after_attach()
     -- update_offsets()
     save_cfg()
     autoactivate_scripts()
-    
+    load_playernames()
+
     for i = 1, #FORMS do
         local form = FORMS[i]
         -- remove borders
@@ -84,6 +92,7 @@ function after_attach()
         form.AlphaBlend = true
         form.AlphaBlendValue = CFG_DATA.gui.opacity or 255
     end
+    writeInteger("IsCMCached", 0)
     MainFormRemoveLoadingPanel()
     unhideMainCEwindow()
     do_log('Ready to use.', 'INFO')
@@ -154,7 +163,8 @@ end
 
 -- Get Live Editor Version
 function get_le_version()
-    return string.gsub(ADDR_LIST.getMemoryRecordByID(0).Description, 'v', '')
+    local le_ver = string.gsub(ADDR_LIST.getMemoryRecordByID(0).Description, 'v', '')
+    return le_ver
 end
 
 -- Check Live Editor Version
@@ -231,9 +241,11 @@ function check_for_le_update()
 end
 
 function create_dirs()
+    local d_dir, _ = string.gsub(DATA_DIR, "/","\\")
+    local fifa_sett_dir, _ = string.gsub(FIFA_SETTINGS_DIR .. 'Live Editor/cache', "/","\\")
     local cmds = {
-        "mkdir " .. '"' .. string.gsub(DATA_DIR, "/","\\") .. '"',
-        "ECHO A | xcopy cache " .. '"' .. string.gsub(FIFA_SETTINGS_DIR .. 'Live Editor/cache', "/","\\") .. '" /E /i',
+        "mkdir " .. '"' .. d_dir .. '"',
+        "ECHO A | xcopy cache " .. '"' .. fifa_sett_dir .. '" /E /i',
     }
     for i=1, #cmds do
         execute_cmd(cmds[i])
@@ -248,7 +260,9 @@ function do_log(text, level)
     end
 
     if DEBUG_MODE then
-        print(string.format("[ %s ] %s - %s", level, os.date("%c", os.time()), text))
+        if level ~= 'WARNING' then
+            print(string.format("[ %s ] %s - %s", level, os.date("%c", os.time()), text))
+        end
     else
         if level == 'ERROR' then
             showMessage(_translate(text))
@@ -441,7 +455,8 @@ end
 function verify_offset(name)
     do_log(string.format("Veryfing %s offset", name), 'INFO')
     local aob = getfield(string.format('AOB_DATA.%s', name))
-    local aob_len = math.floor(string.len(string.gsub(aob, "%s+", ""))/2)
+    local nospace_aob, _ = string.gsub(aob, "%s+", "")
+    local aob_len = math.floor(string.len(nospace_aob)/2)
     local addres_to_check = get_address_with_offset(BASE_ADDRESS, getfield(string.format('OFFSETS_DATA.offsets.%s', name)))
     do_log(string.format("addres_to_check %s, aob: %s", addres_to_check, aob), 'INFO')
     local temp_bytes = readBytes(addres_to_check, aob_len, true)
@@ -595,7 +610,15 @@ function autoactivate_scripts()
 end
 
 -- find record in game database and update pointer in CT
-function find_record_in_game_db(start, memrec_id, value_to_find, sizeOf, first_ptrname, to_exit)
+function _is_record_valid(addr, sizeOf)
+    local bytes = readBytes(addr, sizeOf, true)
+    for i=1, #bytes do
+        if bytes[i] >= 0 then return true end
+    end
+    return false
+end
+
+function find_record_in_game_db(start, memrec_id, value_to_find, sizeOf, first_ptrname, to_exit, limit, str_contains)
     local ct_record = ADDR_LIST.getMemoryRecordByID(memrec_id)  -- Record in Live Editor
     local offset = ct_record.getOffset(0)     -- int
 
@@ -605,54 +628,53 @@ function find_record_in_game_db(start, memrec_id, value_to_find, sizeOf, first_p
     
     local i = start
     local current_value = 0
-
-    if not to_exit then
-        to_exit = 1
-    end
-    local zeros = 0
+    local invalid_records = 0
+    local ptr_addr = ''
     while true do
-        current_value = bAnd(bShr(readInteger(string.format('[%s]+%X', first_ptrname, offset+(i*sizeOf))), bitstart), (bShl(1, binlen) - 1))
-        if current_value == value_to_find then
-            return {
-                index = i,
-                addr = (readPointer(first_ptrname) + i*sizeOf),
-            }
+        ptr_addr = string.format('[%s]+%X', first_ptrname, offset+(i*sizeOf))
+        if str_contains then
+            current_value = readString(ptr_addr)
+        else
+            current_value = bAnd(bShr(readInteger(ptr_addr), bitstart), (bShl(1, binlen) - 1))
+        end
+        local address = (readPointer(first_ptrname) + i*sizeOf)
+        if (str_contains and string.match(string.lower(current_value), value_to_find)) or (current_value == value_to_find) then
+            if _is_record_valid(address, sizeOf) then
+                return {
+                    index = i,
+                    addr = address,
+                }
+            end
+            invalid_records = invalid_records + 1
         elseif current_value == 0 then
-            zeros = zeros + 1
-            if zeros >= to_exit then break end
+            invalid_records = invalid_records + 1
         end
         i = i + 1
+
+        if to_exit ~= nil and invalid_records >= to_exit then
+            break
+        end
+        if limit ~= nil and i >= limit then 
+            break 
+        end
     end
-    
     return {}
 end
 
-function find_record_and_update_CT(memrec_id, value_to_find, sizeOf, first_ptrname, ptrname_to_update)
-    local record = ADDR_LIST.getMemoryRecordByID(memrec_id)  -- Record in Live Editor
-    local offset = record.getOffset(0)     -- int
-    
-    -- Assuming we are dealing with Binary Type
-    local bitstart = record.Binary.Startbit
-    local binlen = record.Binary.Size
-    
+function find_records_in_game_db(memrec_id, value_to_find, sizeOf, first_ptrname, to_exit, limit, max_records, str_contains)
+    local result = {}
+    local start = 0
     local i = 0
-    local current_value = 0
-    local bFound = false
     while true do
-        current_value = bAnd(bShr(readInteger(string.format('[%s]+%X', first_ptrname, offset+(i*sizeOf))), bitstart), (bShl(1, binlen) - 1))
-        if current_value == value_to_find then
-            -- update ptr in CT
-            writeQword(ptrname_to_update, (readPointer(first_ptrname) + i*sizeOf))
-
-            bFound = true
-            break
-        elseif current_value == 0 then
-            break
-        end
+        local record = find_record_in_game_db(start, memrec_id, value_to_find, sizeOf, first_ptrname, to_exit, limit, str_contains)
+        if record['addr'] == nil then break end
+        start = record['index'] + 1
+        table.insert(result, record)
         i = i + 1
+        if i >= max_records then break end
     end
-    
-    return bFound
+
+    return result
 end
 
 function getScreenID()
@@ -671,19 +693,104 @@ end
 function initPtrs()
     local codeGameDB = tonumber(get_validated_address('AOB_codeGameDB'), 16)
     local base_ptr = readPointer(byteTableToDword(readBytes(codeGameDB+4, 4, true)) + codeGameDB + 8)
-    -- print(string.format("%X", base_ptr))
+    if DEBUG_MODE then
+        do_log(string.format("codeGameDB base_ptr %X", base_ptr))
+    end
 
     local DB_One_Tables_ptr = readMultilevelPointer(base_ptr, {0x10, 0x390})
     local DB_Two_Tables_ptr = readMultilevelPointer(base_ptr, {0x10, 0x3C0})
 
-    --print(string.format("%X", DB_One_Tables_ptr))
-    --print(string.format("%X", DB_Two_Tables_ptr))
+    -- local xxx = 0
+    -- local yyy = 0
+    -- for i=1, 256 do
+    --     yyy = readMultilevelPointer(DB_One_Tables_ptr, {xxx, 0x28, 0x30})
+    --     if yyy ~= nil then
+    --         -- Addr of first record
+    --         if string.format("%X", yyy) == "A56D7158" then
+    --             do_log(string.format("iiii -> 0x%X", xxx))
+    --         end
+    --     end
+    --     xxx = xxx + 8
+    -- end
+
+    if DEBUG_MODE then
+        do_log(string.format("DB_One_Tables_ptr %X", DB_One_Tables_ptr))
+        do_log(string.format("DB_Two_Tables_ptr %X", DB_Two_Tables_ptr))
+    end
 
     -- Players Table
     local players_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0xB0, 0x28, 0x30})
-    -- print(string.format("%X", players_firstrecord)) 
+    -- [firstPlayerDataPtr+b0]+28]+30]0
+    if DEBUG_MODE then
+        do_log(string.format("players_firstrecord %X", players_firstrecord))
+    end
+
     writeQword("firstPlayerDataPtr", players_firstrecord)
     writeQword("playerDataPtr", players_firstrecord)
+
+    -- Playernames Table
+    local playernames_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0x148, 0x30, 0x2A8, 0x28, 0x30})
+    if DEBUG_MODE then
+        do_log(string.format("playernames_firstrecord %X", playernames_firstrecord))
+    end
+
+    writeQword("firstplayernamesDataPtr", playernames_firstrecord)
+    writeQword("playernamesDataPtr", playernames_firstrecord)
+
+    -- Dcplayernames Table
+    local dcplayernames_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0x140, 0x28, 0x30})
+    if DEBUG_MODE then
+        do_log(string.format("dcplayernames_firstrecord %X", dcplayernames_firstrecord))
+    end
+
+    writeQword("firstdcplayernamesDataPtr", dcplayernames_firstrecord)
+    writeQword("dcplayernamesDataPtr", dcplayernames_firstrecord)
+
+    -- Editedplayernames Table
+    local editedplayernames_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0xE8, 0x28, 0x30})
+    if DEBUG_MODE then
+        do_log(string.format("editedplayernames_firstrecord %X", editedplayernames_firstrecord))
+    end
+
+    writeQword("firsteditedplayernamesDataPtr", editedplayernames_firstrecord)
+    writeQword("editedplayernamesDataPtr", editedplayernames_firstrecord)
+
+    -- Teams Table
+    local teams_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0xD8, 0x28, 0x30})
+    writeQword("firstteamsDataPtr", teams_firstrecord)
+    writeQword("teamsDataPtr", teams_firstrecord)
+
+    if DEBUG_MODE then
+        do_log(string.format("teams_firstrecord %X", teams_firstrecord))
+    end
+
+    -- Formations Table
+    local formations_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0xE0, 0x28, 0x30})
+    writeQword("firstptrFormations", formations_firstrecord)
+    writeQword("ptrFormations", formations_firstrecord)
+
+    if DEBUG_MODE then
+        do_log(string.format("formations_firstrecord %X", formations_firstrecord))
+    end
+
+    -- default_mentalities Table
+    local default_mentalities_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0x168, 0x28, 0x30})
+    writeQword("firstptrDefaultmentalities", default_mentalities_firstrecord)
+    writeQword("ptrDefaultmentalities", default_mentalities_firstrecord)
+
+    if DEBUG_MODE then
+        do_log(string.format("default_mentalities_firstrecord %X", default_mentalities_firstrecord))
+    end
+
+    -- default_teamsheets Table
+    local default_teamsheets_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0x110, 0x28, 0x30})
+    writeQword("firstptrDefaultteamsheets", default_teamsheets_firstrecord)
+    writeQword("ptrDefaultteamsheets", default_teamsheets_firstrecord)
+    
+
+    if DEBUG_MODE then
+        do_log(string.format("formations_firstrecord %X", default_teamsheets_firstrecord))
+    end
 
     -- Teamplayerlinks Table
     local teamplayerlinks_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0x128, 0x28, 0x30})
@@ -701,7 +808,6 @@ function initPtrs()
 
     -- Career_PlayerContract
     local playercontract_firstrecord = readMultilevelPointer(DB_Two_Tables_ptr, {0x38, 0x28, 0x30})
-    -- print(string.format("%X", players_firstrecord)) 
     writeQword("firstplayercontractDataPtr", playercontract_firstrecord)
     writeQword("playercontractDataPtr", playercontract_firstrecord)
 
@@ -737,7 +843,8 @@ function load_aobs()
         AOB_F_GEN_REPORT = '48 89 D9 E8 ?? ?? ?? ?? 48 89 D9 48 8B 5C 24 38 48 8B 74 24 40 48 83 C4 20',
         AOB_BASE_FORM_MORALE_RLC = '48 89 35 ?? ?? ?? ?? 48 89 3D ?? ?? ?? ?? 48 89 0D ?? ?? ?? ??', 
         AOB_CustomTransfers = '84 C0 48 8B 01 74 11 FF 50 10',
-
+        
+        AOB_ptrTransferBudget = '41 8D 5C 24 11 EB ?? 48 8B 0D ?? ?? ?? ?? 48 8B 01',
         AOB_TransferBudget = '44 8B 48 08 45 8B 87 90 02 00 00',
         AOB_IsEditPlayerUnlocked = '48 8B CF E8 ?? ?? ?? ?? 85 C0 75 ?? 48 8B 46 08 40 ?? ?? 48 8B 80 B8 0F 00 00',
         AOB_AltTab = '48 83 EC 48 4C 8B 05 ?? ?? ?? ?? 4D 85 C0',
@@ -760,6 +867,8 @@ function load_aobs()
         AOB_AllowLoanApp = '44 8B F8 83 F8 0A',
         AOB_AllowTransferAppBtnClick = '41 FF D1 8B F0 83 F8',
         AOB_AllowTransferAppThTxt = 'E8 ?? ?? ?? ?? 8B D8 83 F8 0E ?? ?? B8 65 65 00 00 0F A3 D8',
+        AOB_AllowSign = '41 FF D1 44 8B E8 85',
+        AOB_AllowSignText = 'FF 90 E8 00 00 00 83 F8 0E',
         AOB_UnlimitedPlayerRelease = '39 47 54 41 0F 9C C4',
         AOB_ReleasePlayerMsgBox = '4C 8B E0 85 FF 0F',
         AOB_ReleasePlayerFee = '41 89 04 24 89 C3',
@@ -828,6 +937,14 @@ function load_aobs()
                 AOB_MatchFixingGoals = "48 8B 1C C8 48 85 DB 74 C7 48 8B 4E 20",
             }
         }
+
+        -- KERNELBASE.dll
+        -- KERNELBASE = {
+        --     MODULE_NAME = 'KERNELBASE.dll',
+        --     AOBS = {
+        --         AOB_LoadLibraryA = "48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 20 48 8B F9 48 85",
+        --     }
+        -- }
     }
 end
 
@@ -866,6 +983,31 @@ function load_theme()
     end
 end
 function load_cfg()
+    if file_exists("config.ini") then
+        CACHE_DIR = 'cache/'
+        OFFSETS_FILE_PATH = 'offsets.ini'
+        CONFIG_FILE_PATH = 'config.ini'
+    elseif not file_exists(CONFIG_FILE_PATH) then
+        local data = default_cfg()
+        create_dirs()
+
+        local status, err = pcall(LIP.save, CONFIG_FILE_PATH, data)
+        do_log(string.format('cfg file not found at %s - loading default data', CONFIG_FILE_PATH), 'INFO')
+        local data = default_cfg()
+        create_dirs()
+
+        local status, err = pcall(LIP.save, CONFIG_FILE_PATH, data)
+
+        if not status then
+            do_log(string.format('LIP.SAVE FAILED for %s with err: %s', CONFIG_FILE_PATH, err))
+            CACHE_DIR = 'cache/'
+            OFFSETS_FILE_PATH = 'offsets.ini'
+            CONFIG_FILE_PATH = 'config.ini'
+            data.directories.cache_dir = CACHE_DIR
+            local status, err = pcall(LIP.save, CONFIG_FILE_PATH, data)
+        end
+    end
+
     if file_exists(CONFIG_FILE_PATH) then
         do_log(string.format('Loading CFG_DATA from %s', CONFIG_FILE_PATH), 'INFO')
         local cfg = LIP.load(CONFIG_FILE_PATH);
@@ -894,6 +1036,14 @@ function load_cfg()
             end
 
             HIDE_CE_SCANNER = cfg.flags.hide_ce_scanner
+
+            if cfg.flags.cache_players_data == nil then
+                cfg.flags.cache_players_data = false
+            end
+
+            if cfg.flags.hide_players_potential == nil then
+                cfg.flags.hide_players_potential = false
+            end
         end
 
         if cfg.other then
@@ -903,22 +1053,8 @@ function load_cfg()
         end
 
         return cfg
-    else
-        do_log(string.format('cfg file not found at %s - loading default data', CONFIG_FILE_PATH), 'INFO')
-        local data = default_cfg()
-        create_dirs()
-
-        local status, err = pcall(LIP.save, CONFIG_FILE_PATH, data)
-
-        if not status then
-            do_log(string.format('LIP.SAVE FAILED for %s with err: %s', CONFIG_FILE_PATH, err))
-            CACHE_DIR = 'cache/'
-            OFFSETS_FILE_PATH = 'offsets.ini'
-            CONFIG_FILE_PATH = 'config.ini'
-        end
-
-        return data
     end
+    return default_cfg()
 end
 
 function default_cfg()
@@ -928,7 +1064,9 @@ function default_cfg()
             deactive_on_close = false,
             hide_ce_scanner = true,
             check_for_update = true,
-            only_check_for_free_update = false
+            only_check_for_free_update = false,
+            cache_players_data = false,
+            hide_players_potential = false
         },
         directories = {
             cache_dir = CACHE_DIR
@@ -942,8 +1080,8 @@ function default_cfg()
             opacity = 255
         },
         auto_activate = {
-            7,  -- Scripts
-            12 -- FIFA Database Tables
+            7,      -- Scripts
+            12      -- FIFA Database Tables
         },
         hotkeys = {
             sync_with_game = 'VK_F5',
@@ -999,5 +1137,264 @@ function save_offsets()
         return 
     end
     LIP.save(OFFSETS_FILE_PATH, OFFSETS_DATA);
+end
+
+
+
+function load_playernames()
+    local playernames_file_path = "other/playernames.csv"
+    do_log(string.format("Loading playernames: %s", playernames_file_path))
+    if file_exists(playernames_file_path) then
+        for line in io.lines(playernames_file_path) do
+            local values = split(line, ',')
+            local name = values[1]
+            local nameid = tonumber(values[2])
+            -- local commentaryid = values[3]
+            FIFA_PLAYERNAMES[nameid] = name
+        end
+        do_log("Playernames loaded.")
+    end
+end
+
+
+function cache_players()
+    local IsCMCached = readInteger("IsCMCached") or 0
+    local cache_players_data_flag = 'false'
+    if CFG_DATA.flags.cache_players_data then
+        cache_players_data_flag = 'true'
+    end
+    do_log(string.format(
+        "cache_players: IsCMCached: %d, flag: %s", 
+        IsCMCached,
+        cache_players_data_flag
+    ))
+
+    if IsCMCached == 0 and CFG_DATA.flags.cache_players_data then
+        CACHED_PLAYERS = {}
+        local firstname = ''
+        local surname = ''
+        local jerseyname = ''
+        local commonname = ''
+        local knownas = ''
+        local fullname = '' -- For search by name
+
+        local skintonecode = 0
+        local headtypecode = 0
+        local haircolorcode = 0
+
+        local i = 0
+        local sizeOf = DB_TABLE_SIZEOF['EDITEDPLAYERNAMES']
+
+        dict_editedplayernames = {}
+        do_log("iterate editedplayernames")
+        local is_record_valid = true
+        while true do
+            local address = (readPointer('firsteditedplayernamesDataPtr') + i*sizeOf)
+            local playerid_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['EDITEDPLAYERNAMES_PLAYERID'])
+            local current_playerid = bAnd(bShr(readInteger(string.format('[%s]+%X', 'firsteditedplayernamesDataPtr', playerid_record.getOffset(0)+(i*sizeOf))), playerid_record.Binary.Startbit), (bShl(1, playerid_record.Binary.Size) - 1))
+            is_record_valid = true
+            if current_playerid == 0 then
+                is_record_valid = false
+            end
+            if is_record_valid and (not _is_record_valid(address, sizeOf)) then
+                is_record_valid = false
+            end
+            if is_record_valid then
+                local firstname_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['EDITEDPLAYERNAMES_FIRSTNAME'])
+                local edited_firstname = readString(string.format(
+                    '[%s]+%X',
+                    'firsteditedplayernamesDataPtr',
+                    firstname_record.getOffset(0)+(i*sizeOf)
+                ))
+
+                local surname_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['EDITEDPLAYERNAMES_SURNAME'])
+                local edited_surname = readString(string.format(
+                    '[%s]+%X',
+                    'firsteditedplayernamesDataPtr',
+                    surname_record.getOffset(0)+(i*sizeOf)
+                ))
+
+                local jerseyname_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['EDITEDPLAYERNAMES_PLAYERJERSEYNAME'])
+                local edited_jerseyname = readString(string.format(
+                    '[%s]+%X',
+                    'firsteditedplayernamesDataPtr',
+                    jerseyname_record.getOffset(0)+(i*sizeOf)
+                ))
+
+                local commonname_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['EDITEDPLAYERNAMES_COMMONNAME'])
+                local edited_commonname = readString(string.format(
+                    '[%s]+%X',
+                    'firsteditedplayernamesDataPtr',
+                    commonname_record.getOffset(0)+(i*sizeOf)
+                ))
+
+                dict_editedplayernames[current_playerid] = {
+                    firstname=edited_firstname,
+                    surname=edited_surname,
+                    jerseyname=edited_jerseyname,
+                    commonname=edited_commonname
+                }
+            end
+            i = i + 1
+            if i >= DB_TABLE_RECORDS_LIMIT['EDITEDPLAYERNAMES'] then
+                break
+            end
+        end
+
+        i = 0
+        sizeOf = DB_TABLE_SIZEOF['DCPLAYERNAMES']
+        dict_dcplayernames = {}
+        do_log("iterate dcplayernames")
+        while true do
+            is_record_valid = true
+            local address = (readPointer('firstdcplayernamesDataPtr') + i*sizeOf)
+            local nameid_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['DCPLAYERNAMES_NAMEID'])
+            local current_nameid = bAnd(bShr(readInteger(string.format('[%s]+%X', 'firstdcplayernamesDataPtr', nameid_record.getOffset(0)+(i*sizeOf))), nameid_record.Binary.Startbit), (bShl(1, nameid_record.Binary.Size) - 1))
+            
+            if current_nameid == 0 then
+                is_record_valid = false
+            end
+            if is_record_valid and (not _is_record_valid(address, sizeOf)) then
+                is_record_valid = false
+            end
+            if is_record_valid then
+                current_nameid = current_nameid + 34000 --rangelow
+                local dcname_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['DCPLAYERNAMES_NAME'])
+                local dcname = readString(string.format(
+                    '[%s]+%X',
+                    'firstdcplayernamesDataPtr',
+                    dcname_record.getOffset(0)+(i*sizeOf)
+                ))
+                dict_dcplayernames[current_nameid] = dcname
+            end
+            i = i + 1
+            if i >= DB_TABLE_RECORDS_LIMIT['DCPLAYERNAMES'] then
+                break
+            end
+        end
+
+        i = 0
+        sizeOf = DB_TABLE_SIZEOF['PLAYERS']
+        do_log("iterate players")
+        while true do
+            is_record_valid = true
+            local address = (readPointer('firstPlayerDataPtr') + i*sizeOf)
+            local playerid_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['PLAYERID'])
+            local current_playerid = bAnd(bShr(readInteger(string.format('[%s]+%X', 'firstPlayerDataPtr', playerid_record.getOffset(0)+(i*sizeOf))), playerid_record.Binary.Startbit), (bShl(1, playerid_record.Binary.Size) - 1))
+            if current_playerid == 0 then
+                is_record_valid = false
+            end
+            if is_record_valid and (not _is_record_valid(address, sizeOf)) then
+                is_record_valid = false
+            end
+
+            if is_record_valid then
+                firstname = ''
+                surname = ''
+                jerseyname = ''
+                commonname = ''
+                knownas = ''
+                fullname = '' -- For search by name
+
+                skintonecode = 0
+                headtypecode = 0
+                haircolorcode = 0
+
+                local editedplayername = dict_editedplayernames[current_playerid]
+
+                if editedplayername then
+                    firstname = editedplayername['firstname']
+                    surname = editedplayername['surname']
+                    jerseyname = editedplayername['jerseyname']
+                    commonname = editedplayername['commonname']
+                else
+                    local firstnameid_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['FIRSTNAMEID'])
+                    local current_firstnameid = bAnd(bShr(readInteger(string.format('[%s]+%X', 'firstPlayerDataPtr', firstnameid_record.getOffset(0)+(i*sizeOf))), firstnameid_record.Binary.Startbit), (bShl(1, firstnameid_record.Binary.Size) - 1))
+                    if current_firstnameid > 0 then
+                        if dict_dcplayernames[current_firstnameid] then
+                            firstname = dict_dcplayernames[current_firstnameid]
+                        elseif FIFA_PLAYERNAMES[current_firstnameid] then
+                            firstname = FIFA_PLAYERNAMES[current_firstnameid]
+                        end
+                    end
+                    local lastnameid_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['LASTNAMEID'])
+                    local current_lastnameid = bAnd(bShr(readInteger(string.format('[%s]+%X', 'firstPlayerDataPtr', lastnameid_record.getOffset(0)+(i*sizeOf))), lastnameid_record.Binary.Startbit), (bShl(1, lastnameid_record.Binary.Size) - 1))
+                    if current_lastnameid > 0 then
+                        if dict_dcplayernames[current_lastnameid] then
+                            surname = dict_dcplayernames[current_lastnameid]
+                        elseif FIFA_PLAYERNAMES[current_lastnameid] then
+                            surname = FIFA_PLAYERNAMES[current_lastnameid]
+                        end
+                    end
+                    local commonnameid_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['COMMONNAMEID'])
+                    local current_commonnameid = bAnd(bShr(readInteger(string.format('[%s]+%X', 'firstPlayerDataPtr', commonnameid_record.getOffset(0)+(i*sizeOf))), commonnameid_record.Binary.Startbit), (bShl(1, commonnameid_record.Binary.Size) - 1))
+                    if current_commonnameid > 0 then
+                        if dict_dcplayernames[current_commonnameid] then
+                            commonname = dict_dcplayernames[current_commonnameid]
+                        elseif FIFA_PLAYERNAMES[current_commonnameid] then
+                            commonname = FIFA_PLAYERNAMES[current_commonnameid]
+                        end
+                    end
+                    local jerseynameid_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['PLAYERJERSEYNAMEID'])
+                    local current_jerseynameid = bAnd(bShr(readInteger(string.format('[%s]+%X', 'firstPlayerDataPtr', jerseynameid_record.getOffset(0)+(i*sizeOf))), jerseynameid_record.Binary.Startbit), (bShl(1, jerseynameid_record.Binary.Size) - 1))
+                    if current_jerseynameid > 0 then
+                        if dict_dcplayernames[current_jerseynameid] then
+                            jerseyname = dict_dcplayernames[current_jerseynameid]
+                        elseif FIFA_PLAYERNAMES[current_jerseynameid] then
+                            jerseyname = FIFA_PLAYERNAMES[current_jerseynameid]
+                        end
+                    end
+                end
+                fullname = string.format(
+                    "%s %s %s %s",
+                    firstname,
+                    surname,
+                    jerseyname,
+                    commonname
+                )
+                if commonname == '' then
+                    knownas = string.format(
+                        "%s. %s",
+                        string.sub(firstname, 1, 1),
+                        surname
+                    )
+                else
+                    knownas = commonname
+                end
+
+                local skintonecode_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['SKINTONECODE'])
+                skintonecode = bAnd(bShr(readInteger(string.format('[%s]+%X', 'firstPlayerDataPtr', skintonecode_record.getOffset(0)+(i*sizeOf))), skintonecode_record.Binary.Startbit), (bShl(1, skintonecode_record.Binary.Size) - 1))
+
+                local headtypecode_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HEADTYPECODE'])
+                headtypecode = bAnd(bShr(readInteger(string.format('[%s]+%X', 'firstPlayerDataPtr', headtypecode_record.getOffset(0)+(i*sizeOf))), headtypecode_record.Binary.Startbit), (bShl(1, headtypecode_record.Binary.Size) - 1))
+                
+
+                local haircolorcode_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HAIRCOLORCODE'])
+                haircolorcode = bAnd(bShr(readInteger(string.format('[%s]+%X', 'firstPlayerDataPtr', haircolorcode_record.getOffset(0)+(i*sizeOf))), haircolorcode_record.Binary.Startbit), (bShl(1, haircolorcode_record.Binary.Size) - 1))
+
+                CACHED_PLAYERS[current_playerid] = {
+                    addr=address,
+                    firstname=firstname,
+                    surname=surname,
+                    jerseyname=jerseyname,
+                    commonname=commonname,
+                    knownas=knownas,
+                    fullname=fullname,
+                    skintonecode=skintonecode,
+                    headtypecode=headtypecode,
+                    haircolorcode=haircolorcode
+                }
+            end
+
+            i = i + 1
+            if i >= DB_TABLE_RECORDS_LIMIT['PLAYERS'] then
+                break
+            end
+        end
+        do_log("iterate players end")
+        writeInteger("IsCMCached", 1)
+    end
+
+    do_log("cache_players - ok")
 end
 -- end

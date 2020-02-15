@@ -8,13 +8,6 @@ function MainTopPanelMouseDown(sender, button, x, y)
     MainWindowForm.dragNow()
 end
 
--- SHOW CE
-SHOW_CE = true
-
--- Make window resizeable
-RESIZE_MAIN_WINDOW = {
-    allow_resize = false
-}
 function MainWindowResizeMouseDown(sender, button, x, y)
     RESIZE_MAIN_WINDOW = {
         allow_resize = true,
@@ -58,20 +51,17 @@ function MainMenuFormShow(sender)
 
     -- Load Img if attached to the game process
     if BASE_ADDRESS then
-        local stream = load_headshot(
-            tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['PLAYERID']).Value),
-            tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['SKINTONECODE']).Value),
-            tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HEADTYPECODE']).Value),
-            tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HAIRCOLORCODE']).Value)
-        )
-        MainWindowForm.PlayersEditorImg.Picture.LoadFromStream(stream)
-        stream.destroy()
+        MainLoadImgs()
     end
 end
 
 function MainFormRemoveLoadingPanel()
     MainWindowForm.LoadingPanel.Visible = false
+    MainLoadImgs()
+end
 
+
+function MainLoadImgs()
     -- load headshot
     local stream = load_headshot(
         tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['PLAYERID']).Value),
@@ -81,8 +71,11 @@ function MainFormRemoveLoadingPanel()
     )
     MainWindowForm.PlayersEditorImg.Picture.LoadFromStream(stream)
     stream.destroy()
-end
 
+    local ss_c = load_crest(tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['TEAMID']).Value) + 1)
+    MainWindowForm.TeamsEditorImg.Picture.LoadFromStream(ss_c)
+    ss_c.destroy()
+end
 
 -- Minimize
 function MainMinimizeClick(sender)
@@ -93,8 +86,9 @@ end
 function MainExitClick(sender)
     -- Deactivate scripts on Exit while in DEBUG MODE
     if DEBUG_MODE then
-        deactive_all(getAddressList().getMemoryRecordByDescription('Scripts'))
-
+        local scripts_record = getAddressList().getMemoryRecordByDescription('Scripts')
+        deactive_all(scripts_record)
+        scripts_record.Active = false
         -- Deactivate CURRENT_DATE_SCRIPT
         ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_SCRIPT']).Active = false
     end
@@ -119,21 +113,23 @@ function PlayersEditorBtnClick(sender)
     MainWindowForm.hide()
     PlayersEditorForm.show()
 end
-function PlayersEditorLabelClick(sender)
-    MainWindowForm.hide()
-    PlayersEditorForm.show()
-end
 function PlayersEditorImgClick(sender)
     MainWindowForm.hide()
     PlayersEditorForm.show()
 end
 
+-- Show Teams Editor Form
+function TeamsEditorBtnClick(sender)
+    MainWindowForm.hide()
+    TeamsEditorForm.show()
+end
+function TeamsEditorImgClick(sender)
+    MainWindowForm.hide()
+    TeamsEditorForm.show()
+end
+
 -- Show Schedule Editor Form
 function ScheduleEditorImgClick(sender)
-    MainWindowForm.hide()
-    MatchScheduleEditorForm.show()
-end
-function ScheduleEditorLabelClick(sender)
     MainWindowForm.hide()
     MatchScheduleEditorForm.show()
 end
@@ -151,10 +147,6 @@ function PlayersTransferBtnClick(sender)
     MainWindowForm.hide()
     TransferPlayersForm.show()
 end
-function PlayersTransferLabelClick(sender)
-    MainWindowForm.hide()
-    TransferPlayersForm.show()
-end
 
 -- Show Match-fixing Form
 function MatchFixingImgClick(sender)
@@ -162,10 +154,6 @@ function MatchFixingImgClick(sender)
     MatchFixingForm.show()
 end
 function MatchFixingBtnClick(sender)
-    MainWindowForm.hide()
-    MatchFixingForm.show()
-end
-function MatchFixingLabelClick(sender)
     MainWindowForm.hide()
     MatchFixingForm.show()
 end

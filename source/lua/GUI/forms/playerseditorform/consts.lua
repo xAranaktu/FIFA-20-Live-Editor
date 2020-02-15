@@ -10,7 +10,7 @@
 function get_components_description_player_edit()
     return {
         PlayerIDEdit = {id = CT_MEMORY_RECORDS['PLAYERID'], modifier = 0},
-        TeamIDEdit = {id = CT_MEMORY_RECORDS['TEAMID'], modifier = 1},
+        TeamIDEdit = {id = CT_MEMORY_RECORDS['TPLINKS_TEAMID'], modifier = 1},
         OverallEdit = {id = 119, modifier = 1},
         PotentialEdit = {id = 37, modifier = 1},
         
@@ -907,4 +907,14 @@ HEAD_TYPE_GROUPS = {
         10001,
         10002,
     }
+}
+
+PLAYERS_TAB_PANEL_MAP = {
+    PlayerInfoTab = "PlayerInfoPanel",
+    AttributesTab = "AttributesPanel",
+    TraitsTab = "TraitsPanel",
+    AppearanceTab = "AppearancePanel",
+    AccessoriesTab = "AccessoriesPanel",
+    OtherTab = "OtherPanel",
+    PlayerCloneTab = "PlayerClonePanel"
 }

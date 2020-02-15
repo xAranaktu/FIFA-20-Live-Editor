@@ -42,7 +42,7 @@ function PlayerEditFormShow(sender)
     end
 
     -- or teamplayerlinks table addr
-    local teamid_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['TEAMID'])
+    local teamid_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['TPLINKS_TEAMID'])
     if teamid_record == nil then 
         do_log("teamid_record is nil", 'ERROR')
         PlayersEditorForm.hide()
@@ -89,7 +89,8 @@ function TruePlayerEditFormShow()
     PlayersEditorForm.FutFIFACB.Hint = ''
 
     -- Hide Loading Panel and show components
-    PlayerInfoTabClick()
+    PlayersEditorForm.PlayerInfoTab.Color = "0x001D1618"
+    PlayersEditorForm.PlayerInfoPanel.Visible = true
     PlayersEditorForm.FindPlayerByID.Text = 'Find player by ID...'
     PlayersEditorForm.FindPlayerByID.Visible = true
     PlayersEditorForm.SearchPlayerByID.Visible = true
@@ -113,218 +114,32 @@ function PlayerEditExitClick(sender)
     MainWindowForm.show()
 end
 
--- TABS
-
 -- Tab Clicks
-function PlayerInfoTabClick(sender)
+function TabClick(sender)
     -- No action when tab is visible
-    if PlayersEditorForm.PlayerInfoPanel.Visible then return end
+    if PlayersEditorForm[PLAYERS_TAB_PANEL_MAP[sender.Name]].Visible then return end
 
-    -- Set Colors
-    PlayersEditorForm.PlayerInfoTab.Color = '0x001D1618'
-    PlayersEditorForm.AttributesTab.Color = '0x0049363C'
-    PlayersEditorForm.TraitsTab.Color = '0x0049363C'
-    PlayersEditorForm.AppearanceTab.Color = '0x0049363C'
-    PlayersEditorForm.AccessoriesTab.Color = '0x0049363C'
-    PlayersEditorForm.OtherTab.Color = '0x0049363C'
-    PlayersEditorForm.PlayerCloneTab.Color = '0x0049363C'
-    
-    -- Activate tab
-    PlayersEditorForm.PlayerInfoPanel.Visible = true
-    PlayersEditorForm.AttributesPanel.Visible = false
-    PlayersEditorForm.TraitsPanel.Visible = false
-    PlayersEditorForm.AppearancePanel.Visible = false
-    PlayersEditorForm.AccessoriesPanel.Visible = false
-    PlayersEditorForm.OtherPanel.Visible = false
-    PlayersEditorForm.PlayerClonePanel.Visible = false
-end
-function AttributesTabClick(sender)
-    if PlayersEditorForm.AttributesPanel.Visible then return end
-
-    PlayersEditorForm.PlayerInfoTab.Color = '0x0049363C'
-    PlayersEditorForm.AttributesTab.Color = '0x001D1618'
-    PlayersEditorForm.TraitsTab.Color = '0x0049363C'
-    PlayersEditorForm.AppearanceTab.Color = '0x0049363C'
-    PlayersEditorForm.AccessoriesTab.Color = '0x0049363C'
-    PlayersEditorForm.OtherTab.Color = '0x0049363C'
-    PlayersEditorForm.PlayerCloneTab.Color = '0x0049363C'
-
-    PlayersEditorForm.PlayerInfoPanel.Visible = false
-    PlayersEditorForm.AttributesPanel.Visible = true
-    PlayersEditorForm.TraitsPanel.Visible = false
-    PlayersEditorForm.AppearancePanel.Visible = false
-    PlayersEditorForm.AccessoriesPanel.Visible = false
-    PlayersEditorForm.OtherPanel.Visible = false
-    PlayersEditorForm.PlayerClonePanel.Visible = false
-end
-function TraitsTabClick(sender)
-    if PlayersEditorForm.TraitsPanel.Visible then return end
-    
-    PlayersEditorForm.PlayerInfoTab.Color = '0x0049363C'
-    PlayersEditorForm.AttributesTab.Color = '0x0049363C'
-    PlayersEditorForm.TraitsTab.Color = '0x001D1618'
-    PlayersEditorForm.AppearanceTab.Color = '0x0049363C'
-    PlayersEditorForm.AccessoriesTab.Color = '0x0049363C'
-    PlayersEditorForm.OtherTab.Color = '0x0049363C'
-    PlayersEditorForm.PlayerCloneTab.Color = '0x0049363C'
-
-    PlayersEditorForm.PlayerInfoPanel.Visible = false
-    PlayersEditorForm.AttributesPanel.Visible = false
-    PlayersEditorForm.TraitsPanel.Visible = true
-    PlayersEditorForm.AppearancePanel.Visible = false
-    PlayersEditorForm.AccessoriesPanel.Visible = false
-    PlayersEditorForm.OtherPanel.Visible = false
-    PlayersEditorForm.PlayerClonePanel.Visible = false
-end
-function AppearanceTabClick(sender)
-    if PlayersEditorForm.AppearancePanel.Visible then return end
-    
-    PlayersEditorForm.PlayerInfoTab.Color = '0x0049363C'
-    PlayersEditorForm.AttributesTab.Color = '0x0049363C'
-    PlayersEditorForm.TraitsTab.Color = '0x0049363C'
-    PlayersEditorForm.AppearanceTab.Color = '0x001D1618'
-    PlayersEditorForm.AccessoriesTab.Color = '0x0049363C'
-    PlayersEditorForm.OtherTab.Color = '0x0049363C'
-    PlayersEditorForm.PlayerCloneTab.Color = '0x0049363C'
-
-    PlayersEditorForm.PlayerInfoPanel.Visible = false
-    PlayersEditorForm.AttributesPanel.Visible = false
-    PlayersEditorForm.TraitsPanel.Visible = false
-    PlayersEditorForm.AppearancePanel.Visible = true
-    PlayersEditorForm.AccessoriesPanel.Visible = false
-    PlayersEditorForm.OtherPanel.Visible = false
-    PlayersEditorForm.PlayerClonePanel.Visible = false
-end
-function AccessoriesTabClick(sender)
-    if PlayersEditorForm.AccessoriesPanel.Visible then return end
-    
-    PlayersEditorForm.PlayerInfoTab.Color = '0x0049363C'
-    PlayersEditorForm.AttributesTab.Color = '0x0049363C'
-    PlayersEditorForm.TraitsTab.Color = '0x0049363C'
-    PlayersEditorForm.AppearanceTab.Color = '0x0049363C'
-    PlayersEditorForm.AccessoriesTab.Color = '0x001D1618'
-    PlayersEditorForm.OtherTab.Color = '0x0049363C'
-    PlayersEditorForm.PlayerCloneTab.Color = '0x0049363C'
-
-    PlayersEditorForm.PlayerInfoPanel.Visible = false
-    PlayersEditorForm.AttributesPanel.Visible = false
-    PlayersEditorForm.TraitsPanel.Visible = false
-    PlayersEditorForm.AppearancePanel.Visible = false
-    PlayersEditorForm.AccessoriesPanel.Visible = true
-    PlayersEditorForm.OtherPanel.Visible = false
-    PlayersEditorForm.PlayerClonePanel.Visible = false
-end
-function OtherTabClick(sender)
-    if PlayersEditorForm.OtherPanel.Visible then return end
-    
-    PlayersEditorForm.PlayerInfoTab.Color = '0x0049363C'
-    PlayersEditorForm.AttributesTab.Color = '0x0049363C'
-    PlayersEditorForm.TraitsTab.Color = '0x0049363C'
-    PlayersEditorForm.AppearanceTab.Color = '0x0049363C'
-    PlayersEditorForm.AccessoriesTab.Color = '0x0049363C'
-    PlayersEditorForm.OtherTab.Color = '0x001D1618'
-    PlayersEditorForm.PlayerCloneTab.Color = '0x0049363C'
-
-    PlayersEditorForm.PlayerInfoPanel.Visible = false
-    PlayersEditorForm.AttributesPanel.Visible = false
-    PlayersEditorForm.TraitsPanel.Visible = false
-    PlayersEditorForm.AppearancePanel.Visible = false
-    PlayersEditorForm.AccessoriesPanel.Visible = false
-    PlayersEditorForm.OtherPanel.Visible = true
-    PlayersEditorForm.PlayerClonePanel.Visible = false
-end
-
-function PlayerCloneTabClick(sender)
-    if PlayersEditorForm.PlayerClonePanel.Visible then return end
-    
-    PlayersEditorForm.PlayerInfoTab.Color = '0x0049363C'
-    PlayersEditorForm.AttributesTab.Color = '0x0049363C'
-    PlayersEditorForm.TraitsTab.Color = '0x0049363C'
-    PlayersEditorForm.AppearanceTab.Color = '0x0049363C'
-    PlayersEditorForm.AccessoriesTab.Color = '0x0049363C'
-    PlayersEditorForm.OtherTab.Color = '0x0049363C'
-    PlayersEditorForm.PlayerCloneTab.Color = '0x001D1618'
-
-    PlayersEditorForm.PlayerInfoPanel.Visible = false
-    PlayersEditorForm.AttributesPanel.Visible = false
-    PlayersEditorForm.TraitsPanel.Visible = false
-    PlayersEditorForm.AppearancePanel.Visible = false
-    PlayersEditorForm.AccessoriesPanel.Visible = false
-    PlayersEditorForm.OtherPanel.Visible = false
-    PlayersEditorForm.PlayerClonePanel.Visible = true
-
+    for key,value in pairs(PLAYERS_TAB_PANEL_MAP) do
+        if key == sender.Name then
+            sender.Color = '0x001D1618'
+            PlayersEditorForm[value].Visible = true
+        else
+            PlayersEditorForm[key].Color = '0x003F2F34'
+            PlayersEditorForm[value].Visible = false
+        end
+    end
 end
 
 -- Hover
-function PlayerInfoTabMouseEnter(sender)
-    if PlayersEditorForm.PlayerInfoPanel.Visible then return end
-    
-    PlayersEditorForm.PlayerInfoTab.Color = '0x00271D20'
+function TabMouseEnter(sender)
+    if PlayersEditorForm[PLAYERS_TAB_PANEL_MAP[sender.Name]].Visible then return end
+
+    sender.Color = '0x00271D20'
 end
-function PlayerInfoTabMouseLeave(sender)
-    if PlayersEditorForm.PlayerInfoPanel.Visible then return end
+function TabMouseLeave(sender)
+    if PlayersEditorForm[PLAYERS_TAB_PANEL_MAP[sender.Name]].Visible then return end
     
-    PlayersEditorForm.PlayerInfoTab.Color = '0x0049363C'
-end
-function AttributesTabMouseEnter(sender)
-    if PlayersEditorForm.AttributesPanel.Visible then return end
-    
-    PlayersEditorForm.AttributesTab.Color = '0x00271D20'
-end
-function AttributesTabMouseLeave(sender)
-    if PlayersEditorForm.AttributesPanel.Visible then return end
-    
-    PlayersEditorForm.AttributesTab.Color = '0x0049363C'
-end
-function TraitsTabMouseEnter(sender)
-    if PlayersEditorForm.TraitsPanel.Visible then return end
-    
-    PlayersEditorForm.TraitsTab.Color = '0x00271D20'
-end
-function TraitsTabMouseLeave(sender)
-    if PlayersEditorForm.TraitsPanel.Visible then return end
-    
-    PlayersEditorForm.TraitsTab.Color = '0x0049363C'
-end
-function AppearanceTabMouseEnter(sender)
-    if PlayersEditorForm.AppearancePanel.Visible then return end
-    
-    PlayersEditorForm.AppearanceTab.Color = '0x00271D20'
-end
-function AppearanceTabMouseLeave(sender)
-    if PlayersEditorForm.AppearancePanel.Visible then return end
-    
-    PlayersEditorForm.AppearanceTab.Color = '0x0049363C'
-end
-function AccessoriesTabMouseEnter(sender)
-    if PlayersEditorForm.AccessoriesPanel.Visible then return end
-    
-    PlayersEditorForm.AccessoriesTab.Color = '0x00271D20'
-end
-function AccessoriesTabMouseLeave(sender)
-    if PlayersEditorForm.AccessoriesPanel.Visible then return end
-    
-    PlayersEditorForm.AccessoriesTab.Color = '0x0049363C'
-end
-function OtherTabMouseEnter(sender)
-    if PlayersEditorForm.OtherPanel.Visible then return end
-    
-    PlayersEditorForm.OtherTab.Color = '0x00271D20'
-end
-function OtherTabMouseLeave(sender)
-    if PlayersEditorForm.OtherPanel.Visible then return end
-    
-    PlayersEditorForm.OtherTab.Color = '0x0049363C'
-end
-function PlayerCloneTabMouseEnter(sender)
-    if PlayersEditorForm.PlayerClonePanel.Visible then return end
-    
-    PlayersEditorForm.PlayerCloneTab.Color = '0x00271D20'
-end
-function PlayerCloneTabMouseLeave(sender)
-    if PlayersEditorForm.PlayerClonePanel.Visible then return end
-    
-    PlayersEditorForm.PlayerCloneTab.Color = '0x0049363C'
+    sender.Color = '0x003F2F34'
 end
 
 -- Apply Changes Click
@@ -392,12 +207,25 @@ function SyncImageClick(sender)
     local playerid = tonumber(PlayersEditorForm.FindPlayerByID.Text)
     local playerid_ct = tonumber(ADDR_LIST.getMemoryRecordByID(93).Value)
     if playerid == playerid_ct then return end
-
     PlayerTeamContext = {}
     check_if_has_unapplied_player_changes()
-    PlayersEditorForm.FindPlayerByID.Text = 'Find player by ID...'
-    FillPlayerEditForm()
-    recalculate_ovr()
+
+    local IsCMCached = readInteger("IsCMCached") or 0
+    if IsCMCached == 0 then
+        -- Show Loading panel
+        PlayersEditorForm.FindPlayerByID.Visible = false
+        PlayersEditorForm.SearchPlayerByID.Visible = false
+        PlayersEditorForm.WhileLoadingPanel.Visible = true
+
+        -- Load Data
+        timer_onTimer(FillPlayerEditTimer, TruePlayerEditFormShow)
+        timer_setInterval(FillPlayerEditTimer, 100)
+        timer_setEnabled(FillPlayerEditTimer, true)
+    else
+        PlayersEditorForm.FindPlayerByID.Text = 'Find player by ID...'
+        FillPlayerEditForm()
+        recalculate_ovr()
+    end
 end
 function SearchPlayerByIDClick(sender)
     local playerid = tonumber(PlayersEditorForm.FindPlayerByID.Text)
@@ -583,7 +411,6 @@ function HeadTypeGroupCBOnChange(sender)
 end
 
 -- COPY CM
-COPY_FROM_CM_PLAYER_ID = nil
 function CopyCMFindPlayerByIDClick(sender)
     create_hotkeys({
         sender = sender
@@ -750,7 +577,6 @@ function FindPlayerByNameFUTEditClick(sender)
     sender.Text = ''
 end
 
-FOUND_FUT_PLAYERS = nil
 function SearchPlayerByNameFUTBtnClick(sender)
     PlayersEditorForm.CardContainerPanel.Visible = false
     PlayersEditorForm.FUTPickPlayerListBox.clear()
@@ -796,10 +622,6 @@ end
 function NextPageClick(sender)
     FUT_API_PAGE = FUT_API_PAGE + 1
     fut_search_player(PlayersEditorForm.FindPlayerByNameFUTEdit.Text, FUT_API_PAGE)
-end
-
-function FUTCopyPlayerLabelClick(sender)
-    FUTCopyPlayerBtnClick(sender)
 end
 
 function FUTCopyPlayerBtnClick(sender)

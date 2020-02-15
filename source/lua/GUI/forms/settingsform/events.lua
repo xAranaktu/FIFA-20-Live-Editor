@@ -69,6 +69,15 @@ function SettingsFormShow(sender)
         if CFG_DATA.flags.only_check_for_free_update then
             SettingsForm.SettingsCheckForFreeUpdateCB.State = 1
         end
+
+        if CFG_DATA.flags.cache_players_data then
+            SettingsForm.CachePlayersDataCB.State = 1
+        end
+
+        if CFG_DATA.flags.hide_players_potential then
+            SettingsForm.HidePlayerPotCB.State = 1
+        end
+
     end
 
     -- Fill Auto Activation
@@ -115,6 +124,9 @@ function SettingsSaveSettingsClick(sender)
 
     new_cfg_data.flags.check_for_update = SettingsForm.SettingsCheckForUpdateCB.State == 1
     new_cfg_data.flags.only_check_for_free_update = SettingsForm.SettingsCheckForFreeUpdateCB.State == 1
+
+    new_cfg_data.flags.cache_players_data = SettingsForm.CachePlayersDataCB.State == 1
+    new_cfg_data.flags.hide_players_potential = SettingsForm.HidePlayerPotCB.State == 1
 
     save_changes_in_settingsform(new_cfg_data)
     showMessage('Settings has been saved.')
@@ -168,14 +180,24 @@ function HideCEMemScannerCBChange(sender)
     set_ce_mem_scanner_state()
 end
 
+function CachePlayersDataCBChange(sender)
+
+end
+
+function HidePlayerPotCBChange(sender)
+
+end
+
 -- Buttons
 function RestoreDefaultSettingsButtonClick(sender)
     if messageDialog("Are you sure you want to restore default settings?\nThis will also clear your cached files\nCheat Table and FIFA restart will be required.", mtInformation, mbYes,mbNo) == mrNo then
         return
     end
     do_log('Restore Default Settings')
-    delete_directory(string.gsub(DATA_DIR, "/","\\"):sub(1,-2))
-    delete_directory(string.gsub(CACHE_DIR, "/","\\"):sub(1,-2))
+    local d_data_dir = string.gsub(DATA_DIR, "/","\\"):sub(1,-2)
+    local d_cache_dir = string.gsub(CACHE_DIR, "/","\\"):sub(1,-2)
+    delete_directory(d_data_dir)
+    delete_directory(d_cache_dir)
     showMessage('Default settings restored. Please, restart FIFA and Cheat Engine.')
 end
 
@@ -184,7 +206,8 @@ function ClearCacheButtonClick(sender)
         return
     end
     do_log('Clear Cached Files')
-    delete_directory(string.gsub(CACHE_DIR, "/","\\"):sub(1,-2))
+    local d_cache_dir = string.gsub(CACHE_DIR, "/","\\"):sub(1,-2)
+    delete_directory(d_cache_dir)
 
     create_dirs()
 

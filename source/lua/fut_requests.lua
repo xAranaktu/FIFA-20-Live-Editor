@@ -1,17 +1,5 @@
 json = require 'lua/requirements/json';
 
--- FUT_URLS = {
---     card_bg = 'https://www.easports.com/fifa/ultimate-team/web-app/content/7D49A6B1-760B-4491-B10C-167FBC81D58A/2019/fut/items/images/backgrounds/itemCompanionBGs/large/cards_bg_e_1_',
---     display = 'https://www.easports.com/fifa/ultimate-team/api/fut/display',
---     player_search = 'https://www.easports.com/fifa/ultimate-team/api/fut/item?jsonParamObject='
--- }
-
-FUT_URLS = {
-    player_details = 'https://www.futbin.com/%d/player/%d/',
-    player_search = 'https://www.futbin.com/search',
-    card_bg = 'https://cdn.futbin.com/content/fifa20/img/cards/',
-}
-
 function encodeURI(str)
     if (str) then
         str = string.gsub (str, "\n", "\r\n")

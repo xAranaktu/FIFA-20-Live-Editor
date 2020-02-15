@@ -41,7 +41,6 @@ function FillHeadTypeCB(args)
     end
 end
 
-PLAYEREDIT_HOTKEYS_OBJECTS = {}
 function create_hotkeys(args)
     destroy_hotkeys()
     if CFG_DATA.hotkeys.sync_with_game then
@@ -222,7 +221,7 @@ function recalculate_ovr(update_ovr_edit)
     update_total_stats()
 end
 
-function find_player_by_id(playerid)
+function find_player_by_id(playerid, short_info)
     if type(playerid) == 'string' then
         playerid = tonumber(playerid)
     end
@@ -240,12 +239,38 @@ function find_player_by_id(playerid)
     end
 
     -- players table
-    local sizeOf = DB_TABLE_SIZEOF['PLAYERS'] -- Size of one record in players database table (0x64)
-    local player_addr = find_record_in_game_db(0, CT_MEMORY_RECORDS['PLAYERID'], playerid, sizeOf, 'firstPlayerDataPtr')['addr']
+    local sizeOf = DB_TABLE_SIZEOF['PLAYERS'] -- Size of one record in players database table
+    local player_addr = 0
+
+    if CACHED_PLAYERS[playerid] then
+        player_addr = CACHED_PLAYERS[playerid]['addr']
+        writeQword('playerDataPtr', player_addr)
+
+        -- Verify, addr can change if game generate new player
+        if tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['PLAYERID']).Value) ~= playerid then
+            player_addr = 0
+        end
+    end
+
+    if player_addr == 0 then
+        player_addr = find_record_in_game_db(
+            0, 
+            CT_MEMORY_RECORDS['PLAYERID'], 
+            playerid, 
+            sizeOf, 
+            'firstPlayerDataPtr',
+            nil,
+            DB_TABLE_RECORDS_LIMIT['PLAYERS']
+        )['addr']
+    end
 
     if player_addr then
+        if CACHED_PLAYERS[playerid] then
+            CACHED_PLAYERS[playerid]['addr'] = player_addr
+        end
         -- Update in Cheat Table
         writeQword('playerDataPtr', player_addr)
+        if short_info then return true end
 
         -- find team-player links
         playerid_record_id = CT_MEMORY_RECORDS['TPLINKS_PLAYERID']    -- PlayerID in teamplayerlinks table
@@ -255,16 +280,22 @@ function find_player_by_id(playerid)
         local start = 0
         local team_ids = {}
         while true do
-            local teamplayerlink = find_record_in_game_db(start, playerid_record_id, playerid, sizeOf, 'ptrFirstTeamplayerlinks')
+            local teamplayerlink = find_record_in_game_db(
+                start, playerid_record_id, playerid, sizeOf, 'ptrFirstTeamplayerlinks',
+                nil, DB_TABLE_RECORDS_LIMIT['TEAMPLAYERLINKS']
+            )
             if teamplayerlink['addr'] == nil then break end
             start = start + teamplayerlink['index'] + 1
 
             writeQword('ptrTeamplayerlinks', teamplayerlink['addr'])
-            local teamid = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['TEAMID']).Value) + 1
+            local teamid = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['TPLINKS_TEAMID']).Value) + 1
             -- find league-team link
             local ltl_teamid_record_id = CT_MEMORY_RECORDS['LTL_TEAMID'] -- TeamID in leagueteamlinks table
             local ltl_sizeOf = DB_TABLE_SIZEOF['LEAGUETEAMLINKS'] -- Size of one record in leagueteamlinks database table (0x1C)
-            local leagueteamlink_addr = find_record_in_game_db(0, ltl_teamid_record_id, teamid-1, ltl_sizeOf, 'leagueteamlinksDataFirstPtr', 2)['addr']
+            local leagueteamlink_addr = find_record_in_game_db(
+                0, ltl_teamid_record_id, teamid-1, ltl_sizeOf, 'leagueteamlinksDataFirstPtr', 
+                nil, DB_TABLE_RECORDS_LIMIT['LEAGUETEAMLINKS']
+            )['addr']
             if leagueteamlink_addr == nil then
                 break 
             end
@@ -653,7 +684,10 @@ function load_player_contract(playerid, is_cm_loaded)
     if (playerid ~= tonumber(CT_MEMORY_RECORDS['CONTRACT_PLAYERID'])) then
         -- career_playercontract table
         local sizeOf = DB_TABLE_SIZEOF['CAREER_PLAYERCONTRACT'] -- Size of one record in career_playercontract database table (0x1C)
-        local player_addr = find_record_in_game_db(0, CT_MEMORY_RECORDS['CONTRACT_PLAYERID'], playerid, sizeOf, 'firstplayercontractDataPtr')['addr']
+        local player_addr = find_record_in_game_db(
+            0, CT_MEMORY_RECORDS['CONTRACT_PLAYERID'], playerid, sizeOf, 'firstplayercontractDataPtr',
+            nil, DB_TABLE_RECORDS_LIMIT['CAREER_PLAYERCONTRACT']
+        )['addr']
         if player_addr then
             -- Update in Cheat Table
             writeQword('playercontractDataPtr', player_addr)
@@ -1208,7 +1242,8 @@ end
 
 -- Fill fields in Player Edit Form
 function FillPlayerEditForm(playerid)
-
+    do_log("FillPlayerEditForm")
+    cache_players()
     if playerid ~= nil then
         find_player_by_id(playerid)
     end
@@ -1222,6 +1257,9 @@ function FillPlayerEditForm(playerid)
         if comp_desc == nil then goto continue end
 
         local component_class = component.ClassName
+        -- if DEBUG_MODE then
+        --     do_log(component_name)
+        -- end
         if component_class == 'TCEEdit' then
             -- clear
             component.OnChange = nil
@@ -1261,10 +1299,10 @@ function FillPlayerEditForm(playerid)
                     local dropdown_selected_value = dropdown.Value
                     for j = 0, dropdown_items.Count-1 do
                         local val, desc = string.match(dropdown_items[j], "(%d+): '(.+)'")
-        
+
                         -- Fill combobox in GUI with values from memory record dropdown
                         component.items.add(desc)
-        
+
                         -- Set active item & update hint
                         if dropdown_selected_value == val then
                             component.ItemIndex = j
@@ -1292,7 +1330,12 @@ function FillPlayerEditForm(playerid)
         ::continue::
     end
 
+    if CFG_DATA.flags.hide_players_potential then
+        PlayersEditorForm.PotentialEdit.Text = "HIDDEN"
+    end
+
     -- Update trackbars
+    do_log("Update trackbars")
     local trackbars = {
         'AttackTrackBar',
         'DefendingTrackBar',
@@ -1439,9 +1482,11 @@ function ApplyChanges()
                     comp_desc = comp_desc,
                 })
             else
-                ADDR_LIST.getMemoryRecordByID(comp_desc['id']).Value = tonumber(component.Text) - comp_desc['modifier']
+                local comp_val = tonumber(component.Text)
+                if comp_val then
+                    ADDR_LIST.getMemoryRecordByID(comp_desc['id']).Value = comp_val - comp_desc['modifier']
+                end
             end
-
         elseif component_class == 'TCEComboBox' then
             ApplyChangesToDropDown(ADDR_LIST.getMemoryRecordByID(comp_desc['id']), component)
         elseif component_class == 'TCECheckBox' then
@@ -2354,9 +2399,21 @@ function fut_create_card(player, idx)
         local url = FUT_URLS['card_bg'] .. card .. '?v=119'
         local stream = load_img('ut/cards_bg/' .. card, url)
 
-        if stream ~= nil then
+        if stream then
             PlayersEditorForm.CardBGImage.Picture.LoadFromStream(stream)
             stream.destroy()
+        else
+            do_log("invalid card bg: " .. card .. " trying to load default gold")
+            card = '1_gold.png'
+            player_details['card_type'] = '1-gold'
+            url = FUT_URLS['card_bg'] .. card .. '?v=119'
+            stream = load_img('ut/cards_bg/' .. card, url)
+            if stream then
+                PlayersEditorForm.CardBGImage.Picture.LoadFromStream(stream)
+                stream.destroy()
+            else
+                do_log("default gold bg failed")
+            end
         end
     end
     -- Headshot
@@ -2667,7 +2724,6 @@ function fut_fill_attributes(player, f_color)
     end
 end
 
-FUT_API_PAGE = 1
 function fut_search_player(player_data, page)
     if string.len(player_data) < 3 then
         showMessage("Input at least 3 characters.")

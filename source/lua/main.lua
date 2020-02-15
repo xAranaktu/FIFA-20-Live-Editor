@@ -17,10 +17,12 @@ require 'lua/helpers';
 require 'lua/GUI/forms/mainform/events';
 require 'lua/GUI/forms/settingsform/events';
 require 'lua/GUI/forms/playerseditorform/events';
+require 'lua/GUI/forms/teamseditorform/events';
 require 'lua/GUI/forms/transferplayersform/events';
 require 'lua/GUI/forms/matchfixingform/events';
 require 'lua/GUI/forms/newmatchfixform/events';
 require 'lua/GUI/forms/matchscheduleeditorform/events';
+require 'lua/GUI/forms/findteamform/events';
 
 do_log('New session started', 'INFO')
 if cheatEngineIs64Bit() == false then
@@ -29,15 +31,19 @@ if cheatEngineIs64Bit() == false then
 end
 
 -- DEFAULT GLOBALS, better leave it as is
-do_log('HomeDrive')
+
 if os.getenv('HOMEDRIVE') then
     do_log("os.getenv('HOMEDRIVE') " .. os.getenv('HOMEDRIVE'))
-elseif os.getenv('SystemDrive') then
+else
+    do_log('No HOMEDRIVE env var')
+end
+if os.getenv('SystemDrive') then
     do_log("os.getenv('SystemDrive') " .. os.getenv('SystemDrive'))
 else
-    do_log("C:")
+    do_log('No SystemDrive env var')
 end
 HOMEDRIVE = os.getenv('HOMEDRIVE') or os.getenv('SystemDrive') or 'C:'
+do_log(string.format("HOMEDRIVE: %s", HOMEDRIVE))
 
 FIFA_SETTINGS_DIR = string.format(
     "%s/Users/%s/Documents/FIFA %s/",
@@ -55,6 +61,44 @@ SETTINGS_INDEX = 0
 CACHE_DIR = FIFA_SETTINGS_DIR .. 'Live Editor/cache/';
 DEBUG_MODE = false
 
+-- end
+
+-- OTHER GLOBALS
+
+FIFA_PLAYERNAMES = {}
+CACHED_PLAYERS = {}
+
+TEAMS_SEARCH_TEAMS_FOUND = {}
+
+-- SHOW CE
+SHOW_CE = true
+
+SCHEDULEEDIT_HOTKEYS_OBJECTS = {}
+PLAYEREDIT_HOTKEYS_OBJECTS = {}
+
+COPY_FROM_CM_PLAYER_ID = nil
+FUT_API_PAGE = 1
+FOUND_FUT_PLAYERS = nil
+
+MENTALITIES_DESC = get_default_mentalities_desc()
+TEAMSHEETS_DESC = get_default_teamsheets_desc()
+TEAM_PLAYERS = {}
+TEAM_MENTALITIES = {}
+DEFAULT_TSHEET_ADDR = nil
+FORMATION_PLAYER_SWAP_0 = nil
+SWAP_IMG = nil
+
+CUSTOM_TRANSFERS = 0
+MAX_TRANSFERS_PER_PAGE = 3
+CUSTOM_TRANSFERS_PAGE = 1
+
+-- Make window resizeable
+RESIZER= {
+    allow_resize = false
+}
+RESIZE_MAIN_WINDOW = {
+    allow_resize = false
+}
 -- end
 
 -- start code

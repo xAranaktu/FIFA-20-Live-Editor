@@ -1,9 +1,5 @@
 
 
-CUSTOM_TRANSFERS = 0
-MAX_TRANSFERS_PER_PAGE = 3
-CUSTOM_TRANSFERS_PAGE = 1
-
 function update_transfers_counter(num)
     if num ~= nil then
         TransferPlayersForm.TotalTransfersLabel.Caption = string.format(

@@ -4,6 +4,36 @@
 -- key - position_id
 --     - key - attribute (component name in GUI)
 --     - value - percent of the ovr
+--[[
+0: 'GK'
+1: 'SW'
+2: 'RWB'
+3: 'RB'
+4: 'RCB'
+5: 'CB'
+6: 'LCB'
+7: 'LB'
+8: 'LWB'
+9: 'RDM'
+10: 'CDM'
+11: 'LDM'
+12: 'RM'
+13: 'RCM'
+14: 'CM'
+15: 'LCM'
+16: 'LM'
+17: 'RAM'
+18: 'CAM'
+19: 'LAM'
+20: 'RF'
+21: 'CF'
+22: 'LF'
+23: 'RW'
+24: 'RS'
+25: 'ST'
+26: 'LS'
+27: 'LW'
+--]]
 OVR_FORMULA = {
     ["0"]= {
         ReactionsEdit = 0.11,
@@ -17,6 +47,7 @@ OVR_FORMULA = {
         AccelerationEdit = 0.04,
         SprintSpeedEdit = 0.06,
         StaminaEdit = 0.10,
+        ReactionsEdit = 0.08,
         InterceptionsEdit = 0.12,
         BallControlEdit = 0.08,
         CrossingEdit = 0.12,
@@ -100,6 +131,7 @@ OVR_FORMULA = {
         AccelerationEdit = 0.04,
         SprintSpeedEdit = 0.06,
         StaminaEdit = 0.10,
+        ReactionsEdit = 0.08,
         InterceptionsEdit = 0.12,
         BallControlEdit = 0.08,
         CrossingEdit = 0.12,

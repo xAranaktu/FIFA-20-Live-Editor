@@ -33,10 +33,6 @@ function MakeComponentShorter(sender)
     end
 end
 
--- Make window resizeable
-RESIZER= {
-    allow_resize = false
-}
 function ResizerMouseDown(sender, button, x, y)
     RESIZER = {
         allow_resize = true,
@@ -88,7 +84,7 @@ end
 
 function doPaint(sender, bgcolor)
     local btn_txt = sender.Hint
-    sender.Canvas.Brush.Color = 0x3f3134
+    sender.Canvas.Brush.Color = bgcolor
     sender.Canvas.fillRect(0, 0, sender.Width, sender.Height)
     sender.Canvas.Font.Color = 0xC0C0C0
     sender.Canvas.Font.Size = 12
@@ -214,6 +210,9 @@ end
 -- load img
 -- return string stream
 function load_img(path, url)
+    do_log(string.format(
+        "load_img: %s, %s", path, url
+    ))
     local img = nil
     
     local f=io.open(CACHE_DIR .. path, "rb")

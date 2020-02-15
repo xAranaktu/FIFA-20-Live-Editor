@@ -10,6 +10,13 @@ FIFA_MODULE_SIZE = nil
 -- Live Editor ADDRESS LIST
 ADDR_LIST = getAddressList()
 
+-- Ultimate Team URLS for FUT Clone feature.
+FUT_URLS = {
+    player_details = 'https://www.futbin.com/%d/player/%d/',
+    player_search = 'https://www.futbin.com/search',
+    card_bg = 'https://cdn.futbin.com/content/fifa20/img/cards/',
+}
+
 -- SOME Live Editor MEMORY RECORDS
 CT_MEMORY_RECORDS = {
     GUI_SCRIPT = 6,
@@ -21,16 +28,48 @@ CT_MEMORY_RECORDS = {
     -- Injury
     INJURY_TYPE = 2459,
 
+    -- PlayerNames
+    PLAYERNAMES_NAMEID = 4830,
+
+    -- DCPlayerNames
+    DCPLAYERNAMES_NAMEID = 4825,
+    DCPLAYERNAMES_NAME = 4826,
+
+    -- EditedPlayerNames
+    EDITEDPLAYERNAMES_COMMONNAME = 4819,
+    EDITEDPLAYERNAMES_FIRSTNAME = 4820,
+    EDITEDPLAYERNAMES_PLAYERID = 4821,
+    EDITEDPLAYERNAMES_PLAYERJERSEYNAME = 4822,
+    EDITEDPLAYERNAMES_SURNAME= 4823,
+
     -- PLAYERS
     HEADTYPECODE = 50,
     BIRTHDATE = 59,
     PLAYERID = 110,
     SKINTONECODE = 117,
     HAIRCOLORCODE = 14,
+    FIRSTNAMEID = 51,
+    LASTNAMEID = 74,
+    COMMONNAMEID = 129,
+    PLAYERJERSEYNAMEID = 126,
+
+
+    -- TEAMS
+    TEAMID = 4589,
+    TEAMNAME = 4590,
+
+    -- FORMATIONS
+    FORMATION_TEAMID = 4603,
+
+    -- default_mentalities
+    DEFAULT_MENTALITIES_TEAMID = 4737,
+
+    -- default_teamsheets
+    DEFAULT_TEAMSHEETS_TEAMID = 4669,
 
     -- Teamplayerlinks
     TPLINKS_PLAYERID = 3533,
-    TEAMID = 3527,
+    TPLINKS_TEAMID = 3527,
 
     -- Leagueteamlinks
     LEAGUEID = 4239,
@@ -63,11 +102,69 @@ CT_MEMORY_RECORDS = {
     CONTRACT_WAGE = 4360,
 }
 
+--[[
+CZUM size: 112 
+lyxL size: 156 
+nQVU size: 184 
+RrqT size: 16 
+qdZF size: 28 
+BGwe size: 12 
+cQNG size: 8 
+EVxj size: 4 
+mDGw size: 208 
+bneD size: 40 
+DvsP size: 28 
+onMQ size: 128 
+FMpz size: 60 
+GdtI size: 64 
+
+to_ignore = {}
+
+function ignore(val)
+    for i, junk in ipairs(to_ignore) do
+      if junk == val then return true end
+    end
+    return false
+end
+
+function debugger_onBreakpoint()
+  local shorname=readString(RDI+0x8) or ""
+  shorname = string.sub(shorname, 1, 4)
+  if not ignore(shorname) then
+      table.insert(to_ignore, shorname)
+      local size = readInteger(RSI+0x44)
+      print(shorname .. " size: " .. size)
+  end
+
+  return 1 -- continue without breaking
+end
+debug_setBreakpoint(0x1410E78F1)
+]]
+
 DB_TABLE_SIZEOF = {
     PLAYERS = 112,
+    TEAMS = 156,
     TEAMPLAYERLINKS = 16,
     LEAGUETEAMLINKS = 28,
     CAREER_PLAYERCONTRACT = 28,
+    FORMATIONS = 208,
+    DEFAULT_MENTALITIES = 204,
+    DEFAULT_TEAMSHEETS = 160,
+    DCPLAYERNAMES = 40,
+    EDITEDPLAYERNAMES = 184
+}
+
+DB_TABLE_RECORDS_LIMIT = {
+    PLAYERS = 26000,
+    TEAMS = 1200,
+    TEAMPLAYERLINKS = 27000,
+    LEAGUETEAMLINKS = 1700,
+    CAREER_PLAYERCONTRACT = 73,
+    FORMATIONS = 1200,
+    DEFAULT_MENTALITIES = 4500,
+    DEFAULT_TEAMSHEETS = 850,
+    DCPLAYERNAMES = 6000,
+    EDITEDPLAYERNAMES = 1530
 }
 
 
@@ -121,8 +218,8 @@ PLAYERMORALE_STRUCT = {
 
 -- All available forms
 FORMS = {
-    MainWindowForm, SettingsForm, PlayersEditorForm, TransferPlayersForm,
-    MatchScheduleEditorForm, MatchFixingForm, NewMatchFixForm
+    MainWindowForm, SettingsForm, PlayersEditorForm, TeamsEditorForm, TransferPlayersForm,
+    MatchScheduleEditorForm, MatchFixingForm, NewMatchFixForm, FindTeamForm
 }
 
 
