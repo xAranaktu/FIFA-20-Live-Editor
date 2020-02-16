@@ -241,8 +241,8 @@ function check_for_le_update()
 end
 
 function create_dirs()
-    local d_dir, _ = string.gsub(DATA_DIR, "/","\\")
-    local fifa_sett_dir, _ = string.gsub(FIFA_SETTINGS_DIR .. 'Live Editor/cache', "/","\\")
+    local d_dir = string.gsub(DATA_DIR, "/","\\")
+    local fifa_sett_dir = string.gsub(FIFA_SETTINGS_DIR .. 'Live Editor/cache', "/","\\")
     local cmds = {
         "mkdir " .. '"' .. d_dir .. '"',
         "ECHO A | xcopy cache " .. '"' .. fifa_sett_dir .. '" /E /i',
@@ -455,7 +455,7 @@ end
 function verify_offset(name)
     do_log(string.format("Veryfing %s offset", name), 'INFO')
     local aob = getfield(string.format('AOB_DATA.%s', name))
-    local nospace_aob, _ = string.gsub(aob, "%s+", "")
+    local nospace_aob = string.gsub(aob, "%s+", "")
     local aob_len = math.floor(string.len(nospace_aob)/2)
     local addres_to_check = get_address_with_offset(BASE_ADDRESS, getfield(string.format('OFFSETS_DATA.offsets.%s', name)))
     do_log(string.format("addres_to_check %s, aob: %s", addres_to_check, aob), 'INFO')
@@ -480,7 +480,6 @@ function verify_offset(name)
         end
         index = index + 1
     end
-
     do_log(string.format("Veryfing %s offset success", name), 'INFO')
     return addres_to_check
 end
@@ -634,6 +633,7 @@ function find_record_in_game_db(start, memrec_id, value_to_find, sizeOf, first_p
         ptr_addr = string.format('[%s]+%X', first_ptrname, offset+(i*sizeOf))
         if str_contains then
             current_value = readString(ptr_addr)
+            value_to_find = string.lower(value_to_find)
         else
             current_value = bAnd(bShr(readInteger(ptr_addr), bitstart), (bShl(1, binlen) - 1))
         end
@@ -1345,13 +1345,13 @@ function cache_players()
                         end
                     end
                 end
-                fullname = string.format(
+                fullname = string.lower(string.format(
                     "%s %s %s %s",
                     firstname,
                     surname,
                     jerseyname,
                     commonname
-                )
+                ))
                 if commonname == '' then
                     knownas = string.format(
                         "%s. %s",
@@ -1367,13 +1367,13 @@ function cache_players()
 
                 local headtypecode_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HEADTYPECODE'])
                 headtypecode = bAnd(bShr(readInteger(string.format('[%s]+%X', 'firstPlayerDataPtr', headtypecode_record.getOffset(0)+(i*sizeOf))), headtypecode_record.Binary.Startbit), (bShl(1, headtypecode_record.Binary.Size) - 1))
-                
 
                 local haircolorcode_record = ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['HAIRCOLORCODE'])
                 haircolorcode = bAnd(bShr(readInteger(string.format('[%s]+%X', 'firstPlayerDataPtr', haircolorcode_record.getOffset(0)+(i*sizeOf))), haircolorcode_record.Binary.Startbit), (bShl(1, haircolorcode_record.Binary.Size) - 1))
 
                 CACHED_PLAYERS[current_playerid] = {
                     addr=address,
+                    playerid=current_playerid,
                     firstname=firstname,
                     surname=surname,
                     jerseyname=jerseyname,

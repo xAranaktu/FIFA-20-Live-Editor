@@ -23,6 +23,7 @@ require 'lua/GUI/forms/matchfixingform/events';
 require 'lua/GUI/forms/newmatchfixform/events';
 require 'lua/GUI/forms/matchscheduleeditorform/events';
 require 'lua/GUI/forms/findteamform/events';
+require 'lua/GUI/forms/findplayerform/events';
 
 do_log('New session started', 'INFO')
 if cheatEngineIs64Bit() == false then
@@ -69,6 +70,7 @@ FIFA_PLAYERNAMES = {}
 CACHED_PLAYERS = {}
 
 TEAMS_SEARCH_TEAMS_FOUND = {}
+PLAYERS_SEARCH_PLAYERS_FOUND = {}
 
 -- SHOW CE
 SHOW_CE = true

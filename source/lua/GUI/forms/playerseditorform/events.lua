@@ -88,12 +88,22 @@ function TruePlayerEditFormShow()
 
     PlayersEditorForm.FutFIFACB.Hint = ''
 
+        -- If cached we can search for player by name
+    -- Use findplayers form
+    if CFG_DATA.flags.cache_players_data then
+        PlayersEditorForm.FindPlayerByID.Visible = false
+        PlayersEditorForm.SearchPlayerByID.Visible = false
+        PlayersEditorForm.FindPlayerBtn.Visible = true
+    else
+        PlayersEditorForm.FindPlayerByID.Text = 'Find player by ID...'
+        PlayersEditorForm.FindPlayerByID.Visible = true
+        PlayersEditorForm.SearchPlayerByID.Visible = true
+        PlayersEditorForm.FindPlayerBtn.Visible = false
+    end
+
     -- Hide Loading Panel and show components
     PlayersEditorForm.PlayerInfoTab.Color = "0x001D1618"
     PlayersEditorForm.PlayerInfoPanel.Visible = true
-    PlayersEditorForm.FindPlayerByID.Text = 'Find player by ID...'
-    PlayersEditorForm.FindPlayerByID.Visible = true
-    PlayersEditorForm.SearchPlayerByID.Visible = true
     PlayersEditorForm.WhileLoadingPanel.Visible = false
 end
 
@@ -112,6 +122,10 @@ end
 function PlayerEditExitClick(sender)
     PlayersEditorForm.close()
     MainWindowForm.show()
+end
+
+function FindPlayerBtnClick(sender)
+    FindPlayerForm.show()
 end
 
 -- Tab Clicks

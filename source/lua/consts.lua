@@ -219,7 +219,7 @@ PLAYERMORALE_STRUCT = {
 -- All available forms
 FORMS = {
     MainWindowForm, SettingsForm, PlayersEditorForm, TeamsEditorForm, TransferPlayersForm,
-    MatchScheduleEditorForm, MatchFixingForm, NewMatchFixForm, FindTeamForm
+    MatchScheduleEditorForm, MatchFixingForm, NewMatchFixForm, FindTeamForm, FindPlayerForm
 }
 
 
