@@ -12,7 +12,7 @@
 
 --- AUTHOR: ARANAKTU
 
-require 'lua/GUI/forms/playerseditorform/consts';
+require 'lua/GUI/forms/teamseditorform/consts';
 require 'lua/consts';
 
 -- EDIT
@@ -30,27 +30,27 @@ end
 local comp_desc = get_components_description_manager_edit()
 
 local fields_to_edit = {
-    "BodyTypeEdit",
-    "EyebrowcodeEdit",
-    "EyecolorcodeEdit",
-    "FaceposerpresetEdit",
-    "FacialhaircolorcodeEdit",
-    "FacialhairtypecodeEdit",
-    "GenderEdit",
-    "HaircolorcodeEdit",
-    "HairstylecodeEdit",
-    "HairtypecodeEdit",
-    "HashighqualityheadEdit",
-    "HeadassetidEdit",
-    "HeadclasscodeEdit",
-    "HeadtypecodeEdit",
-    "HeadvariationEdit",
-    "HeightEdit",
-    "NationalityEdit",
-    "SideburnscodeEdit",
-    "SkintonecodeEdit",
-    "SkintypecodeEdit",
-    "WeightEdit"
+    "TeamManagerBodyTypeCodeEdit",
+    "TeamManagerEyebrowcodeEdit",
+    "TeamManagerEyecolorcodeEdit",
+    "TeamManagerFaceposerpresetEdit",
+    "TeamManagerFacialHaircolorcodeEdit",
+    "TeamManagerFacialHairtypecodeEdit",
+    "TeamManagerGenderCB",
+    "TeamManagerHaircolorcodeEdit",
+    "TeamManagerHairstylecodeEdit",
+    "TeamManagerHairtypecodeEdit",
+    "TeamManagerHashighqualityheadCB",
+    "TeamManagerHeadAssetIDEdit",
+    "TeamManagerHeadclasscodeEdit",
+    "TeamManagerHeadTypeCodeEdit",
+    "TeamManagerHeadvariationEdit",
+    "TeamManagerHeightCB",
+    "TeamManagerNationalityCB",
+    "TeamManagerSideburnscodeEdit",
+    "TeamManagerSkintonecodeEdit",
+    "TeamManagerSkintypecodeEdit",
+    "TeamManagerWeightCB"
 }
 
 local columns = {
@@ -212,12 +212,14 @@ function change_vals()
                    showMessage("Error\nActivate FIFA Database Tables script and reload your career save")
                    return
                 end
+                print(fields_to_edit[j])
+                print(comp_desc[fields_to_edit[j]]['db_col'])
                 rec.Value = math.floor(values[columns[comp_desc[fields_to_edit[j]]['db_col']]] - comp_desc[fields_to_edit[j]]['modifier'])
             end
-            ADDR_LIST.getMemoryRecordByID(comp_desc['EthnicityEdit']['id']).Value = math.floor(values[columns['skintonecode']] - comp_desc['EthnicityEdit']['modifier'])
+            ADDR_LIST.getMemoryRecordByID(comp_desc['TeamManagerEthnicityEdit']['id']).Value = math.floor(values[columns['skintonecode']] - comp_desc['TeamManagerEthnicityEdit']['modifier'])
             
             -- +1 in game
-            ADDR_LIST.getMemoryRecordByID(comp_desc['ManageridEdit']['id']).Value = 99998
+            ADDR_LIST.getMemoryRecordByID(comp_desc['TeamManagerIDEdit']['id']).Value = 99998
             return true
         end
     end

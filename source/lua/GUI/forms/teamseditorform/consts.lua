@@ -48,26 +48,26 @@ function get_components_description_team_edit()
         matchdaydefenserating = { id = 4554, modifier = 0},
         playersinboxcross = { id = 4567, modifier = 0},
         utcoffset = { id = 4600, modifier = -12},
-        teamcolor3b = { id = 4586, modifier = 0},
+        
         crowdskintonecode = { id = 4522, modifier = 0},
-        teamcolor2r = { id = 4585, modifier = 0},
+        
         freekicktakerid = { id = 4534, modifier = -1},
-        teamcolor2b = { id = 4583, modifier = 0},
+        
         offensivestyle = { id = 4559, modifier = 0},
-        teamcolor3r = { id = 4588, modifier = 0},
+        
         leftfreekicktakerid = { id = 4550, modifier = -1},
         trainingstadium = { id = 4592, modifier = 0},
         TeamIntPrestigeCB = { id = 4541, modifier = 0, already_filled = true},
         TeamRivalTeamIDEdit = { id = 4575, modifier = 1},
         matchdayattackrating = { id = 4553, modifier = 0},
         genericbanner = { id = 4535, modifier = 0},
-        teamcolor1r = { id = 4582, modifier = 0},
+        
         defensivedepth = { id = 4524, modifier = 0},
         cityid = { id = 4520, modifier = 0},
         matchdayoverallrating = { id = 4556, modifier = 0},
         TeamElWinsEdit = { id = 4599, modifier = 0},
         hastifo = { id = 4539, modifier = 0},
-        teamcolor1b = { id = 4580, modifier = 0},
+        
         matchdaymidfieldrating = { id = 4555, modifier = 0},
         playersinboxcorner = { id = 4566, modifier = 0},
         powid = { id = 4570, modifier = -1},
@@ -75,7 +75,7 @@ function get_components_description_team_edit()
         suittypeid = { id = 4578, modifier = 0},
         trait1vequal = { id = 4593, modifier = 0},
         opponentweakthreshold = { id = 4562, modifier = -100},
-        teamcolor1g = { id = 4581, modifier = 0},
+        
         iscompetitionscarfenabled = { id = 4545, modifier = 0},
         skinnyflags = { id = 4576, modifier = 0},
         bodytypeid = { id = 4518, modifier = 0},
@@ -85,7 +85,7 @@ function get_components_description_team_edit()
         TeamClWinsEdit = { id = 4597, modifier = 0},
         ballid = { id = 4517, modifier = 0},
         defensivewidth = { id = 4526, modifier = 0},
-        teamcolor2g = { id = 4584, modifier = 0},
+        
         latitude = { id = 4547, modifier = -90},
         isbannerenabled = { id = 4542, modifier = 0},
         TeamFoundationEdit = { id = 4533, modifier = 1800},
@@ -93,9 +93,75 @@ function get_components_description_team_edit()
         TeamNameLabel = { id = 4590, modifier = 0},
         iscompetitioncrowdcardsenabled = { id = 4543, modifier = 0},
         TeamYouthDevCB = { id = 4601, modifier = 0, already_filled = true},
-        teamcolor3g = { id = 4587, modifier = 0},
+        
         rightfreekicktakerid = { id = 4574, modifier = -1},
         TeamOVREdit = { id = 4563, modifier = 0},
+
+        TeamColor1RedEdit = { 
+            id = 4582, 
+            modifier = 0,
+            events = {
+                OnChange = TeamColorOnChange,
+            },
+        },
+        TeamColor1GreenEdit = { 
+            id = 4581, 
+            modifier = 0,
+            events = {
+                OnChange = TeamColorOnChange,
+            },
+        },
+        TeamColor1BlueEdit = { 
+            id = 4580, 
+            modifier = 0,
+            events = {
+                OnChange = TeamColorOnChange,
+            },
+        },
+
+        TeamColor2RedEdit = { 
+            id = 4585, 
+            modifier = 0,
+            events = {
+                OnChange = TeamColorOnChange,
+            },
+        },
+        TeamColor2GreenEdit = { 
+            id = 4584, 
+            modifier = 0,
+            events = {
+                OnChange = TeamColorOnChange,
+            },
+        },
+        TeamColor2BlueEdit = { 
+            id = 4583, 
+            modifier = 0,
+            events = {
+                OnChange = TeamColorOnChange,
+            },
+        },
+
+        TeamColor3RedEdit = { 
+            id = 4588, 
+            modifier = 0,
+            events = {
+                OnChange = TeamColorOnChange,
+            },
+        },
+        TeamColor3GreenEdit = {
+            id = 4587, 
+            modifier = 0,
+            events = {
+                OnChange = TeamColorOnChange,
+            },
+        },
+        TeamColor3BlueEdit = { 
+            id = 4586, 
+            modifier = 0,
+            events = {
+                OnChange = TeamColorOnChange,
+            },
+        },
 
         TeamFormationCB = { 
             id = 4738,
@@ -105,6 +171,41 @@ function get_components_description_team_edit()
                 OnChange = TeamFormationCBOnChange,
             },
         }
+    }
+end
+
+function get_components_description_manager_edit()
+    return {
+        TeamManagerBodyTypeCodeEdit = {id = 3653, modifier = 1, db_col = "bodytypecode"},
+        TeamManagerCommonnameEdit = {id = 3636, modifier = 0, db_col = "commonname"},
+        TeamManagerEthnicityEdit = {id = 3638, modifier = 1, db_col = "ethnicity"},
+        TeamManagerEyebrowcodeEdit = {id = 3642, modifier = 0, db_col = "eyebrowcode"},
+        TeamManagerEyecolorcodeEdit = {id = 3643, modifier = 1, db_col = "eyecolorcode"},
+        TeamManagerFaceposerpresetEdit = {id = 3640, modifier = 0, db_col = "faceposerpreset"},
+        TeamManagerFacialHaircolorcodeEdit = {id = 3654, modifier = 0, db_col = "facialhaircolorcode"},
+        TeamManagerFacialHairtypecodeEdit = {id = 3632, modifier = 0, db_col = "facialhairtypecode"},
+        TeamManagerFirstnameEdit = {id = 3630, modifier = 0, db_col = "firstname"},
+        TeamManagerGenderCB = {id = 3635, modifier = 0, db_col = "gender"},
+        TeamManagerHaircolorcodeEdit = {id = 3625, modifier = 0, db_col = "haircolorcode"},
+        TeamManagerHairstylecodeEdit = {id = 3652, modifier = 0, db_col = "hairstylecode"},
+        TeamManagerHairtypecodeEdit = {id = 3628, modifier = 0, db_col = "hairtypecode"},
+        TeamManagerHashighqualityheadCB = {id = 3634, modifier = 0, db_col = "hashighqualityhead"},
+        TeamManagerHeadAssetIDEdit = {id = 3637, modifier = 0, db_col = "headassetid"},
+        TeamManagerHeadclasscodeEdit = {id = 3645, modifier = 0, db_col = "headclasscode"},
+        TeamManagerHeadTypeCodeEdit = {id = 3629, modifier = 0, db_col = "headtypecode"},
+        TeamManagerHeadvariationEdit = {id = 3649, modifier = 0, db_col = "headvariation"},
+        TeamManagerHeightCB = {id = 3631, modifier = 130, db_col = "height"},
+        TeamManagerIDEdit = {id = 3627, modifier = 0, db_col = "managerid"},
+        TeamManagerNationalityCB = {id = 3646, modifier = 0, db_col = "nationality"},
+        TeamManagerOutfitIDEdit = {id = 3651, modifier = 0, db_col = "outfitid"},
+        TeamManagerPersonalityEdit = {id = 3644, modifier = 0, db_col = "personalityid"},
+        TeamManagerSeasonaloutfitidEdit = {id = 3632, modifier = 0, db_col = "seasonaloutfitid"},
+        TeamManagerSideburnscodeEdit = {id = 3647, modifier = 0, db_col = "sideburnscode"},
+        TeamManagerSkintonecodeEdit = {id = 3650, modifier = 1, db_col = "skintonecode"},
+        TeamManagerSkintypecodeEdit = {id = 3648, modifier = 0, db_col = "skintypecode"},
+        TeamManagerSurnameEdit = {id = 3639, modifier = 0, db_col = "surname"},
+        TeamidEdit = {id = 3641, modifier = 1, db_col = "teamid"},
+        TeamManagerWeightCB = {id = 3633, modifier = 30, db_col = "weight"}
     }
 end
 
@@ -267,6 +368,7 @@ end
 TEAMS_TAB_PANEL_MAP = {
     TeamInfoTab = "TeamInfoPanel",
     TeamFormationTab = "TeamFormationPanel",
+    TeamManagerTab = "TeamManagerPanel",
 }
 
 FORMATIONS_DATA = {

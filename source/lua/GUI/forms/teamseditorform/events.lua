@@ -15,6 +15,7 @@ local FillTeamEditTimer = createTimer(nil)
 -- OnShow - TEAM Edit Form
 function TeamsEditorFormShow(sender)
     COMPONENTS_DESCRIPTION_TEAM_EDIT = get_components_description_team_edit()
+    COMPONENTS_DESCRIPTION_MANAGER_EDIT = get_components_description_manager_edit()
     HAS_UNAPPLIED_TEAM_CHANGES = false
 
     TeamsEditorForm.WhileLoadingPanel.Visible = true
@@ -57,6 +58,23 @@ end
 -- Common events
 function TeamsCommonEditOnChange(sender)
     HAS_UNAPPLIED_TEAM_CHANGES = true
+end
+
+function CommonTeamCBOnChange(sender)
+    HAS_UNAPPLIED_TEAM_CHANGES = true
+    UpdateCBComponentHint(sender)
+end
+
+function CommonTeamCBOnDropDown(sender)
+    MakeComponentWider(sender)
+end
+
+function CommonTeamCBOnMouseEnter(sender)
+    SaveOriginalWidth(sender)
+end
+
+function CommonTeamCBOnMouseLeave(sender)
+    MakeComponentShorter(sender)
 end
 
 
@@ -131,4 +149,70 @@ function TeamFormationPlanCBChange(sender)
         DEFAULT_TSHEET_ADDR
     )
     TeamsEditorForm.TeamFormationCB.OnChange = tmp
+end
+
+function TeamColorFullOnChange(sender)
+    local colorID, _ = string.gsub(sender.Name, '%D', '')
+    local value = string.gsub(sender.Text, '#', '')
+    value = string.gsub(value, '0x', '')
+    if string.len(value) < 6 then
+        return 0
+    elseif string.len(value) > 6 then
+        do_log(
+            string.format('Invalid Color %d format - %s.', colorID, sender.Text)
+            'ERROR'
+        )
+        sender.Text = "#FFFFFF"
+        return 1
+    end
+    local red = tonumber(string.sub(value, 1, 2), 16)
+    local green = tonumber(string.sub(value, 3, 4), 16)
+    local blue = tonumber(string.sub(value, 5, 6), 16)
+
+    TeamsEditorForm[string.format('TeamColor%dPreview', colorID)].Color = string.format(
+        '0x%02X%02X%02X',
+        blue,
+        green,
+        red
+    )
+
+    local red_comp = TeamsEditorForm[string.format('TeamColor%dRedEdit', colorID)]
+    local saved_red_onchange = red_comp.OnChange
+    red_comp.OnChange = nil
+    red_comp.Text = red
+    red_comp.OnChange = saved_red_onchange
+
+    local green_comp = TeamsEditorForm[string.format('TeamColor%dGreenEdit', colorID)]
+    local saved_green_onchange = green_comp.OnChange
+    green_comp.OnChange = nil
+    green_comp.Text = green
+    green_comp.OnChange = saved_green_onchange
+
+    local blue_comp = TeamsEditorForm[string.format('TeamColor%dBlueEdit', colorID)]
+    local saved_blue_onchange = blue_comp.OnChange
+    blue_comp.OnChange = nil
+    blue_comp.Text = blue
+    blue_comp.OnChange = saved_blue_onchange
+end
+
+function TeamColorOnChange(sender)
+    local colorID, _ = string.gsub(sender.Name, '%D', '')
+    
+    local red = _validated_color(TeamsEditorForm[string.format('TeamColor%dRedEdit', colorID)])
+    local green = _validated_color(TeamsEditorForm[string.format('TeamColor%dGreenEdit', colorID)])
+    local blue = _validated_color(TeamsEditorForm[string.format('TeamColor%dBlueEdit', colorID)])
+
+    TeamsEditorForm[string.format('TeamColor%dHex', colorID)].Text = string.format(
+        '#%02X%02X%02X',
+        red,
+        green,
+        blue
+    )
+
+    TeamsEditorForm[string.format('TeamColor%dPreview', colorID)].Color = string.format(
+        '0x%02X%02X%02X',
+        blue,
+        green,
+        red
+    )
 end

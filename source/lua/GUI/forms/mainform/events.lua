@@ -91,6 +91,9 @@ function MainExitClick(sender)
         scripts_record.Active = false
         -- Deactivate CURRENT_DATE_SCRIPT
         ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['CURRENT_DATE_SCRIPT']).Active = false
+
+        -- Deactivate hook loadlibrary & exit cm
+        ADDR_LIST.getMemoryRecordByID(4831).Active = false
     end
     -- Deactivate "GUI" script
     ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['GUI_SCRIPT']).Active = false

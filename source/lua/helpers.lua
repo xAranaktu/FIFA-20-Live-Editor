@@ -42,7 +42,7 @@ end
 function enum_all_modules()
     local modules = enumModules()
     for _, module in ipairs(modules) do
-        print(
+        do_log(
             string.format("%s, %X", module.Name, module.Address)
         )
     end
@@ -580,9 +580,11 @@ end
 function autoactivate_scripts()
     -- Always activate database tables script
     -- And globalAllocs
+    -- And loadlibrary & exit cm
     local always_activate = {
         7,  -- Scripts
         12, -- FIFA Database Tables
+        4831, -- Load and exit cm
         CT_MEMORY_RECORDS['CURRENT_DATE_SCRIPT']
     }
 
@@ -699,14 +701,14 @@ function initPtrs()
 
     local DB_One_Tables_ptr = readMultilevelPointer(base_ptr, {0x10, 0x390})
     local DB_Two_Tables_ptr = readMultilevelPointer(base_ptr, {0x10, 0x3C0})
-
+    -- print(string.format("%X", readPointer("firstptrManager")))
     -- local xxx = 0
     -- local yyy = 0
     -- for i=1, 256 do
     --     yyy = readMultilevelPointer(DB_One_Tables_ptr, {xxx, 0x28, 0x30})
     --     if yyy ~= nil then
     --         -- Addr of first record
-    --         if string.format("%X", yyy) == "A56D7158" then
+    --         if string.format("%X", yyy) == "A5DBA798" then
     --             do_log(string.format("iiii -> 0x%X", xxx))
     --         end
     --     end
@@ -762,6 +764,15 @@ function initPtrs()
 
     if DEBUG_MODE then
         do_log(string.format("teams_firstrecord %X", teams_firstrecord))
+    end
+
+    -- Manager Table
+    local manager_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0x78, 0x28, 0x30})
+    writeQword("firstptrManager", manager_firstrecord)
+    writeQword("ptrManager", manager_firstrecord)
+
+    if DEBUG_MODE then
+        do_log(string.format("manager_firstrecord %X", manager_firstrecord))
     end
 
     -- Formations Table
@@ -835,6 +846,8 @@ end
 -- load AOBs
 function load_aobs()
     return {
+        AOB_QuitCM = '48 81 EC 20 05 00 00 48 C7 45 90 FE FF FF FF 48 89 9C',
+
         AOB_screenID = '4C 0F 45 3D ?? ?? ?? ?? 48 8B FE',
         AOB_codeGameDB = '4C 0F 44 35 ?? ?? ?? ?? 41 8B 4E 08',
         AOB_CalendarCurrentDate = '44 8B 7A 34 44 8B 62 38',
@@ -843,7 +856,6 @@ function load_aobs()
         AOB_F_GEN_REPORT = '48 89 D9 E8 ?? ?? ?? ?? 48 89 D9 48 8B 5C 24 38 48 8B 74 24 40 48 83 C4 20',
         AOB_BASE_FORM_MORALE_RLC = '48 89 35 ?? ?? ?? ?? 48 89 3D ?? ?? ?? ?? 48 89 0D ?? ?? ?? ??', 
         AOB_CustomTransfers = '84 C0 48 8B 01 74 11 FF 50 10',
-        
         AOB_ptrTransferBudget = '41 8D 5C 24 11 EB ?? 48 8B 0D ?? ?? ?? ?? 48 8B 01',
         AOB_TransferBudget = '44 8B 48 08 45 8B 87 90 02 00 00',
         AOB_IsEditPlayerUnlocked = '48 8B CF E8 ?? ?? ?? ?? 85 C0 75 ?? 48 8B 46 08 40 ?? ?? 48 8B 80 B8 0F 00 00',

@@ -1318,10 +1318,10 @@ function FillPlayerEditForm(playerid)
                     component[key] = value
                 end
             else
-                component.OnChange = CommonCBOnChange
-                component.OnDropDown = CommonCBOnDropDown
-                component.OnMouseEnter = CommonCBOnMouseEnter
-                component.OnMouseLeave = CommonCBOnMouseLeave
+                component.OnChange = CommonTeamCBOnChange
+                component.OnDropDown = CommonTeamCBOnDropDown
+                component.OnMouseEnter = CommonTeamCBOnMouseEnter
+                component.OnMouseLeave = CommonTeamCBOnMouseLeave
             end
         elseif component_class == 'TCECheckBox' then
             -- Set checkbox state

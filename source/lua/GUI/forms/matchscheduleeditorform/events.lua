@@ -40,9 +40,10 @@ end
 
 function MatchScheduleFormShow(sender)
     if not is_cm_loaded() then
-        local error = 'Fixture Edit works only in career mode. Load your career save first.'
-        showMessage(error)
-        print(error)
+        do_log(
+            'Fixture Edit works only in career mode. Load your career save first.',
+            'ERROR'
+        )
         MatchScheduleEditorForm.close()
         MainWindowForm.show()
         return

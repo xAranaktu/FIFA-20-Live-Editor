@@ -302,3 +302,10 @@ v20.1.3.0:
 v20.1.3.1:
     - Fixed problem with activating "Gameplay" & "Generate new report" scripts
     - Added "Find Player" button to the Players Editor. Allows to search for players by name.
+    
+v20.1.3.2:
+    - Added 23 new faces added in last game update to "update_player_headmodels.lua" script.
+    - Added "1ovr_99pot.lua" (users lua scripts directory in folder with live editor)
+    - Changes in GUI->Teams Editor:
+        - Added Team Colors to Team Info
+        - Added Manager Tab

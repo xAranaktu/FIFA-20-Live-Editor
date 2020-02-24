@@ -12,7 +12,7 @@
 
 --- AUTHOR: ARANAKTU
 
-require 'lua/GUI/forms/playerseditorform/consts';
+require 'lua/GUI/forms/teamseditorform/consts';
 require 'lua/consts';
 
 -- EDIT
@@ -32,31 +32,31 @@ end
 local comp_desc = get_components_description_manager_edit()
 
 local fields_to_edit = {
-    "BodyTypeEdit",
-    "EthnicityEdit",
-    "EyebrowcodeEdit",
-    "EyecolorcodeEdit",
-    "FaceposerpresetEdit",
-    "FacialhaircolorcodeEdit",
-    "FacialhairtypecodeEdit",
-    "GenderEdit",
-    "HaircolorcodeEdit",
-    "HairstylecodeEdit",
-    "HairtypecodeEdit",
-    "HashighqualityheadEdit",
-    "HeadassetidEdit",
-    "HeadclasscodeEdit",
-    "HeadtypecodeEdit",
-    "HeadvariationEdit",
-    "HeightEdit",
-    "NationalityEdit",
-    "OutfitidEdit",
-    "PersonalityidEdit",
-    "SeasonaloutfitidEdit",
-    "SideburnscodeEdit",
-    "SkintonecodeEdit",
-    "SkintypecodeEdit",
-    "WeightEdit"
+    "TeamManagerBodyTypeCodeEdit",
+    "TeamManagerEthnicityEdit",
+    "TeamManagerEyebrowcodeEdit",
+    "TeamManagerEyecolorcodeEdit",
+    "TeamManagerFaceposerpresetEdit",
+    "TeamManagerFacialHaircolorcodeEdit",
+    "TeamManagerFacialHairtypecodeEdit",
+    "TeamManagerGenderCB",
+    "TeamManagerHaircolorcodeEdit",
+    "TeamManagerHairstylecodeEdit",
+    "TeamManagerHairtypecodeEdit",
+    "TeamManagerHashighqualityheadCB",
+    "TeamManagerHeadAssetIDEdit",
+    "TeamManagerHeadclasscodeEdit",
+    "TeamManagerHeadTypeCodeEdit",
+    "TeamManagerHeadvariationEdit",
+    "TeamManagerHeightCB",
+    "TeamManagerNationalityCB",
+    "TeamManagerOutfitIDEdit",
+    "TeamManagerPersonalityEdit",
+    "TeamManagerSeasonaloutfitidEdit",
+    "TeamManagerSideburnscodeEdit",
+    "TeamManagerSkintonecodeEdit",
+    "TeamManagerSkintypecodeEdit",
+    "TeamManagerWeightCB"
 }
 
 local columns = {
@@ -128,7 +128,7 @@ while true do
                     end
                     rec.Value = math.floor(values[columns[comp_desc[fields_to_edit[j]]['db_col']]] - comp_desc[fields_to_edit[j]]['modifier'])
                 end
-                ADDR_LIST.getMemoryRecordByID(comp_desc['ManageridEdit']['id']).Value = 99998
+                ADDR_LIST.getMemoryRecordByID(comp_desc['TeamManagerIDEdit']['id']).Value = 99998
             end
         end
         success = true

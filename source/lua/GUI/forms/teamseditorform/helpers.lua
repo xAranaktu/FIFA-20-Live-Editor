@@ -1,4 +1,116 @@
 
+function _validated_color(comp)
+    local saved_onChange = comp.OnChange
+    comp.OnChange = nil
+
+    local icolor_value = tonumber(comp.Text)
+    if icolor_value == nil then
+        comp.Text = 255
+    elseif icolor_value > 255 then
+        comp.Text = 255
+    elseif icolor_value < 0 then
+        comp.Text = 0
+    end
+
+    comp.OnChange = saved_onChange
+    return tonumber(comp.Text)
+end
+
+function fillTeamColor(colorID)
+    local red = _validated_color(TeamsEditorForm[string.format('TeamColor%dRedEdit', colorID)])
+    local green = _validated_color(TeamsEditorForm[string.format('TeamColor%dGreenEdit', colorID)])
+    local blue = _validated_color(TeamsEditorForm[string.format('TeamColor%dBlueEdit', colorID)])
+
+    local comp = TeamsEditorForm[string.format('TeamColor%dHex', colorID)]
+    local saved_onChange = comp.OnChange
+    comp.OnChange = nil
+
+    comp.Text = string.format(
+        '#%02X%02X%02X',
+        red,
+        green,
+        blue
+    )
+
+    comp.OnChange = saved_onChange
+    TeamsEditorForm[string.format('TeamColor%dPreview', colorID)].Color = string.format(
+        '0x%02X%02X%02X',
+        blue,
+        green,
+        red
+    )
+
+end
+
+function _fill_team_comp(component, comp_desc)
+    if comp_desc == nil then return 1 end
+    local component_class = component.ClassName
+
+    component.OnChange = nil
+    if component_class == 'TCEEdit' then
+        if comp_desc['valFromFunc'] then
+            component.Text = comp_desc['valFromFunc']({
+                comp_desc = comp_desc,
+            })
+        else
+            local memrec = ADDR_LIST.getMemoryRecordByID(comp_desc['id'])
+            if memrec.type == 6 then
+                -- String
+                component.Text = memrec.Value
+            else
+                -- binary
+                component.Text = tonumber(memrec.Value) + comp_desc['modifier']
+            end
+        end
+        if comp_desc['events'] then
+            for key, value in pairs(comp_desc['events']) do
+                component[key] = value
+            end
+        else
+            component.OnChange = TeamCommonEditOnChange
+        end
+    elseif component_class == 'TCELabel' then
+        component.Caption = ADDR_LIST.getMemoryRecordByID(comp_desc['id']).Value
+    elseif component_class == 'TCEComboBox' then
+        if not comp_desc['already_filled'] then
+            component.clear()
+            local dropdown = ADDR_LIST.getMemoryRecordByID(comp_desc['id'])
+            local dropdown_items = dropdown.DropDownList
+            local dropdown_selected_value = dropdown.Value
+            for j = 0, dropdown_items.Count-1 do
+                local val, desc = string.match(dropdown_items[j], "(%d+): '(.+)'")
+                -- Fill combobox in GUI with values from memory record dropdown
+                component.items.add(desc)
+
+                -- Set active item & update hint
+                if dropdown_selected_value == val then
+                    component.ItemIndex = j
+                    component.Hint = desc
+                end
+            end
+        else
+            component.ItemIndex = tonumber(ADDR_LIST.getMemoryRecordByID(comp_desc['id']).Value)
+        end
+        -- Add events
+        if comp_desc['events'] then
+            for key, value in pairs(comp_desc['events']) do
+                component[key] = value
+            end
+        else
+            component.OnChange = CommonCBOnChange
+            component.OnDropDown = CommonCBOnDropDown
+            component.OnMouseEnter = CommonCBOnMouseEnter
+            component.OnMouseLeave = CommonCBOnMouseLeave
+        end
+    end
+    if comp_desc['events'] then
+        for key, value in pairs(comp_desc['events']) do
+            component[key] = value
+        end
+    end
+
+end
+
 function FillTeamEditorForm(teamid)
     do_log("FillTeamEditorForm")
     cache_players()
@@ -9,49 +121,30 @@ function FillTeamEditorForm(teamid)
     if teamid ~= nil then
         find_team_by_id(teamid)
     end
+    TEAM_MANAGER_ADDR = find_team_manager(teamid)
+
+    if TEAM_MANAGER_ADDR then
+        TeamsEditorForm.TeamManagerTab.Visible = true
+        writeQword('ptrManager', TEAM_MANAGER_ADDR)
+    else
+        TeamsEditorForm.TeamManagerTab.Visible = false
+    end
 
     for i=0, TeamsEditorForm.ComponentCount-1 do
         local component = TeamsEditorForm.Component[i]
         local component_name = component.Name
-        local comp_desc = COMPONENTS_DESCRIPTION_TEAM_EDIT[component_name]
-        if comp_desc == nil then goto continue end
-
-        local component_class = component.ClassName
-
-        component.OnChange = nil
-        if component_class == 'TCEEdit' then
-            component.Text = tonumber(ADDR_LIST.getMemoryRecordByID(comp_desc['id']).Value) + comp_desc['modifier']
-            component.OnChange = TeamCommonEditOnChange
-        elseif component_class == 'TCELabel' then
-            component.Caption = ADDR_LIST.getMemoryRecordByID(comp_desc['id']).Value
-        elseif component_class == 'TCEComboBox' then
-            if not comp_desc['already_filled'] then
-                component.clear()
-                local dropdown = ADDR_LIST.getMemoryRecordByID(comp_desc['id'])
-                local dropdown_items = dropdown.DropDownList
-                local dropdown_selected_value = dropdown.Value
-                for j = 0, dropdown_items.Count-1 do
-                    local val, desc = string.match(dropdown_items[j], "(%d+): '(.+)'")
-                    -- Fill combobox in GUI with values from memory record dropdown
-                    component.items.add(desc)
-
-                    -- Set active item & update hint
-                    if dropdown_selected_value == val then
-                        component.ItemIndex = j
-                        component.Hint = desc
-                    end
-                end
-            else
-                component.ItemIndex = tonumber(ADDR_LIST.getMemoryRecordByID(comp_desc['id']).Value)
+        local manager_comp_desc = COMPONENTS_DESCRIPTION_MANAGER_EDIT[component_name]
+        if TEAM_MANAGER_ADDR == nil then
+            manager_comp_desc = nil
+        else
+            if COMPONENTS_DESCRIPTION_TEAM_EDIT[component_name] == nil then
+                writeQword('ptrManager', TEAM_MANAGER_ADDR)
             end
         end
-        if comp_desc['events'] then
-            for key, value in pairs(comp_desc['events']) do
-                component[key] = value
-            end
-        end
-
-        ::continue::
+        _fill_team_comp(
+            component, 
+            COMPONENTS_DESCRIPTION_TEAM_EDIT[component_name] or manager_comp_desc
+        )
     end
     local ss_c = load_crest(teamid + 1)
     TeamsEditorForm.ClubCrest.Picture.LoadFromStream(ss_c)
@@ -75,35 +168,55 @@ function FillTeamEditorForm(teamid)
     --     end
     -- end
 
+    fillTeamColor(1)
+    fillTeamColor(2)
+    fillTeamColor(3)
+
 end
 
-function TeamApplyChanges()
-    for i=0, TeamsEditorForm.ComponentCount-1 do
-        local component = TeamsEditorForm.Component[i]
-        local component_name = component.Name
-        local comp_desc = COMPONENTS_DESCRIPTION_TEAM_EDIT[component_name]
-        if comp_desc == nil then goto continue end
+function do_team_applychanges(component, comp_desc)
+    if comp_desc == nil then return 1 end
 
-        local component_class = component.ClassName
-        if component_class == 'TCEEdit' then
+    local component_class = component.ClassName
+    if component_class == 'TCEEdit' then
+        local memrec = ADDR_LIST.getMemoryRecordByID(comp_desc['id'])
+        if memrec.type == 6 then
+            -- String
+            memrec.Value = component.Text
+        else
+            -- binary
             if string.len(component.Text) <= 0 then
                 do_log(
                     string.format("%s component is empty. Please, fill it and try again", component_name),
                     'ERROR'
                 )
             end
-            ADDR_LIST.getMemoryRecordByID(comp_desc['id']).Value = tonumber(component.Text) - comp_desc['modifier']
-        elseif component_class == 'TCEComboBox' then
-            if comp_desc['onApplyChanges'] then
-                comp_desc['onApplyChanges']({
-                    component = component,
-                    comp_desc = comp_desc,
-                })
-            else
-                ADDR_LIST.getMemoryRecordByID(comp_desc['id']).Value = component.ItemIndex
+            memrec.Value = tonumber(component.Text) - comp_desc['modifier']
+        end
+    elseif component_class == 'TCEComboBox' then
+        ApplyChangesToDropDown(ADDR_LIST.getMemoryRecordByID(comp_desc['id']), component)
+    end
+end
+
+function TeamApplyChanges()
+    if TEAM_MANAGER_ADDR then
+        writeQword('ptrManager', TEAM_MANAGER_ADDR)
+    end
+    for i=0, TeamsEditorForm.ComponentCount-1 do
+        local component = TeamsEditorForm.Component[i]
+        local component_name = component.Name
+        local manager_comp_desc = COMPONENTS_DESCRIPTION_MANAGER_EDIT[component_name]
+        if TEAM_MANAGER_ADDR == nil then
+            manager_comp_desc = nil
+        else
+            if COMPONENTS_DESCRIPTION_TEAM_EDIT[component_name] == nil then
+                writeQword('ptrManager', TEAM_MANAGER_ADDR)
             end
         end
-        ::continue::
+        do_team_applychanges(
+            component,
+            COMPONENTS_DESCRIPTION_TEAM_EDIT[component_name] or manager_comp_desc
+        )
     end
     HAS_UNAPPLIED_TEAM_CHANGES = false
     showMessage("Team edited.")
@@ -116,6 +229,21 @@ function find_default_teamsheet(teamid)
     local addr = find_record_in_game_db(
         0, CT_MEMORY_RECORDS['DEFAULT_TEAMSHEETS_TEAMID'], teamid, sizeOf, 'firstptrDefaultteamsheets', 
         nil, DB_TABLE_RECORDS_LIMIT['DEFAULT_TEAMSHEETS']
+    )
+
+    if addr then
+        return addr['addr']
+    end
+
+    return nil
+end
+
+function find_team_manager(teamid)
+    -- manager table
+    local sizeOf = DB_TABLE_SIZEOF['MANAGER']
+    local addr = find_record_in_game_db(
+        0, CT_MEMORY_RECORDS['MANAGER_TEAMID'], teamid, sizeOf, 'firstptrManager', 
+        nil, DB_TABLE_RECORDS_LIMIT['MANAGER']
     )
 
     if addr then

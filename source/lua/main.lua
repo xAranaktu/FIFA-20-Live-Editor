@@ -86,6 +86,7 @@ MENTALITIES_DESC = get_default_mentalities_desc()
 TEAMSHEETS_DESC = get_default_teamsheets_desc()
 TEAM_PLAYERS = {}
 TEAM_MENTALITIES = {}
+TEAM_MANAGER_ADDR = nil
 DEFAULT_TSHEET_ADDR = nil
 FORMATION_PLAYER_SWAP_0 = nil
 SWAP_IMG = nil

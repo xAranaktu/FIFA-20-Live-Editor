@@ -36,9 +36,10 @@ end
 
 function MatchFixingFormShow(sender)
     if not is_cm_loaded() then
-        local error = 'Match Fixing works only in career mode. Load your career save first.'
-        showMessage(error)
-        print(error)
+        do_log(
+            'Match Fixing works only in career mode. Load your career save first.',
+            'ERROR'
+        )
         MatchFixingForm.close()
         MainWindowForm.show()
         return
