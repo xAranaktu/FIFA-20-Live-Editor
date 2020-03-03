@@ -316,4 +316,7 @@ v20.1.3.3:
     - Reduced Teams Editor window size on smaller screens.
     - Added to GUI->Teams Editor:
         - Kits (Data from teamkits & competitionkits database tables)
+        
+v20.1.3.4:
+    - Fixed editing formations in manager & player career mode
    
