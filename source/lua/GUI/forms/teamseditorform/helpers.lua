@@ -16,12 +16,12 @@ function _validated_color(comp)
     return tonumber(comp.Text)
 end
 
-function fillTeamColor(colorID)
-    local red = _validated_color(TeamsEditorForm[string.format('TeamColor%dRedEdit', colorID)])
-    local green = _validated_color(TeamsEditorForm[string.format('TeamColor%dGreenEdit', colorID)])
-    local blue = _validated_color(TeamsEditorForm[string.format('TeamColor%dBlueEdit', colorID)])
+function fillColorPreview(colorID, comp_name)
+    local red = _validated_color(TeamsEditorForm[string.format('%s%dRedEdit', comp_name, colorID)])
+    local green = _validated_color(TeamsEditorForm[string.format('%s%dGreenEdit', comp_name, colorID)])
+    local blue = _validated_color(TeamsEditorForm[string.format('%s%dBlueEdit', comp_name, colorID)])
 
-    local comp = TeamsEditorForm[string.format('TeamColor%dHex', colorID)]
+    local comp = TeamsEditorForm[string.format('%s%dHex', comp_name, colorID)]
     local saved_onChange = comp.OnChange
     comp.OnChange = nil
 
@@ -33,13 +33,90 @@ function fillTeamColor(colorID)
     )
 
     comp.OnChange = saved_onChange
-    TeamsEditorForm[string.format('TeamColor%dPreview', colorID)].Color = string.format(
+    TeamsEditorForm[string.format('%s%dPreview', comp_name, colorID)].Color = string.format(
         '0x%02X%02X%02X',
         blue,
         green,
         red
     )
+end
 
+
+function fillCompetitionNameColor()
+    local comp_name = "CompetitionKitJerseyNameColor"
+    local red = _validated_color(TeamsEditorForm[string.format('%sRedEdit', comp_name)])
+    local green = _validated_color(TeamsEditorForm[string.format('%sGreenEdit', comp_name)])
+    local blue = _validated_color(TeamsEditorForm[string.format('%sBlueEdit', comp_name)])
+
+    local comp = TeamsEditorForm[string.format('%sHex', comp_name)]
+    local saved_onChange = comp.OnChange
+    comp.OnChange = nil
+
+    comp.Text = string.format(
+        '#%02X%02X%02X',
+        red,
+        green,
+        blue
+    )
+
+    comp.OnChange = saved_onChange
+    TeamsEditorForm[string.format('%sPreview', comp_name)].Color = string.format(
+        '0x%02X%02X%02X',
+        blue,
+        green,
+        red
+    )
+end
+
+function fillNameColor()
+    local comp_name = "TeamKitJerseyNameColor"
+    local red = _validated_color(TeamsEditorForm[string.format('%sRedEdit', comp_name)])
+    local green = _validated_color(TeamsEditorForm[string.format('%sGreenEdit', comp_name)])
+    local blue = _validated_color(TeamsEditorForm[string.format('%sBlueEdit', comp_name)])
+
+    local comp = TeamsEditorForm[string.format('%sHex', comp_name)]
+    local saved_onChange = comp.OnChange
+    comp.OnChange = nil
+
+    comp.Text = string.format(
+        '#%02X%02X%02X',
+        red,
+        green,
+        blue
+    )
+
+    comp.OnChange = saved_onChange
+    TeamsEditorForm[string.format('%sPreview', comp_name)].Color = string.format(
+        '0x%02X%02X%02X',
+        blue,
+        green,
+        red
+    )
+end
+
+
+function fillShortsNumberColor(colorID)
+    fillColorPreview(colorID, "TeamKitShortsNumberColor")
+end
+
+function fillCompetitionShortsNumberColor(colorID)
+    fillColorPreview(colorID, "CompetitionKitShortsNumberColor")
+end
+
+function fillJerseyNumberColor(colorID)
+    fillColorPreview(colorID, "TeamKitJerseyNumberColor")
+end
+
+function fillCompetitionJerseyNumberColor(colorID)
+    fillColorPreview(colorID, "CompetitionKitJerseyNumberColor")
+end
+
+function fillKitColor(colorID)
+    fillColorPreview(colorID, "TeamKitColor")
+end
+
+function fillTeamColor(colorID)
+    fillColorPreview(colorID, "TeamColor")
 end
 
 function _fill_team_comp(component, comp_desc)
@@ -113,6 +190,10 @@ end
 
 function FillTeamEditorForm(teamid)
     do_log("FillTeamEditorForm")
+    TeamKitsTabsVis(false)
+    CompetitionKitsTabsVis(false)
+    EDITED_TEAMKITS_VALUES = {}
+    EDITED_COMPETITIONKITS_VALUES = {}
     cache_players()
     if teamid ~= nil or type(teamid) ~= "number" then
         teamid = tonumber(teamid)
@@ -121,6 +202,37 @@ function FillTeamEditorForm(teamid)
     if teamid ~= nil then
         find_team_by_id(teamid)
     end
+
+    local scrnW =  getScreenWidth()
+    local scrnH =  getScreenHeight()
+    if ( (TeamsEditorForm.Width > scrnW) or (TeamsEditorForm.Height > scrnH)) then
+        IS_SMALL_WINDOW = true
+    else
+        IS_SMALL_WINDOW = false
+    end
+
+    if IS_SMALL_WINDOW then
+        TeamsEditorForm.Width = 1270
+        TeamsEditorForm.Height = 700
+        TeamsEditorForm.FormationSmallPitchImg.Visible = true
+        TeamsEditorForm.FormationPitchImg.Visible = false
+        for i=0, 10 do
+            local pimgcomp = TeamsEditorForm[string.format("TeamPlayerImg%d", i+1)]
+            pimgcomp.Width = 50
+            pimgcomp.Height = 50
+        end
+    else
+        TeamsEditorForm.Width = 1270
+        TeamsEditorForm.Height = 980
+        TeamsEditorForm.FormationSmallPitchImg.Visible = false
+        TeamsEditorForm.FormationPitchImg.Visible = true
+        for i=0, 10 do
+            local pimgcomp = TeamsEditorForm[string.format("TeamPlayerImg%d", i+1)]
+            pimgcomp.Width = 75
+            pimgcomp.Height = 75
+        end
+    end
+
     TEAM_MANAGER_ADDR = find_team_manager(teamid)
 
     if TEAM_MANAGER_ADDR then
@@ -151,11 +263,16 @@ function FillTeamEditorForm(teamid)
     ss_c.destroy()
     -- TEAM_PLAYERS = find_players_for_team(teamid)
     DEFAULT_TSHEET_ADDR = find_default_teamsheet(teamid)
-
+    local formationid = tonumber(ADDR_LIST.getMemoryRecordByID(MENTALITIES_DESC['sourceformationid']['id']).Value - 1)
+    local tmp = TeamsEditorForm.TeamFormationCB.OnChange
+    TeamsEditorForm.TeamFormationCB.OnChange = nil
+    TeamsEditorForm.TeamFormationCB.ItemIndex = formationid + 1
+    if formationid < 0 then formationid = 0 end
     update_formation_pitch(
-        FORMATIONS_DATA[TeamsEditorForm.TeamFormationCB.ItemIndex - 1], 
+        FORMATIONS_DATA[formationid],
         DEFAULT_TSHEET_ADDR
     )
+    TeamsEditorForm.TeamFormationCB.OnChange = tmp
 
     -- local players = find_players_for_team(teamid)
     -- if #players > 0 then
@@ -171,6 +288,25 @@ function FillTeamEditorForm(teamid)
     fillTeamColor(1)
     fillTeamColor(2)
     fillTeamColor(3)
+
+    -- Team Kits
+    TeamsEditorForm.TeamKitsTabsContainer.Visible = false
+    TeamsEditorForm.TeamCompetitionKitsTabsContainer.Visible = false
+
+    TeamsEditorForm.KitPickListBox.clear()
+
+    TEAM_KITS = find_team_kits(teamid+1)
+    if #TEAM_KITS > 0 then
+        for k,v in pairs(TEAM_KITS) do 
+            TeamsEditorForm.KitPickListBox.Items.Add(v['name'])
+        end
+    end
+    TEAM_COMPETITION_KITS = find_team_competition_kits(teamid+1)
+    if #TEAM_COMPETITION_KITS > 0 then
+        for k,v in pairs(TEAM_COMPETITION_KITS) do 
+            TeamsEditorForm.KitPickListBox.Items.Add(v['name'])
+        end
+    end
 
 end
 
@@ -218,9 +354,183 @@ function TeamApplyChanges()
             COMPONENTS_DESCRIPTION_TEAM_EDIT[component_name] or manager_comp_desc
         )
     end
+
+    -- Edit formation for all plans if gameplan - all
+    if ( (TeamsEditorForm.TeamFormationPlanCB.ItemIndex + 1) == TeamsEditorForm.TeamFormationPlanCB.Items.Count) then
+        local sourceformationid_idx = MENTALITIES_DESC['sourceformationid']['id']
+        local ct_itm = ADDR_LIST.getMemoryRecordByID(sourceformationid_idx)
+        local val_to_appl = TeamsEditorForm.TeamFormationCB.ItemIndex
+        if val_to_appl == 0 then val_to_appl = 1 end
+        for i=1, #TEAM_MENTALITIES do
+            writeQword("ptrDefaultmentalities", TEAM_MENTALITIES[i]['addr'])
+            ct_itm.Value = val_to_appl
+        end
+    end
+
+    -- Kits
+    for addr, edited_comps in pairs(EDITED_TEAMKITS_VALUES) do
+        writeQword("ptrTeamkits", addr)
+        for comp_name, value in pairs(edited_comps) do
+            local comp_desc = COMPONENTS_DESCRIPTION_TEAMKITS[comp_name]
+            local comp_desc_competition = COMPONENTS_DESCRIPTION_COMPETITIONKITS[comp_name]
+            if comp_desc then
+                ADDR_LIST.getMemoryRecordByID(comp_desc['id']).Value = tonumber(value) - comp_desc['modifier']
+            end
+        end
+    end
+
+    -- competition kits
+    for addr, edited_comps in pairs(EDITED_COMPETITIONKITS_VALUES) do
+        writeQword("ptrCompetitionkits", addr)
+        for comp_name, value in pairs(edited_comps) do
+            local comp_desc = COMPONENTS_DESCRIPTION_COMPETITIONKITS[comp_name]
+            if comp_desc then
+                ADDR_LIST.getMemoryRecordByID(comp_desc['id']).Value = tonumber(value) - comp_desc['modifier']
+            end
+        end
+    end
+
     HAS_UNAPPLIED_TEAM_CHANGES = false
     showMessage("Team edited.")
     do_log("Team edited.")
+end
+
+function find_team_kits(teamid)
+    do_log(string.format("find_team_kits. Teamid: %d", teamid))
+    local result = {}
+
+    -- teamkits table
+    local addrs = find_records_in_game_db(
+        CT_MEMORY_RECORDS['TEAMKITS_TEAMID'],        -- memrec_id
+        teamid,                                     -- value_to_find
+        DB_TABLE_SIZEOF['TEAMKITS'],         -- size of
+        'ptrfirstTeamkits',                  -- first_ptrname
+        nil,                                        -- to_exit
+        DB_TABLE_RECORDS_LIMIT['TEAMKITS'],  -- limit
+        99                                          -- max_records
+    )
+    if addrs then
+        local kittype_names = {
+            [0] = "Home Kit",
+            [1] = "Away Kit",
+            [2] = "GK Kit",
+            [3] = "Third Kit",
+        }
+        do_log(string.format("Found: %d", #addrs))
+        local tkeys = {}
+        for i=1, #addrs do
+            writeQword("ptrTeamkits", addrs[i]['addr'])
+            local kittype_id = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['TEAMKITS_KITTYPE']).Value)
+            local kitname = string.format("Unknown Kit (%d)", kittype_id)
+            if kittype_names[kittype_id] then
+                kitname = kittype_names[kittype_id]
+            end
+
+            table.insert(tkeys, kittype_id)
+            result[kittype_id] = {
+                name = kitname,
+                addr = addrs[i]['addr']
+            }
+        end
+        table.sort(tkeys)
+        sorted_result = {}
+        for _, k in ipairs(tkeys) do
+            table.insert(sorted_result, result[k])
+        end
+        result = sorted_result
+    else
+        do_log("Not found")
+    end
+    return result
+end
+
+function find_team_competition_kits(teamid)
+    do_log(string.format("find_team_competition_kits. Teamid: %d", teamid))
+
+    local result = {}
+    -- competitionkits table
+    local addrs = find_records_in_game_db(
+        CT_MEMORY_RECORDS['TEAMCOMPETITIONKITS_TEAMID'],        -- memrec_id
+        teamid,                                     -- value_to_find
+        DB_TABLE_SIZEOF['COMPETITIONKITS'],         -- size of
+        'ptrfirstCompetitionkits',                  -- first_ptrname
+        nil,                                        -- to_exit
+        DB_TABLE_RECORDS_LIMIT['COMPETITIONKITS'],  -- limit
+        99                                          -- max_records
+    )
+    if addrs then
+        local kittype_names = {
+            [0] = "Home Kit",
+            [1] = "Away Kit",
+            [2] = "GK Kit",
+            [3] = "Third Kit",
+        }
+        do_log(string.format("Found: %d", #addrs))
+        local tkeys = {}
+        for i=1, #addrs do
+            writeQword("ptrCompetitionkits", addrs[i]['addr'])
+            local cid = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['TEAMCOMPETITIONKITS_COMPETITIONID']).Value)
+            local kittype_id = tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['TEAMCOMPETITIONKITS_KITTYPE']).Value)
+
+            table.insert(tkeys, cid)
+
+            local kitname = string.format(
+                "C%d - Unknown Kit (%d)",
+                cid,
+                kittype_id
+            )
+            if kittype_names[kittype_id] then
+                kitname = string.format(
+                    "C%d - %s",
+                    cid,
+                    kittype_names[kittype_id]
+                )
+            end
+            local k = string.format(
+                "C%d_%d",
+                cid,
+                kittype_id
+            )
+            result[k] = {
+                name = kitname,
+                addr = addrs[i]['addr']
+            }
+        end
+        table.sort(tkeys)
+        -- remove duplicated tkeys
+        local tmp = {}
+        for key, value in ipairs(tkeys) do
+            if value ~= tkeys[key+1] then
+                table.insert(tmp, value)
+            end
+        end
+        tkeys = tmp
+
+        -- sort
+        sorted_result = {}
+        local added = 0
+        for _, k in ipairs(tkeys) do
+            for i=0, 99 do
+                local key = string.format(
+                    "C%d_%d",
+                    k,
+                    i
+                )
+                
+                if (type(result[key]) == "table") then
+                    table.insert(sorted_result, result[key])
+                    added = added + 1
+                    if added >= #addrs then
+                        return sorted_result
+                    end
+                end
+            end
+        end
+        result = sorted_result
+    else
+        do_log("Not found")
+    end
+    return result
 end
 
 function find_default_teamsheet(teamid)
@@ -251,6 +561,85 @@ function find_team_manager(teamid)
     end
 
     return nil
+end
+
+function fill_teamkits()
+    do_log("fill_teamkits")
+    for i=0, TeamsEditorForm.ComponentCount-1 do
+        local component = TeamsEditorForm.Component[i]
+        local component_name = component.Name
+        local comp_desc = COMPONENTS_DESCRIPTION_TEAMKITS[component_name]
+        if comp_desc == nil then goto continue end
+        local component_class = component.ClassName
+        if component_class == 'TCEEdit' then
+            -- clear
+            component.OnChange = nil
+
+            -- Update value of all edit fields
+            if comp_desc['valFromFunc'] then
+                component.Text = comp_desc['valFromFunc']({
+                    comp_desc = comp_desc,
+                })
+            else
+                component.Text = tonumber(ADDR_LIST.getMemoryRecordByID(comp_desc['id']).Value) + comp_desc['modifier']
+            end
+
+            if comp_desc['events'] then
+                for key, value in pairs(comp_desc['events']) do
+                    component[key] = value
+                end
+            else
+                component.OnChange = CommonTeamKitsEditOnChange
+            end
+        end
+        ::continue::
+    end
+
+    fillNameColor()
+    for i=1, 3 do
+        fillKitColor(i)
+        fillJerseyNumberColor(i)
+        fillShortsNumberColor(i)
+    end
+end
+
+function fill_competitionkits()
+    do_log("fill_competitionkits")
+    for i=0, TeamsEditorForm.ComponentCount-1 do
+        local component = TeamsEditorForm.Component[i]
+        local component_name = component.Name
+        local comp_desc = COMPONENTS_DESCRIPTION_COMPETITIONKITS[component_name]
+        if comp_desc == nil then goto continue end
+        local component_class = component.ClassName
+        if component_class == 'TCEEdit' then
+            -- clear
+            component.OnChange = nil
+
+            -- Update value of all edit fields
+            if comp_desc['valFromFunc'] then
+                component.Text = comp_desc['valFromFunc']({
+                    comp_desc = comp_desc,
+                })
+            else
+                component.Text = tonumber(ADDR_LIST.getMemoryRecordByID(comp_desc['id']).Value) + comp_desc['modifier']
+            end
+
+            if comp_desc['events'] then
+                for key, value in pairs(comp_desc['events']) do
+                    component[key] = value
+                end
+            else
+                component.OnChange = CommonCompetitionKitsEditOnChange
+            end
+        end
+        ::continue::
+    end
+
+    fillCompetitionNameColor()
+    for i=1, 3 do
+        fillCompetitionJerseyNumberColor(i)
+        fillCompetitionShortsNumberColor(i)
+    end
 end
 
 function find_players_for_team(teamid)
@@ -444,6 +833,11 @@ function update_formation_pitch(formation_data, teamsheet_addr)
     local offsety = nil
     local w = TeamsEditorForm.FormationPitchImg.Width - 20
     local h = TeamsEditorForm.FormationPitchImg.Height - 20
+    if IS_SMALL_WINDOW then
+        w = TeamsEditorForm.FormationSmallPitchImg.Width - 20
+        h = 350
+    end
+
     local pw = TeamsEditorForm.TeamPlayerImg1.Width
     local ph = TeamsEditorForm.TeamPlayerImg1.Height
     local playerid = -1
@@ -550,7 +944,6 @@ function update_formation_pitch(formation_data, teamsheet_addr)
             lbl.Font.Color = 0x00FFFFFF
         end
     end
-
     TeamsEditorForm.TeamAvailablePlayersLabel.Caption = string.format("Available Players (%d)", available_players_count)
 end
 

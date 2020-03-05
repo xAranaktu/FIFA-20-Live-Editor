@@ -309,3 +309,11 @@ v20.1.3.2:
     - Changes in GUI->Teams Editor:
         - Added Team Colors to Team Info
         - Added Manager Tab
+        
+v20.1.3.3:
+    - Fixed cloning Prime Icon Moments.
+    - Fixed editing board expectations through Teams Editor
+    - Reduced Teams Editor window size on smaller screens.
+    - Added to GUI->Teams Editor:
+        - Kits (Data from teamkits & competitionkits database tables)
+   

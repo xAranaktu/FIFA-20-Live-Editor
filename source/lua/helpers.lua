@@ -94,7 +94,7 @@ function after_attach()
     end
     writeInteger("IsCMCached", 0)
     MainFormRemoveLoadingPanel()
-    unhideMainCEwindow()
+
     do_log('Ready to use.', 'INFO')
     update_status_label("Program is ready to use.")
     showMessage("Live Editor is ready to use.")
@@ -185,6 +185,7 @@ function check_for_le_update()
 
         -- no internet?
         if (version == nil) then
+            NO_INTERNET = true
             do_log("CT Update check failed. No internet?", 'INFO')
             return false
         end
@@ -584,7 +585,6 @@ function autoactivate_scripts()
     local always_activate = {
         7,  -- Scripts
         12, -- FIFA Database Tables
-        4831, -- Load and exit cm
         CT_MEMORY_RECORDS['CURRENT_DATE_SCRIPT']
     }
 
@@ -701,23 +701,26 @@ function initPtrs()
 
     local DB_One_Tables_ptr = readMultilevelPointer(base_ptr, {0x10, 0x390})
     local DB_Two_Tables_ptr = readMultilevelPointer(base_ptr, {0x10, 0x3C0})
-    -- print(string.format("%X", readPointer("firstptrManager")))
+    local DB_Three_Tables_ptr = readMultilevelPointer(base_ptr, {0x10, 0x3F0})
+    --print(string.format("%X", readPointer("firstptrManager")))
     -- local xxx = 0
     -- local yyy = 0
-    -- for i=1, 256 do
+    -- for i=1, 1024 do
     --     yyy = readMultilevelPointer(DB_One_Tables_ptr, {xxx, 0x28, 0x30})
     --     if yyy ~= nil then
     --         -- Addr of first record
-    --         if string.format("%X", yyy) == "A5DBA798" then
+    --         if string.format("%X", yyy) == "A56755F8" then
     --             do_log(string.format("iiii -> 0x%X", xxx))
     --         end
     --     end
     --     xxx = xxx + 8
     -- end
+    -- do_log("END")
 
     if DEBUG_MODE then
         do_log(string.format("DB_One_Tables_ptr %X", DB_One_Tables_ptr))
         do_log(string.format("DB_Two_Tables_ptr %X", DB_Two_Tables_ptr))
+        do_log(string.format("DB_Three_Tables_ptr %X", DB_Three_Tables_ptr))
     end
 
     -- Players Table
@@ -793,6 +796,16 @@ function initPtrs()
         do_log(string.format("default_mentalities_firstrecord %X", default_mentalities_firstrecord))
     end
 
+    -- Teamsheets Table
+    local mentalities_firstrecord = readMultilevelPointer(DB_Three_Tables_ptr, {0xA0, 0x28, 0x30})
+    writeQword("firstptrMentalities", mentalities_firstrecord)
+    writeQword("ptrMentalities", mentalities_firstrecord)
+    
+
+    if DEBUG_MODE then
+        do_log(string.format("mentalities_firstrecord %X", mentalities_firstrecord))
+    end
+
     -- default_teamsheets Table
     local default_teamsheets_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0x110, 0x28, 0x30})
     writeQword("firstptrDefaultteamsheets", default_teamsheets_firstrecord)
@@ -800,7 +813,35 @@ function initPtrs()
     
 
     if DEBUG_MODE then
-        do_log(string.format("formations_firstrecord %X", default_teamsheets_firstrecord))
+        do_log(string.format("default_teamsheets_firstrecord %X", default_teamsheets_firstrecord))
+    end
+
+    -- Teamsheets Table
+    local teamsheets_firstrecord = readMultilevelPointer(DB_Three_Tables_ptr, {0xA8, 0x28, 0x30})
+    writeQword("firstptrTeamsheets", teamsheets_firstrecord)
+    writeQword("ptrTeamsheets", teamsheets_firstrecord)
+    
+
+    if DEBUG_MODE then
+        do_log(string.format("teamsheets_firstrecord %X", teamsheets_firstrecord))
+    end
+
+    -- TeamKits Table
+    local teamkits_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0x120, 0x28, 0x30})
+    writeQword("ptrfirstTeamkits", teamkits_firstrecord)
+    writeQword("ptrTeamkits", teamkits_firstrecord)
+
+    if DEBUG_MODE then
+        do_log(string.format("teamkits_firstrecord %X", teamkits_firstrecord))
+    end
+
+    -- competitionKits Table
+    local competitionkits_firstrecord = readMultilevelPointer(DB_One_Tables_ptr, {0x90, 0x28, 0x30})
+    writeQword("ptrfirstCompetitionkits", competitionkits_firstrecord)
+    writeQword("ptrCompetitionkits", competitionkits_firstrecord)
+
+    if DEBUG_MODE then
+        do_log(string.format("competitionkits_firstrecord %X", competitionkits_firstrecord))
     end
 
     -- Teamplayerlinks Table

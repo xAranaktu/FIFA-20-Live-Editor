@@ -15,6 +15,11 @@ local FillPlayerEditTimer = createTimer(nil)
 
 -- OnShow - Player Edit Form
 function PlayerEditFormShow(sender)
+    -- Hook Load and exit cm
+    if not ADDR_LIST.getMemoryRecordByID(4831).Active then
+        ADDR_LIST.getMemoryRecordByID(4831).Active = true
+    end
+
     COMPONENTS_DESCRIPTION_PLAYER_EDIT = get_components_description_player_edit()
     HAS_UNAPPLIED_PLAYER_CHANGES = false
 
@@ -88,7 +93,7 @@ function TruePlayerEditFormShow()
 
     PlayersEditorForm.FutFIFACB.Hint = ''
 
-        -- If cached we can search for player by name
+    -- If cached we can search for player by name
     -- Use findplayers form
     if CFG_DATA.flags.cache_players_data then
         PlayersEditorForm.FindPlayerByID.Visible = false

@@ -65,6 +65,8 @@ DEBUG_MODE = false
 -- end
 
 -- OTHER GLOBALS
+NO_INTERNET = false
+IS_SMALL_WINDOW = false
 
 FIFA_PLAYERNAMES = {}
 CACHED_PLAYERS = {}
@@ -86,6 +88,8 @@ MENTALITIES_DESC = get_default_mentalities_desc()
 TEAMSHEETS_DESC = get_default_teamsheets_desc()
 TEAM_PLAYERS = {}
 TEAM_MENTALITIES = {}
+TEAM_KITS = {}
+TEAM_COMPETITION_KITS = {}
 TEAM_MANAGER_ADDR = nil
 DEFAULT_TSHEET_ADDR = nil
 FORMATION_PLAYER_SWAP_0 = nil

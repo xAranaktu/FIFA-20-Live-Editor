@@ -1247,7 +1247,11 @@ function FillPlayerEditForm(playerid)
     if playerid ~= nil then
         find_player_by_id(playerid)
     end
-    
+    if CACHED_PLAYERS and CACHED_PLAYERS[tonumber(playerid)] then
+        PlayersEditorForm.PlayerNameLabel.Caption = CACHED_PLAYERS[tonumber(playerid)]['knownas']
+    else
+        PlayersEditorForm.PlayerNameLabel.Caption = ""
+    end
 
     local new_val = 0
     for i=0, PlayersEditorForm.ComponentCount-1 do
@@ -1758,8 +1762,8 @@ function fut_copy_card_to_gui(player)
 
     local playerid = tonumber(player['details']['base_playerid'])
     if DEBUG_MODE then
-        print("baseplayerid")
-        print(playerid)
+        do_log("baseplayerid")
+        do_log(playerid)
     end
 
     if playerid == nil then

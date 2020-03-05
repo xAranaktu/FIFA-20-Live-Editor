@@ -99,7 +99,7 @@ end
 -- load player head
 -- return string stream
 function load_headshot(playerid, skintonecode, headtypecode, haircolorcode)
-    if not playerid then
+    if ((NO_INTERNET) or (not playerid)) then
         return load_img('heads/notfound.png', 'https://fifatracker.net/static/img/assets/common/heads/notfound.png')
     end
 
@@ -133,6 +133,7 @@ function load_headshot(playerid, skintonecode, headtypecode, haircolorcode)
 end
 
 function load_crest(teamid)
+    if NO_INTERNET then return load_img('crest/notfound.png', 'https://fifatracker.net/static/img/assets/common/crest/notfound.png') end
     local fpath = string.format('crest/l%d.png', teamid)
 
     local url = string.format('https://fifatracker.net/static/img/assets/%d/%s', FIFA, fpath)

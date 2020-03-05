@@ -209,6 +209,407 @@ function get_components_description_manager_edit()
     }
 end
 
+function get_teamkits_desc()
+    return {
+        KitTeamTechIDEdit = { id = 4146, modifier = 0},
+        KitTeamKitIDEdit = { id = 4144, modifier = 0},
+        KitTeamKitTypeTechIDEdit = { id = 4145, modifier = 0},
+        KitTeamYearEdit = { id = 4218, modifier = 0},
+        KitTeamPowidEdit = { id = 4213, modifier = -1},
+        KitTeamDlcEdit = { id = 4197, modifier = 0},
+        KitTeamIsembargoedEdit = { id = 4199, modifier = 0},
+        KitTeamIsinheritbasedetailmapEdit = { id = 4200, modifier = 0},
+        KitTeamHasadvertisingkitEdit = { id = 4198, modifier = 0},
+        KitTeamIslockedEdit = { id = 4201, modifier = 0},
+        KitTeamRenderingmaterialtypeEdit = { id = 4214, modifier = 0},
+
+        KitTeamChestbadgeEdit = { id = 4151, modifier = 0},
+        KitTeamCaptainarmbandEdit = { id = 4147, modifier = 0},
+
+        KitTeamJerseyFitEdit = { id = 4205, modifier = 0},
+        KitTeamJerseyshapestyleEdit = { id = 4212, modifier = 0},
+        KitTeamJerseycollargeometrytypeEdit = { id = 4204, modifier = 0},
+        KitTeamJerseyrenderingdetailmaptypeEdit = { id = 4211, modifier = 0},
+        KitTeamJerseynamelayouttypeEdit = { id = 4210, modifier = 0},
+        KitTeamJerseynamefonttypeEdit = { id = 4154, modifier = 0},
+        KitTeamNumberfonttypeEdit = { id = 4155, modifier = 0},
+        KitTeamJerseybacknamefontcaseEdit = { id = 4202, modifier = 0},
+        KitTeamJerseybacknameplacementcodeEdit = { id = 4203, modifier = 0},
+        KitTeamJerseyfrontnumberplacementcodeEdit = { id = 4206, modifier = 0},
+        KitTeamJerseyleftsleevebadgeEdit = { id = 4149, modifier = 0},
+        KitTeamJerseyrightsleevebadgeEdit = { id = 4150, modifier = 0},
+
+        TeamKitJerseyNumberColor1RedEdit = { 
+            id = 4169, modifier = 0,
+            events = {
+                OnChange = TeamKitJerseyNumberColorOnChange
+            }
+        },
+        TeamKitJerseyNumberColor1GreenEdit = { 
+            id = 4170, modifier = 0,
+            events = {
+                OnChange = TeamKitJerseyNumberColorOnChange
+            }
+        },
+        TeamKitJerseyNumberColor1BlueEdit = { 
+            id = 4171, modifier = 0,
+            events = {
+                OnChange = TeamKitJerseyNumberColorOnChange
+            }
+        },
+
+        TeamKitJerseyNumberColor2RedEdit = { 
+            id = 4173, modifier = 0,
+            events = {
+                OnChange = TeamKitJerseyNumberColorOnChange
+            }
+        },
+        TeamKitJerseyNumberColor2GreenEdit = { 
+            id = 4174, modifier = 0,
+            events = {
+                OnChange = TeamKitJerseyNumberColorOnChange
+            }
+        },
+        TeamKitJerseyNumberColor2BlueEdit = { 
+            id = 4175, modifier = 0,
+            events = {
+                OnChange = TeamKitJerseyNumberColorOnChange
+            }
+        },
+
+        TeamKitJerseyNumberColor3RedEdit = { 
+            id = 4177, modifier = 0,
+            events = {
+                OnChange = TeamKitJerseyNumberColorOnChange
+            }
+        },
+        TeamKitJerseyNumberColor3GreenEdit = { 
+            id = 4178, modifier = 0,
+            events = {
+                OnChange = TeamKitJerseyNumberColorOnChange
+            }
+        },
+        TeamKitJerseyNumberColor3BlueEdit = { 
+            id = 4179, modifier = 0,
+            events = {
+                OnChange = TeamKitJerseyNumberColorOnChange
+            }
+        },
+
+        TeamKitJerseyNameColorRedEdit = { 
+            id = 4209, modifier = 0,
+            events = {
+                OnChange = TeamJerseyNameColorOnChange
+            }
+        },
+        TeamKitJerseyNameColorGreenEdit = { 
+            id = 4208, modifier = 0,
+            events = {
+                OnChange = TeamJerseyNameColorOnChange
+            }
+        },
+        TeamKitJerseyNameColorBlueEdit = { 
+            id = 4207, modifier = 0,
+            events = {
+                OnChange = TeamJerseyNameColorOnChange
+            }
+        },
+
+        KitTeamShortStyleEdit = { id = 4217, modifier = 0},
+        KitTeamShortsnumberfonttypeEdit = { id = 4153, modifier = 0},
+        KitTeamShortsnumberplacementcodeEdit = { id = 4215, modifier = 0},
+        KitTeamShortsrenderingdetailmaptypeEdit = { id = 4216, modifier = 0},
+
+        TeamKitShortsNumberColor1RedEdit = { 
+            id = 4157, modifier = 0,
+            events = {
+                OnChange = TeamShortColorOnChange,
+            }
+        },
+        TeamKitShortsNumberColor1GreenEdit = { 
+            id = 4158, modifier = 0,
+            events = {
+                OnChange = TeamShortColorOnChange,
+            }
+        },
+        TeamKitShortsNumberColor1BlueEdit = { 
+            id = 4159, modifier = 0,
+            events = {
+                OnChange = TeamShortColorOnChange,
+            }
+        },
+
+        TeamKitShortsNumberColor2RedEdit = { 
+            id = 4161, modifier = 0,
+            events = {
+                OnChange = TeamShortColorOnChange,
+            }
+        },
+        TeamKitShortsNumberColor2GreenEdit = { 
+            id = 4162, modifier = 0,
+            events = {
+                OnChange = TeamShortColorOnChange,
+            }
+        },
+        TeamKitShortsNumberColor2BlueEdit = { 
+            id = 4163, modifier = 0,
+            events = {
+                OnChange = TeamShortColorOnChange,
+            }
+        },
+
+        TeamKitShortsNumberColor3RedEdit = { 
+            id = 4165, modifier = 0,
+            events = {
+                OnChange = TeamShortColorOnChange,
+            }
+        },
+        TeamKitShortsNumberColor3GreenEdit = { 
+            id = 4166, modifier = 0,
+            events = {
+                OnChange = TeamShortColorOnChange,
+            }
+        },
+        TeamKitShortsNumberColor3BlueEdit = { 
+            id = 4167, modifier = 0,
+            events = {
+                OnChange = TeamShortColorOnChange,
+            }
+        },
+
+        TeamKitColor1RedEdit = { 
+            id = 4183, 
+            modifier = 0,
+            events = {
+                OnChange = TeamKitColorOnChange,
+            },
+        },
+        TeamKitColor1GreenEdit = { 
+            id = 4184, 
+            modifier = 0,
+            events = {
+                OnChange = TeamKitColorOnChange,
+            },
+        },
+        TeamKitColor1BlueEdit = { 
+            id = 4185, 
+            modifier = 0,
+            events = {
+                OnChange = TeamKitColorOnChange,
+            },
+        },
+        TeamKitColor1PercentEdit = { 
+            id = 4182, 
+            modifier = 0,
+            events = {
+                OnChange = TeamKitColorOnChange,
+            },
+        },
+
+        TeamKitColor2RedEdit = { 
+            id = 4188, modifier = 0,
+            events = {
+                OnChange = TeamKitColorOnChange,
+            },
+        },
+        TeamKitColor2GreenEdit = { 
+            id = 4189, modifier = 0,
+            events = {
+                OnChange = TeamKitColorOnChange,
+            },
+        },
+        TeamKitColor2BlueEdit = { 
+            id = 4190, modifier = 0,
+            events = {
+                OnChange = TeamKitColorOnChange,
+            },
+        },
+        TeamKitColor2PercentEdit = { 
+            id = 4187, modifier = 0,
+            events = {
+                OnChange = TeamKitColorOnChange,
+            },
+        },
+
+        TeamKitColor3RedEdit = { 
+            id = 4193, modifier = 0,
+            events = {
+                OnChange = TeamKitColorOnChange,
+            },
+        },
+        TeamKitColor3GreenEdit = { 
+            id = 4194, modifier = 0,
+            events = {
+                OnChange = TeamKitColorOnChange,
+            },
+        },
+        TeamKitColor3BlueEdit = { 
+            id = 4195, modifier = 0,
+            events = {
+                OnChange = TeamKitColorOnChange,
+            },
+        },
+        TeamKitColor3PercentEdit = { 
+            id = 4192, modifier = 0,
+            events = {
+                OnChange = TeamKitColorOnChange,
+            },
+        }
+    }
+end
+
+function get_competitionkits_desc()
+    return {
+        CompetitionKitCompetitionIDEdit = { id = 4412, modifier = 0},
+        CompetitionKitTeamTechIDEdit = { id = 4443, modifier = 0},
+        CompetitionKitTeamKitTypeTechIDEdit = { id = 4442, modifier = 0},
+        CompetitionKitTeamYearEdit = { id = 4444, modifier = 0},
+
+        CompetitionKitTeamJerseynamelayouttypeEdit = { id = 4420, modifier = 0},
+        CompetitionKitTeamJerseynamefonttypeEdit = { id = 4419, modifier = 0},
+        CompetitionKitTeamNumberfonttypeEdit = { id = 4430, modifier = 0},
+        CompetitionKitTeamJerseybacknamefontcaseEdit = { id = 4413, modifier = 0},
+        CompetitionKitTeamJerseybacknameplacementcodeEdit = { id = 4414, modifier = 0},
+        CompetitionKitTeamJerseyfrontnumberplacementcodeEdit = { id = 4415, modifier = 0},
+
+        CompetitionKitJerseyNumberColor1RedEdit = { 
+            id = 4423, modifier = 0,
+            events = {
+                OnChange = CompetitionKitJerseyNumberColorOnChange,
+            }
+        },
+        CompetitionKitJerseyNumberColor1GreenEdit = { 
+            id = 4422, modifier = 0,
+            events = {
+                OnChange = CompetitionKitJerseyNumberColorOnChange,
+            }
+        },
+        CompetitionKitJerseyNumberColor1BlueEdit = { 
+            id = 4421, modifier = 0,
+            events = {
+                OnChange = CompetitionKitJerseyNumberColorOnChange,
+            }
+        },
+
+        CompetitionKitJerseyNumberColor2RedEdit = { 
+            id = 4426, modifier = 0,
+            events = {
+                OnChange = CompetitionKitJerseyNumberColorOnChange,
+            }
+        },
+        CompetitionKitJerseyNumberColor2GreenEdit = { 
+            id = 4425, modifier = 0,
+            events = {
+                OnChange = CompetitionKitJerseyNumberColorOnChange,
+            }
+        },
+        CompetitionKitJerseyNumberColor2BlueEdit = { 
+            id = 4424, modifier = 0,
+            events = {
+                OnChange = CompetitionKitJerseyNumberColorOnChange,
+            }
+        },
+
+        CompetitionKitJerseyNumberColor3RedEdit = { 
+            id = 4429, modifier = 0,
+            events = {
+                OnChange = CompetitionKitJerseyNumberColorOnChange,
+            }
+        },
+        CompetitionKitJerseyNumberColor3GreenEdit = { 
+            id = 4428, modifier = 0,
+            events = {
+                OnChange = CompetitionKitJerseyNumberColorOnChange,
+            }
+        },
+        CompetitionKitJerseyNumberColor3BlueEdit = { 
+            id = 4427, modifier = 0,
+            events = {
+                OnChange = CompetitionKitJerseyNumberColorOnChange,
+            }
+        },
+
+        CompetitionKitJerseyNameColorRedEdit = { 
+            id = 4418, modifier = 0,
+            events = {
+                OnChange = CompetitionJerseyNameColorOnChange,
+            }
+        },
+        CompetitionKitJerseyNameColorGreenEdit = { 
+            id = 4417, modifier = 0,
+            events = {
+                OnChange = CompetitionJerseyNameColorOnChange,
+            }
+        },
+        CompetitionKitJerseyNameColorBlueEdit = { 
+            id = 4416, modifier = 0,
+            events = {
+                OnChange = CompetitionJerseyNameColorOnChange,
+            }
+        },
+
+        CompetitionKitTeamShortsnumberfonttypeEdit = { id = 4440, modifier = 0},
+        CompetitionKitTeamShortsnumberplacementcodeEdit = { id = 4441, modifier = 0},
+
+        CompetitionKitShortsNumberColor1RedEdit = { 
+            id = 4433, modifier = 0,
+            events = {
+                OnChange = CompetitionKitShortsNumberColorOnChange,
+            }
+        },
+        CompetitionKitShortsNumberColor1GreenEdit = { 
+            id = 4432, modifier = 0,
+            events = {
+                OnChange = CompetitionKitShortsNumberColorOnChange,
+            }
+        },
+        CompetitionKitShortsNumberColor1BlueEdit = { 
+            id = 4431, modifier = 0,
+            events = {
+                OnChange = CompetitionKitShortsNumberColorOnChange,
+            }
+        },
+
+        CompetitionKitShortsNumberColor2RedEdit = { 
+            id = 4436, modifier = 0,
+            events = {
+                OnChange = CompetitionKitShortsNumberColorOnChange,
+            }
+        },
+        CompetitionKitShortsNumberColor2GreenEdit = { 
+            id = 4435, modifier = 0,
+            events = {
+                OnChange = CompetitionKitShortsNumberColorOnChange,
+            }
+        },
+        CompetitionKitShortsNumberColor2BlueEdit = { 
+            id = 4434, modifier = 0,
+            events = {
+                OnChange = CompetitionKitShortsNumberColorOnChange,
+            }
+        },
+
+        CompetitionKitShortsNumberColor3RedEdit = { 
+            id = 4439, modifier = 0,
+            events = {
+                OnChange = CompetitionKitShortsNumberColorOnChange,
+            }
+        },
+        CompetitionKitShortsNumberColor3GreenEdit = { 
+            id = 4438, modifier = 0,
+            events = {
+                OnChange = CompetitionKitShortsNumberColorOnChange,
+            }
+        },
+        CompetitionKitShortsNumberColor3BlueEdit = { 
+            id = 4437, modifier = 0,
+            events = {
+                OnChange = CompetitionKitShortsNumberColorOnChange,
+            }
+        },
+    }
+end
+
 function get_default_mentalities_desc()
     return {
         mentalityid = { id = 4810, modifier = 0},
@@ -369,6 +770,19 @@ TEAMS_TAB_PANEL_MAP = {
     TeamInfoTab = "TeamInfoPanel",
     TeamFormationTab = "TeamFormationPanel",
     TeamManagerTab = "TeamManagerPanel",
+    TeamKitsTab = "TeamKitsPanel",
+}
+
+TEAMS_KITS_TAB_PANEL_MAP = {
+    TeamKitsGeneralTab = "TeamKitsKitPanel",
+    TeamKitsJerseyTab = "TeamKitsJerseyPanel",
+    TeamKitsShortsTab = "TeamKitsShortsPanel",
+}
+
+COMPETITION_KITS_TAB_PANEL_MAP = {
+    CompetitionKitsGeneralTab = "TeamCompetitionKitsKitPanel",
+    CompetitionKitsJerseyTab = "TeamCompetitionKitsJerseyPanel",
+    CompetitionKitsShortsTab = "TeamCompetitionKitsShortsPanel",
 }
 
 FORMATIONS_DATA = {
