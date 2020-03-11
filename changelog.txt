@@ -323,4 +323,7 @@ v20.1.3.4:
 v20.1.3.5:
     - Added 21 new faces added in last game update to "update_player_headmodels.lua" script.
     - Fixed Schedule Editor
-   
+
+v20.1.3.6:
+    - Added 2 new faces added in last game update to "update_player_headmodels.lua" script.
+    - Fixed "Gameplay" script
