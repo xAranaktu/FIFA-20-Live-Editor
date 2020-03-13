@@ -1927,11 +1927,6 @@ function fut_copy_card_to_gui(player)
                             player['details']['stat_json'][comp_to_fut[key]] or 
                             values[columns[value]]
                         )
-                        -- if not tonumber(new_comp_text) then
-                        --     print(component_name)
-                        --     print(new_comp_text)
-                        --     print(value)
-                        -- end
                         
                         -- Composure has been added in FIFA 18
                         if (

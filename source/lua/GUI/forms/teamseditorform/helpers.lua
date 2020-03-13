@@ -330,7 +330,14 @@ function do_team_applychanges(component, comp_desc)
             memrec.Value = tonumber(component.Text) - comp_desc['modifier']
         end
     elseif component_class == 'TCEComboBox' then
-        ApplyChangesToDropDown(ADDR_LIST.getMemoryRecordByID(comp_desc['id']), component)
+        if comp_desc['onApplyChanges'] then
+            comp_desc['onApplyChanges']({
+                component = component,
+                comp_desc = comp_desc,
+            })
+        else
+            ApplyChangesToDropDown(ADDR_LIST.getMemoryRecordByID(comp_desc['id']), component)
+        end
     end
 end
 

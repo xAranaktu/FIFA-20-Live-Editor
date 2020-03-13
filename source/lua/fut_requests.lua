@@ -95,6 +95,16 @@ function fut_get_player_details(playerid, fut_fifa)
 
     if stat_json ~= nil then
         stat_json = json.decode(stat_json)
+
+        -- Special mapping for GK... 
+        if pos == "GK" then
+            stat_json['gkdiving'] = stat_json['ppace']
+            stat_json['gkhandling'] = stat_json['pshooting']
+            stat_json['gkkicking'] = stat_json['ppassing']
+            stat_json['gkreflexes'] = stat_json['pdribbling']
+            stat_json['gkpositioning'] = stat_json['pphysical']
+            stat_json['speed'] = stat_json['pdefending']
+        end
     end
 
     if DEBUG_MODE then
