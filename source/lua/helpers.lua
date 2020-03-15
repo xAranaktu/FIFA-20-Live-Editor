@@ -985,7 +985,7 @@ function load_aobs()
         FootballCompEng = {
             MODULE_NAME = 'FootballCompEng_Win64_retail.dll',
             AOBS = {
-                AOB_Calendar = "33 D2 48 89 54 24 48",
+                AOB_Calendar = "33 D2 48 89 54 24 48 48 8B 4F 18",
                 AOB_MatchFixing = "48 8B 13 48 81 C2 80 03 00 00",
                 AOB_MatchFixingGoals = "48 8B 1C C8 48 85 DB 74 C7 48 8B 4E 20",
             }
