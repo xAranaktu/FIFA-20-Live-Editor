@@ -328,3 +328,6 @@ v20.1.3.6:
     - Added 2 new faces added in last game update to "update_player_headmodels.lua" script.
     - Fixed copying player from "My Career"
     - Fixed "Gameplay" script
+    
+v20.1.3.7:
+    - Added teamid check to "Teams Editor".
