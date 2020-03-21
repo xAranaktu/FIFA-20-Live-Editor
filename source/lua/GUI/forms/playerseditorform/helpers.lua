@@ -1247,11 +1247,6 @@ function FillPlayerEditForm(playerid)
     if playerid ~= nil then
         find_player_by_id(playerid)
     end
-    if CACHED_PLAYERS and CACHED_PLAYERS[tonumber(playerid)] then
-        PlayersEditorForm.PlayerNameLabel.Caption = CACHED_PLAYERS[tonumber(playerid)]['knownas']
-    else
-        PlayersEditorForm.PlayerNameLabel.Caption = ""
-    end
 
     local new_val = 0
     for i=0, PlayersEditorForm.ComponentCount-1 do
@@ -1370,6 +1365,11 @@ function FillPlayerEditForm(playerid)
     PlayersEditorForm.Crest64x64.stretch=true
 
     local iPlayerID = tonumber(PlayersEditorForm.PlayerIDEdit.Text)
+    if CACHED_PLAYERS and CACHED_PLAYERS[iPlayerID] then
+        PlayersEditorForm.PlayerNameLabel.Caption = CACHED_PLAYERS[iPlayerID]['knownas']
+    else
+        PlayersEditorForm.PlayerNameLabel.Caption = ""
+    end
 
     local is_cm_loaded = is_cm_loaded()
     if is_cm_loaded then

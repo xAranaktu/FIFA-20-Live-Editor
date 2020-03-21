@@ -41,6 +41,9 @@ function delete_directory(dir)
 end
 
 function getfield (f)
+  if DEBUG_MODE then
+    do_log("getfield - f: " .. f)
+  end
   local v = _G    -- start with the table of globals
   for w in string.gmatch(f, "[%w_]+") do
     if v == nil then
@@ -53,14 +56,20 @@ function getfield (f)
 end
 
 function setfield (f, v)
+  if DEBUG_MODE then
+    do_log("setfield - f: " .. f .. " v: " .. v)
+  end
   local t = _G    -- start with the table of globals
   for w, d in string.gmatch(f, "([%w_]+)(.?)") do
-	if d == "." then      -- not last field?
-	  t[w] = t[w] or {}   -- create table if absent
-	  t = t[w]            -- get the table
-	else                  -- last field
-	  t[w] = v            -- do the assignment
-	end
+    if d == "." then      -- not last field?
+      
+      t[w] = t[w] or {}   -- create table if absent
+      t = t[w]            -- get the table
+
+      if (type(t) == "string") then return end
+    else                  -- last field
+      t[w] = v            -- do the assignment
+    end
   end
 end
 
