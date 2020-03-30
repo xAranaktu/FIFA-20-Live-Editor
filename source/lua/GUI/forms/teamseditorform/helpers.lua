@@ -342,6 +342,15 @@ function do_team_applychanges(component, comp_desc)
 end
 
 function TeamApplyChanges()
+    if (tonumber(ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['TEAMID']).Value)+1) ~= tonumber(TeamsEditorForm.TeamIDEdit.Text) then
+        do_log(
+            string.format("GUI was not synchronized with the game. teamid in GUI:%s teamid in game:%s .To prevent your save from damage, changes hasn't been applied", ADDR_LIST.getMemoryRecordByID(CT_MEMORY_RECORDS['TEAMID']).Value, TeamsEditorForm.TeamIDEdit.Text),
+            'ERROR'
+        )
+        HAS_UNAPPLIED_TEAM_CHANGES = false
+        return
+    end
+
     if TEAM_MANAGER_ADDR then
         writeQword('ptrManager', TEAM_MANAGER_ADDR)
     end
