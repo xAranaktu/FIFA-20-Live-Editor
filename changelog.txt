@@ -331,3 +331,8 @@ v20.1.3.6:
     
 v20.1.3.7:
     - Added teamid check to "Teams Editor".
+    
+v20.1.3.8:
+    - Added 1 new face added in last game update to "update_player_headmodels.lua" script.
+    - Fixed error making unable to use the tool while github is down.
+    - Probably fixed crashes related to Players Editor.
