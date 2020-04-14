@@ -1,5 +1,5 @@
 --- This script will update head models in your current save.
---- Head models added in Patches 5,6,7,8,9,10,11,12,13
+--- Head models added in Patches 5,6,7,8,9,10,11,12,13,14
 
 --- HOW TO USE:
 --- https://i.imgur.com/xZMqzTc.gifv
@@ -271,7 +271,8 @@ local new_headmodels = {
     242118,
     244835,
     162409,
-    190720
+    190720,
+    230847
 }
 
 function has_new(playerid)

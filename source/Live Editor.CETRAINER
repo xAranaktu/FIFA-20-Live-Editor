@@ -19,7 +19,7 @@
   <CheatEntries>
     <CheatEntry>
       <ID>0</ID>
-      <Description>"v20.1.3.7"</Description>
+      <Description>"v20.1.3.8"</Description>
       <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
     </CheatEntry>
@@ -109,39 +109,48 @@
               <Description>"hook load dll and exit cm"</Description>
               <LastState/>
               <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-aobscanmodule(INJECT_LoadLibraryA,KERNELBASE.dll,48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 20 48 8B F9 48 85) // should be unique
-alloc(newmem_LoadLibraryA,$100,"KERNELBASE.dll"+5BC30)
-globalalloc(IsCMCached, 8, 1445FD53B)
+              <AssemblerScript>
+              [ENABLE]
+{$lua}
+if syntaxcheck then return end
+-- Check if user has set up CT correctly
+local status, error = pcall(get_validated_address)
+if not status then
+    showMessage('Error during script activation, error:\n' .. error)
+    print("Read guide to avoid problems like this: https://github.com/xAranaktu/FIFA-20-Live-Editor/wiki/Getting-Started")
+    assert(false, error)
+end
+
+INJECT_EnterCM = get_validated_address('AOB_EnterCM')
+ORG_EnterCM = readBytes(INJECT_EnterCM, 12, true)
+
+{$asm}
+alloc(newmem_EnterCM,$500,$INJECT_EnterCM)
+globalalloc(IsCMCached, 8, 15094AA53)
 IsCMCached:
 dq 0
 
-label(code)
-label(return)
+label(code_EnterCM)
+label(ret_EnterCM)
 
-newmem_LoadLibraryA:
+newmem_EnterCM:
   pushf
   push rdx
-  // FootballCompEng_Win64_retail.dll
-  cmp [RCX], 'Foot'
-  jne code
-  cmp [RCX+4], 'ball'
-  jne code
-  cmp [RCX+8], 'Comp'
-  jne code
   mov rdx, IsCMCached
   mov [rdx], 0
-
-code:
   popf
   pop rdx
-  mov [rsp+08],rbx
-  jmp return
+code_EnterCM:
+  mov r9d,r10d
+  mov [rsp+08],ax
+  jmp ret_EnterCM
 
-INJECT_LoadLibraryA:
-  jmp newmem_LoadLibraryA
-return:
-registersymbol(INJECT_LoadLibraryA)
+$INJECT_EnterCM:
+  jmp newmem_EnterCM
+  nop
+  nop
+  nop
+ret_EnterCM:
 
 {$lua}
 if syntaxcheck then return end
@@ -196,17 +205,45 @@ ret_QuitCM:
 
 [DISABLE]
 //code from here till the end of the code will be used to disable the cheat
-INJECT_LoadLibraryA:
-  db 48 89 5C 24 08
-
-unregistersymbol(INJECT_LoadLibraryA)
-dealloc(newmem_LoadLibraryA)
+{$lua}
+writeBytes(INJECT_EnterCM, ORG_EnterCM)
+{$asm}
 
 {$lua}
 writeBytes(INJECT_QuitCM, ORG_QuitCM)
 {$asm}
 
 dealloc(newmem_QuitCM)
+dealloc(newmem_EnterCM)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "FIFA20.exe"+1094AA6B
+
+"FIFA20.exe"+1094AA2E: 48 89 44 24 18                 -  mov [rsp+18],rax
+"FIFA20.exe"+1094AA33: 48 B8 5F 72 65 74 61 69 6C 00  -  mov rax,006C69617465725F
+"FIFA20.exe"+1094AA3D: C6 04 24 00                    -  mov byte ptr [rsp],00
+"FIFA20.exe"+1094AA41: 48 89 44 24 10                 -  mov [rsp+10],rax
+"FIFA20.exe"+1094AA46: 48 8D 0D 63 7F 93 F6           -  lea rcx,[FIFA20.exe+72829B0]
+"FIFA20.exe"+1094AA4D: 8B 05 8D D3 0E F5              -  mov eax,[FIFA20.exe+5A37DE0]   "_Win64"
+"FIFA20.exe"+1094AA53: 4C 8D 05 16 73 4A F5           -  lea r8,[FIFA20.exe+5DF1D70]    "FootballCompEng"
+"FIFA20.exe"+1094AA5A: 89 44 24 04                    -  mov [rsp+04],eax
+"FIFA20.exe"+1094AA5E: 41 BA 00 01 00 00              -  mov r10d,00000100
+"FIFA20.exe"+1094AA64: 0F B7 05 79 D3 0E F5           -  movzx eax,word ptr [FIFA20.exe+5A37DE4]    "64"
+// ---------- INJECTING HERE ----------
+"FIFA20.exe"+1094AA6B: 45 89 D1                       -  mov r9d,r10d
+"FIFA20.exe"+1094AA6E: 66 89 44 24 08                 -  mov [rsp+08],ax
+// ---------- DONE INJECTING  ----------
+"FIFA20.exe"+1094AA73: 48 89 CA                       -  mov rdx,rcx
+"FIFA20.exe"+1094AA76: 0F B6 05 69 D3 0E F5           -  movzx eax,byte ptr [FIFA20.exe+5A37DE6]
+"FIFA20.exe"+1094AA7D: 88 44 24 0A                    -  mov [rsp+0A],al
+"FIFA20.exe"+1094AA81: C6 05 28 7F 93 F6 00           -  mov byte ptr [FIFA20.exe+72829B0],00
+"FIFA20.exe"+1094AA88: 0F 1F 84 00 00 00 00 00        -  nop [rax+rax+00000000]
+"FIFA20.exe"+1094AA90: 0F B6 02                       -  movzx eax,byte ptr [rdx]
+"FIFA20.exe"+1094AA93: 48 FF C2                       -  inc rdx
+"FIFA20.exe"+1094AA96: 84 C0                          -  test al,al
+"FIFA20.exe"+1094AA98: 75 F6                          -  jne FIFA20.exe+1094AA90
+"FIFA20.exe"+1094AA9A: 48 FF CA                       -  dec rdx
+}
 
 </AssemblerScript>
             </CheatEntry>
@@ -27122,7 +27159,7 @@ newmem_uniquedribble:
   push r15
   push rax
   xor r15d, r15d
-  mov rax, [rax+04] // PlayerID
+  mov edx, [rax+04] // PlayerID
 
 sterling:
   cmp [bDribbleLike_Sterling], 1

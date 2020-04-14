@@ -22,9 +22,10 @@ function LabelLatestLEVerClick()
     if not LATEST_VER then
         return
     end
-
     shellExecute(string.format(
-        "https://www.patreon.com/xAranaktu/posts?tag=v%s", LATEST_VER
+        "https://www.patreon.com/xAranaktu/posts?filters%stag%s=v%s", 
+        "%5B", "%5D",
+        tostring(LATEST_VER)
     ))
 
 end

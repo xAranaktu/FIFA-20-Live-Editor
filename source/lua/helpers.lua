@@ -192,25 +192,31 @@ function check_for_le_update()
         end
 
         local patrons_version = version:sub(1,8)
-        local free_version = version:sub(9,17)
+        if (not patrons_version) then return false end
 
+        local free_version = version:sub(9,17)
+        if (not free_version) then return false end
+        
         do_log(string.format('Patrons ver -  %s, free ver - %s', patrons_version, free_version))
 
         local ipatronsver, _ = string.gsub(
             patrons_version, '%.', ''
         )
         ipatronsver = tonumber(ipatronsver)
+        if (not ipatronsver) then return false end
 
         local ifreever, _ = string.gsub(
             free_version, '%.', ''
         )
         ifreever = tonumber(ifreever)
+        if (not ifreever) then return false end
 
         local current_ver = get_le_version()
         local icurver, _ = string.gsub(
             current_ver, '%.', ''
         )
         icurver = tonumber(icurver)
+        if (not icurver) then return false end
 
         if CFG_DATA.flags.only_check_for_free_update then
             if CFG_DATA.other.ignore_update == free_version then
@@ -260,24 +266,22 @@ function do_log(text, level)
     if level == nil then
         level = 'INFO'
     end
-
-    if DEBUG_MODE then
-        if level ~= 'WARNING' then
-            print(string.format("[ %s ] %s - %s", level, os.date("%c", os.time()), text))
-        end
+    if level == 'ERROR' then
+        showMessage(_translate(text))
+    end
+    logger, err = io.open("logs/log_".. string.format("%02d-%02d-%02d", time.year, time.month, time.day) .. ".txt", "a+")
+    if logger == nil then
+        -- log in console if file can't be open
+        DEBUG_MODE = true
+        print(io.popen"cd":read'*l')
+        print(string.format("[ %s ] %s - %s", level, os.date("%c", os.time()), 'Error opening file: ' .. err))
     else
-        if level == 'ERROR' then
-            showMessage(_translate(text))
-        end
-        logger, err = io.open("logs/log_".. string.format("%02d-%02d-%02d", time.year, time.month, time.day) .. ".txt", "a+")
-        if logger == nil then
-            -- log in console if file can't be open
-            DEBUG_MODE = true
-            print(io.popen"cd":read'*l')
-            print(string.format("[ %s ] %s - %s", level, os.date("%c", os.time()), 'Error opening file: ' .. err))
-        else
-            logger:write(string.format("[ %s ] %s - %s\n", level, os.date("%c", os.time()), text))
-            io.close(logger)
+        logger:write(string.format("[ %s ] %s - %s\n", level, os.date("%c", os.time()), text))
+        io.close(logger)
+        if DEBUG_MODE then
+            if level ~= 'WARNING' then
+                print(string.format("[ %s ] %s - %s", level, os.date("%c", os.time()), text))
+            end
         end
     end
 end
@@ -888,6 +892,7 @@ end
 -- load AOBs
 function load_aobs()
     return {
+        AOB_EnterCM = '45 89 D1 66 89 44 24 08 48 89 CA 0F B6 05 ?? ?? ?? ?? 88 44 24 0A C6',
         AOB_QuitCM = '48 81 EC 20 05 00 00 48 C7 45 90 FE FF FF FF 48 89 9C',
 
         AOB_screenID = '4C 0F 45 3D ?? ?? ?? ?? 48 8B FE',
