@@ -7,4 +7,4 @@ FIFA Live Editor (previously known as Career Mode Cheat Table) is a tool created
 * [Release Schedule](https://docs.google.com/spreadsheets/d/1XWSaUZJw8BEySWkXTpwMT1mY6xkBpoL5r1QwbA3V41c/edit?usp=sharing)
 * [Roadmap](https://trello.com/b/vS75UONR/fifa-20-ct-roadmap)
 * [FIFA 20 IDs](https://docs.google.com/spreadsheets/d/1-2wnDyG9PPU7Z8bdf1EPYWwXN_H2o6M8NOmwda_Z0oo/edit#gid=0)
-* [Discord server](https://discord.gg/Nb3HX2W)
+* [Discord server](https://discord.gg/va9EtdB)
